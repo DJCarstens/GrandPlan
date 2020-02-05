@@ -3,7 +3,7 @@ A time management and planning web app.
 
 ## Members
 - [Samantha Hillebrand](https://github.com/sammyjh30) - sammyjh30@gmail.com
-- [Dylan Carstens](https://github.com/skwigi) - dyljoucars@gmail.com
+- [Dylan Carstens](https://github.com/DJCarstens) - dyljoucars@gmail.com
 - [Chelsea Jessiman](https://github.com/chelseajessiman) - chelseajessiman1998@gmail.com
 - [Ethan Lindeman](https://github.com/plethargy) - ethan.lindeman@gmail.com
 - [Emma Coetzer](https://github.com/EmmaBinx) - emmabinx18@gmail.com
