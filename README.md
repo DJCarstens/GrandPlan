@@ -2,10 +2,10 @@
 A time management and planning web app.
 
 ## Members
-- Samantha Hillebrand 
-- Dylan Carstens
+- [Samantha Hillebrand](https://github.com/sammyjh30)
+- [Dylan Carstens](https://github.com/skwigi)
 - Chelsea Jessiman
-- Ethan Lindeman
+- [Ethan Lindeman](https://github.com/plethargy)
 - Emma Coetzer
 
 ## Compilation
