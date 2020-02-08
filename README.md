@@ -1,6 +1,8 @@
 # GrandPlan
 A time management and planning web app.
 
+![GrandPlan](https://media.giphy.com/media/iJVbodB91yLDO/giphy.gif)
+
 ## Members
 - [Samantha Hillebrand](https://github.com/sammyjh30) - sammyjh30@gmail.com
 - [Dylan Carstens](https://github.com/DJCarstens) - dyljoucars@gmail.com
