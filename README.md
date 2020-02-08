@@ -8,7 +8,12 @@ A time management and planning web app.
 - [Ethan Lindeman](https://github.com/plethargy) - ethan.lindeman@gmail.com
 - [Emma Coetzer](https://github.com/EmmaBinx) - emmabinx18@gmail.com
 
-## Compilation
+## Run it
+
+```
+  ./mvnw spring-boot:run
+```
+It will then be on `localhost:8080`
 
 ## How to contribute
 
