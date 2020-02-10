@@ -6,7 +6,7 @@ A time management and planning web app.
 - [Dylan Carstens](https://github.com/DJCarstens) - dyljoucars@gmail.com
 - [Chelsea Jessiman](https://github.com/chelseajessiman) - chelseajessiman1998@gmail.com
 - [Ethan Lindeman](https://github.com/plethargy) - ethan.lindeman@gmail.com
-- [Emma Coetzer](https://github.com/EmmaBinx) - emmabinx18@gmail.com
+- [Emma Coetzer](https://github.com/EmmaBinx18) - emmabinx18@gmail.com
 
 ## Run it
 
