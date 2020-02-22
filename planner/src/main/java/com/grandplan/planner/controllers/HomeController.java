@@ -1,4 +1,4 @@
-package com.grandplan.planner;
+package com.grandplan.planner.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -6,13 +6,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class GreetingController {
+public class HomeController {
 
-  @GetMapping("/greeting")
-  public String greeting(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
-      Model model) {
+  @GetMapping("/home")
+  public String login(@RequestParam(name = "name", required = false, defaultValue = "World") String name, Model model) {
     model.addAttribute("name", name);
-    return "greeting";
+    return "home/home";
   }
 
 }
