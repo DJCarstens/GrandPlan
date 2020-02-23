@@ -1,9 +1,9 @@
 package com.grandplan.planner.controllers;
 
-import com.grandplan.planner.models.User;
+import com.grandplan.planner.models.Login;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -20,11 +20,12 @@ public class LoginController {
   }
 
   @PostMapping("/validate")
-  public String validate(User user, Model model){
+  public String validate(@ModelAttribute("user") Login user){
+    System.out.println(user);
     return this.validateLogin(user) ? "home/home" : "login/login";
   }
 
-  public boolean validateLogin(User user){
+  public boolean validateLogin(Login user){
     return true;
   }
 

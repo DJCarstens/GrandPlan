@@ -1,20 +1,11 @@
 package com.grandplan.planner.models;
 
 public class User{
-    private String username;
     private String password;
     private String name;
     private String surname;
     private String email;
     private String phone;
-
-    public String getUsername(){
-        return this.username;
-    }
-
-    public void setUsername(String name){
-        this.username = name;
-    }
 
     public String getPassword(){
         return this.password;
