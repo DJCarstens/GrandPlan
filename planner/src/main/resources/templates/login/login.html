@@ -1,23 +1,28 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>Grand Plan</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="webjars/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/login.css" rel="stylesheet">
+    <link th:href="@{webjars/bootstrap/4.0.0/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/login.css}" rel="stylesheet">
 </head>
 
 <body style="background-color: #C4C4C4;">
     <div class="container login-container">
         <div class="row">
-            <form class="col-md-6 login-form" method="post" action="validate">
+            <form class="col-md-6 login-form" autocomplete="off" action="#" th:action="@{/validate}" th:object="${user}"
+                method="post" rolw="form">
                 <div class="logo"></div>
                 <div class="form-group" style="margin-top: 20% !important">
-                    <input type="text" id="email" class="form-control" placeholder="Email Address" value="" />
+                    <input type="text" id="email" class="form-control" placeholder="Email Address" value=""
+                        th:field="*{email}" />
+                    <label th:if="${emailError}" th:text="${emailError}"></label>
                 </div>
                 <div class="form-group" style="margin-top: 20px;">
-                    <input type="password" id="password" class="form-control" placeholder="Password" value="" />
+                    <input type="password" id="password" class="form-control" placeholder="Password" value=""
+                        th:field="*{password}" />
+                    <label th:if="${passwordErrorBool}" th:text="${passwordError}"></label>
                 </div>
                 <button type="submit" class="btn btnSubmit">LOGIN</button>
                 <p>Don't have an account? <a href="../signup">SIGN UP</a></p>
