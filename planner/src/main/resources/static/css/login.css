@@ -9,7 +9,7 @@
     background: white;
     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
     height: 600px;
-    padding-top: 6%;
+    padding-top: 4%;
 }
 
 .img{
@@ -31,8 +31,8 @@
 }
 
 .hive-image{
-    width: 50%;
-    height: 18%;
+    width: 44%;
+    height: 14%;
     background-image: url("../../images/hive.png");
     background-repeat: no-repeat;
     background-size: cover;
