@@ -12,7 +12,7 @@ public class LoginController {
   @Autowired
   // private LoginService loginService; 
 
-  @GetMapping("/")
+  @GetMapping("/login")
   public String login() {
     return "login/login";
   }
