@@ -36,10 +36,10 @@ public class GrandPlanController {
   @RequestMapping(value = "/validateLogin", method = RequestMethod.POST)
   public String validate(@ModelAttribute("user") Login user, BindingResult bindingResult, Model model){
     this.mainModel = model;
-    mainModel.addAttribute("user", user);
     if(loginService.validateLogin(user, mainModel)){
       //TODO: validate whether user exists or not before navigation
       //If user exists and info matches, navigate to "home" else navigate to "signup"
+      mainModel.addAttribute("user", user);
       return "home";
     }
     else{
@@ -76,10 +76,10 @@ public class GrandPlanController {
   @RequestMapping(value = "/validateSignup", method = RequestMethod.POST)
   public String validateSignup(@ModelAttribute("user") User user, BindingResult bindingResult, Model model){
     this.mainModel = model;
-    mainModel.addAttribute("user", user);
     if(loginService.validateSignup(user, mainModel)){
       //TODO: validate whether user exists or not before navigation
       //If user exists and info matches, navigate to "login" else create the user and nagivate to "home"
+      mainModel.addAttribute("user", user);
       return "home";
     }
     else{
