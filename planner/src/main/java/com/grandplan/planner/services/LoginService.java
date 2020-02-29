@@ -13,7 +13,7 @@ public class LoginService{
     private Pattern pattern;
     private Matcher matcher;
 
-    private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+    private static final String EMAIL_PATTERN = "^[\\w.+\\-]+@bbd\\.co\\.za$";
 
     public boolean validateLogin(Login user, Model model){
       boolean email = validateEmail(user. getEmail(), model);
@@ -36,14 +36,6 @@ public class LoginService{
         return true;
       }
       return false;
-    }
-
-    public boolean findLoginUser(Login user){
-      return true;
-    }
-
-    public boolean findUser(User user){
-      return true;
     }
 
     private boolean validateInput(String input, Model model, String error, String errorMessage){
