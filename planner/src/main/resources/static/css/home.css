@@ -1,0 +1,35 @@
+.navbar-default {
+    margin-bottom: 0 !important;
+}
+
+.container {
+  width: 100%;
+  min-width: 410px;
+  display: flex;
+}
+
+
+  #calendar {
+    padding: 9%;
+    background: white;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+    height: 87vh;
+    overflow: hidden;
+    padding-top: 3%;
+    margin-top: 20px;
+  }
+
+  .fc button {
+    color: white;
+    background-color: #C72F2E;
+    border-radius: 0;
+  }
+
+  .fc-state-default {
+    background-image: none !important;
+    /* background: #C72F2E; */
+  }
+
+  .fc-toolbar .fc-state-active, .fc-toolbar .ui-state-active {
+    background-color: rgb(152, 31, 31);
+  }

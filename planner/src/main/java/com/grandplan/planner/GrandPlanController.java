@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class GrandPlanController {
   public Model mainModel;
+  private User currentUser;
 
   @Autowired
   private LoginService loginService;
@@ -46,6 +47,32 @@ public class GrandPlanController {
     }
   }
 
+  @GetMapping("/")
+  public String home(Model model) {
+    //Temporary user assignment until the login has been completed
+    if (currentUser == null) {
+      currentUser = new User();
+      currentUser.setFirstName("Testy McTestface");
+
+    }
+    model.addAttribute("user", currentUser);
+    //
+    return "home";
+  }
+
+  @GetMapping("/events")
+  public String events(Model model) {
+    //Temporary user assignment until the login has been completed
+    if (currentUser == null) {
+      currentUser = new User();
+      currentUser.setFirstName("Testy McTestface");
+
+    }
+    model.addAttribute("user", currentUser);
+    //
+    return "events";
+  }
+
   @RequestMapping(value = "/validateSignup", method = RequestMethod.POST)
   public String validateSignup(@ModelAttribute("user") User user, BindingResult bindingResult, Model model){
     this.mainModel = model;
@@ -58,6 +85,11 @@ public class GrandPlanController {
     else{
       return "signup";
     }
+  }
+
+  @GetMapping("/error")
+  public String error(Model model) {
+    return "error";
   }
 
 }
