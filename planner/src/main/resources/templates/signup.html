@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Grand Plan</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{webjars/bootstrap/4.0.0/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/signup.css}" rel="stylesheet">
+    <script th:src="@{http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js}"></script>
+</head>
+
+<body style="background-color: #C4C4C4;">
+    <div class="container signup-container">
+        <div class="row">
+            <form class="col-md-8 signup-form" autocomplete="off" method="post" action="validateSignup"
+                th:object="${user}" role="form">
+                <div class="logo"></div>
+                <div class="row">
+                    <div class="col-md-6 form-group" style="margin-top: 10% !important">
+                        <input type="text" id="firstName" class="form-control" placeholder="First Name" value=""
+                            th:field="*{firstName}" />
+                        <label th:if="${firstNameError}" th:text="${firstNameError}" id="firstNameError"></label>
+                    </div>
+                    <div class="col-md-6 form-group" style="margin-top: 10% !important">
+                        <input type="text" id="lastName" class="form-control" placeholder="Last Surname" value=""
+                            th:field="*{lastName}" />
+                        <label th:if="${lastNameError}" th:text="${lastNameError}" id="lastNameError"></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group" style="margin-top: 1% !important">
+                        <input type="text" id="email" class="form-control" placeholder="Email Address" value=""
+                            th:field="*{email}" />
+                        <label th:if="${emailError}" th:text="${emailError}" id="emailError"></label>
+                    </div>
+                    <div class="col-md-6 form-group" style="margin-top: 1% !important">
+                        <input type="text" id="phone" class="form-control" placeholder="Phone Number" value=""
+                            th:field="*{phone}" />
+                        <label th:if="${phoneError}" th:text="${phoneError}" id="phoneError"></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group" style="margin-top: 1% !important">
+                        <input type="password" id="password" class="form-control" placeholder="Password" value=""
+                            th:field="*{password}" />
+                        <label th:if="${passwordError}" th:text="${passwordError}" id="passwordError"></label>
+                    </div>
+                    <div class="col-md-6 form-group" style="margin-top: 1% !important">
+                        <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password"
+                            value="" th:field="*{confirmPassword}" />
+                        <label th:if="${confirmPasswordError}" th:text="${confirmPasswordError}"
+                            id="confirmPasswordError"></label>
+                    </div>
+                    <label th:if="${matchingPasswordError}" th:text="${matchingPasswordError}"
+                        id="matchingPasswordError"></label>
+                </div>
+                <button type="submit" class="btn btnSubmit">SIGN UP</button>
+                <p>Already have an account? <a href="login">LOGIN</a></p>
+                <div class="hive-image"></div>
+            </form>
+            <div class="col-md-4 mh-100 img ">
+            </div>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('input').focus(function () {
+            $('label[id*="firstNameError"]').text('');
+            $('label[id*="lastNameError"]').text('');
+            $('label[id*="emailError"]').text('');
+            $('label[id*="phoneError"]').text('');
+            $('label[id*="passwordError"]').text('');
+            $('label[id*="confirmPasswordError"]').text('');
+            $('label[id*="matchingPasswordError"]').text('');
+        });
+    });
+</script>
+
+</html>
