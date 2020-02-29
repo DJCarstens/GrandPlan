@@ -1,5 +1,10 @@
 package com.grandplan.planner;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import com.grandplan.planner.models.Event;
 import com.grandplan.planner.models.Login;
 import com.grandplan.planner.models.User;
 import com.grandplan.planner.services.LoginService;
@@ -17,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class GrandPlanController {
   public Model mainModel;
   private User currentUser;
+  private List<Event> events;
+  private List<Event> invites;
+  private String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
   @Autowired
   private LoginService loginService;
@@ -62,13 +70,39 @@ public class GrandPlanController {
 
   @GetMapping("/events")
   public String events(Model model) {
+    //For testing purposes. Need to remove
+    events = new ArrayList<Event>();
+
+    // Event event1 = new Event();
+    // event1.setTitle("first event");
+    // event1.setStart("2020-02-02");
+    // events.add(event1);
+
+    Event event2 = new Event();
+    event2.setTitle("second event");
+    event2.setDate("2020-03-02");
+    event2.setStart("10:00");
+    event2.setEnd("10:30");
+    events.add(event2);
+
+    Event event3 = new Event();
+    event3.setTitle("third event: call");
+    event3.setDate("2020-02-15");
+    event3.setStart("11:00");
+    event3.setEnd("12:00");
+    events.add(event3);
+    events.add(event3);
+    events.add(event3);
+
     //Temporary user assignment until the login has been completed
     if (currentUser == null) {
       currentUser = new User();
       currentUser.setFirstName("Testy McTestface");
-
     }
+
     model.addAttribute("user", currentUser);
+    model.addAttribute("heading", "Your current events for " + months[Calendar.getInstance().get(Calendar.MONTH)]);
+    model.addAttribute("events", events);
     //
     return "events";
   }
@@ -90,6 +124,29 @@ public class GrandPlanController {
   @GetMapping("/error")
   public String error(Model model) {
     return "error";
+  }
+
+  @GetMapping("/invites")
+  public String invites(Model model) {
+    invites = new ArrayList<Event>();
+
+    Event event2 = new Event();
+    event2.setTitle("second event");
+    event2.setDate("2020-03-02");
+    event2.setStart("10:00");
+    event2.setEnd("10:30");
+    invites.add(event2);
+    invites.add(event2);
+
+    if (currentUser == null) {
+      currentUser = new User();
+      currentUser.setFirstName("Testy McTestface");
+    }
+
+    model.addAttribute("user", currentUser);
+    model.addAttribute("heading", "Your current event invites");
+    model.addAttribute("invites", invites);
+    return "invites";
   }
 
 }

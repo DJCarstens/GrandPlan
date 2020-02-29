@@ -5,7 +5,7 @@
     <title>Grand Plan | Home</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/events.css" rel="stylesheet">
+    <link href="/css/invites.css" rel="stylesheet">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
@@ -14,9 +14,6 @@
 </head>
 
 <body style="background-color: #C4C4C4;">
-
-    <!-- Static navbar -->
-    <!-- TODO: change colour scheme -->
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -47,26 +44,23 @@
         <div class="container main-container">
             <div class="row">
                 <h1 class="heading" th:if="${heading}" th:text="${heading}"></h1>
-                <div th:each="event : ${events}" class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                    <div class="box-part text-center">
-                        <div>
+                <div th:each="invite : ${invites}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="box-part">
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                             <div class="icon-container"><i class="far fa-calendar-alt"></i></div>
                         </div>
-                        <div class="title">
-                            <label th:text="${event.title}"></label>
+                        <div class="title col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                            <p>You were invited to attend <label th:text="${invite.title}"></label> by Emma</p>
                         </div>
-                        <div>
-                            <label th:text="${event.date}"></label>
+                        <div class="title col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            <p>Date: <label th:text="${invite.date}"></label></p>
                         </div>
-                        <div>
-                            <div>
-                                <label>Start Time</label>
-                                <label th:text="${event.start}"></label>
-                            </div>
-                            <div>
-                                <label>End Time</label>
-                                <label th:text="${event.end}"></label>
-                            </div>
+                        <div class="title col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            <p>Time: <label th:text="${invite.start}"></label>-<label th:text="${invite.end}"></label>
+                            </p>
+                        </div>
+                        <div class="title col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            <button class="button">Accept</button><button class="button">Decline</button>
                         </div>
                     </div>
                 </div>
@@ -78,9 +72,9 @@
         <div id="wrapper" class="sidebar-toggle">
             <div id="sidebar-wrapper">
                 <ul class="sidebar-nav">
-                    <li class="active"> <a href="/">Your Events</a> </li>
+                    <li> <a href="/events">Your Events</a> </li>
                     <li> <a href="#">Group Events</a> </li>
-                    <li> <a href="/invites">Invites</a> </li>
+                    <li class="active"> <a href="/invites">Invites</a> </li>
                     <li> <a href="#">+ Create an Event</a> </li>
                 </ul>
             </div>
