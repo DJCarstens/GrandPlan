@@ -8,7 +8,7 @@
     padding: 9%;
     background: white;
     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
-    height: 600px;
+    height: 700px;
     padding-top: 4%;
 }
 
@@ -19,7 +19,7 @@
     background-size: cover;
     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
     position: relative;
-    height: 600px;
+    height: 700px;
 }
 
 .logo{
@@ -31,8 +31,8 @@
 }
 
 .hive-image{
-    width: 33%;
-    height: 16%;
+    width: 40%;
+    height: 14%;
     background-image: url("../../images/hive.png");
     background-repeat: no-repeat;
     background-size: cover;
@@ -50,7 +50,7 @@
     border-radius: 5px;
     padding: 2%;
     margin-left: 11%;
-    margin-top: 30px;
+    margin-top: 40px;
 }
 
 .btnSubmit:hover{
@@ -72,4 +72,8 @@ a:hover{
     color: grey;
     text-decoration: none;
     font-size: 16px;
+}
+
+label{
+    color: red;
 }

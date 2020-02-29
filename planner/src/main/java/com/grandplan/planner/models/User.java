@@ -2,8 +2,9 @@ package com.grandplan.planner.models;
 
 public class User{
     private String password;
-    private String name;
-    private String surname;
+    private String confirmPassword;
+    private String firstName;
+    private String lastName;
     private String email;
     private String phone;
 
@@ -15,20 +16,28 @@ public class User{
         this.password = pass;
     }
 
-    public String getName(){
-        return this.name;
+    public String getConfirmPassword(){
+        return this.confirmPassword;
     }
 
-    public void setName(String name){
-        this.name = name;
+    public void setConfirmPassword(String pass){
+        this.confirmPassword = pass;
     }
 
-    public String getSurname(){
-        return this.surname;
+    public String getFirstName(){
+        return this.firstName;
     }
 
-    public void setSurname(String surname){
-        this.surname = surname;
+    public void setFirstName(String name){
+        this.firstName = name;
+    }
+
+    public String getLastName(){
+        return this.lastName;
+    }
+
+    public void setLastName(String surname){
+        this.lastName = surname;
     }
 
     public String getEmail(){

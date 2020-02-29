@@ -1,6 +1,7 @@
 package com.grandplan.planner.controllers;
 
 import com.grandplan.planner.models.Login;
+import com.grandplan.planner.models.User;
 import com.grandplan.planner.services.LoginService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +26,24 @@ public class LoginController {
     return "login/login";
   }
 
+  @GetMapping("/signup")
+  public String signup(Model model) {
+    model.addAttribute("user", new User());
+    return "signup/signup";
+  }
+
   @RequestMapping(value = "/validate", method = RequestMethod.POST)
   public String validate(@ModelAttribute("user") Login user, BindingResult bindingResult, Model model){
     this.mainModel = model;
-    mainModel.addAttribute("login", user);
+    mainModel.addAttribute("user", user);
     return loginService.validateLogin(user, mainModel) ? "home/home" : "login/login";
+  }
+
+  @RequestMapping(value = "/validateSignup", method = RequestMethod.POST)
+  public String validateSignup(@ModelAttribute("user") User user, BindingResult bindingResult, Model model){
+    this.mainModel = model;
+    mainModel.addAttribute("user", user);
+    return loginService.validateSignup(user, mainModel) ? "home/home" : "signup/signup";
   }
 
 }
