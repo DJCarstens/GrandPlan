@@ -1,14 +1,14 @@
-.login-container{
+.signup-container{
     margin: auto;
     margin-top: 9%;
     position: relative;
 }
 
-.login-form{
+.signup-form{
     padding: 9%;
     background: white;
     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
-    height: 600px;
+    height: 700px;
     padding-top: 4%;
 }
 
@@ -19,7 +19,7 @@
     background-size: cover;
     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
     position: relative;
-    height: 600px;
+    height: 700px;
 }
 
 .logo{
@@ -31,25 +31,26 @@
 }
 
 .hive-image{
-    width: 44%;
+    width: 40%;
     height: 14%;
     background-image: url("../../images/hive.png");
     background-repeat: no-repeat;
     background-size: cover;
     float: none;
     margin: 0 auto;
-    margin-top: 14%;
+    margin-top: 7%;
 }
 
 .btnSubmit{
     font-weight: 600;
-    width: 100%;
+    width: 80%;
     color: white;
     background-color: #C72F2E;
     border: none;
     border-radius: 5px;
     padding: 2%;
-    margin-top: 30px;
+    margin-left: 11%;
+    margin-top: 40px;
 }
 
 .btnSubmit:hover{
