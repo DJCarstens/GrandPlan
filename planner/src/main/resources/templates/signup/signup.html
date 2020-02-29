@@ -4,8 +4,9 @@
 <head>
     <title>Grand Plan</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="webjars/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/signup.css" rel="stylesheet">
+    <link th:href="@{webjars/bootstrap/4.0.0/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/signup.css}" rel="stylesheet">
+    <script th:src="@{http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js}"></script>
 </head>
 
 <body style="background-color: #C4C4C4;">
@@ -50,6 +51,8 @@
                         <label th:if="${confirmPasswordError}" th:text="${confirmPasswordError}"
                             id="confirmPasswordError"></label>
                     </div>
+                    <label th:if="${matchingPasswordError}" th:text="${matchingPasswordError}"
+                        id="matchingPasswordError"></label>
                 </div>
                 <button type="submit" class="btn btnSubmit">SIGN UP</button>
                 <p>Already have an account? <a href="../login">LOGIN</a></p>
@@ -60,5 +63,19 @@
         </div>
     </div>
 </body>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('input').focus(function () {
+            $('label[id*="firstNameError"]').text('');
+            $('label[id*="lastNameError"]').text('');
+            $('label[id*="emailError"]').text('');
+            $('label[id*="phoneError"]').text('');
+            $('label[id*="passwordError"]').text('');
+            $('label[id*="confirmPasswordError"]').text('');
+            $('label[id*="matchingPasswordError"]').text('');
+        });
+    });
+</script>
 
 </html>

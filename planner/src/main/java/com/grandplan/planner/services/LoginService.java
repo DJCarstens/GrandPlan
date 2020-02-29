@@ -16,35 +16,39 @@ public class LoginService{
     private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
     public boolean validateLogin(Login user, Model model){
-      return (validatePassword(user.getPassword(), model))
-        ? validateEmail(user. getEmail(), model)
-        : validatePassword(user.getPassword(), model);
+      boolean email = validateEmail(user. getEmail(), model);
+      boolean password = validateInput(user.getPassword(), model, "passwordError", "Please provide your password");
+      return (email && password);
     }
 
     public boolean validateSignup(User user, Model model){
-      boolean name = validateName(user.getFirstName(), model);
-      boolean surname = validateSurname(user.getLastName(), model); 
+      boolean name = validateInput(user.getFirstName(), model, "firstNameError", "Please provide your first name");
+      boolean surname = validateInput(user.getLastName(), model, "lastNameError", "Please provide your last name"); 
       boolean email = validateEmail(user.getEmail(), model);
       boolean phone = validatePhone(user.getPhone(), model);
-      boolean password = validatePassword(user.getPassword(), model);
-      boolean confirmPassword = validateConfirmPassword(user.getConfirmPassword(), model);
+      boolean password = validateInput(user.getPassword(), model, "passwordError", "Please provide your password");
+      boolean confirmPassword = validateInput(user.getConfirmPassword(), model, "confirmPasswordError", "Please provide your password");
       if(name && surname && email && phone && password && confirmPassword){
-        return user.getPassword() == user.getConfirmPassword();
+        if(user.getPassword() != user.getConfirmPassword()){
+          model.addAttribute("matchingPasswordError", "These passwords do not match. Please try again.");
+          return false;
+        }
+        return true;
       }
       return false;
     }
 
-    private boolean validateName(String name, Model model){
-      if(name == ""){
-        model.addAttribute("firstNameError", "Please provide your first name");
-        return false;
-      }
+    public boolean findLoginUser(Login user){
       return true;
     }
 
-    private boolean validateSurname(String surname, Model model){
-      if(surname == ""){
-        model.addAttribute("lastNameError", "Please provide your last name");
+    public boolean findUser(User user){
+      return true;
+    }
+
+    private boolean validateInput(String input, Model model, String error, String errorMessage){
+      if(input == ""){
+        model.addAttribute(error, errorMessage);
         return false;
       }
       return true;
@@ -71,22 +75,6 @@ public class LoginService{
     private boolean validatePhone(String phoneNumber, Model model){
       if(phoneNumber == ""){
         model.addAttribute("phoneError", "Please provide your number");
-        return false;
-      }
-      return true;
-    }
-
-    private boolean validatePassword(String password, Model model){
-      if(password == "") {
-        model.addAttribute("passwordError", "Please provide your password");
-        return false;
-      }
-      return true;
-    }
-
-    private boolean validateConfirmPassword(String password, Model model){
-      if(password == "") {
-        model.addAttribute("confirmPasswordError", "Please provide your password");
         return false;
       }
       return true;

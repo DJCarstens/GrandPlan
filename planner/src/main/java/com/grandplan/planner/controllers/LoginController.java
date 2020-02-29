@@ -36,13 +36,19 @@ public class LoginController {
   public String validate(@ModelAttribute("user") Login user, BindingResult bindingResult, Model model){
     this.mainModel = model;
     mainModel.addAttribute("user", user);
-    return loginService.validateLogin(user, mainModel) ? "home/home" : "login/login";
+    if(loginService.findLoginUser(user)){
+      return loginService.validateLogin(user, mainModel) ? "home/home" : "login/login";
+    }
+    return "signup/signup";
   }
 
   @RequestMapping(value = "/validateSignup", method = RequestMethod.POST)
   public String validateSignup(@ModelAttribute("user") User user, BindingResult bindingResult, Model model){
     this.mainModel = model;
     mainModel.addAttribute("user", user);
+    if(loginService.findUser(user)){
+      return "login/login";
+    }
     return loginService.validateSignup(user, mainModel) ? "home/home" : "signup/signup";
   }
 
