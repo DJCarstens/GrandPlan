@@ -2,7 +2,7 @@ package com.grandplan.server;
 
 
 import com.grandplan.server.repositories.UserRepo;
-import com.grandplan.server.models.User;
+import com.grandplan.util.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;

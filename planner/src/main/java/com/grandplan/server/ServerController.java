@@ -1,7 +1,7 @@
 package com.grandplan.server;
 
 import com.grandplan.server.services.ApiLoginService;
-import com.grandplan.server.models.User;
+import com.grandplan.util.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api") //prevents conflict with client mapping (a.k.a. grandPlanController)
 public class ServerController {
 
     @Autowired

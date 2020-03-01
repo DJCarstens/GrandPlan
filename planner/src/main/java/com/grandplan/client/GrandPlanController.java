@@ -1,6 +1,6 @@
 package com.grandplan.client;
 
-import com.grandplan.server.models.User;
+import com.grandplan.util.User;
 import com.grandplan.client.services.LoginService;
 
 import org.springframework.beans.factory.annotation.Autowired;

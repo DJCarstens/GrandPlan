@@ -1,7 +1,7 @@
 package com.grandplan.server.services;
 
 import com.grandplan.server.repositories.UserRepo;
-import com.grandplan.server.models.User;
+import com.grandplan.util.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
