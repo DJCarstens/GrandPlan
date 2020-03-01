@@ -1,4 +1,4 @@
-package com.grandplan.planner;
+package com.grandplan.client;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

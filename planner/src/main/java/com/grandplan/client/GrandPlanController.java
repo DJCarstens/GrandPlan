@@ -1,12 +1,12 @@
-package com.grandplan.planner;
+package com.grandplan.client;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import com.grandplan.planner.models.Event;
-import com.grandplan.planner.models.User;
-import com.grandplan.planner.services.LoginService;
+import com.grandplan.util.User;
+import com.grandplan.client.services.LoginService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,8 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class GrandPlanController {
@@ -40,7 +39,7 @@ public class GrandPlanController {
     return "signup";
   }
 
-  @RequestMapping(value = "/validateLogin", method = RequestMethod.POST)
+  @PostMapping(value = "/validateLogin")
   public String validate(@ModelAttribute("user") User user, BindingResult bindingResult, Model model){
     this.mainModel = model;
     if(loginService.validateLogin(user, mainModel)){
@@ -101,7 +100,7 @@ public class GrandPlanController {
     return "events";
   }
 
-  @RequestMapping(value = "/validateSignup", method = RequestMethod.POST)
+  @PostMapping(value = "/validateSignup")
   public String validateSignup(@ModelAttribute("user") User user, BindingResult bindingResult, Model model){
     this.mainModel = model;
     if(loginService.validateSignup(user, mainModel)){

@@ -1,9 +1,9 @@
-package com.grandplan.planner.services;
+package com.grandplan.client.services;
 
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-import com.grandplan.planner.models.User;
+import com.grandplan.util.User;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +15,8 @@ public class LoginService{
     private static final String EMAIL_PATTERN = "^[\\w.+\\-]+@bbd\\.co\\.za$";
 
     public boolean validateLogin(User user, Model model){
-      boolean email = validateEmail(user. getEmail(), model);
-      boolean password = validatePassword(user.getPassword(), model);
+      boolean email = validateEmail(user.getEmail(), model);
+      boolean password = validateInput(user.getPassword(), model, "passwordError", "Please provide your password");
       return (email && password);
     }
 
@@ -24,7 +24,7 @@ public class LoginService{
       boolean name = validateInput(user.getFirstName(), model, "firstNameError", "Please provide your first name");
       boolean surname = validateInput(user.getLastName(), model, "lastNameError", "Please provide your last name"); 
       boolean email = validateEmail(user.getEmail(), model);
-      boolean phone = validatePhone(user.getPhone(), model);
+      boolean phone = validateInput(user.getPhone(), model, "phoneError", "Please provide your number");
       boolean password = validatePassword(user.getPassword(), model);
       boolean confirmPassword = validateInput(user.getConfirmPassword(), model, "confirmPasswordError", "Please provide your password");
       if(name && surname && email && phone && password && confirmPassword){
@@ -32,9 +32,8 @@ public class LoginService{
           model.addAttribute("matchingPasswordError", "These passwords do not match. Please try again.");
           return false;
         }
-        return true;
       }
-      return false;
+      return true;
     }
 
     private boolean validateInput(String input, Model model, String error, String errorMessage){
@@ -71,11 +70,4 @@ public class LoginService{
       return true;
     }
 
-    private boolean validatePhone(String phoneNumber, Model model){
-      if(phoneNumber.equals("")){
-        model.addAttribute("phoneError", "Please provide your number");
-        return false;
-      }
-      return true;
-    }
 }

@@ -1,16 +1,34 @@
-package com.grandplan.planner.models;
+package com.grandplan.util;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 
 import java.util.Optional;
 
+@Data
+@Builder
+@AllArgsConstructor
 public class User{
     private Optional<String> firstName = Optional.empty();
-    private Optional<String> lastName = Optional.empty();;
+    private Optional<String> lastName = Optional.empty();
     private String email;
-    private Optional<String> phone = Optional.empty();;
+    private Optional<String> phone = Optional.empty();
     private String password;
-    private Optional<String> confirmPassword = Optional.empty();;
+    private Optional<String> confirmPassword = Optional.empty();
 
-    public String getFirstName(){
+    protected User(UserBuilder builder) {
+        this.firstName = builder.firstName;
+        this.lastName = builder.lastName;
+        this.email = builder.email;
+        this.phone = builder.phone;
+        this.password = builder.password;
+        this.confirmPassword = builder.confirmPassword;
+    }
+
+    public User() {}
+
+	public String getFirstName(){
         return this.firstName.isPresent()
         ? this.firstName.get()
         : "";
