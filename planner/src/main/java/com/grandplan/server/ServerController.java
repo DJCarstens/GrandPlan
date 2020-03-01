@@ -33,7 +33,9 @@ public class ServerController {
     @PostMapping("/validateLogin")
     public ResponseEntity<User> validate(@RequestBody User user){
         if(user!=null && apiLoginService.validateUserCredentials(user)!=null)
+        {
             return ResponseEntity.ok(user);
+        }
         else
         {
             HttpHeaders httpHeaders = new HttpHeaders();
