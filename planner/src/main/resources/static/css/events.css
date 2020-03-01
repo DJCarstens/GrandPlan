@@ -7,8 +7,8 @@
   background-image: url("../../images/abstract-background-design_1297-82.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  border-radius: 0.125rem 0.125rem 0 0;
-  height: 5rem;
+  border-radius: 0.2rem 0.2rem 0 0;
+  height: 6rem;
 }
 
 #wrapper.toggled #sidebar-wrapper {
@@ -45,26 +45,26 @@
 .sidebar-nav {
   min-width: 5.625rem;
   margin: 0;
-  padding-top: 1.25rem;
+  padding-top: 3rem;
   padding-left: 0;
   list-style: none;
 }
   
 .sidebar-nav li {
-  padding-top: 0.625rem;
-  text-indent: 1.25rem;
-  line-height: 2.5rem;
+  padding-top: 1rem;
+  text-indent: 3rem;
+  line-height: 4rem;
 }
   
 .sidebar-nav li a {
   text-decoration: none;
   color: #000000;
-  font-size: 0.9375rem;
+  font-size: 1.6rem;
 }
 
 .sidebar-nav li a:hover {
   text-decoration: none;
-  font-size: 1.0625rem;
+  font-size: 1.8rem;
 }
 
 .sidebar-nav li.active{
@@ -75,7 +75,7 @@
 
 .sidebar-nav li.active a{
   color: white;
-  font-size: 1.0625rem;
+  font-size: 1.8rem;
 }
 
 #sidebar-wrapper.sidebar-toggle {
@@ -85,7 +85,7 @@
 
 .sidebar-nav>.sidebar-brand {
   height: 4.0625rem;
-  font-size: 1.125rem;
+  font-size: 1.6rem;
   line-height: 3.75rem;
 }
   
@@ -112,8 +112,8 @@
 .icon-container{
   background-color: white;
   border-radius: 50%;
-  width: 16%;
-  height: 3.5625rem !important;
+  width: 14%;
+  height: 4.8rem !important;
   margin: auto;
 }
 
@@ -122,17 +122,17 @@
 }
 
 i{
-  font-size: 2.375rem;
-  margin-top: 0.5625rem;
-  margin-left: 0.75rem;
+  font-size: 3rem;
+  margin-top: 0.7rem;
+  margin-left: 1.1rem;
 }
 
 .title{
   margin-top: 0.25rem !important;
-  font-size: 1.125rem;
+  font-size: 1.8rem;
   text-transform: uppercase;
 }
 
 .item-heading{
-  font-size: 1.0625rem;
+  font-size: 1.6rem;
 }

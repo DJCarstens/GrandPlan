@@ -36,26 +36,26 @@
 .sidebar-nav {
     min-width: 5.625rem;
     margin: 0;
-    padding-top: 1.25rem;
+    padding-top: 3rem;
     padding-left: 0;
     list-style: none;
 }
 
 .sidebar-nav li {
-    padding-top: 0.625rem;
-    text-indent: 1.25rem;
-    line-height: 2.5rem;
+    padding-top: 1rem;
+    text-indent: 3rem;
+    line-height: 4rem;
 }
 
 .sidebar-nav li a {
     text-decoration: none;
     color: #000000;
-    font-size: 0.9375rem;
+    font-size: 1.6rem;
 }
 
 .sidebar-nav li a:hover {
     text-decoration: none;
-    font-size: 1.0625rem;
+    font-size: 1.8rem;
 }
 
 .sidebar-nav li.active{
@@ -66,7 +66,7 @@
 
 .sidebar-nav li.active a{
     color: white;
-    font-size: 1.0625rem;
+    font-size: 1.8rem;
 }
 
 #sidebar-wrapper.sidebar-toggle {
@@ -76,7 +76,7 @@
 
 .sidebar-nav>.sidebar-brand {
     height: 4.0625rem;
-    font-size: 1.125rem;
+    font-size: 1.6rem;
     line-height: 3.75rem;
 }
 
@@ -100,16 +100,15 @@
     padding-left: 2%;
     padding-top: 1%;
     margin-top: 1.4%;
-    height: 6.25rem !important;
+    height: 8rem !important;
     box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2);
 }
 
 .icon-container{
     background-color: white;
     border-radius: 50%;
-    width: 74%;
-    height: 4.25rem !important;
-    margin-top: 1%;
+    width: 65%;
+    height: 6rem !important;
 }
 
 i{
@@ -133,8 +132,13 @@ i{
     padding-bottom: 0.3125rem;
     padding-top: 0.375rem;
     margin-left: 8%;
+    font-size: 1.6rem;
 }
 
 .button:hover{
     box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2);
+}
+
+p{
+    font-size: 1.6rem;
 }

@@ -1,6 +1,6 @@
 .signup-container{
     margin: auto;
-    margin-top: 9%;
+    margin-top: 5%;
     position: relative;
 }
 
@@ -8,7 +8,7 @@
     padding: 9%;
     background: white;
     box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2), 0 0.5625rem 1.625rem 0 rgba(0, 0, 0, 0.19);
-    height: 43.75rem;
+    height: 70rem;
     padding-top: 4%;
 }
 
@@ -19,20 +19,20 @@
     background-size: cover;
     box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2), 0 0.5625rem 1.625rem 0 rgba(0, 0, 0, 0.19);
     position: relative;
-    height: 43.75rem;
+    height: 70rem;
 }
 
 .logo{
     background-image: url("../../images/logo.png");
     background-repeat: no-repeat;
     background-size: cover;
-    width: 18.75rem;
-    height: 6.25rem;
+    width: 30rem;
+    height: 8rem;
 }
 
 .hive-image{
-    width: 40%;
-    height: 14%;
+    width: 38%;
+    height: 16%;
     background-image: url("../../images/hive.png");
     background-repeat: no-repeat;
     background-size: cover;
@@ -71,7 +71,7 @@ a{
 a:hover{
     color: grey;
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 1.6rem;
 }
 
 label{
