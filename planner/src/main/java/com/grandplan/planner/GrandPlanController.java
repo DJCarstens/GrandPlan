@@ -64,7 +64,6 @@ public class GrandPlanController {
 
     }
     model.addAttribute("user", currentUser);
-    //
     return "home";
   }
 
@@ -88,6 +87,7 @@ public class GrandPlanController {
     events.add(event3);
     events.add(event3);
     events.add(event3);
+    events.add(event3);
 
     //Temporary user assignment until the login has been completed
     if (currentUser == null) {
@@ -96,7 +96,7 @@ public class GrandPlanController {
     }
 
     model.addAttribute("user", currentUser);
-    model.addAttribute("heading", "Your current events for " + months[Calendar.getInstance().get(Calendar.MONTH)]);
+    model.addAttribute("heading", months[Calendar.getInstance().get(Calendar.MONTH)] + " " + Calendar.getInstance().get(Calendar.YEAR));
     model.addAttribute("events", events);
     //
     return "events";

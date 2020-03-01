@@ -2,7 +2,15 @@
   margin-bottom: 0 !important;
 }
 
-/* Sidebar Styles */
+.img{
+  margin-top: 5%;
+  background-image: url("../../images/abstract-background-design_1297-82.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 2px 2px 0 0;
+  height: 80px;
+}
+
 #wrapper.toggled #sidebar-wrapper {
   width: 15%;
   min-width: 90px;
@@ -91,30 +99,34 @@
 }
 
 .heading{
-  text-align: center;
+  margin-left: 1%;
 }
 
 .box-part{
-  background-color: grey;
-  border-radius: 2px;
+  background-color: rgb(206, 206, 206);
+  border-radius: 0 0 2px 2px;
   padding: 10%;
   padding-left: 5%;
   padding-top: 4%;
-  margin-top: 4%;
   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .icon-container{
   background-color: white;
   border-radius: 50%;
-  width: 22%;
-  height: 68px !important;
-  margin: 0 auto;
+  width: 16%;
+  height: 57px !important;
+  margin: auto;
+}
+
+.clearfix{
+  height: 12px !important;
 }
 
 i{
-  font-size: 42px;
-  margin-top: 13px;
+  font-size: 38px;
+  margin-top: 9px;
+  margin-left: 12px;
 }
 
 .title{

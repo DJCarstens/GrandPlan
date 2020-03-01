@@ -14,9 +14,6 @@
 </head>
 
 <body style="background-color: #C4C4C4;">
-
-    <!-- Static navbar -->
-    <!-- TODO: change colour scheme -->
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -48,10 +45,11 @@
             <div class="row">
                 <h1 class="heading" th:if="${heading}" th:text="${heading}"></h1>
                 <div th:each="event : ${events}" class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <div class="img">
+                        <div class="clearfix"></div>
+                        <div class="icon-container"><i class="far fa-calendar-alt"></i></div>
+                    </div>
                     <div class="box-part text-center">
-                        <div>
-                            <div class="icon-container"><i class="far fa-calendar-alt"></i></div>
-                        </div>
                         <div class="title">
                             <label th:text="${event.title}"></label>
                         </div>
