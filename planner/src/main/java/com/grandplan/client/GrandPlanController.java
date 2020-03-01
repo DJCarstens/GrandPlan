@@ -1,8 +1,7 @@
-package com.grandplan.planner;
+package com.grandplan.client;
 
-import com.grandplan.planner.models.Login;
-import com.grandplan.planner.models.User;
-import com.grandplan.planner.services.LoginService;
+import com.grandplan.util.User;
+import com.grandplan.client.services.LoginService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,8 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class GrandPlanController {
@@ -20,9 +18,9 @@ public class GrandPlanController {
   @Autowired
   private LoginService loginService;
 
-  @GetMapping("/login")
+  @GetMapping({"/login", "/"})
   public String login(Model model) {
-    model.addAttribute("user", new Login());
+    model.addAttribute("user", new User());
     return "login";
   }
 
@@ -32,8 +30,8 @@ public class GrandPlanController {
     return "signup";
   }
 
-  @RequestMapping(value = "/validateLogin", method = RequestMethod.POST)
-  public String validate(@ModelAttribute("user") Login user, BindingResult bindingResult, Model model){
+  @PostMapping(value = "/validateLogin")
+  public String validate(@ModelAttribute("user") User user, BindingResult bindingResult, Model model){
     this.mainModel = model;
     mainModel.addAttribute("user", user);
     if(loginService.validateLogin(user, mainModel)){
@@ -46,7 +44,7 @@ public class GrandPlanController {
     }
   }
 
-  @RequestMapping(value = "/validateSignup", method = RequestMethod.POST)
+  @PostMapping(value = "/validateSignup")
   public String validateSignup(@ModelAttribute("user") User user, BindingResult bindingResult, Model model){
     this.mainModel = model;
     mainModel.addAttribute("user", user);
