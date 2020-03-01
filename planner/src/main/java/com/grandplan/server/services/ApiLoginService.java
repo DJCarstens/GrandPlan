@@ -16,13 +16,13 @@ public class ApiLoginService {
         this.userRepo = userRepo;
     }
 
-    public boolean validateUserCredentials(User user)
+    public User validateUserCredentials(User user)
     {
         User fetchedUser = userRepo.getUserByEmail(user.getEmail());
         if(fetchedUser == null || !fetchedUser.getPassword().equals(user.getPassword()))
-            return false;
+            return null;
         else
-            return true;
+            return user;
     }
 }
 
