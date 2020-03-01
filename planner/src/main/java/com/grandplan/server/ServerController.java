@@ -32,12 +32,10 @@ public class ServerController {
 
     @PostMapping("/validateLogin")
     public ResponseEntity<User> validate(@RequestBody User user){
-        if(user!=null && apiLoginService.validateUserCredentials(user)!=null)
-        {
+        if(user!=null && apiLoginService.validateUserCredentials(user)!=null) {
             return ResponseEntity.ok(user);
         }
-        else
-        {
+        else {
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.set("x-error-code", "Username and password combination does not match");
             return new ResponseEntity<>(httpHeaders, HttpStatus.NOT_FOUND);
