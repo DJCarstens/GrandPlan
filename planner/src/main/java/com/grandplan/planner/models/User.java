@@ -10,16 +10,20 @@ public class User{
     private String password;
     private Optional<String> confirmPassword = Optional.empty();;
 
-    public Optional<String> getFirstName(){
-        return this.firstName;
+    public String getFirstName(){
+        return this.firstName.isPresent()
+        ? this.firstName.get()
+        : "";
     }
 
     public void setFirstName(String name){
         this.firstName = Optional.ofNullable(name);
     }
 
-    public Optional<String> getLastName(){
-        return this.lastName;
+    public String getLastName(){
+        return this.lastName.isPresent()
+        ? this.lastName.get()
+        : "";
     }
 
     public void setLastName(String surname){
@@ -34,8 +38,10 @@ public class User{
         this.email = email;
     }
 
-    public Optional<String> getPhone(){
-        return this.phone;
+    public String getPhone(){
+        return this.phone.isPresent()
+        ? this.phone.get()
+        : "";
     }
 
     public void setPhone(String phone){
@@ -50,8 +56,10 @@ public class User{
         this.password = pass;
     }
 
-    public Optional<String> getConfirmPassword(){
-        return this.confirmPassword;
+    public String getConfirmPassword(){
+        return this.confirmPassword.isPresent()
+        ? this.confirmPassword.get()
+        : "";
     }
 
     public void setConfirmPassword(String pass){

@@ -7,8 +7,8 @@
 .signup-form{
     padding: 9%;
     background: white;
-    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
-    height: 700px;
+    box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2), 0 0.5625rem 1.625rem 0 rgba(0, 0, 0, 0.19);
+    height: 43.75rem;
     padding-top: 4%;
 }
 
@@ -17,17 +17,17 @@
     background-image: url("../../images/abstract-background-design_1297-82.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2), 0 0.5625rem 1.625rem 0 rgba(0, 0, 0, 0.19);
     position: relative;
-    height: 700px;
+    height: 43.75rem;
 }
 
 .logo{
     background-image: url("../../images/logo.png");
     background-repeat: no-repeat;
     background-size: cover;
-    width: 300px;
-    height: 100px;
+    width: 18.75rem;
+    height: 6.25rem;
 }
 
 .hive-image{
@@ -47,15 +47,15 @@
     color: white;
     background-color: #C72F2E;
     border: none;
-    border-radius: 5px;
+    border-radius: 0.3125rem;
     padding: 2%;
     margin-left: 11%;
-    margin-top: 40px;
+    margin-top: 2.5rem;
 }
 
 .btnSubmit:hover{
     color: white;
-    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2), 0 0.5625rem 1.625rem 0 rgba(0, 0, 0, 0.19);
 }
 
 p{
@@ -71,7 +71,7 @@ a{
 a:hover{
     color: grey;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 1rem;
 }
 
 label{

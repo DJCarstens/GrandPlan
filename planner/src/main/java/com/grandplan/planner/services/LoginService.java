@@ -1,7 +1,6 @@
 package com.grandplan.planner.services;
 
 import java.util.regex.Pattern;
-import java.util.Optional;
 import java.util.regex.Matcher;
 
 import com.grandplan.planner.models.User;
@@ -29,7 +28,7 @@ public class LoginService{
       boolean password = validatePassword(user.getPassword(), model);
       boolean confirmPassword = validateInput(user.getConfirmPassword(), model, "confirmPasswordError", "Please provide your password");
       if(name && surname && email && phone && password && confirmPassword){
-        if(user.getPassword() != user.getConfirmPassword().get()){
+        if(user.getPassword() != user.getConfirmPassword()){
           model.addAttribute("matchingPasswordError", "These passwords do not match. Please try again.");
           return false;
         }
@@ -38,8 +37,8 @@ public class LoginService{
       return false;
     }
 
-    private boolean validateInput(Optional<String> input, Model model, String error, String errorMessage){
-      if(!input.isPresent()){
+    private boolean validateInput(String input, Model model, String error, String errorMessage){
+      if(input.equals("")){
         model.addAttribute(error, errorMessage);
         return false;
       }
@@ -47,7 +46,7 @@ public class LoginService{
     }
 
     private boolean validatePassword(String pass, Model model){
-      if(pass == ""){
+      if(pass.equals("")){
         model.addAttribute("passwordError", "Please provide your password");
         return false;
       }
@@ -55,7 +54,7 @@ public class LoginService{
     }
 
     private boolean validateEmail(String email, Model model){
-      if(email == ""){
+      if(email.equals("")){
         model.addAttribute("emailError", "Please provide your email");
         return false;
       }
@@ -72,8 +71,8 @@ public class LoginService{
       return true;
     }
 
-    private boolean validatePhone(Optional<String> phoneNumber, Model model){
-      if(!phoneNumber.isPresent()){
+    private boolean validatePhone(String phoneNumber, Model model){
+      if(phoneNumber.equals("")){
         model.addAttribute("phoneError", "Please provide your number");
         return false;
       }

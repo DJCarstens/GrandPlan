@@ -7,13 +7,13 @@
   background-image: url("../../images/abstract-background-design_1297-82.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  border-radius: 2px 2px 0 0;
-  height: 80px;
+  border-radius: 0.125rem 0.125rem 0 0;
+  height: 5rem;
 }
 
 #wrapper.toggled #sidebar-wrapper {
   width: 15%;
-  min-width: 90px;
+  min-width: 5.625rem;
 }
 
 .main-container{
@@ -23,7 +23,7 @@
   height: 88%;
   margin-left: 17% !important;
   background-color: white;
-  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2), 0 0.5625rem 1.625rem 0 rgba(0, 0, 0, 0.19);
 }
 
 #sidebar-wrapper {
@@ -39,54 +39,54 @@
   transition: all 0.5s ease;
   left: 0;
   float: left;
-  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2);
 }
 
 .sidebar-nav {
-  min-width: 90px;
+  min-width: 5.625rem;
   margin: 0;
-  padding-top: 20px;
-  padding-left: 0px;
+  padding-top: 1.25rem;
+  padding-left: 0;
   list-style: none;
 }
   
 .sidebar-nav li {
-  padding-top: 10px;
-  text-indent: 20px;
-  line-height: 40px;
+  padding-top: 0.625rem;
+  text-indent: 1.25rem;
+  line-height: 2.5rem;
 }
   
 .sidebar-nav li a {
   text-decoration: none;
   color: #000000;
-  font-size: 15px;
+  font-size: 0.9375rem;
 }
 
 .sidebar-nav li a:hover {
   text-decoration: none;
-  font-size: 17px;
+  font-size: 1.0625rem;
 }
 
 .sidebar-nav li.active{
   background: #C72F2E;
   position: relative;
-  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2);
 }
 
 .sidebar-nav li.active a{
   color: white;
-  font-size: 17px;
+  font-size: 1.0625rem;
 }
 
 #sidebar-wrapper.sidebar-toggle {
   transition: all 0.3s ease-out;
-  margin-left: -200px;
+  margin-left: -12.5rem;
 }
 
 .sidebar-nav>.sidebar-brand {
-  height: 65px;
-  font-size: 18px;
-  line-height: 60px;
+  height: 4.0625rem;
+  font-size: 1.125rem;
+  line-height: 3.75rem;
 }
   
 .sidebar-nav>.sidebar-brand a {
@@ -104,35 +104,35 @@
 
 .box-part{
   background-color: rgb(221, 221, 221);
-  border-radius: 0 0 2px 2px;
+  border-radius: 0 0 0.125rem 0.125rem;
   padding: 4% 5% 6% 5%;
-  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2);
 }
 
 .icon-container{
   background-color: white;
   border-radius: 50%;
   width: 16%;
-  height: 57px !important;
+  height: 3.5625rem !important;
   margin: auto;
 }
 
 .clearfix{
-  height: 12px !important;
+  height: 0.75rem !important;
 }
 
 i{
-  font-size: 38px;
-  margin-top: 9px;
-  margin-left: 12px;
+  font-size: 2.375rem;
+  margin-top: 0.5625rem;
+  margin-left: 0.75rem;
 }
 
 .title{
-  margin-top: 4px !important;
-  font-size: 18px;
+  margin-top: 0.25rem !important;
+  font-size: 1.125rem;
   text-transform: uppercase;
 }
 
 .item-heading{
-  font-size: 17px;
+  font-size: 1.0625rem;
 }

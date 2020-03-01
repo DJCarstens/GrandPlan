@@ -4,7 +4,7 @@
 
 #wrapper.toggled #sidebar-wrapper {
     width: 15%;
-    min-width: 90px;
+    min-width: 5.625rem;
 }
 
 .main-container{
@@ -14,7 +14,7 @@
     height: 88%;
     margin-left: 17% !important;
     background-color: white;
-    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2), 0 0.5625rem 1.625rem 0 rgba(0, 0, 0, 0.19);
 }
 
 #sidebar-wrapper {
@@ -30,54 +30,54 @@
     transition: all 0.5s ease;
     left: 0;
     float: left;
-    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2);
 }
 
 .sidebar-nav {
-    min-width: 90px;
+    min-width: 5.625rem;
     margin: 0;
-    padding-top: 20px;
-    padding-left: 0px;
+    padding-top: 1.25rem;
+    padding-left: 0;
     list-style: none;
 }
 
 .sidebar-nav li {
-    padding-top: 10px;
-    text-indent: 20px;
-    line-height: 40px;
+    padding-top: 0.625rem;
+    text-indent: 1.25rem;
+    line-height: 2.5rem;
 }
 
 .sidebar-nav li a {
     text-decoration: none;
     color: #000000;
-    font-size: 15px;
+    font-size: 0.9375rem;
 }
 
 .sidebar-nav li a:hover {
     text-decoration: none;
-    font-size: 17px;
+    font-size: 1.0625rem;
 }
 
 .sidebar-nav li.active{
     background: #C72F2E;
     position: relative;
-    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2);
 }
 
 .sidebar-nav li.active a{
     color: white;
-    font-size: 17px;
+    font-size: 1.0625rem;
 }
 
 #sidebar-wrapper.sidebar-toggle {
     transition: all 0.3s ease-out;
-    margin-left: -200px;
+    margin-left: -12.5rem;
 }
 
 .sidebar-nav>.sidebar-brand {
-    height: 65px;
-    font-size: 18px;
-    line-height: 60px;
+    height: 4.0625rem;
+    font-size: 1.125rem;
+    line-height: 3.75rem;
 }
 
 .sidebar-nav>.sidebar-brand a {
@@ -95,46 +95,46 @@
 
 .box-part{
     background-color: rgb(221, 221, 221);
-    border-radius: 2px;
+    border-radius: 0.125rem;
     padding: 1%;
     padding-left: 2%;
     padding-top: 1%;
     margin-top: 1.4%;
-    height: 100px !important;
-    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2);
+    height: 6.25rem !important;
+    box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2);
 }
 
 .icon-container{
     background-color: white;
     border-radius: 50%;
     width: 74%;
-    height: 68px !important;
+    height: 4.25rem !important;
     margin-top: 1%;
 }
 
 i{
-    font-size: 42px;
-    margin-top: 13px;
-    margin-left: 14px;
+    font-size: 2.625rem;
+    margin-top: 0.8125rem;
+    margin-left: 0.875rem;
 }
 
 .title{
-    font-size: 20px;
-    margin-top: 20px !important;
+    font-size: 1.25rem;
+    margin-top: 1.25rem !important;
 }
 
 .button{
     color: white;
     background-color: #C72F2E;
     border: none;
-    border-radius: 5px;
+    border-radius: 0.3125rem;
     padding-left: 4%;
     padding-right: 4%;
-    padding-bottom: 5px;
-    padding-top: 6px;
+    padding-bottom: 0.3125rem;
+    padding-top: 0.375rem;
     margin-left: 8%;
 }
 
 .button:hover{
-    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2);
 }
