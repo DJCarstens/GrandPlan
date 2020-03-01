@@ -55,13 +55,16 @@
                         </div>
                         <div>
                             <label class="item-heading">Date: &nbsp</label><label th:text="${event.date}"></label>
-                            <label>&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+                        </div>
+                        <div>
                             <label class="item-heading">Time: &nbsp</label><label><label
                                     th:text="${event.start}"></label> -
                                 <label th:text="${event.end}"></label></label>
                         </div>
-                        <div>
-                            <label>Attendees: <label> 3+ members</label></label><i class="fas fa-users"></i>
+                        <div class="attendees-icon">
+                            <span><i class="fas fa-users"></i></span>&nbsp&nbsp<span onclick="openInfoModal()"><i
+                                    class="fas fa-info-circle"></i>
+                            </span>
                         </div>
                     </div>
                 </div>
