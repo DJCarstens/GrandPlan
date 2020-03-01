@@ -42,7 +42,7 @@ public class GrandPlanController {
   }
 
   @RequestMapping(value = "/validateLogin", method = RequestMethod.POST)
-  public String validate(@ModelAttribute("user") Login user, BindingResult bindingResult, Model model){
+  public String validate(@ModelAttribute("user") User user, BindingResult bindingResult, Model model){
     this.mainModel = model;
     if(loginService.validateLogin(user, mainModel)){
       //TODO: validate whether user exists or not before navigation
@@ -72,11 +72,6 @@ public class GrandPlanController {
   public String events(Model model) {
     //For testing purposes. Need to remove
     events = new ArrayList<Event>();
-
-    // Event event1 = new Event();
-    // event1.setTitle("first event");
-    // event1.setStart("2020-02-02");
-    // events.add(event1);
 
     Event event2 = new Event();
     event2.setTitle("second event");

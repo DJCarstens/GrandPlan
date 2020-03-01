@@ -1,9 +1,9 @@
 package com.grandplan.planner.services;
 
 import java.util.regex.Pattern;
+import java.util.Optional;
 import java.util.regex.Matcher;
 
-import com.grandplan.planner.models.Login;
 import com.grandplan.planner.models.User;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Service;
@@ -15,9 +15,9 @@ public class LoginService{
 
     private static final String EMAIL_PATTERN = "^[\\w.+\\-]+@bbd\\.co\\.za$";
 
-    public boolean validateLogin(Login user, Model model){
+    public boolean validateLogin(User user, Model model){
       boolean email = validateEmail(user. getEmail(), model);
-      boolean password = validateInput(user.getPassword(), model, "passwordError", "Please provide your password");
+      boolean password = validatePassword(user.getPassword(), model);
       return (email && password);
     }
 
@@ -26,10 +26,10 @@ public class LoginService{
       boolean surname = validateInput(user.getLastName(), model, "lastNameError", "Please provide your last name"); 
       boolean email = validateEmail(user.getEmail(), model);
       boolean phone = validatePhone(user.getPhone(), model);
-      boolean password = validateInput(user.getPassword(), model, "passwordError", "Please provide your password");
+      boolean password = validatePassword(user.getPassword(), model);
       boolean confirmPassword = validateInput(user.getConfirmPassword(), model, "confirmPasswordError", "Please provide your password");
       if(name && surname && email && phone && password && confirmPassword){
-        if(user.getPassword() != user.getConfirmPassword()){
+        if(user.getPassword() != user.getConfirmPassword().get()){
           model.addAttribute("matchingPasswordError", "These passwords do not match. Please try again.");
           return false;
         }
@@ -38,9 +38,17 @@ public class LoginService{
       return false;
     }
 
-    private boolean validateInput(String input, Model model, String error, String errorMessage){
-      if(input == ""){
+    private boolean validateInput(Optional<String> input, Model model, String error, String errorMessage){
+      if(!input.isPresent()){
         model.addAttribute(error, errorMessage);
+        return false;
+      }
+      return true;
+    }
+
+    private boolean validatePassword(String pass, Model model){
+      if(pass == ""){
+        model.addAttribute("passwordError", "Please provide your password");
         return false;
       }
       return true;
@@ -64,8 +72,8 @@ public class LoginService{
       return true;
     }
 
-    private boolean validatePhone(String phoneNumber, Model model){
-      if(phoneNumber == ""){
+    private boolean validatePhone(Optional<String> phoneNumber, Model model){
+      if(!phoneNumber.isPresent()){
         model.addAttribute("phoneError", "Please provide your number");
         return false;
       }
