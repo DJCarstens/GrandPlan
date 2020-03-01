@@ -1,11 +1,23 @@
 package com.grandplan.server;
 
-import com.grandplan.util.User;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.grandplan.server.services.ApiLoginService;
+import com.grandplan.server.models.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ServerController {
+
+    @Autowired
+    private ApiLoginService apiLoginService;
+
+
+    public ServerController(ApiLoginService apiLoginService) {
+        this.apiLoginService = apiLoginService;
+    }
 
     @GetMapping("/getUser")
     public User getUser() {
@@ -15,4 +27,17 @@ public class ServerController {
                 .lastName("McHome")
                 .build();
     }
+
+    @PostMapping("/validateLogin")
+    public ResponseEntity<String> validate(@RequestBody User user){
+        if(user!=null && apiLoginService.validateUserCredentials(user))
+            return ResponseEntity.ok("login successful");
+        else
+        {
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.set("x-error-code", "Username and password combination does not match");
+            return new ResponseEntity<>(httpHeaders, HttpStatus.NOT_FOUND);
+        }
+    }
+
 }

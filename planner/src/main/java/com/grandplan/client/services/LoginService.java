@@ -3,7 +3,7 @@ package com.grandplan.client.services;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-import com.grandplan.util.User;
+import com.grandplan.server.models.User;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Service;
 
