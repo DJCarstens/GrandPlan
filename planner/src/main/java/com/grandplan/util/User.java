@@ -14,8 +14,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User{
-    private @Id
-    String email;
+    private @Id String email;
     private String password;
     private String firstName;
     private String lastName;

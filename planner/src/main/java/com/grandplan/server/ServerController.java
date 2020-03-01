@@ -9,12 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api") //prevents conflict with client mapping (a.k.a. grandPlanController)
+@RequestMapping("/api")  //prevents conflict with client mapping (a.k.a. grandPlanController)
 public class ServerController {
 
     @Autowired
     private ApiLoginService apiLoginService;
-
 
     public ServerController(ApiLoginService apiLoginService) {
         this.apiLoginService = apiLoginService;
@@ -40,5 +39,4 @@ public class ServerController {
             return new ResponseEntity<>(httpHeaders, HttpStatus.NOT_FOUND);
         }
     }
-
 }
