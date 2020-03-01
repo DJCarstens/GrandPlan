@@ -60,6 +60,9 @@
                                     th:text="${event.start}"></label> -
                                 <label th:text="${event.end}"></label></label>
                         </div>
+                        <div>
+                            <label>Attendees: <label> 3+ members</label></label><i class="fas fa-users"></i>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -70,10 +73,11 @@
         <div id="wrapper" class="sidebar-toggle">
             <div id="sidebar-wrapper">
                 <ul class="sidebar-nav">
-                    <li class="active"> <a href="/">Your Events</a> </li>
-                    <li> <a href="#">Group Events</a> </li>
-                    <li> <a href="/invites">Invites</a> </li>
-                    <li> <a href="#">+ Create an Event</a> </li>
+                    <li class="active"><i class="far fa-calendar-alt custom-icon"></i><a href="/events">Your Events</a>
+                    </li>
+                    <li><i class="fas fa-users custom-icon"></i><a href="#">Group Events</a> </li>
+                    <li><i class="far fa-envelope custom-icon"></i><a href="/invites">Invites</a> </li>
+                    <li><i class="fas fa-plus-circle custom-icon"></i><a href="#">Create an Event</a> </li>
                 </ul>
             </div>
         </div>

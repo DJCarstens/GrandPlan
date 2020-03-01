@@ -43,9 +43,9 @@
 
 .sidebar-nav li {
     padding-top: 1rem;
-    text-indent: 3rem;
+    text-indent: 1.8rem;
     line-height: 4rem;
-}
+  }
 
 .sidebar-nav li a {
     text-decoration: none;
@@ -68,6 +68,10 @@
     color: white;
     font-size: 1.8rem;
 }
+
+.sidebar-nav li.active i{
+    color: white;
+  }
 
 #sidebar-wrapper.sidebar-toggle {
     transition: all 0.3s ease-out;
@@ -142,3 +146,8 @@ i{
 p{
     font-size: 1.6rem;
 }
+
+.custom-icon{
+    font-size: 2.3rem;
+    margin-right: 1.2rem;
+  }

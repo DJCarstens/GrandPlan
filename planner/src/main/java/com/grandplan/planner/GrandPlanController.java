@@ -5,7 +5,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.grandplan.planner.models.Event;
-import com.grandplan.planner.models.Login;
 import com.grandplan.planner.models.User;
 import com.grandplan.planner.services.LoginService;
 
