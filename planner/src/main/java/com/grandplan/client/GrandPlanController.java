@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import com.grandplan.planner.models.Event;
+import com.grandplan.util.Event;
 import com.grandplan.util.User;
 import com.grandplan.client.services.LoginService;
 

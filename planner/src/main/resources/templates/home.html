@@ -1,10 +1,10 @@
-<h1<!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE HTML>
+<html>
 
 <head>
-    <title>Grand Plan</title>
+    <title>Grand Plan | Home</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link th:href="@{webjars/bootstrap/4.0.0/css/bootstrap.min.css}" rel="stylesheet">
+    <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/home.css" rel="stylesheet">
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -19,19 +19,19 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.0/fullcalendar.min.js"></script>
 
-    <script type="text/javascript">    
-        $(document).ready(function(){
-            var calendar = $("#calendar").fullCalendar({  
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var calendar = $("#calendar").fullCalendar({
                 header: {
                     left: 'prev,next today',
                     center: 'title',
                     right: 'month,agendaWeek,agendaDay'
                 },
-                navLinks: true, 
+                navLinks: true,
                 editable: true,
-                eventLimit: true, 
+                eventLimit: true,
                 events: {
-                    url : '/api/event/all'
+                    url: '/api/event/all'
                 }
             });
         });
@@ -39,8 +39,7 @@
 </head>
 
 <body style="background-color: #C4C4C4;">
-    <!-- Static navbar -->
-    <!-- TODO: change colour scheme -->
+    </head>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -58,7 +57,8 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                            aria-haspopup="true" aria-expanded="false"><span th:text="${user.getFirstName()}"></span><span class="caret"></span></a>
+                            aria-haspopup="true" aria-expanded="false"><span
+                                th:text="${user.getFirstName()}"></span><span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Settings</a></li>
                             <li><a href="#">Logout</a></li>
@@ -68,7 +68,6 @@
             </div>
         </div>
     </nav>
-
     <div class="container home-container">
         <div id='calendar'></div>
     </div>

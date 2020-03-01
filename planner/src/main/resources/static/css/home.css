@@ -1,5 +1,5 @@
 .navbar-default {
-    margin-bottom: 0 !important;
+  margin-bottom: 0 !important;
 }
 
 .container {
@@ -33,3 +33,4 @@
   .fc-toolbar .fc-state-active, .fc-toolbar .ui-state-active {
     background-color: rgb(152, 31, 31);
   }
+}
