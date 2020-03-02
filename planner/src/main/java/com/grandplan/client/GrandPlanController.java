@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.grandplan.util.Event;
 import com.grandplan.util.User;
 import com.grandplan.client.services.LoginService;
@@ -40,16 +42,32 @@ public class GrandPlanController {
   }
 
   @PostMapping(value = "/validateLogin")
-  public String validate(@ModelAttribute("user") User user, BindingResult bindingResult, Model model){
-    this.mainModel = model;
-    if(loginService.validateLogin(user, mainModel)){
-      //If user exists and info matches, navigate to "home" else navigate to "signup"
-      mainModel.addAttribute("user", user);
-      return "home";
+  public String validate(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model){
+    if(bindingResult.hasErrors()){
+      return (user.getFirstName().equals(null) || user.getLastName().equals(null) || user.getPhone().equals(null) || user.getConfirmPassword().equals(null))
+        ? "home"
+        : "login";
     }
-    else{
-      return "login";
+    model.addAttribute("user", user);
+    return "home";
+  }
+
+  @PostMapping(value = "/validateSignup")
+  public String validateSignup(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model){
+    if(bindingResult.hasErrors()){
+      if(!user.getPassword().equals(user.getConfirmPassword())){
+        model.addAttribute("matchingPasswordError", "The passwords don't match");
+      }
+      return "signup";
     }
+
+    if(!user.getPassword().equals(user.getConfirmPassword())){
+      model.addAttribute("matchingPasswordError", "The passwords don't match");
+      return "signup";
+    }
+
+    model.addAttribute("user", user);
+    return "home";
   }
 
   @GetMapping("/")
@@ -95,19 +113,6 @@ public class GrandPlanController {
     model.addAttribute("heading", months[Calendar.getInstance().get(Calendar.MONTH)] + " " + Calendar.getInstance().get(Calendar.YEAR));
     model.addAttribute("events", events);
     return "events";
-  }
-
-  @PostMapping(value = "/validateSignup")
-  public String validateSignup(@ModelAttribute("user") User user, BindingResult bindingResult, Model model){
-    this.mainModel = model;
-    if(loginService.validateSignup(user, mainModel)){
-      //If user exists and info matches, navigate to "login" else create the user and nagivate to "home"
-      mainModel.addAttribute("user", user);
-      return "home";
-    }
-    else{
-      return "signup";
-    }
   }
 
   @GetMapping("/error")
