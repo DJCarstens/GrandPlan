@@ -3,6 +3,7 @@ package com.grandplan.client;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 
 import com.grandplan.util.Event;
 import com.grandplan.util.User;
@@ -58,7 +59,7 @@ public class GrandPlanController {
     //Temporary user assignment until the login has been completed
     if (currentUser == null) {
       currentUser = new User();
-      currentUser.setFirstName("Testy McTestface");
+      currentUser.setFirstName(Optional.of("Testy McTestface"));
     }
     model.addAttribute("user", currentUser);
     return "home";
@@ -89,7 +90,7 @@ public class GrandPlanController {
     //Temporary user assignment until the login has been completed
     if (currentUser == null) {
       currentUser = new User();
-      currentUser.setFirstName("Testy McTestface");
+      currentUser.setFirstName(Optional.of("Testy McTestface"));
     }
 
     model.addAttribute("user", currentUser);
@@ -132,7 +133,7 @@ public class GrandPlanController {
 
     if (currentUser == null) {
       currentUser = new User();
-      currentUser.setFirstName("Testy McTestface");
+      currentUser.setFirstName(Optional.of("Testy McTestface"));
     }
 
     model.addAttribute("user", currentUser);
