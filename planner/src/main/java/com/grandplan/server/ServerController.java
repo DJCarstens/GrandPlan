@@ -1,5 +1,7 @@
 package com.grandplan.server;
 
+import java.util.Optional;
+
 import com.grandplan.server.services.ApiLoginService;
 import com.grandplan.util.User;
 import lombok.RequiredArgsConstructor;
@@ -24,9 +26,9 @@ public class ServerController {
     @GetMapping("/getUser")
     public User getUser() {
         return new User().builder()
-                .firstName("Homey")
+                .firstName(Optional.of("Homey"))
                 .email("Homey@home.ru")
-                .lastName("McHome")
+                .lastName(Optional.of("McHome"))
                 .build();
     }
 
