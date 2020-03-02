@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import java.util.Optional;
-
 @Data
 @Entity
 @Builder
@@ -17,9 +15,9 @@ import java.util.Optional;
 @NoArgsConstructor
 public class User{
     private @Id String email;
-    private Optional<String> firstName = Optional.empty();
-    private Optional<String> lastName = Optional.empty();
-    private Optional<String> phone = Optional.empty();
+    private String firstName;
+    private String lastName;
+    private String phone;
     private String password;
-    private Optional<String> confirmPassword = Optional.empty();
+    private String confirmPassword;
 }

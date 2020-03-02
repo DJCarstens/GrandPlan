@@ -1,6 +1,5 @@
 package com.grandplan.server;
 
-import java.util.Optional;
 
 import com.grandplan.server.services.ApiLoginService;
 import com.grandplan.util.User;
@@ -26,9 +25,9 @@ public class ServerController {
     @GetMapping("/getUser")
     public User getUser() {
         return new User().builder()
-                .firstName(Optional.of("Homey"))
+                .firstName("Homey")
                 .email("Homey@home.ru")
-                .lastName(Optional.of("McHome"))
+                .lastName("McHome")
                 .build();
     }
 
