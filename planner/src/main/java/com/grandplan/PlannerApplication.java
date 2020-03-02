@@ -1,4 +1,4 @@
-package com.grandplan.planner;
+package com.grandplan;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

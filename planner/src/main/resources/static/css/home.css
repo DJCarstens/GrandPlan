@@ -1,10 +1,10 @@
 .navbar-default {
-    margin-bottom: 0 !important;
+  margin-bottom: 0 !important;
 }
 
 .container {
   width: 100%;
-  min-width: 410px;
+  min-width: 25.625rem;
   display: flex;
 }
 
@@ -12,11 +12,11 @@
   #calendar {
     padding: 9%;
     background: white;
-    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2), 0 0.5625rem 1.625rem 0 rgba(0, 0, 0, 0.19);
     height: 87vh;
     overflow: hidden;
     padding-top: 3%;
-    margin-top: 20px;
+    margin-top: 1.25rem;
   }
 
   .fc button {
@@ -33,3 +33,4 @@
   .fc-toolbar .fc-state-active, .fc-toolbar .ui-state-active {
     background-color: rgb(152, 31, 31);
   }
+}
