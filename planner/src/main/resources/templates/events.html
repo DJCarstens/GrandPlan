@@ -71,20 +71,7 @@
             </div>
         </div>
     </nav>
-
-    <div class="container home-container">
-        <div id="wrapper" class="sidebar-toggle">
-            <div id="sidebar-wrapper">
-                <ul class="sidebar-nav">
-                    <li class="active"><i class="far fa-calendar-alt custom-icon"></i><a href="/events">Your Events</a>
-                    </li>
-                    <li><i class="fas fa-users custom-icon"></i><a href="#">Group Events</a> </li>
-                    <li><i class="far fa-envelope custom-icon"></i><a href="/invites">Invites</a> </li>
-                    <li><i class="fas fa-plus-circle custom-icon"></i><a href="#">Create an Event</a> </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    <div th:insert="templates/sidenav :: navbar"></div>
 </body>
 
 <script type="text/javascript">

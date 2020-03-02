@@ -11,11 +11,6 @@
   height: 6.4rem;
 }
 
-#wrapper.toggled #sidebar-wrapper {
-  width: 15%;
-  min-width: 5.625rem;
-}
-
 .main-container{
   margin-top: 2%;
   position: fixed;
@@ -24,82 +19,6 @@
   margin-left: 17% !important;
   background-color: white;
   box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2), 0 0.5625rem 1.625rem 0 rgba(0, 0, 0, 0.19);
-}
-
-#sidebar-wrapper {
-  z-index: 1000;
-  position: fixed;
-  width: 15%;
-  height: 100%;
-  overflow-y: auto;
-  background: #e7e7e7;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  transition: all 0.5s ease;
-  left: 0;
-  float: left;
-  box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2);
-}
-
-.sidebar-nav {
-  min-width: 5.625rem;
-  margin: 0;
-  padding-top: 3rem;
-  padding-left: 0;
-  list-style: none;
-}
-  
-.sidebar-nav li {
-  padding-top: 1rem;
-  text-indent: 1.8rem;
-  line-height: 4rem;
-}
-  
-.sidebar-nav li a {
-  text-decoration: none;
-  color: #000000;
-  font-size: 1.6rem;
-}
-
-.sidebar-nav li a:hover {
-  text-decoration: none;
-  font-size: 1.8rem;
-}
-
-.sidebar-nav li.active{
-  background: #C72F2E;
-  position: relative;
-  box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2);
-}
-
-.sidebar-nav li.active a{
-  color: white;
-  font-size: 1.8rem;
-}
-
-.sidebar-nav li.active i{
-  color: white;
-}
-
-#sidebar-wrapper.sidebar-toggle {
-  transition: all 0.3s ease-out;
-  margin-left: -12.5rem;
-}
-
-.sidebar-nav>.sidebar-brand {
-  height: 4.0625rem;
-  font-size: 1.6rem;
-  line-height: 3.75rem;
-}
-  
-.sidebar-nav>.sidebar-brand a {
-  color: #999999;
-}
-
-.sidebar-nav>.sidebar-brand a:hover {
-  color: #fff;
-  background: none;
 }
 
 .heading{
@@ -140,11 +59,6 @@ i{
 
 .item-heading{
   font-size: 1.6rem;
-}
-
-.custom-icon{
-  font-size: 2.3rem;
-  margin-right: 1.2rem;
 }
 
 .attendees-icon{

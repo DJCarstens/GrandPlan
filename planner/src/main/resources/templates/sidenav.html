@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Sidenav</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/events.css" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+    <script th:src="@{http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js}"></script>
+</head>
+
+<body>
+    <div th:fragment="navbar" class="container home-container">
+        <div id="wrapper" class="sidebar-toggle">
+            <div id="sidebar-wrapper">
+                <ul class="sidebar-nav">
+                    <li class="active"><i class="far fa-calendar-alt custom-icon"></i><a href="/events">Your Events</a>
+                    </li>
+                    <li><i class="fas fa-users custom-icon"></i><a href="#">Group Events</a> </li>
+                    <li><i class="far fa-envelope custom-icon"></i><a href="/invites">Invites</a> </li>
+                    <li><i class="fas fa-plus-circle custom-icon"></i><a href="#">Create an Event</a> </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(document).on('click', '.sidebar-nav a', function (e) {
+            $(this).parent().addClass('active').siblings().removeClass('active');
+        });
+    });
+</script>
+
+</html>
