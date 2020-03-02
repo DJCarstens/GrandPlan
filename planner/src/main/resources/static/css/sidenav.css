@@ -55,7 +55,7 @@
     font-size: 1.8rem;
 }
 
-.sidebar-nav li.active i{
+.sidebar-nav li.active em{
     color: white;
 }
 
