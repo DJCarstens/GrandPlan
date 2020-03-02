@@ -1,6 +1,6 @@
 package com.grandplan.planner.models;
 
-public class Event {
+public class EventTemp {
     private String title;
     private String start;
     private String end;
