@@ -6,6 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/invites.css" rel="stylesheet">
+    <link href="/css/sidenav.css" rel="stylesheet">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
@@ -47,7 +48,7 @@
                 <div th:each="invite : ${invites}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="box-part">
                         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                            <div class="icon-container"><i class="far fa-envelope"></i>
+                            <div class="icon-container"><em class="far fa-envelope"></em>
                             </div>
                         </div>
                         <div class="title col-lg-5 col-md-5 col-sm-5 col-xs-5">
@@ -69,25 +70,14 @@
             </div>
         </div>
     </nav>
-
-    <div class="container home-container">
-        <div id="wrapper" class="sidebar-toggle">
-            <div id="sidebar-wrapper">
-                <ul class="sidebar-nav">
-                    <li><i class="far fa-calendar-alt custom-icon"></i><a href="/events">Your Events</a> </li>
-                    <li><i class="fas fa-users custom-icon"></i><a href="#">Group Events</a> </li>
-                    <li class="active"><i class="far fa-envelope custom-icon"></i><a href="/invites">Invites</a> </li>
-                    <li><i class="fas fa-plus-circle custom-icon"></i><a href="#">Create an Event</a> </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    <div th:insert="sidenav :: navbar" class="container home-container"></div>
 </body>
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $(document).on('click', '.sidebar-nav a', function (e) {
-            $(this).parent().addClass('active').siblings().removeClass('active');
+        $(document).on('click', '.sidebar-nav a', function () {
+            $("#invites").addClass('active');
+            $('#events').removeClass('active');
         });
     });
 </script>

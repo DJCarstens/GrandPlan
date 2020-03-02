@@ -21,14 +21,14 @@ public class LoginService{
     }
 
     public boolean validateSignup(User user, Model model){
-      boolean name = validateInput(user.getFirstName().get(), model, "firstNameError", "Please provide your first name");
-      boolean surname = validateInput(user.getLastName().get(), model, "lastNameError", "Please provide your last name"); 
+      boolean name = validateInput(user.getFirstName(), model, "firstNameError", "Please provide your first name");
+      boolean surname = validateInput(user.getLastName(), model, "lastNameError", "Please provide your last name"); 
       boolean email = validateEmail(user.getEmail(), model);
-      boolean phone = validateInput(user.getPhone().get(), model, "phoneError", "Please provide your number");
+      boolean phone = validateInput(user.getPhone(), model, "phoneError", "Please provide your number");
       boolean password = validatePassword(user.getPassword(), model);
-      boolean confirmPassword = validateInput(user.getConfirmPassword().get(), model, "confirmPasswordError", "Please provide your password");
+      boolean confirmPassword = validateInput(user.getConfirmPassword(), model, "confirmPasswordError", "Please provide your password");
       if(name && surname && email && phone && password && confirmPassword){
-        if(user.getPassword() != user.getConfirmPassword().get()){
+        if(user.getPassword() != user.getConfirmPassword()){
           model.addAttribute("matchingPasswordError", "These passwords do not match. Please try again.");
           return false;
         }

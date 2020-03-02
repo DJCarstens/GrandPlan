@@ -3,7 +3,6 @@ package com.grandplan.client;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Optional;
 
 import com.grandplan.util.Event;
 import com.grandplan.util.User;
@@ -44,7 +43,6 @@ public class GrandPlanController {
   public String validate(@ModelAttribute("user") User user, BindingResult bindingResult, Model model){
     this.mainModel = model;
     if(loginService.validateLogin(user, mainModel)){
-      //TODO: validate whether user exists or not before navigation
       //If user exists and info matches, navigate to "home" else navigate to "signup"
       mainModel.addAttribute("user", user);
       return "home";
@@ -59,7 +57,7 @@ public class GrandPlanController {
     //Temporary user assignment until the login has been completed
     if (currentUser == null) {
       currentUser = new User();
-      currentUser.setFirstName(Optional.of("Testy McTestface"));
+      currentUser.setFirstName("Testy McTestface");
     }
     model.addAttribute("user", currentUser);
     return "home";
@@ -90,13 +88,12 @@ public class GrandPlanController {
     //Temporary user assignment until the login has been completed
     if (currentUser == null) {
       currentUser = new User();
-      currentUser.setFirstName(Optional.of("Testy McTestface"));
+      currentUser.setFirstName("Testy McTestface");
     }
 
     model.addAttribute("user", currentUser);
     model.addAttribute("heading", months[Calendar.getInstance().get(Calendar.MONTH)] + " " + Calendar.getInstance().get(Calendar.YEAR));
     model.addAttribute("events", events);
-    //
     return "events";
   }
 
@@ -104,7 +101,6 @@ public class GrandPlanController {
   public String validateSignup(@ModelAttribute("user") User user, BindingResult bindingResult, Model model){
     this.mainModel = model;
     if(loginService.validateSignup(user, mainModel)){
-      //TODO: validate whether user exists or not before navigation
       //If user exists and info matches, navigate to "login" else create the user and nagivate to "home"
       mainModel.addAttribute("user", user);
       return "home";
@@ -133,7 +129,7 @@ public class GrandPlanController {
 
     if (currentUser == null) {
       currentUser = new User();
-      currentUser.setFirstName(Optional.of("Testy McTestface"));
+      currentUser.setFirstName("Testy McTestface");
     }
 
     model.addAttribute("user", currentUser);
