@@ -59,7 +59,6 @@ public class GrandPlanController {
     if (currentUser == null) {
       currentUser = new User();
       currentUser.setFirstName("Testy McTestface");
-
     }
     model.addAttribute("user", currentUser);
     return "home";
