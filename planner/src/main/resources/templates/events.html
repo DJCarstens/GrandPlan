@@ -47,7 +47,7 @@
                 <div th:each="event : ${events}" class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                     <div class="img">
                         <div class="clearfix"></div>
-                        <div class="icon-container"><i class="far fa-calendar-alt"></i></div>
+                        <div class="icon-container"><em class="far fa-calendar-alt"></em></div>
                     </div>
                     <div class="box-part text-center">
                         <div class="title">
@@ -62,8 +62,8 @@
                                 <label th:text="${event.end}"></label></label>
                         </div>
                         <div class="attendees-icon">
-                            <span><i class="fas fa-users"></i></span>&nbsp&nbsp<span onclick="openInfoModal()"><i
-                                    class="fas fa-info-circle"></i>
+                            <span><em class="fas fa-users"></em></span>&nbsp&nbsp<span onclick="openInfoModal()"><em
+                                    class="fas fa-info-circle"></em>
                             </span>
                         </div>
                     </div>
@@ -73,13 +73,5 @@
     </nav>
     <div th:insert="templates/sidenav :: navbar"></div>
 </body>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $(document).on('click', '.sidebar-nav a', function (e) {
-            $(this).parent().addClass('active').siblings().removeClass('active');
-        });
-    });
-</script>
 
 </html>
