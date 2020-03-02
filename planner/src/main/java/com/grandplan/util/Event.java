@@ -1,4 +1,4 @@
-package com.grandplan.planner.models;
+package com.grandplan.util;
 
 public class Event {
     private String title;
