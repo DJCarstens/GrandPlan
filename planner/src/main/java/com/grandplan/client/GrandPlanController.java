@@ -10,7 +10,8 @@ import com.grandplan.server.services.ApiLoginService;
 import com.grandplan.util.Event;
 import com.grandplan.util.User;
 
-import com.grandplan.client.util.*;
+import com.grandplan.client.util.Login;
+import com.grandplan.client.util.Signup;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
