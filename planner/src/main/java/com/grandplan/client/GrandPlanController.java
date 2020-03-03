@@ -9,7 +9,8 @@ import javax.validation.Valid;
 import com.grandplan.server.services.ApiLoginService;
 import com.grandplan.util.Event;
 import com.grandplan.util.User;
-import com.grandplan.client.models.UserValidation;
+
+import com.grandplan.client.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,47 +33,36 @@ public class GrandPlanController {
 
   @GetMapping("/login")
   public String login(Model model) {
-    model.addAttribute("user", new UserValidation());
+    model.addAttribute("user", new Login());
     return "login";
   }
 
   @GetMapping("/signup")
   public String signup(Model model) {
-    model.addAttribute("user", new UserValidation());
+    model.addAttribute("user", new Signup());
     return "signup";
   }
 
   @PostMapping(value = "/validateLogin")
-  public String validateLogin(@Valid @ModelAttribute("user") UserValidation user, BindingResult bindingResult, Model model){
-    // User validUser = new User();
-    // if(bindingResult.hasErrors()){
-    //   if (user.isLogin
-    //     && !user.getEmail().isEmpty()
-    //     && !user.getPassword().isEmpty()
-    //   ){
-    //     validUser = user.convertUser();
-    //   }
-    //   else{
-    //     return "login";
-    //   }
-    // }
-
-    // if(loginService.validateUserCredentials(validUser) == null){
-    //   showModal(model, "Your account was not found. Please check your login details and try again, or signup if you do not have an account.", "signup");
-    //   return "login";
-    // }
-    // else{
-    //   model.addAttribute("user", validUser);
-    //   user.isLogin = false;
-    //   return "home";
-    // }
-    showModal(model, "Your account was not found. Please check your login details and try again, or signup if you do not have an account.", "signup");
+  public String validateLogin(@Valid @ModelAttribute("user") Login user, BindingResult bindingResult, Model model){
+    if(bindingResult.hasErrors()){
       return "login";
+    }
+
+    User validUser = user.convertUser();
+    if(loginService.validateUserCredentials(validUser) == null){
+      model.addAttribute("messageModal", "Your account was not found. Please check your login details and try again, or signup if you do not have an account.");
+      model.addAttribute("button", "signup");
+      return "login";
+    }
+    else{
+      model.addAttribute("user", validUser);
+      return "home";
+    }
   }
 
   @PostMapping(value = "/validateSignup")
-  public String validateSignup(@Valid @ModelAttribute("user") UserValidation user, BindingResult bindingResult, Model model){
-    user.isLogin = false;
+  public String validateSignup(@Valid @ModelAttribute("user") Signup user, BindingResult bindingResult, Model model){
     if(bindingResult.hasErrors()){
       return "signup";
     }

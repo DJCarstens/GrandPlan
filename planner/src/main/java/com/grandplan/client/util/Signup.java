@@ -1,13 +1,11 @@
-package com.grandplan.client.models;
+package com.grandplan.client.util;
 
 import com.grandplan.util.User;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import javax.validation.constraints.NotEmpty;
@@ -15,11 +13,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Data
-@Entity
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserValidation{
+public class Signup{
     @NotNull(message="Please provide your email")
     @NotEmpty(message="Please provide your email")
     @Pattern(regexp="^[\\w.+\\-]+@bbd\\.co\\.za$", message="Please provide a valid email")
@@ -45,8 +41,6 @@ public class UserValidation{
     @NotNull(message="Please re-enter your password")
     @NotEmpty(message="Please re-enter your password")
     private String confirmPassword = "";
-
-    public boolean isLogin = true;
 
     public User convertUser(){
         User validUser = new User();
