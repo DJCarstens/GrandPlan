@@ -59,7 +59,7 @@ public class GrandPlanController {
 
     User validUser = user.convertUser();
     if(loginService.validateUserCredentials(validUser) == null){
-      model.addAttribute("messageModal", "Your account was not found. Please check you login details and try again, or signup if you do not have an account.");
+      model.addAttribute("messageModal", "Your account was not found. Please check your login details and try again, or signup if you do not have an account.");
       model.addAttribute("button", "signup");
       return "login";
     }
@@ -85,7 +85,7 @@ public class GrandPlanController {
 
     User validUser = user.convertUser();
     if(loginService.validateUserCredentials(validUser) != null){
-      model.addAttribute("messageModal", "An account for " + user.getEmail() + ". Please check you signup details and try again, or login if you have an account.");
+      model.addAttribute("messageModal", "An account for " + user.getEmail() + ". Please check your signup details and try again, or login if you have an account.");
       model.addAttribute("button", "login");
       return "login";
     }
