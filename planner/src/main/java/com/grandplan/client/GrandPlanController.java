@@ -10,8 +10,8 @@ import com.grandplan.server.services.ApiLoginService;
 import com.grandplan.util.Event;
 import com.grandplan.util.User;
 
-import com.grandplan.client.util.Login;
-import com.grandplan.client.util.Signup;
+import com.grandplan.client.util.LoginUser;
+import com.grandplan.client.util.SignupUser;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,18 +34,18 @@ public class GrandPlanController {
 
   @GetMapping("/login")
   public String login(Model model) {
-    model.addAttribute("user", new Login());
+    model.addAttribute("user", new LoginUser());
     return "login";
   }
 
   @GetMapping("/signup")
   public String signup(Model model) {
-    model.addAttribute("user", new Signup());
+    model.addAttribute("user", new SignupUser());
     return "signup";
   }
 
   @PostMapping(value = "/validateLogin")
-  public String validateLogin(@Valid @ModelAttribute("login") Login user, BindingResult bindingResult, Model model){
+  public String validateLogin(@Valid @ModelAttribute("login") LoginUser user, BindingResult bindingResult, Model model){
     if(bindingResult.hasErrors()){
       return "login";
     }
@@ -63,7 +63,7 @@ public class GrandPlanController {
   }
 
   @PostMapping(value = "/validateSignup")
-  public String validateSignup(@Valid @ModelAttribute("user") Signup user, BindingResult bindingResult, Model model){
+  public String validateSignup(@Valid @ModelAttribute("user") SignupUser user, BindingResult bindingResult, Model model){
     if(bindingResult.hasErrors()){
       return "signup";
     }
