@@ -58,8 +58,7 @@ public class GrandPlanController {
     }
 
     if(loginService.validateUserCredentials(validUser) == null){
-      model.addAttribute("messageModal", "Your account was not found. Please check your login details and try again, or signup if you do not have an account.");
-      model.addAttribute("button", "signup");
+      showModal(model, "Your account was not found. Please check your login details and try again, or signup if you do not have an account.", "signup");
       return "login";
     }
     else{
@@ -83,13 +82,17 @@ public class GrandPlanController {
 
     User validUser = user.convertUser();
     if(loginService.validateUserCredentials(validUser) != null){
-      model.addAttribute("messageModal", "An account for " + user.getEmail() + ". Please check your signup details and try again, or login if you have an account.");
-      model.addAttribute("button", "login");
+      showModal(model, "An account for " + user.getEmail() + ". Please check your signup details and try again, or login if you have an account.", "login");
       return "signup";
     }
 
     model.addAttribute("user", validUser);
     return "home";
+  }
+
+  public void showModal(Model model, String message, String button){
+    model.addAttribute("messageModal", message);
+    model.addAttribute("button", button);
   }
 
   @GetMapping("/")
