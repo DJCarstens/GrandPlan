@@ -16,9 +16,14 @@
 }
 
 .modal-div{
-    background-color: teal;
+    background-color: white;
     width: 50%;
     height: 50%;
     margin: auto;
     margin-top: 10%;
+}
+
+.heading{
+    margin-left: 20%;
+    font-size: 3rem;
 }
