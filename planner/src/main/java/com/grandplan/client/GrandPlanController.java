@@ -34,13 +34,13 @@ public class GrandPlanController {
 
   @GetMapping("/login")
   public String login(Model model) {
-    model.addAttribute("user", new LoginUser());
+    model.addAttribute("loginUser", new LoginUser());
     return "login";
   }
 
   @GetMapping("/signup")
   public String signup(Model model) {
-    model.addAttribute("user", new SignupUser());
+    model.addAttribute("signupUser", new SignupUser());
     return "signup";
   }
 
