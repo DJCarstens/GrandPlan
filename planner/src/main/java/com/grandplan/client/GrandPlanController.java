@@ -45,7 +45,7 @@ public class GrandPlanController {
   }
 
   @PostMapping(value = "/validateLogin")
-  public String validateLogin(@Valid @ModelAttribute("user") Login user, BindingResult bindingResult, Model model){
+  public String validateLogin(@Valid @ModelAttribute("login") Login user, BindingResult bindingResult, Model model){
     if(bindingResult.hasErrors()){
       return "login";
     }
