@@ -45,12 +45,12 @@ public class GrandPlanController {
   @PostMapping(value = "/validateLogin")
   public String validateLogin(@Valid @ModelAttribute("user") UserValidation user, BindingResult bindingResult, Model model){
     if(bindingResult.hasErrors()){
-      if (user.getFirstName().equals("") 
-        && user.getLastName().equals("") 
-        && user.getPhone().equals("") 
-        && user.getConfirmPassword().equals("")
-        && !user.getEmail().equals("")
-        && !user.getPassword().equals("")
+      if (user.getFirstName().isEmpty()
+        && user.getLastName().isEmpty() 
+        && user.getPhone().isEmpty()
+        && user.getConfirmPassword().isEmpty()
+        && !user.getEmail().isEmpty()
+        && !user.getPassword().isEmpty()
       ){}
       else{
         return "login";
