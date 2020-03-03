@@ -18,7 +18,6 @@ public class ApiLoginService {
     public User validateUserCredentials(User user)
     {        
         User fetchedUser = userRepo.getUserByEmail(user.getEmail());
-        System.out.println(fetchedUser);
         if(fetchedUser == null || !fetchedUser.getPassword().equals(user.getPassword())) {
             return null;
         }
