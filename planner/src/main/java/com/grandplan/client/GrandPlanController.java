@@ -72,9 +72,6 @@ public class GrandPlanController {
   @PostMapping(value = "/validateSignup")
   public String validateSignup(@Valid @ModelAttribute("user") UserValidation user, BindingResult bindingResult, Model model){
     if(bindingResult.hasErrors()){
-      if(!user.getPassword().equals(user.getConfirmPassword())){
-        model.addAttribute("matchingPasswordError", "The passwords don't match");
-      }
       return "signup";
     }
 

@@ -23,7 +23,7 @@ public class ApiLoginService {
             return null;
         }
 
-        return user;
+        return fetchedUser;
     }
 }
 
