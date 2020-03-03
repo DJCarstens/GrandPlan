@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import com.grandplan.server.services.ApiLoginService;
 import com.grandplan.util.Event;
 import com.grandplan.util.User;
+import com.grandplan.client.models.UserValidation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,44 +32,45 @@ public class GrandPlanController {
 
   @GetMapping("/login")
   public String login(Model model) {
-    model.addAttribute("user", new User());
+    model.addAttribute("user", new UserValidation());
     return "login";
   }
 
   @GetMapping("/signup")
   public String signup(Model model) {
-    model.addAttribute("user", new User());
+    model.addAttribute("user", new UserValidation());
     return "signup";
   }
 
   @PostMapping(value = "/validateLogin")
-  public String validateLogin(@ModelAttribute("user") User user, BindingResult bindingResult, Model model){
-    // if(bindingResult.hasErrors()){
-    //   if (user.getFirstName().equals("") 
-    //     && user.getLastName().equals("") 
-    //     && user.getPhone().equals("") 
-    //     && user.getConfirmPassword().equals("")
-    //   ){}
-    //   else{
-    //     return "login";
-    //   }
-    // }
+  public String validateLogin(@Valid @ModelAttribute("user") UserValidation user, BindingResult bindingResult, Model model){
+    if(bindingResult.hasErrors()){
+      if (user.getFirstName().equals("") 
+        && user.getLastName().equals("") 
+        && user.getPhone().equals("") 
+        && user.getConfirmPassword().equals("")
+        && !user.getEmail().equals("")
+        && !user.getPassword().equals("")
+      ){}
+      else{
+        return "login";
+      }
+    }
 
-    // if(loginService.validateUserCredentials(user).equals(null)){
-    //   model.addAttribute("messageModal", "Your account was not found. Please check you login details and try again, or signup if you do not have an account.");
-    //   return "login";
-    // }
-    // else{
-    //   model.addAttribute("user", user);
-    //   return "home";
-    // }
-
-    model.addAttribute("messageModal", "Your account was not found. Please check you login details and try again, or signup if you do not have an account.");
-    return "login";
+    User validUser = user.convertUser();
+    if(loginService.validateUserCredentials(validUser) == null){
+      model.addAttribute("messageModal", "Your account was not found. Please check you login details and try again, or signup if you do not have an account.");
+      model.addAttribute("button", "signup");
+      return "login";
+    }
+    else{
+      model.addAttribute("user", validUser);
+      return "home";
+    }
   }
 
   @PostMapping(value = "/validateSignup")
-  public String validateSignup(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model){
+  public String validateSignup(@Valid @ModelAttribute("user") UserValidation user, BindingResult bindingResult, Model model){
     if(bindingResult.hasErrors()){
       if(!user.getPassword().equals(user.getConfirmPassword())){
         model.addAttribute("matchingPasswordError", "The passwords don't match");
@@ -81,7 +83,14 @@ public class GrandPlanController {
       return "signup";
     }
 
-    model.addAttribute("user", user);
+    User validUser = user.convertUser();
+    if(loginService.validateUserCredentials(validUser) != null){
+      model.addAttribute("messageModal", "An account for " + user.getEmail() + ". Please check you signup details and try again, or login if you have an account.");
+      model.addAttribute("button", "login");
+      return "login";
+    }
+
+    model.addAttribute("user", validUser);
     return "home";
   }
 
