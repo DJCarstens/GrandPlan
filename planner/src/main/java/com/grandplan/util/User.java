@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Data
@@ -17,23 +18,23 @@ import javax.validation.constraints.Pattern;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User{
-    @NotEmpty(message="Please provide your email")
-    @Pattern(regexp="^[\\w.+\\-]+@bbd\\.co\\.za$", message="Please provide a valid email")
+    // @NotNull(message="Please provide your email")
+    // @Pattern(regexp="^[\\w.+\\-]+@bbd\\.co\\.za$", message="Please provide a valid email")
     private @Id String email;
 
-    @NotEmpty(message="Please provide your first name")
+    // @NotEmpty(message="Please provide your first name")
     private String firstName;
 
-    @NotEmpty(message="Please provide your last name")
+    // @NotEmpty(message="Please provide your last name")
     private String lastName;
 
-    @NotEmpty(message="Please provide your number")
-    @Pattern(regexp="^[0-9]$", message="Please provide a valid number")
+    // @NotEmpty(message="Please provide your number")
+    // @Pattern(regexp="^[0-9]$", message="Please provide a valid number")
     private String phone;
 
-    @NotEmpty(message="Please provide your password")
+    // @NotEmpty(message="Please provide your password")
     private String password;
 
-    @NotEmpty(message="Please re-enter your password")
+    // @NotEmpty(message="Please re-enter your password")
     private String confirmPassword;
 }

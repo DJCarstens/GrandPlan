@@ -6,9 +6,9 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.grandplan.server.services.ApiLoginService;
 import com.grandplan.util.Event;
 import com.grandplan.util.User;
-import com.grandplan.client.services.LoginService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +27,7 @@ public class GrandPlanController {
   private String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
   @Autowired
-  private LoginService loginService;
+  private ApiLoginService loginService;
 
   @GetMapping("/login")
   public String login(Model model) {
@@ -42,14 +42,29 @@ public class GrandPlanController {
   }
 
   @PostMapping(value = "/validateLogin")
-  public String validate(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model){
-    if(bindingResult.hasErrors()){
-      return (user.getFirstName().equals(null) || user.getLastName().equals(null) || user.getPhone().equals(null) || user.getConfirmPassword().equals(null))
-        ? "home"
-        : "login";
-    }
-    model.addAttribute("user", user);
-    return "home";
+  public String validateLogin(@ModelAttribute("user") User user, BindingResult bindingResult, Model model){
+    // if(bindingResult.hasErrors()){
+    //   if (user.getFirstName().equals("") 
+    //     && user.getLastName().equals("") 
+    //     && user.getPhone().equals("") 
+    //     && user.getConfirmPassword().equals("")
+    //   ){}
+    //   else{
+    //     return "login";
+    //   }
+    // }
+
+    // if(loginService.validateUserCredentials(user).equals(null)){
+    //   model.addAttribute("messageModal", "Your account was not found. Please check you login details and try again, or signup if you do not have an account.");
+    //   return "login";
+    // }
+    // else{
+    //   model.addAttribute("user", user);
+    //   return "home";
+    // }
+
+    model.addAttribute("messageModal", "Your account was not found. Please check you login details and try again, or signup if you do not have an account.");
+    return "login";
   }
 
   @PostMapping(value = "/validateSignup")

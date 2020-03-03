@@ -35,6 +35,13 @@
             </div>
         </div>
     </div>
+
+    <div th:if="${messageModal}" class="overlay">
+        <div class="modal-container text-center">
+            <h3 th:text="${messageModal}"></h3>
+            <button class="modal-button">Signup</button>&nbsp&nbsp<button class="modal-button">Close</button>
+        </div>
+    </div>
 </body>
 
 <script type="text/javascript">
