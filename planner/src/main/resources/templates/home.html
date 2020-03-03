@@ -54,6 +54,11 @@
                                 $('#eventType').html('<span>' + event.type + '</span>');
                                 $('#eventDescription').html('<span>' + event.description + '</span>');
                                 $('#eventDetailsModal').css('display: block;');
+                                if (event.allDay === true){
+                                    $('#allDayCheckbox').prop("checked", true);;
+                                } else {
+                                    $('#allDayCheckbox').prop("checked", false);;
+                                }
                                
                                 // Get the modal
                                 var modal = document.getElementById("eventDetailsModal");
@@ -121,18 +126,23 @@
                     <table style="width:80%">
                         <tr>
                             <th>Start:</th>
-                            <td id="eventStart">event.start</td>
+                            <td id="eventStart"></td>
                             <th>End:</th>
-                            <td id="eventEnd">event.end</td>
+                            <td id="eventEnd"></td>
                         </tr>
                         <tr>
                             <th>Type:</th>
-                            <td id="eventType">event.type</td>
+                            <td id="eventType"></td>
                         </tr>
                         <tr>
                             <!-- TODO: setup allday to be a true/false button -->
                             <th>All Day:</th>
-                            <td>event.allDay</td>
+                            <td>
+                                <label class="switch">
+                                <input id="allDayCheckbox" type="checkbox" disabled>
+                                <span class="slider round"></span>
+                              </label>
+                            </td>
                         </tr>
                         <tr>
                             <th>Desciption:</th>
