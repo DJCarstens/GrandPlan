@@ -74,7 +74,7 @@ public class GrandPlanController {
     }
 
     User validUser = user.convertUser();
-    if(loginService.validateUserCredentials(validUser) != null){
+    if(loginService.validateUserCredentials(validUser) == null){
       model.addAttribute("messageModal", "An account for " + user.getEmail() + ". Please check your signup details and try again, or login if you have an account.");
       model.addAttribute("button", "login");
       return "signup";
