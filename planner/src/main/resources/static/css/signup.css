@@ -42,7 +42,6 @@
 }
 
 .btnSubmit{
-    font-weight: 600;
     width: 80%;
     color: white;
     background-color: #C72F2E;
@@ -76,4 +75,8 @@ a:hover{
 
 label{
     color: red;
+}
+
+.center{
+    margin-left: 33%;
 }
