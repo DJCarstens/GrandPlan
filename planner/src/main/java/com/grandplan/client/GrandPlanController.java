@@ -99,18 +99,24 @@ public class GrandPlanController {
     //For testing purposes. Need to remove
     events = new ArrayList<Event>();
 
-    Event event2 = new Event();
-    event2.setTitle("second event");
-    event2.setDate("2020-03-02");
-    event2.setStart("10:00");
-    event2.setEnd("10:30");
+    Event event2 = Event.builder().title("second event")
+                          .start("2020-03-02T10:00")
+                          .end("2020-03-02T10:30")
+                          .allDay(false)
+                          .color("")
+                          .type("test")
+                          .description("")
+                          .build();
     events.add(event2);
 
-    Event event3 = new Event();
-    event3.setTitle("third event: call");
-    event3.setDate("2020-02-15");
-    event3.setStart("11:00");
-    event3.setEnd("12:00");
+    Event event3 = Event.builder().title("third event: call")
+                          .start("2020-02-15T11:00")
+                          .end("2020-02-15T12:00")
+                          .allDay(false)
+                          .color("")
+                          .type("test")
+                          .description("")
+                          .build();
     events.add(event3);
     events.add(event3);
     events.add(event3);
@@ -137,11 +143,14 @@ public class GrandPlanController {
   public String invites(Model model) {
     invites = new ArrayList<Event>();
 
-    Event event2 = new Event();
-    event2.setTitle("second event");
-    event2.setDate("2020-03-02");
-    event2.setStart("10:00");
-    event2.setEnd("10:30");
+    Event event2 = Event.builder().title("second event")
+                          .start("2020-03-02T10:00")
+                          .end("2020-03-02T10:30")
+                          .allDay(false)
+                          .color("")
+                          .type("test")
+                          .description("")
+                          .build();
     invites.add(event2);
     invites.add(event2);
 
