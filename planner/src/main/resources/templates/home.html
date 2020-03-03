@@ -19,9 +19,23 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.3.0/fullcalendar.min.js"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var calendar = $("#calendar").fullCalendar({
+    <script type="text/javascript">   
+        function formatDate(date) {
+            var monthNames = [
+                "January", "February", "March",
+                "April", "May", "June", "July",
+                "August", "September", "October",
+                "November", "December"
+            ];
+
+            var day = date.getDate();
+            var monthIndex = date.getMonth();
+            var year = date.getFullYear();
+
+            return day + ' ' + monthNames[monthIndex] + ' ' + year;
+        }
+        $(document).ready(function(){
+            var calendar = $("#calendar").fullCalendar({  
                 header: {
                     left: 'prev,next today',
                     center: 'title',
@@ -31,10 +45,38 @@
                 editable: true,
                 eventLimit: true,
                 events: {
-                    url: '/api/event/all'
-                }
-            });
-        });
+                    url : '/api/event/all'
+                },
+                eventClick: function(event, jsEvent, view) {
+                                $('#eventTitle').html('<span>' + event.title + '</span>');
+                                $('#eventStart').html('<span>' + formatDate(new Date(event.start)) + '</span>');
+                                $('#eventEnd').html('<span>' + formatDate(new Date(event.end)) + '</span>');
+                                $('#eventType').html('<span>' + event.type + '</span>');
+                                $('#eventDescription').html('<span>' + event.description + '</span>');
+                                $('#eventDetailsModal').css('display: block;');
+                                if (event.allDay === true){
+                                    $('#allDayCheckbox').prop("checked", true);;
+                                } else {
+                                    $('#allDayCheckbox').prop("checked", false);;
+                                }
+                               
+                                var modal = document.getElementById("eventDetailsModal");
+                                modal.style.display = "block";
+
+                                var span = document.getElementsByClassName("close")[0];
+                                span.onclick = function() {
+                                    modal.style.display = "none";
+                                }
+
+                                window.onclick = function(event) {
+                                    if (event.target == modal) {
+                                        modal.style.display = "none";
+                                    }
+                                }
+                                return false;
+                            }
+                        });
+                    });
     </script>
 </head>
 
@@ -69,6 +111,43 @@
         </div>
     </nav>
     <div class="container home-container">
+        <div id="eventDetailsModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2 id="eventTitle"></h2>
+                </div>
+                <div class="modal-body">
+                    <table style="width:80%">
+                        <tr>
+                            <th>Start:</th>
+                            <td id="eventStart"></td>
+                            <th>End:</th>
+                            <td id="eventEnd"></td>
+                        </tr>
+                        <tr>
+                            <th>Type:</th>
+                            <td id="eventType"></td>
+                        </tr>
+                        <tr>
+                            <!-- TODO: setup allday to be a true/false button -->
+                            <th>All Day:</th>
+                            <td>
+                                <label class="switch">
+                                <input id="allDayCheckbox" type="checkbox" disabled>
+                                <span class="slider round"></span>
+                              </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Desciption:</th>
+                            <td id="eventDescription">event.description</td>
+                        </tr>
+                        <tr>
+                    </table>
+                </div>
+            </div>
+        </div>
         <div id='calendar'></div>
     </div>
 </body>
