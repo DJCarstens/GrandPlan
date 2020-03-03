@@ -44,20 +44,19 @@ public class GrandPlanController {
 
   @PostMapping(value = "/validateLogin")
   public String validateLogin(@Valid @ModelAttribute("user") UserValidation user, BindingResult bindingResult, Model model){
+    User validUser = new User();
     if(bindingResult.hasErrors()){
-      if (user.getFirstName().isEmpty()
-        && user.getLastName().isEmpty() 
-        && user.getPhone().isEmpty()
-        && user.getConfirmPassword().isEmpty()
+      if (user.isLogin
         && !user.getEmail().isEmpty()
         && !user.getPassword().isEmpty()
-      ){}
+      ){
+        validUser = user.convertUser();
+      }
       else{
         return "login";
       }
     }
 
-    User validUser = user.convertUser();
     if(loginService.validateUserCredentials(validUser) == null){
       model.addAttribute("messageModal", "Your account was not found. Please check your login details and try again, or signup if you do not have an account.");
       model.addAttribute("button", "signup");
@@ -65,12 +64,14 @@ public class GrandPlanController {
     }
     else{
       model.addAttribute("user", validUser);
+      user.isLogin = false;
       return "home";
     }
   }
 
   @PostMapping(value = "/validateSignup")
   public String validateSignup(@Valid @ModelAttribute("user") UserValidation user, BindingResult bindingResult, Model model){
+    user.isLogin = false;
     if(bindingResult.hasErrors()){
       return "signup";
     }
@@ -84,7 +85,7 @@ public class GrandPlanController {
     if(loginService.validateUserCredentials(validUser) != null){
       model.addAttribute("messageModal", "An account for " + user.getEmail() + ". Please check your signup details and try again, or login if you have an account.");
       model.addAttribute("button", "login");
-      return "login";
+      return "signup";
     }
 
     model.addAttribute("user", validUser);

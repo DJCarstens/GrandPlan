@@ -46,6 +46,8 @@ public class UserValidation{
     @NotEmpty(message="Please re-enter your password")
     private String confirmPassword = "";
 
+    public boolean isLogin = true;
+
     public User convertUser(){
         User validUser = new User();
         validUser.setEmail(this.getEmail());
