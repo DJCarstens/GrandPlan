@@ -6,9 +6,11 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.grandplan.server.services.ApiLoginService;
 import com.grandplan.util.Event;
 import com.grandplan.util.User;
-import com.grandplan.client.services.LoginService;
+
+import com.grandplan.client.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,37 +29,41 @@ public class GrandPlanController {
   private String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
   @Autowired
-  private LoginService loginService;
+  private ApiLoginService loginService;
 
   @GetMapping("/login")
   public String login(Model model) {
-    model.addAttribute("user", new User());
+    model.addAttribute("user", new Login());
     return "login";
   }
 
   @GetMapping("/signup")
   public String signup(Model model) {
-    model.addAttribute("user", new User());
+    model.addAttribute("user", new Signup());
     return "signup";
   }
 
   @PostMapping(value = "/validateLogin")
-  public String validate(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model){
+  public String validateLogin(@Valid @ModelAttribute("user") Login user, BindingResult bindingResult, Model model){
     if(bindingResult.hasErrors()){
-      return (user.getFirstName().equals(null) || user.getLastName().equals(null) || user.getPhone().equals(null) || user.getConfirmPassword().equals(null))
-        ? "home"
-        : "login";
+      return "login";
     }
-    model.addAttribute("user", user);
-    return "home";
+
+    User validUser = user.convertUser();
+    if(loginService.validateUserCredentials(validUser) == null){
+      model.addAttribute("messageModal", "Your account was not found. Please check your login details and try again, or signup if you do not have an account.");
+      model.addAttribute("button", "signup");
+      return "login";
+    }
+    else{
+      model.addAttribute("user", validUser);
+      return "home";
+    }
   }
 
   @PostMapping(value = "/validateSignup")
-  public String validateSignup(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model){
+  public String validateSignup(@Valid @ModelAttribute("user") Signup user, BindingResult bindingResult, Model model){
     if(bindingResult.hasErrors()){
-      if(!user.getPassword().equals(user.getConfirmPassword())){
-        model.addAttribute("matchingPasswordError", "The passwords don't match");
-      }
       return "signup";
     }
 
@@ -66,7 +72,14 @@ public class GrandPlanController {
       return "signup";
     }
 
-    model.addAttribute("user", user);
+    User validUser = user.convertUser();
+    if(loginService.validateUserCredentials(validUser) != null){
+      model.addAttribute("messageModal", "An account for " + user.getEmail() + ". Please check your signup details and try again, or login if you have an account.");
+      model.addAttribute("button", "login");
+      return "signup";
+    }
+
+    model.addAttribute("user", validUser);
     return "home";
   }
 
