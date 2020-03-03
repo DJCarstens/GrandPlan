@@ -47,6 +47,10 @@ h3{
     text-transform: uppercase;
 }
 
+button.modal-button{
+    padding: 0.85rem 0.5rem 0.85rem 0.5rem;
+}
+
 .modal-button:hover{
     color: white;
     text-decoration: none;

@@ -44,28 +44,30 @@ public class GrandPlanController {
 
   @PostMapping(value = "/validateLogin")
   public String validateLogin(@Valid @ModelAttribute("user") UserValidation user, BindingResult bindingResult, Model model){
-    User validUser = new User();
-    if(bindingResult.hasErrors()){
-      if (user.isLogin
-        && !user.getEmail().isEmpty()
-        && !user.getPassword().isEmpty()
-      ){
-        validUser = user.convertUser();
-      }
-      else{
-        return "login";
-      }
-    }
+    // User validUser = new User();
+    // if(bindingResult.hasErrors()){
+    //   if (user.isLogin
+    //     && !user.getEmail().isEmpty()
+    //     && !user.getPassword().isEmpty()
+    //   ){
+    //     validUser = user.convertUser();
+    //   }
+    //   else{
+    //     return "login";
+    //   }
+    // }
 
-    if(loginService.validateUserCredentials(validUser) == null){
-      showModal(model, "Your account was not found. Please check your login details and try again, or signup if you do not have an account.", "signup");
+    // if(loginService.validateUserCredentials(validUser) == null){
+    //   showModal(model, "Your account was not found. Please check your login details and try again, or signup if you do not have an account.", "signup");
+    //   return "login";
+    // }
+    // else{
+    //   model.addAttribute("user", validUser);
+    //   user.isLogin = false;
+    //   return "home";
+    // }
+    showModal(model, "Your account was not found. Please check your login details and try again, or signup if you do not have an account.", "signup");
       return "login";
-    }
-    else{
-      model.addAttribute("user", validUser);
-      user.isLogin = false;
-      return "home";
-    }
   }
 
   @PostMapping(value = "/validateSignup")
