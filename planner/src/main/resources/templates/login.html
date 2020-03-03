@@ -20,12 +20,12 @@
                 <div class="form-group" style="margin-top: 10% !important">
                     <input type="text" id="email" class="form-control" placeholder="Email Address" value=""
                         th:field="*{email}" />
-                    <label th:if="${emailError}" th:text="${emailError}" id="emailError"></label>
+                    <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}" id="emailError"></label>
                 </div>
                 <div class="form-group" style="margin-top: 20px;">
                     <input type="password" id="password" class="form-control" placeholder="Password" value=""
                         th:field="*{password}" />
-                    <label th:if="${passwordError}" th:text="${passwordError}" id="passwordError"></label>
+                    <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}" id="passwordError"></label>
                 </div>
                 <button type="submit" class="btn btnSubmit">LOGIN</button>
                 <p>Don't have an account? <a href="signup">SIGN UP</a></p>

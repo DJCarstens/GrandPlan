@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import java.util.Optional;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 @Data
 @Entity
@@ -16,10 +17,23 @@ import java.util.Optional;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User{
+    @NotEmpty(message="Please provide your email")
+    @Pattern(regexp="^[\\w.+\\-]+@bbd\\.co\\.za$", message="Please provide a valid email")
     private @Id String email;
-    private Optional<String> firstName = Optional.empty();
-    private Optional<String> lastName = Optional.empty();
-    private Optional<String> phone = Optional.empty();
+
+    @NotEmpty(message="Please provide your first name")
+    private String firstName;
+
+    @NotEmpty(message="Please provide your last name")
+    private String lastName;
+
+    @NotEmpty(message="Please provide your number")
+    @Pattern(regexp="^[0-9]$", message="Please provide a valid number")
+    private String phone;
+
+    @NotEmpty(message="Please provide your password")
     private String password;
-    private Optional<String> confirmPassword = Optional.empty();
+
+    @NotEmpty(message="Please re-enter your password")
+    private String confirmPassword;
 }
