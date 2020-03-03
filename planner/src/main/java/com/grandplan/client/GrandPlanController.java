@@ -51,8 +51,7 @@ public class GrandPlanController {
 
     User validUser = user.convertUser();
     if(loginService.validateUserCredentials(validUser) == null){
-      model.addAttribute("messageModal", "Your account was not found. Please check your login details and try again, or signup if you do not have an account.");
-      model.addAttribute("button", "signup");
+      showModal(model, "Your account was not found. Please check your login details and try again, or signup if you do not have an account.", "signup");
       return "login";
     }
     else{
