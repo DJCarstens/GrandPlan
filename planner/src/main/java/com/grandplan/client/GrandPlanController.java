@@ -10,7 +10,8 @@ import com.grandplan.server.services.ApiLoginService;
 import com.grandplan.util.Event;
 import com.grandplan.util.User;
 
-import com.grandplan.client.util.*;
+import com.grandplan.client.util.LoginUser;
+import com.grandplan.client.util.SignupUser;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,18 +34,18 @@ public class GrandPlanController {
 
   @GetMapping("/login")
   public String login(Model model) {
-    model.addAttribute("user", new Login());
+    model.addAttribute("user", new LoginUser());
     return "login";
   }
 
   @GetMapping("/signup")
   public String signup(Model model) {
-    model.addAttribute("user", new Signup());
+    model.addAttribute("user", new SignupUser());
     return "signup";
   }
 
   @PostMapping(value = "/validateLogin")
-  public String validateLogin(@Valid @ModelAttribute("user") Login user, BindingResult bindingResult, Model model){
+  public String validateLogin(@Valid @ModelAttribute("login") LoginUser user, BindingResult bindingResult, Model model){
     if(bindingResult.hasErrors()){
       return "login";
     }
@@ -62,7 +63,7 @@ public class GrandPlanController {
   }
 
   @PostMapping(value = "/validateSignup")
-  public String validateSignup(@Valid @ModelAttribute("user") Signup user, BindingResult bindingResult, Model model){
+  public String validateSignup(@Valid @ModelAttribute("user") SignupUser user, BindingResult bindingResult, Model model){
     if(bindingResult.hasErrors()){
       return "signup";
     }
@@ -73,7 +74,7 @@ public class GrandPlanController {
     }
 
     User validUser = user.convertUser();
-    if(loginService.validateUserCredentials(validUser) != null){
+    if(loginService.validateUserCredentials(validUser) == null){
       model.addAttribute("messageModal", "An account for " + user.getEmail() + ". Please check your signup details and try again, or login if you have an account.");
       model.addAttribute("button", "login");
       return "signup";
@@ -99,18 +100,24 @@ public class GrandPlanController {
     //For testing purposes. Need to remove
     events = new ArrayList<Event>();
 
-    Event event2 = new Event();
-    event2.setTitle("second event");
-    event2.setDate("2020-03-02");
-    event2.setStart("10:00");
-    event2.setEnd("10:30");
+    Event event2 = Event.builder().title("second event")
+                          .start("2020-03-02T10:00")
+                          .end("2020-03-02T10:30")
+                          .allDay(false)
+                          .color("")
+                          .type("test")
+                          .description("")
+                          .build();
     events.add(event2);
 
-    Event event3 = new Event();
-    event3.setTitle("third event: call");
-    event3.setDate("2020-02-15");
-    event3.setStart("11:00");
-    event3.setEnd("12:00");
+    Event event3 = Event.builder().title("third event: call")
+                          .start("2020-02-15T11:00")
+                          .end("2020-02-15T12:00")
+                          .allDay(false)
+                          .color("")
+                          .type("test")
+                          .description("")
+                          .build();
     events.add(event3);
     events.add(event3);
     events.add(event3);
@@ -137,11 +144,14 @@ public class GrandPlanController {
   public String invites(Model model) {
     invites = new ArrayList<Event>();
 
-    Event event2 = new Event();
-    event2.setTitle("second event");
-    event2.setDate("2020-03-02");
-    event2.setStart("10:00");
-    event2.setEnd("10:30");
+    Event event2 = Event.builder().title("second event")
+                          .start("2020-03-02T10:00")
+                          .end("2020-03-02T10:30")
+                          .allDay(false)
+                          .color("")
+                          .type("test")
+                          .description("")
+                          .build();
     invites.add(event2);
     invites.add(event2);
 
