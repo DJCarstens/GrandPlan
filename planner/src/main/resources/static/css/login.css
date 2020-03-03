@@ -42,7 +42,6 @@
 }
 
 .btnSubmit{
-    font-weight: 600;
     width: 100%;
     color: white;
     background-color: #C72F2E;
@@ -53,7 +52,6 @@
 }
 
 .btnSubmit:hover{
-    color: white;
     box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2), 0 0.5625rem 1.625rem 0 rgba(0, 0, 0, 0.19);
 }
 
