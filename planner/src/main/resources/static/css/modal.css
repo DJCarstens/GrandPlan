@@ -58,14 +58,15 @@ button.modal-button{
     box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2), 0 0.5625rem 1.625rem 0 rgba(0, 0, 0, 0.19);
 }
 
-p{
-    color: rgb(54, 54, 54);
-    font-size: 2.5rem;
-    position: absolute;
-    margin-top: 0.01%;
-    margin-left: 31%;
+a{
+    color: white;
 }
 
-p:hover{
-    font-size: 3rem;
+a:hover{
+    color: white;
+}
+
+i{
+    font-size: 20px;
+    z-index: 7 !important;
 }

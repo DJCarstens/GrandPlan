@@ -15,7 +15,7 @@
 <body>
     <div th:fragment="modal-fragment" class="modal-container text-center">
         <div class="modal-header">
-            <p onclick="closeModal()">x</p>
+            <i onclick="closeModal()" class="far fa-times-circle"></i>
         </div>
         <h3 th:text="${messageModal}"></h3>
         <button class="modal-button"><a th:text="${button}" th:href="${button}"></a></button>&nbsp&nbsp<button
