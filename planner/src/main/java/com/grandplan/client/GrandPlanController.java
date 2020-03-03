@@ -1,9 +1,6 @@
 package com.grandplan.client;
 
 import com.grandplan.util.User;
-import com.grandplan.client.util.*;
-
-import javax.validation.Valid;
 
 import com.grandplan.client.services.LoginService;
 
@@ -35,19 +32,14 @@ public class GrandPlanController {
   }
 
   @PostMapping(value = "/validateLogin")
-  public String validate(@Valid @ModelAttribute("user") Login user, BindingResult bindingResult, Model model){
-    if(bindingResult.hasErrors()){
-      return "login";
-    }
-
-    
+  public String validate(@ModelAttribute("user") User user, BindingResult bindingResult, Model model){    
     if(loginService.validateLogin(user, mainModel)){
       //TODO: validate whether user exists or not before navigation
       //If user exists and info matches, navigate to "home" else navigate to "signup"
       return "home";
     }
     else{
-      
+      return "login";
     }
   }
 
