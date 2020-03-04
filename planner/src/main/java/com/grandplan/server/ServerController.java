@@ -41,4 +41,17 @@ public class ServerController {
             return new ResponseEntity<>(httpHeaders, HttpStatus.NOT_FOUND);
         }
     }
+    @GetMapping("/listUsers") //view users that are currently stored in the repository
+    public ResponseEntity<Iterable<User>> list() {
+        return ResponseEntity.ok(apiLoginService.list());
+    }
+    @PostMapping("/addUser")
+    public void updateUserRepository(@RequestBody User user)
+    {
+        if(user.getEmail()!=null) { //user needs to at least have an email to uniquely identify it
+            System.out.println("New user added"+user.toString());
+            apiLoginService.save(user);
+            apiLoginService.writeUser(user);
+        }
+    }
 }
