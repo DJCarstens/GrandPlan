@@ -31,9 +31,7 @@
                     <input type="text" id="members" class="form-control" placeholder="Members" value="" />
                 </div>
                 <!-- calendar display -->
-                <div class="form-group">
-                    <input type="text" id="availability" class="form-control" placeholder="availability" value="" />
-                </div>
+                <label>Availability options</label>
                 <br />
                 <div class="row">
                     <div class="form-group col-md-5">
@@ -51,16 +49,18 @@
                 </div>
                 <br />
                 <label>Event Extras</label>
-                <div class="form-group">
-                    <input type="text" id="tag" class="form-control" placeholder="Tags" value="" />
-                    <div id="tags" class="tags"></div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <input type="text" id="tag" class="form-control" placeholder="Tags" value="" />
+                        <div id="tags" class="tags"></div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input type="text" id="color" class="form-controle" value="" hidden />
+                        <button class="color-picker-button" id="color-picker">Set color for this event</button>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <input type="text" id="color" class="form-controle" value="" hidden />
-                    <button class="color-picker-button" id="color-picker">Set color for this event</button>
-                </div>
-                <button type="submit" class="form-button">Create </button><button class="form-button"
-                    id="close-create">Cancel</button>
+                <button type="submit" class="form-button" style="margin-left: 17%;">Create </button><button
+                    class="form-button" id="close-create" style="margin-left: 5%;">Cancel</button>
                 <br /><br /><br />
             </form>
         </div>
