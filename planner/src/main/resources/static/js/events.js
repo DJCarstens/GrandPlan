@@ -7,6 +7,21 @@ $(document).ready(function () {
     $("#createEvent").click(function () {
         $('#events-modal').css('display', 'block');
     });
+    $("#createEvent").click(function() {
+        $('#eventCreateCalendar').fullCalendar({  
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                navLinks: true,
+                editable: true,
+                eventLimit: true,
+                events: {
+                    url : '/api/event/all'
+                }
+        });
+    });
 
     $('#color-picker').colorpicker({
         format: null,
