@@ -34,54 +34,58 @@ public class GrandPlanController {
 
   @GetMapping("/login")
   public String login(Model model) {
-    model.addAttribute("user", new LoginUser());
+    model.addAttribute("loginUser", new LoginUser());
     return "login";
   }
 
   @GetMapping("/signup")
   public String signup(Model model) {
-    model.addAttribute("user", new SignupUser());
+    model.addAttribute("signupUser", new SignupUser());
     return "signup";
   }
 
   @PostMapping(value = "/validateLogin")
-  public String validateLogin(@Valid @ModelAttribute("login") LoginUser user, BindingResult bindingResult, Model model){
+  public String validateLogin(@Valid @ModelAttribute("loginUser") LoginUser loginUser, BindingResult bindingResult, Model model){
     if(bindingResult.hasErrors()){
       return "login";
     }
 
-    User validUser = user.convertUser();
-    if(loginService.validateUserCredentials(validUser) == null){
-      model.addAttribute("messageModal", "Your account was not found. Please check your login details and try again, or signup if you do not have an account.");
-      model.addAttribute("button", "signup");
+    User user = loginService.validateUserCredentials(loginUser.convertUser());
+    if(user == null){
+      showModal(model, "Your account was not found. Please check your login details and try again, or signup if you do not have an account.", "signup");
       return "login";
     }
     else{
-      model.addAttribute("user", validUser);
+      model.addAttribute("user", user);
       return "home";
     }
   }
 
   @PostMapping(value = "/validateSignup")
-  public String validateSignup(@Valid @ModelAttribute("user") SignupUser user, BindingResult bindingResult, Model model){
+  public String validateSignup(@Valid @ModelAttribute("signupUser") SignupUser signupUser, BindingResult bindingResult, Model model){
     if(bindingResult.hasErrors()){
       return "signup";
     }
 
-    if(!user.getPassword().equals(user.getConfirmPassword())){
+    if(!signupUser.getPassword().equals(signupUser.getConfirmPassword())){
       model.addAttribute("matchingPasswordError", "The passwords don't match");
       return "signup";
     }
 
-    User validUser = user.convertUser();
-    if(loginService.validateUserCredentials(validUser) == null){
-      model.addAttribute("messageModal", "An account for " + user.getEmail() + ". Please check your signup details and try again, or login if you have an account.");
-      model.addAttribute("button", "login");
+    User user = signupUser.convertUser();
+    if(loginService.validateUserCredentials(user) != null){
+      showModal(model, "An account for " + signupUser.getEmail() + ". Please check your signup details and try again, or login if you have an account.", "login");
       return "signup";
     }
 
-    model.addAttribute("user", validUser);
+    //stiil need to create user before adding to model attribute
+    model.addAttribute("user", user);
     return "home";
+  }
+
+  public void showModal(Model model, String message, String button){
+    model.addAttribute("messageModal", message);
+    model.addAttribute("button", button);
   }
 
   @GetMapping("/")
