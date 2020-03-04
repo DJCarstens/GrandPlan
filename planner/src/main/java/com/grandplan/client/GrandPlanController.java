@@ -72,12 +72,13 @@ public class GrandPlanController {
       return "signup";
     }
 
-    User user = loginService.validateUserCredentials(signupUser.convertUser());
-    if(user != null){
+    User user = signupUser.convertUser();
+    if(loginService.validateUserCredentials(user) != null){
       showModal(model, "An account for " + signupUser.getEmail() + ". Please check your signup details and try again, or login if you have an account.", "login");
       return "signup";
     }
 
+    //stiil need to create user before adding to model attribute
     model.addAttribute("user", user);
     return "home";
   }
