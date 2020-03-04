@@ -1,6 +1,5 @@
 package com.grandplan.server;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.grandplan.server.repositories.UserRepo;
 import com.grandplan.util.User;
 import lombok.extern.slf4j.Slf4j;
@@ -8,14 +7,10 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.servlet.ServletContextListener;
 import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,11 +24,10 @@ public class LoadDatabase {
             for (User user : users) {
                 log.info("Preloading " + repository.save(user));
             }
-            //users = repository.findAll();
-            //writeListOfUsers(users);
-            log.info("Preloading " + repository.save(new User("grad@bbd.com","grad","","0814568825","password")));
+            log.info("Preloading " + repository.save(new User("grad@bbd.com", "grad", "", "0814568825", "password")));
         };
     }
+
     private List<User> getListOfUsers() {
 
         JSONParser parser = new JSONParser();
@@ -56,6 +50,4 @@ public class LoadDatabase {
         }
         return users;
     }
-
-
 }

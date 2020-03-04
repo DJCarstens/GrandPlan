@@ -32,27 +32,23 @@ public class ServerController {
     }
 
     @PostMapping("/validateLogin")
-    public ResponseEntity<User> validate(@RequestBody User user){
-        if(user!=null && apiLoginService.validateUserCredentials(user)!=null) {
+    public ResponseEntity<User> validate(@RequestBody User user) {
+        if (user != null && apiLoginService.validateUserCredentials(user) != null) {
             return ResponseEntity.ok(user);
-        }
-        else {
+        } else {
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.set("x-error-code", "Username and password combination does not match");
             return new ResponseEntity<>(httpHeaders, HttpStatus.NOT_FOUND);
         }
     }
+
     @GetMapping("/listUsers") //view users that are currently stored in the repository
     public ResponseEntity<Iterable<User>> list() {
         return ResponseEntity.ok(apiLoginService.list());
     }
+
     @PostMapping("/addUser")
-    public void updateUserRepository(@RequestBody User user)
-    {
-        if(user.getEmail()!=null) { //user needs to at least have an email to uniquely identify it
-            System.out.println("New user added"+user.toString());
-            apiLoginService.save(user);
-            apiLoginService.writeUser(user);
-        }
+    public void addUser(@RequestBody User user) {
+        apiLoginService.save(user);
     }
 }

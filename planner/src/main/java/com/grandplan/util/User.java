@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Entity
 @Builder
 @AllArgsConstructor
-
+@NoArgsConstructor
 public class User implements Serializable { //serializable allows to read and write user objects
 
     private @Id String email;

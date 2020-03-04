@@ -6,7 +6,6 @@ import com.grandplan.util.User;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -29,20 +28,24 @@ public class ApiLoginService {
             return null;
         } else {
             return fetchedUser;
-         }
         }
+    }
 
-        public Iterable<User> list() {
+    public Iterable<User> list() {
         return userRepo.findAll();
     }
 
-    //saves a single user
     public User save(User user) {
-
-        return userRepo.save(user);
+        User response = userRepo.save(user);
+        writeListOfUsers(getUsers()); //overwrites current list of users in Users.json
+        return response;
     }
-    public void writeListOfUsers(List<User> users) {
 
+    public List<User> getUsers() {
+        return userRepo.findAll();
+    }
+
+    private void writeListOfUsers(List<User> users) {
         ObjectMapper mapper = new ObjectMapper();
         JSONArray jsonObjects = new JSONArray();
         for (Object object : users) {
@@ -58,7 +61,7 @@ public class ApiLoginService {
             FileWriter file = new FileWriter("src/main/resources/data/Users.json", false);//false indicates that Users.json will get overridden with the current user data
             String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObjects);
             file.write(indented);
-            file.write(String.valueOf(new User("test@bbd.com","","","","")));
+            file.write(String.valueOf(new User("test@bbd.com", "", "", "", "")));
             System.out.println("JSON file updated: " + jsonObjects);
             file.close();
         } catch (IOException e) {
@@ -66,26 +69,4 @@ public class ApiLoginService {
             e.printStackTrace();
         }
     }
-    public void writeUser(User user) {
-
-        ObjectMapper mapper = new ObjectMapper();
-        JSONObject jsonObject = new JSONObject();
-            jsonObject.put("email", user.getEmail());
-            jsonObject.put("password", user.getPassword());
-            jsonObject.put("firstName", user.getFirstName());
-            jsonObject.put("lastName", user.getLastName());
-            jsonObject.put("phone", user.getPhone());
-        try {
-            FileWriter file = new FileWriter("src/main/resources/data/Users.json", false);//false indicates that Users.json will get overridden with the current user data
-            String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject);
-            file.write(indented);
-            file.write(String.valueOf(new User("test@bbd.com","","","","")));
-            System.out.println("New user added to JSON file");
-            file.close();
-        } catch (IOException e) {
-            System.out.println("Unable to write User to Users.json");
-            e.printStackTrace();
-        }
-    }
 }
-
