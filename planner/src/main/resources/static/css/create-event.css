@@ -17,7 +17,7 @@
 
 .modal-div{
     background-color: white;
-    width: 35%;
+    width: 60%;
     margin: auto;
     margin-top: 6%;
 }
@@ -32,7 +32,7 @@
     font-size: 3rem;
     color: white;
     margin-top: 0.1rem;
-    margin-left: 45%;
+    margin-left: 50%;
 }
 
 .close-modal{
@@ -55,11 +55,10 @@
     border: none;
     color: white;
     border-radius: 0.3125rem;
-    padding: 2%;
-    width: 49%;
+    padding: 0.9rem;
+    width: 30%;
     font-size: 1.5rem;
-    margin-top: 4%;
-    margin-left: 1%;
+    margin-top: 3%;
 }
 
 .checkbox-label{
