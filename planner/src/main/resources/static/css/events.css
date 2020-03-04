@@ -32,6 +32,10 @@
   box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2);
 }
 
+em{
+  font-size: 3rem;
+}
+
 .icon-container{
   background-color: white;
   border-radius: 50%;
@@ -40,21 +44,20 @@
   margin: auto;
 }
 
+.icon-container em{
+  margin-top: 17%;
+  margin-left: 23%;
+}
+
 .clearfix{
   height: 0.75rem !important;
 }
 
-em{
-  font-size: 3rem;
-  margin-top: 0.7rem;
-  margin-left: 1.1rem;
-}
-
 .title{
-  margin-top: 0.25rem !important;
+  margin-top: 4%;
   font-size: 1.8rem;
   text-transform: uppercase;
-  margin-bottom: 1rem;
+  margin-bottom: 3%;
 }
 
 .item-heading{
@@ -62,7 +65,7 @@ em{
 }
 
 .attendees-icon{
-  margin-left: 22rem;
+  margin-left: 70%;
 }
 
 .attendees-icon em:hover{

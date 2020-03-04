@@ -47,10 +47,9 @@ public class GrandPlanController {
             return "login";
         }
 
-        User user = loginUser.convertUser();
-        if (loginService.validateUserCredentials(user) == null) {
-            model.addAttribute("messageModal", "Your account was not found. Please check your login details and try again, or signup if you do not have an account.");
-            model.addAttribute("button", "signup");
+        User user = loginService.validateUserCredentials(loginUser.convertUser());
+        if (user == null) {
+            showModal(model, "Your account was not found. Please check your login details and try again, or signup if you do not have an account.", "signup");
             return "login";
         } else {
             model.addAttribute("user", user);
@@ -70,21 +69,27 @@ public class GrandPlanController {
         }
 
         User user = signupUser.convertUser();
-        if (loginService.validateUserCredentials(user) == null) {
-            model.addAttribute("messageModal", "An account for " + signupUser.getEmail() + ". Please check your signup details and try again, or login if you have an account.");
-            model.addAttribute("button", "login");
+        //TODO Check that if user exists when creating user instead of doing it here
+        if (loginService.validateUserCredentials(user) != null) {
+            showModal(model, "An account for " + signupUser.getEmail() + ". Please check your signup details and try again, or login if you have an account.", "login");
             return "signup";
         }
 
+        //TODO Create user and save details before navigating (backend functionality)
         model.addAttribute("user", user);
         return "home";
+    }
+
+    public void showModal(Model model, String message, String button) {
+        model.addAttribute("messageModal", message);
+        model.addAttribute("button", button);
     }
 
     @GetMapping("/")
     public String home(Model model) {
         //Temporary user assignment until the login has been completed
         if (currentUser == null) {
-            //currentUser = new User();
+            currentUser = new User();
             currentUser.setFirstName("Testy McTestface");
         }
         model.addAttribute("user", currentUser);
