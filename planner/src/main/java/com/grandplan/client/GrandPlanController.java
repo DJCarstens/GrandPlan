@@ -78,7 +78,7 @@ public class GrandPlanController {
       return "signup";
     }
 
-    //stiil need to create user before adding to model attribute
+    //TODO Create user and save details before navigating (backend functionality)
     model.addAttribute("user", user);
     return "home";
   }
