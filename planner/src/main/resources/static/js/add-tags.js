@@ -7,8 +7,10 @@ $(document).ready(function(){
             $("<span/>", {
                 text:txt.toLowerCase(),
                 appendTo:"#tags",
-                class:"dashfolio-tag"
+                class:"dashfolio-tag",
+                id:"tag-element"
             });
+            $('#tag').css('display', 'none');
         }
           this.value = "";
         },
@@ -17,7 +19,8 @@ $(document).ready(function(){
         }
       });
       $('.tags').on('click', 'span', function() {
-        if(confirm("Remove "+ $(this).text() +"?")) $(this).remove(); 
+        $(this).remove(); 
+        $('#tag').css('display', 'block');
       });
     
     });

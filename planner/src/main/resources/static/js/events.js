@@ -26,6 +26,7 @@ $(document).ready(function () {
     }).on('changeColor', function (value) {
         $('#color-picker').css('background-color', value.color.toHex());
         $("#color").prop("value", value.color.toHex());
+        $('#tag-element').css('background-color', value.color.toHex());
     });
 
     $('#close-create').click(function () {
