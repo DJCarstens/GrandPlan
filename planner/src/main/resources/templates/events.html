@@ -97,6 +97,10 @@
         $('#close-create').click(function () {
             $('#events-modal').css('display', 'none');
         });
+
+        $('#allDay').click(function () {
+            $('#end').attr('disabled', !$(this).attr('checked'));
+        })
     });
 </script>
 
