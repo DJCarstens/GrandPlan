@@ -50,13 +50,13 @@ public class GrandPlanController {
       return "login";
     }
 
-    User validUser = loginUser.convertUser();
-    if(loginService.validateUserCredentials(validUser) == null){
+    User user = loginService.validateUserCredentials(loginUser.convertUser());
+    if(user == null){
       showModal(model, "Your account was not found. Please check your login details and try again, or signup if you do not have an account.", "signup");
       return "login";
     }
     else{
-      model.addAttribute("user", loginUser);
+      model.addAttribute("user", user);
       return "home";
     }
   }
@@ -72,13 +72,13 @@ public class GrandPlanController {
       return "signup";
     }
 
-    User validUser = signupUser.convertUser();
-    if(loginService.validateUserCredentials(validUser) != null){
+    User user = loginService.validateUserCredentials(signupUser.convertUser());
+    if(user != null){
       showModal(model, "An account for " + signupUser.getEmail() + ". Please check your signup details and try again, or login if you have an account.", "login");
       return "signup";
     }
 
-    model.addAttribute("user", signupUser);
+    model.addAttribute("user", user);
     return "home";
   }
 
