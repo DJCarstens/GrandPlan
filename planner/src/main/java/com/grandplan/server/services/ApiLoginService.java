@@ -31,10 +31,6 @@ public class ApiLoginService {
         }
     }
 
-    public Iterable<User> list() {
-        return userRepo.findAll();
-    }
-
     public User save(User user) {
         User response = userRepo.save(user);
         writeListOfUsers(getUsers()); //overwrites current list of users in Users.json

@@ -44,7 +44,7 @@ public class ServerController {
 
     @GetMapping("/listUsers") //view users that are currently stored in the repository
     public ResponseEntity<Iterable<User>> list() {
-        return ResponseEntity.ok(apiLoginService.list());
+        return ResponseEntity.ok(apiLoginService.getUsers());
     }
 
     @PostMapping("/addUser")
