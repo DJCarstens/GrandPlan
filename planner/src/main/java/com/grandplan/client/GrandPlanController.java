@@ -73,12 +73,13 @@ public class GrandPlanController {
     }
 
     User user = signupUser.convertUser();
+    //TODO Check that if user exists when creating user instead of doing it here
     if(loginService.validateUserCredentials(user) != null){
       showModal(model, "An account for " + signupUser.getEmail() + ". Please check your signup details and try again, or login if you have an account.", "login");
       return "signup";
     }
 
-    //stiil need to create user before adding to model attribute
+    //TODO Create user and save details before navigating (backend functionality)
     model.addAttribute("user", user);
     return "home";
   }
