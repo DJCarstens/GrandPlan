@@ -12,12 +12,14 @@ import java.io.Serializable;
 @Data
 @Entity
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+
 public class User implements Serializable { //serializable allows to read and write user objects
+
     private @Id String email;
-    private String password;
     private String firstName;
     private String lastName;
+    private String password;
     private String phone;
 }
+

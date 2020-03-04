@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www. .org">
+
+<head>
+    <title>Grand Plan | Home</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/events.css" rel="stylesheet">
+    <link href="/css/events-sidenav.css" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+    <script th:src="@{http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js}"></script>
+</head>
+
+<body style="background-color: #C4C4C4;">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span
+                        class="icon-bar"></span> <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Grand Plan</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+                    <li class="active"><a href="/events">Events</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                            aria-haspopup="true" aria-expanded="false"><span
+                                th:text="${user.getFirstName()}"></span><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Settings</a></li>
+                            <li><a href="#">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="container main-container">
+            <div class="row">
+                <h1 class="heading" th:if="${heading}" th:text="${heading}"></h1>
+                <div th:each="event : ${events}" class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <div class="img">
+                        <div class="clearfix"></div>
+                        <div class="icon-container"><em class="far fa-calendar-alt"></em></div>
+                    </div>
+                    <div class="box-part text-center">
+                        <div class="title">
+                            <label th:text="${event.title}"></label>
+                        </div>
+                        <div>
+                            <label class="item-heading">Date: &nbsp</label><label th:text="${event.start}"></label>
+                        </div>
+                        <div>
+                            <label class="item-heading">Time: &nbsp</label><label><label
+                                    th:text="${event.start}"></label> -
+                                <label th:text="${event.end}"></label></label>
+                        </div>
+                        <div class="attendees-icon">
+                            <span><em class="fas fa-users"></em></span>&nbsp&nbsp<span onclick="openInfoModal()"><em
+                                    class="fas fa-info-circle"></em>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div th:insert="events-sidenav :: navbar" class="container home-container"></div>
+</body>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(document).on('click', '.sidebar-nav a', function () {
+            $("#events").addClass('active');
+            $('#invites').removeClass('active');
+        });
+    });
+</script>
+
+</html>

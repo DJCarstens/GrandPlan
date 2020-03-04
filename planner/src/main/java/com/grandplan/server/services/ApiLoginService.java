@@ -6,6 +6,8 @@ import com.grandplan.util.User;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -18,18 +20,19 @@ import java.util.List;
 @Component
 public class ApiLoginService {
 
-    private final UserRepo userRepo;
+    @Autowired
+    private UserRepo userRepo;
 
     public User validateUserCredentials(User user) {
         User fetchedUser = userRepo.getUserByEmail(user.getEmail());
         if (fetchedUser == null || !fetchedUser.getPassword().equals(user.getPassword())) {
             return null;
         } else {
-            return user;
+            return fetchedUser;
+         }
         }
-    }
 
-    public Iterable<User> list() {
+        public Iterable<User> list() {
         return userRepo.findAll();
     }
 

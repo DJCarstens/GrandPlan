@@ -31,6 +31,7 @@ public class LoadDatabase {
             }
             //users = repository.findAll();
             //writeListOfUsers(users);
+            log.info("Preloading " + repository.save(new User("grad@bbd.com","grad","","0814568825","password")));
         };
     }
     private List<User> getListOfUsers() {
