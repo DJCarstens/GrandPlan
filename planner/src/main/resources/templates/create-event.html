@@ -10,14 +10,17 @@
 
 <body>
     <div th:fragment="modal-fragment" class="modal-div">
-        <h1 class="heading">Create Event</h1>
+        <div class="modal-header">
+            <h1 class="heading">Create Event</h1>
+        </div>
         <div class="row">
-            <form class="col-md-6 login-form" autocomplete="off" method="post" role="form">
+            <form class="col-md-11 event-form" autocomplete="off" method="post" role="form">
                 <div class="form-group">
                     <input type="text" id="title" class="form-control" placeholder="Title" value="" />
                 </div>
                 <div class="form-group">
-                    <input type="text" id="description" class="form-control" placeholder="Description" value="" />
+                    <textarea type="text" id="description" class="form-control" placeholder="Description"
+                        value=""></textarea>
                 </div>
                 <div class="form-group">
                     <input type="text" id="members" class="form-control" placeholder="Members" value="" />
@@ -26,19 +29,28 @@
                 <div class="form-group">
                     <input type="text" id="availability" class="form-control" placeholder="availability" value="" />
                 </div>
-                <div class="form-group">
-                    <input type="date" id="start" class="form-control" placeholder="Start Date" value="" />
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <input type="date" id="start" class="form-control" placeholder="Start Date" value="" />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input type="date" id="end" class="form-control" placeholder="End Date" value="" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label class="checkbox-inline checkbox-label"><input type="checkbox"
+                                class="form-control checkbox" value="allDay">&nbsp&nbspIs this an all
+                            day event?</label>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <button id="color-picker">Set color for this event</button>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <input type="date" id="end" class="form-control" placeholder="End Date" value="" />
+                    <input type="text" id="label" class="form-control" placeholder="Labels" value="" />
                 </div>
-                <div class="form-group">
-                    <input type="checkbox" id="allDay" class="form-control" placeholder="All Day" value="" />
-                </div>
-                <div class="form-group">
-                    <input type="text" id="label" class="form-control" placeholder="label" value="" />
-                </div>
-                <button type="submit" class="btn btnSubmit">Create </button><button>Cancel</button>
+                <button type="submit" class="form-button">Create </button><button class="form-button">Cancel</button>
             </form>
         </div>
     </div>
