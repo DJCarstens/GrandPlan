@@ -5,11 +5,8 @@
     <title>Sidenav</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
-    <script th:src="@{http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js}"></script>
+    <link href="/css/create-event.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -17,12 +14,14 @@
         <div id="wrapper" class="sidebar-toggle">
             <div id="sidebar-wrapper">
                 <ul class="sidebar-nav">
-                    <li id="events" class="active"><em class="far fa-calendar-alt custom-icon"></em><a
-                            href="/events">Your Events</a>
+                    <li id="events" class="active"><a href="/events"><span
+                                class="far fa-calendar-alt custom-icon"></span>Your Events</a>
                     </li>
-                    <li><em class="fas fa-users custom-icon"></em><a href="#">Group Events</a> </li>
-                    <li id="invites"><em class="far fa-envelope custom-icon"></em><a href="/invites">Invites</a> </li>
-                    <li><em class="fas fa-plus-circle custom-icon"></em><a href="#">Create an Event</a> </li>
+                    <li><a href="#"><span class="fas fa-users custom-icon"></span>Group Events</a> </li>
+                    <li id="invites"><a href="/invites"><span class="far fa-envelope custom-icon"></span>Invites</a>
+                    </li>
+                    <button id="createEvent" class="create-event-button">Create event</button>
+                    </li>
                 </ul>
             </div>
         </div>
