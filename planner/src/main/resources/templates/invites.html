@@ -83,7 +83,16 @@
 
     $("#createEvent").click(function () {
         $('#events-modal').css('display', 'block');
-    })
+    });
+
+    $('#color-picker').colorpicker().on('changeColor', function (value) {
+        $('#color-picker').css('background-color', value.color.toHex());
+        $("#color").prop("value", value.color.toHex());
+    });
+
+    $('#close-create').click(function () {
+        $('#events-modal').css('display', 'none');
+    });
 </script>
 
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
