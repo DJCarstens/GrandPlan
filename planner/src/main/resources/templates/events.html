@@ -89,7 +89,22 @@
             $('#events-modal').css('display', 'block');
         });
 
-        $('#color-picker').colorpicker().on('changeColor', function (value) {
+        $('#color-picker').colorpicker({
+            format: null,
+            customClass: 'custom-colorpicker',
+            sliders: {
+                saturation: {
+                    maxLeft: 200,
+                    maxTop: 200
+                },
+                hue: {
+                    maxTop: 200
+                },
+                alpha: {
+                    maxTop: 200
+                }
+            }
+        }).on('changeColor', function (value) {
             $('#color-picker').css('background-color', value.color.toHex());
             $("#color").prop("value", value.color.toHex());
         });
