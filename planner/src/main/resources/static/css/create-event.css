@@ -89,9 +89,9 @@ input[type="checkbox"]{
     background-color: rgb(0, 150, 177);
     padding: 5px 10px 5px 10px;
     display: inline-block;
-    margin-top: 3px; /*incase tags go in next line, will space */
+    margin-top: 3px;
     color:#fff;
-    padding-right: 20px; /* adds space inside the tags for the 'x' button */
+    padding-right: 20px;
     margin-right: 4px;
     border-radius: 4px;
 }
