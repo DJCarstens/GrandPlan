@@ -93,6 +93,10 @@
     $('#close-create').click(function () {
         $('#events-modal').css('display', 'none');
     });
+
+    $('#allDay').click(function () {
+        $('#end').attr('disabled', !$(this).attr('checked'));
+    });
 </script>
 
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
