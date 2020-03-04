@@ -33,6 +33,10 @@ $(document).ready(function () {
         $('#events-modal').css('display', 'none');
     });
 
+    $('#close-modal').click(function () {
+        $('#events-modal').css('display', 'none');
+    });
+
     $('#allDay').click(function () {
         $('#end').attr('disabled', !$(this).attr('checked'));
     });

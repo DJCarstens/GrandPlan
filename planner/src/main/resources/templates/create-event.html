@@ -11,7 +11,12 @@
 <body>
     <div th:fragment="modal-fragment" class="modal-div">
         <div class="modal-header">
-            <h1 class="heading">Create Event</h1>
+            <div class="row">
+                <div class="col-md-10">
+                    <h1 class="heading">Create Event</h1>
+                </div>
+                <div class="col-md-2"><label id="close-modal" class="close-modal">x</label></div>
+            </div>
         </div>
         <div class="row">
             <form class="col-md-11 event-form" autocomplete="off" role="form">
@@ -45,7 +50,7 @@
                     </div>
                 </div>
                 <br />
-                <label>Events Extras</label>
+                <label>Event Extras</label>
                 <div class="form-group">
                     <input type="text" id="tag" class="form-control" placeholder="Tags" value="" />
                     <div id="tags" class="tags"></div>
@@ -54,10 +59,9 @@
                     <input type="text" id="color" class="form-controle" value="" hidden />
                     <button class="color-picker-button" id="color-picker">Set color for this event</button>
                 </div>
-                <br />
                 <button type="submit" class="form-button">Create </button><button class="form-button"
                     id="close-create">Cancel</button>
-                <br /><br />
+                <br /><br /><br />
             </form>
         </div>
     </div>
