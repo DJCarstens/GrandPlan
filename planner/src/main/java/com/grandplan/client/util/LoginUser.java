@@ -15,7 +15,7 @@ import javax.validation.constraints.Pattern;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Login{
+public class LoginUser{
     @NotNull(message="Please provide your email")
     @NotEmpty(message="Please provide your email")
     @Pattern(regexp="^[\\w.+\\-]+@bbd\\.co\\.za$", message="Please provide a valid BBD email")
