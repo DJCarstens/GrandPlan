@@ -145,7 +145,6 @@
 			<artifactId>font-awesome</artifactId>
 			<version>4.7.0</version>
 		</dependency>
-
 	</dependencies>
 
 	<build>
