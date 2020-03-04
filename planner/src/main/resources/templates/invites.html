@@ -9,6 +9,7 @@
     <link href="/css/invites.css" rel="stylesheet">
     <link href="/css/events-sidenav.css" rel="stylesheet">
     <link href="/css/create-event.css" rel="stylesheet">
+    <link href="/css/color-picker.css" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.3.3/css/bootstrap-colorpicker.min.css"
         rel="stylesheet">
@@ -77,47 +78,7 @@
     <div th:insert="create-event :: modal-fragment" class="event-modal overlay" id="events-modal"></div>
 </body>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $(document).on('click', '.sidebar-nav a', function () {
-            $("#invites").addClass('active');
-            $('#events').removeClass('active');
-        });
-    });
-
-    $("#createEvent").click(function () {
-        $('#events-modal').css('display', 'block');
-    });
-
-    $('#color-picker').colorpicker({
-        format: null,
-        customClass: 'custom-colorpicker',
-        sliders: {
-            saturation: {
-                maxLeft: 200,
-                maxTop: 200
-            },
-            hue: {
-                maxTop: 200
-            },
-            alpha: {
-                maxTop: 200
-            }
-        }
-    }).on('changeColor', function (value) {
-        $('#color-picker').css('background-color', value.color.toHex());
-        $("#color").prop("value", value.color.toHex());
-    });
-
-    $('#close-create').click(function () {
-        $('#events-modal').css('display', 'none');
-    });
-
-    $('#allDay').click(function () {
-        $('#end').attr('disabled', !$(this).attr('checked'));
-    });
-</script>
-
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/events.js"></script>
 
 </html>
