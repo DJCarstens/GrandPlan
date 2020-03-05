@@ -3,10 +3,12 @@ package com.grandplan.server;
 import com.grandplan.server.repositories.UserRepo;
 import com.grandplan.util.User;
 import lombok.extern.slf4j.Slf4j;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.boot.CommandLineRunner;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -34,15 +36,16 @@ public class LoadDatabase {
         try {
             Object obj = parser.parse(new FileReader("src/main/resources/data/Users.json"));
             JSONArray jsonObjects = (JSONArray) obj;
-            for (Object object : jsonObjects) {
+            jsonObjects.forEach(item -> {
+                JSONObject jsonObject = (JSONObject) item;
                 User user = new User(
-                       ((JSONObject) object).get("email").toString(),
-                        ((JSONObject) object).get("password").toString(),
-                        ((JSONObject) object).get("firstName").toString(),
-                        ((JSONObject) object).get("lastName").toString(),
-                        ((JSONObject) object).get("phone").toString());
+                        jsonObject.get("email").toString(),
+                        jsonObject.get("password").toString(),
+                        jsonObject.get("firstName").toString(),
+                        jsonObject.get("lastName").toString(),
+                        jsonObject.get("phone").toString());
                 users.add(user);
-            }
+            });
         } catch (Exception e) {
            log.info("Unable to load Users to repository");
             e.printStackTrace();
