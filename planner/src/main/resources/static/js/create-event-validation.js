@@ -33,8 +33,10 @@ $(document).ready(function () {
             $data['title'] = $('#title').val();
             $data['description'] = $('#description').val();
             $data['members'] = $('#members').val();
-            $data['start'] = $('#start').val();
-            $data['end'] = $('#end').val();
+            $data['startDate'] = $('#startDate').val();
+            $data['endDate'] = $('#endDate').val();
+            $data['startTime'] = $('#startTime').val();
+            $data['endTime'] = $('#endTime').val();
             $data['allDay'] = $('#allDay').prop("checked") ? true : false;
             $data['tag'] = $('#tag').val();
             $data['color'] = $('#color').val();
@@ -67,5 +69,21 @@ $(document).ready(function () {
 
     $('#members').focus(function () {
         $('#membersError').css('display', 'none');
+    });
+
+    $('#start-time-picker').datetimepicker({
+        format: 'LT'
+    });
+
+    $('#end-time-picker').datetimepicker({
+        format: 'LT'
+    });
+
+    $('#start-date-picker').datetimepicker({
+        locale: 'ru'
+    });
+
+    $('#end-date-picker').datetimepicker({
+        locale: 'ru'
     });
 });

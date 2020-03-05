@@ -54,6 +54,7 @@ $(document).ready(function () {
     });
 
     $('#allDay').click(function () {
-        $('#end').attr('disabled', !$(this).attr('checked'));
+        $('#endDate').attr('disabled', !$(this).attr('checked'));
+        $('#endTime').attr('disabled', !$(this).attr('checked'));
     });
 });
