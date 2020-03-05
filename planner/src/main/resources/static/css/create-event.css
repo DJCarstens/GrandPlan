@@ -147,3 +147,8 @@
 .checkbox label input[type="checkbox"]:disabled+.cr {
   opacity: .5;
 }
+
+.error-label{
+    display: none;
+    color: red;
+}

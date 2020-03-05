@@ -6,6 +6,7 @@ $(document).ready(function () {
 
     $("#createEvent").click(function () {
         $('#events-modal').css('display', 'block');
+        $('#color').css("display", "none");
     });
     $("#createEvent").click(function() {
         $('#eventCreateCalendar').fullCalendar({  

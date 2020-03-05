@@ -12,7 +12,7 @@ import com.grandplan.util.User;
 
 import com.grandplan.client.util.LoginUser;
 import com.grandplan.client.util.SignupUser;
-import com.grandplan.client.util.CreateEvent;
+import com.grandplan.client.util.NewEvent;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +21,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 public class GrandPlanController {
@@ -103,7 +105,6 @@ public class GrandPlanController {
 
   @GetMapping("/events")
   public String events(Model model) {
-    model.addAttribute("createEvent", new CreateEvent());
     //For testing purposes. Need to remove
     events = new ArrayList<Event>();
 
@@ -131,12 +132,15 @@ public class GrandPlanController {
     events.add(event3);
 
     //Temporary user assignment until the login has been completed
-    if (currentUser == null) {
-      currentUser = new User();
-      currentUser.setFirstName("Testy McTestface");
-    }
+    currentUser = new User();
+    currentUser.setEmail("g@bbd.co.za");
+    currentUser.setFirstName("Grad");
+    currentUser.setLastName("Person");
+    currentUser.setPassword("Password");
+    currentUser.setPhone("0718831926");
 
     model.addAttribute("user", currentUser);
+
     model.addAttribute("heading", months[Calendar.getInstance().get(Calendar.MONTH)] + " " + Calendar.getInstance().get(Calendar.YEAR));
     model.addAttribute("events", events);
     return "events";
@@ -162,10 +166,13 @@ public class GrandPlanController {
     invites.add(event2);
     invites.add(event2);
 
-    if (currentUser == null) {
-      currentUser = new User();
-      currentUser.setFirstName("Testy McTestface");
-    }
+    //Temporary user assignment until the login has been completed
+    currentUser = new User();
+    currentUser.setEmail("g@bbd.co.za");
+    currentUser.setFirstName("Grad");
+    currentUser.setLastName("Person");
+    currentUser.setPassword("Password");
+    currentUser.setPhone("0718831926");
 
     model.addAttribute("user", currentUser);
     model.addAttribute("heading", "Your current event invites");
@@ -173,14 +180,10 @@ public class GrandPlanController {
     return "invites";
   }
 
-  @PostMapping(value = "/createEvent")
-  public String createEvent(@Valid @ModelAttribute("createEvent") CreateEvent createEvent, BindingResult bindingResult, Model model){
-    if(bindingResult.hasErrors()){
-      model.addAttribute("createEvent", new CreateEvent());
-      model.addAttribute("user", currentUser);
-      return "events";
-    }
-    return "login";
+  @PostMapping(value="/createEvent")
+  public String createEvent(@RequestBody NewEvent newEvent) {
+    System.out.println(newEvent);
+    return "/";
   }
 
 }
