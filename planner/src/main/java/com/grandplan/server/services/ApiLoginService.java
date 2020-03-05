@@ -43,13 +43,13 @@ public class ApiLoginService {
     private void writeListOfUsers(List<User> users) {
         ObjectMapper mapper = new ObjectMapper();
         JSONArray jsonObjects = new JSONArray();
-        for (Object object : users) {
+        for (User user : users) {
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("email", ((User) object).getEmail());
-            jsonObject.put("password", ((User) object).getPassword());
-            jsonObject.put("firstName", ((User) object).getFirstName());
-            jsonObject.put("lastName", ((User) object).getLastName());
-            jsonObject.put("phone", ((User) object).getPhone());
+            jsonObject.put("email", user.getEmail());
+            jsonObject.put("password", user.getPassword());
+            jsonObject.put("firstName", user.getFirstName());
+            jsonObject.put("lastName", user.getLastName());
+            jsonObject.put("phone", user.getPhone());
             jsonObjects.add(jsonObject);
         }
         try {
