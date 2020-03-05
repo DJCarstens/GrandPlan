@@ -9,13 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @RestController
@@ -28,26 +27,6 @@ public class ServerController {
     @Autowired
     private ApiEventService apiEventService;
 
-    @GetMapping("/getUser")
-    public User getUser() {
-        return new User().builder()
-                .firstName("Homey")
-                .email("Homey@home.ru")
-                .lastName("McHome")
-                .build();
-    }
-
-    @PostMapping("/getEvents")
-    public ResponseEntity<List<Event>> getEvents(@RequestBody User user) {
-        if (user == null) {
-            HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.set("x-error-code", "Username and password combination does not match");
-            return new ResponseEntity<>(httpHeaders, HttpStatus.NOT_FOUND);
-        }
-        List<Event> events = apiEventService.getUserEvents(user);
-        return ResponseEntity.ok(events);
-    }
-
     @PostMapping("/validateLogin")
     public ResponseEntity<User> validate(@RequestBody User user){
         if(user!=null && apiLoginService.validateUserCredentials(user)!=null) {
@@ -59,4 +38,20 @@ public class ServerController {
             return new ResponseEntity<>(httpHeaders, HttpStatus.NOT_FOUND);
         }
     }
+
+    @PostMapping("/getUserEvents")
+    public Set<Event> getUserEvents(String email) {
+        return apiEventService.getUserEvents(email);
+    }
+
+    @PostMapping("/createEvent")
+    public Event createEvent(Event event) {
+        return apiEventService.createEvent(event);
+    }
+
+    @PostMapping("/deleteEvent")
+    public boolean deleteEvent(Event event) {
+        return apiEventService.deleteEvent(event);
+    }
+
 }

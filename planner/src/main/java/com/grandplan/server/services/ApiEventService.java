@@ -1,16 +1,12 @@
 package com.grandplan.server.services;
 
 import com.grandplan.server.repositories.EventRepo;
-import com.grandplan.server.repositories.UserRepo;
 import com.grandplan.util.Event;
-import com.grandplan.util.Invite;
-import com.grandplan.util.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Service
@@ -19,9 +15,21 @@ public class ApiEventService {
 
     private final EventRepo eventRepo;
 
-    private final UserRepo userRepo;
-
-    public List<Event> getUserEvents(User user) {
-        return eventRepo.getByInviteUser(user);
+    public Set<Event> getUserEvents(String email) {
+        return eventRepo.findEventsByUserEmail(email);
     }
+
+    public Event createEvent(Event event) {
+        eventRepo.save(event);
+        return event;
+    }
+
+    public boolean deleteEvent(Event event) {
+        if (eventRepo.findEventById(event.getId()) == null) {
+            return false;
+        }
+        eventRepo.delete(event);
+        return true;
+    }
+
 }

@@ -6,11 +6,9 @@ import com.grandplan.util.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
-public interface InviteRepo extends JpaRepository<Invite, Integer> {
-
-    public Event getEventByUser(User user);
-
-    public User getUserByEvent(Event event);
+public interface InviteRepo extends JpaRepository<Invite, Long> {
 
 }

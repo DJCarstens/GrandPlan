@@ -3,6 +3,7 @@ package com.grandplan.util;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
@@ -13,14 +14,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
+@EqualsAndHashCode(exclude = {"invites"})
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "event")
+@Table(name = "events")
 public class Event {
 
     @Id
@@ -34,7 +37,6 @@ public class Event {
     private String endTime;
     private boolean allDay;
 
-//    @OneToMany(mappedBy = "event")
-    @OneToMany(targetEntity = Invite.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Invite> invites;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "event")
+    private Set<Invite> invites = new HashSet<>();
 }

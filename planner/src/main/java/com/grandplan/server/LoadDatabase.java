@@ -12,68 +12,33 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 @Configuration
 @Slf4j
 public class LoadDatabase {
     @Bean
-    CommandLineRunner initUserDatabase(UserRepo repository) {
+    CommandLineRunner initDatabase(UserRepo userRepo, EventRepo eventRepo) {
         return args -> {
-            User user = new User().builder()
-                    .email("grab@bbd.co.za")
+            User user = User.builder()
+                    .email("grad@bbd.co.za")
                     .password("password")
                     .firstName("grad")
                     .lastName("McGrad")
                     .phone("911")
-                    .build()
+                    .invites(new HashSet<>())
+                    .build();
 
-            log.info("Preloading " + repository.save(
-                    new User().builder()
-                            .email("grab@bbd.co.za")
-                            .password("password")
-                            .firstName("grad")
-                            .lastName("McGrad")
-                            .phone("911")
-                            .build()
-            ));
+            Event event = Event.builder()
+                    .eventName("Test event")
+                    .invites(new HashSet<>())
+                    .build();
+
+            log.info("Preloading " + userRepo.save(user));
+            log.info("Preloading " + eventRepo.save(event));
         };
     }
 
-    @Bean
-    CommandLineRunner initEventDatabase(EventRepo repository) {
-        return args -> {
-            log.info("Preloading " + repository.save(
-                    new Event().builder()
-                            .hostUsername("grad")
-                            .eventName("exampleEvent")
-                            .date("20/04/2020")
-                            .startTime("4:20")
-                            .endTime("16:20")
-                            .allDay(false)
-                            .build()));
-        };
-    }
-
-//    @Bean
-//    CommandLineRunner initInviteDatabase(InviteRepo repository) {
-//        return args -> {
-//            log.info("Preloading " + repository.save(
-//                    new Invite().builder()
-//                            .user(new User().builder()
-//                                    .email("grab@bbd.co.za")
-//                                    .password("password")
-//                                    .firstName("grad")
-//                                    .lastName("McGrad")
-//                                    .phone("911").build())
-//                            .event(new Event().builder()
-//                                    .hostUsername("grad")
-//                                    .eventName("exampleEvent")
-//                                    .date("20/04/2020")
-//                                    .startTime("4:20")
-//                                    .endTime("16:20")
-//                                    .allDay(false)
-//                                    .build())
-//                            .build()));
-//        };
-//    }
 }
