@@ -7,10 +7,12 @@ import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.grandplan.util.Event;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/event")
 public class RestWebController {
@@ -20,7 +22,7 @@ public class RestWebController {
   public String mapCurrentUserEvents() {
     String jsonEvents = null;
         try {
-            events = new ArrayList<Event>();
+            events = new ArrayList<>();
 
             Event event1 = Event.builder().title("first event")
                                   .start("2020-02-02")
@@ -54,8 +56,8 @@ public class RestWebController {
 
             ObjectMapper mapper = new ObjectMapper();
             jsonEvents =  mapper.writerWithDefaultPrettyPrinter().writeValueAsString(events);
-        } catch (IOException ioex) {
-            System.out.println(ioex.getMessage());
+        } catch (IOException e) {
+            log.error(e.getMessage());
         }
         return jsonEvents;
   }

@@ -34,7 +34,7 @@ public class Event {
     private String start;
     private String end;
     private boolean allDay;
-    private String colour;
+    private String color;
     private String type;
     private String description;
     private String hostUsername;

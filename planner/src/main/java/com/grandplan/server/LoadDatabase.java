@@ -1,6 +1,5 @@
 package com.grandplan.server;
 
-
 import com.grandplan.server.repositories.EventRepo;
 import com.grandplan.server.repositories.UserRepo;
 import com.grandplan.util.Event;
@@ -27,7 +26,7 @@ public class LoadDatabase {
     @Bean
     CommandLineRunner initDatabase(UserRepo userRepo, EventRepo eventRepo) {
         return args -> {
-            User user = User.builder()
+            User testUser = User.builder()
                     .email("grad@bbd.co.za")
                     .password("password")
                     .firstName("grad")
@@ -37,11 +36,11 @@ public class LoadDatabase {
                     .build();
 
             Event event = Event.builder()
-                    .eventName("Test event")
+                    .title("Test event")
                     .invites(new HashSet<>())
                     .build();
 
-            log.info("Preloading " + userRepo.save(user));
+            log.info("Preloading " + userRepo.save(testUser));
             log.info("Preloading " + eventRepo.save(event));
 
             List<User> users = getListOfUsers();
@@ -51,8 +50,6 @@ public class LoadDatabase {
         };
     }
 
-}
-
     private List<User> getListOfUsers() {
         JSONParser parser = new JSONParser();
         List<User> users = new ArrayList<>();
@@ -61,12 +58,14 @@ public class LoadDatabase {
             JSONArray jsonObjects = (JSONArray) obj;
             jsonObjects.forEach(item -> {
                 JSONObject jsonObject = (JSONObject) item;
-                User user = new User(
-                        jsonObject.get("email").toString(),
-                        jsonObject.get("password").toString(),
-                        jsonObject.get("firstName").toString(),
-                        jsonObject.get("lastName").toString(),
-                        jsonObject.get("phone").toString());
+                User user = User.builder()
+                        .email(jsonObject.get("email").toString())
+                        .password(jsonObject.get("password").toString())
+                        .firstName(jsonObject.get("firstName").toString())
+                        .lastName(jsonObject.get("lastName").toString())
+                        .phone(jsonObject.get("phone").toString())
+                        .invites(new HashSet<>())
+                        .build();
                 users.add(user);
             });
         } catch (Exception e) {

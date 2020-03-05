@@ -4,7 +4,6 @@ import com.grandplan.server.services.ApiLoginService;
 import com.grandplan.server.services.ApiEventService;
 import com.grandplan.util.Event;
 import com.grandplan.util.User;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,7 +18,6 @@ import java.util.Set;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api")  //prevents conflict with client mapping (a.k.a. grandPlanController)
 public class ServerController {
