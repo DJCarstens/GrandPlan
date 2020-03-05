@@ -56,7 +56,6 @@ public class ApiLoginService {
             FileWriter file = new FileWriter("src/main/resources/data/Users.json", false);//false indicates that Users.json will get overridden with the current user data
             String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObjects);
             file.write(indented);
-            file.write(String.valueOf(new User("test@bbd.com", "", "", "", "")));
             System.out.println("JSON file updated: " + jsonObjects);
             file.close();
         } catch (IOException e) {
