@@ -24,7 +24,6 @@ public class LoadDatabase {
             for (User user : users) {
                 log.info("Preloading " + repository.save(user));
             }
-            log.info("Preloading " + repository.save(new User("grad@bbd.com", "grad", "", "0814568825", "password")));
         };
     }
 
