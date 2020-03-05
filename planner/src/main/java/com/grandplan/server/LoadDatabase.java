@@ -36,11 +36,11 @@ public class LoadDatabase {
             JSONArray jsonObjects = (JSONArray) obj;
             for (Object object : jsonObjects) {
                 User user = new User(
-                        (String) ((JSONObject) object).get("email"),
-                        (String) ((JSONObject) object).get("password"),
-                        (String) ((JSONObject) object).get("firstName"),
-                        (String) ((JSONObject) object).get("lastName"),
-                        (String) ((JSONObject) object).get("phone"));
+                       ((JSONObject) object).get("email").toString(),
+                        ((JSONObject) object).get("password").toString(),
+                        ((JSONObject) object).get("firstName").toString(),
+                        ((JSONObject) object).get("lastName").toString(),
+                        ((JSONObject) object).get("phone").toString());
                 users.add(user);
             }
         } catch (Exception e) {
