@@ -32,10 +32,9 @@ public class ApiLoginService {
             return fetchedUser;
     }
 
-    public User save(User user) {
-        User response = userRepo.save(user);
+    public void save(User user) {
+        userRepo.save(user);
         writeListOfUsers(getUsers()); //overwrites current list of users in Users.json
-        return response;
     }
 
     public List<User> getUsers() {
@@ -54,15 +53,14 @@ public class ApiLoginService {
             jsonObject.put("phone", user.getPhone());
             jsonObjects.add(jsonObject);
         }
-        try {
-            FileWriter file = new FileWriter("src/main/resources/data/Users.json", false);//false indicates that Users.json will get overridden with the current user data
+        try (FileWriter file = new FileWriter("src/main/resources/data/Users.json", false)) {
+            //false indicates that Users.json will get overridden with the current user data
             String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObjects);
             file.write(indented);
             log.info("JSON file updated: " + jsonObjects);
-            file.close();
         } catch (IOException e) {
             log.info("Unable to write Users to Users.json");
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 }
