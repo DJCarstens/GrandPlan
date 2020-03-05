@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.grandplan.server.repositories.UserRepo;
 import com.grandplan.util.User;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 @Component
+@Slf4j
 public class ApiLoginService {
 
     @Autowired
@@ -56,10 +58,10 @@ public class ApiLoginService {
             FileWriter file = new FileWriter("src/main/resources/data/Users.json", false);//false indicates that Users.json will get overridden with the current user data
             String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObjects);
             file.write(indented);
-            System.out.println("JSON file updated: " + jsonObjects);
+            log.info("JSON file updated: " + jsonObjects);
             file.close();
         } catch (IOException e) {
-            System.out.println("Unable to write Users to Users.json");
+            log.info("Unable to write Users to Users.json");
             e.printStackTrace();
         }
     }

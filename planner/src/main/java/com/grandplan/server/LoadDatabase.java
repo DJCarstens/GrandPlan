@@ -44,7 +44,7 @@ public class LoadDatabase {
                 users.add(user);
             }
         } catch (Exception e) {
-            System.out.println("Unable to load Users to repository");
+           log.info("Unable to load Users to repository");
             e.printStackTrace();
         }
         return users;
