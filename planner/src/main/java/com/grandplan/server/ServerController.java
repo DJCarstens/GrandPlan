@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api")  //prevents conflict with client mapping (a.k.a. grandPlanController)
@@ -43,7 +45,7 @@ public class ServerController {
     }
 
     @GetMapping("/listUsers") //view users that are currently stored in the repository
-    public ResponseEntity<Iterable<User>> list() {
+    public ResponseEntity<List<User>> list() {
         return ResponseEntity.ok(apiLoginService.getUsers());
     }
 
