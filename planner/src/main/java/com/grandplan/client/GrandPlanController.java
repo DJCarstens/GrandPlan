@@ -12,6 +12,7 @@ import com.grandplan.util.User;
 
 import com.grandplan.client.util.LoginUser;
 import com.grandplan.client.util.SignupUser;
+import com.grandplan.client.util.CreateEvent;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -102,6 +103,7 @@ public class GrandPlanController {
 
   @GetMapping("/events")
   public String events(Model model) {
+    model.addAttribute("createEvent", new CreateEvent());
     //For testing purposes. Need to remove
     events = new ArrayList<Event>();
 
@@ -169,6 +171,16 @@ public class GrandPlanController {
     model.addAttribute("heading", "Your current event invites");
     model.addAttribute("invites", invites);
     return "invites";
+  }
+
+  @PostMapping(value = "/createEvent")
+  public String createEvent(@Valid @ModelAttribute("createEvent") CreateEvent createEvent, BindingResult bindingResult, Model model){
+    if(bindingResult.hasErrors()){
+      model.addAttribute("createEvent", new CreateEvent());
+      model.addAttribute("user", currentUser);
+      return "events";
+    }
+    return "login";
   }
 
 }

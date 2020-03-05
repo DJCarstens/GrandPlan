@@ -19,7 +19,8 @@
             </div>
         </div>
         <div class="row">
-            <form class="col-md-11 event-form" autocomplete="off" role="form">
+            <form class="col-md-11 event-form" autocomplete="off" method="post" action="createEvent"
+                th:object="${createEvent}">
                 <div class="form-group">
                     <input type="text" id="title" class="form-control" placeholder="Title" value="" />
                 </div>

@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Event{
+public class CreateEvent{
    @NotNull(message = "Please provide a title")
    @NotEmpty(message = "Please provide a title")
    private String title;
