@@ -39,13 +39,20 @@ $(document).ready(function () {
             $data['tag'] = $('#tag').val();
             $data['color'] = $('#color').val();
             
-            $ajax({
+            $.ajax({
                 type: "POST",
                 contentType: "application/json",
                 url: "/createEvent",
-                data: JSON.stringify(data),
+                data: JSON.stringify($data),
                 dataType: 'json',
-                success: callback
+                success: () => {
+                    $('#events-modal').css('display', 'none');
+                    $('#modal').css('display', 'block');
+                },
+                error: () => {
+                    $('#events-modal').css('display', 'none');
+                    $('#modal').css('display', 'block');
+                }
             });
         }
     });

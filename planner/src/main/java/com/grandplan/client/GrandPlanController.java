@@ -181,9 +181,23 @@ public class GrandPlanController {
   }
 
   @PostMapping(value="/createEvent")
-  public String createEvent(@RequestBody NewEvent newEvent) {
-    System.out.println(newEvent);
-    return "/";
+  public String createEvent(@RequestBody NewEvent newEvent, Model model) {
+    //TODO create event based on info passed
+    System.out.println(model);
+    showModal(model, "Event Successfully created.", "Ok");
+    
+
+    //Temporary user assignment until the login has been completed
+    currentUser = new User();
+    currentUser.setEmail("g@bbd.co.za");
+    currentUser.setFirstName("Grad");
+    currentUser.setLastName("Person");
+    currentUser.setPassword("Password");
+    currentUser.setPhone("0718831926");
+
+    model.addAttribute("user", currentUser);
+
+    return "events";
   }
 
 }
