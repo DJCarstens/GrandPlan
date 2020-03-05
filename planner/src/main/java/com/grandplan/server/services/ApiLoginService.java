@@ -26,9 +26,8 @@ public class ApiLoginService {
         User fetchedUser = userRepo.getUserByEmail(user.getEmail());
         if (fetchedUser == null || !fetchedUser.getPassword().equals(user.getPassword())) {
             return null;
-        } else {
-            return fetchedUser;
         }
+            return fetchedUser;
     }
 
     public User save(User user) {
