@@ -1,27 +1,27 @@
 package com.grandplan.server.services;
 
+import com.grandplan.server.repositories.EventRepo;
 import com.grandplan.server.repositories.UserRepo;
+import com.grandplan.util.Event;
+import com.grandplan.util.Invite;
 import com.grandplan.util.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 @Component
-public class ApiLoginService {
+public class ApiEventService {
+
+    private final EventRepo eventRepo;
 
     private final UserRepo userRepo;
 
-    public User validateUserCredentials(User user)
-    {
-        User fetchedUser = userRepo.getUserByEmail(user.getEmail());
-        if(fetchedUser == null || !fetchedUser.getPassword().equals(user.getPassword())) {
-            return null;
-        }
-        else {
-            return user;
-        }
+    public List<Event> getUserEvents(User user) {
+        return eventRepo.getByInviteUser(user);
     }
 }
-
