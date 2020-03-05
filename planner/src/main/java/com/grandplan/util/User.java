@@ -7,16 +7,19 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 @Data
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class User{
+public class User implements Serializable { //serializable allows to read and write user objects
+
     private @Id String email;
     private String firstName;
     private String lastName;
-    private String phone;
     private String password;
+    private String phone;
 }
+

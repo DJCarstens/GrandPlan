@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api")  //prevents conflict with client mapping (a.k.a. grandPlanController)
@@ -32,14 +34,23 @@ public class ServerController {
     }
 
     @PostMapping("/validateLogin")
-    public ResponseEntity<User> validate(@RequestBody User user){
-        if(user!=null && apiLoginService.validateUserCredentials(user)!=null) {
+    public ResponseEntity<User> validate(@RequestBody User user) {
+        if (user != null && apiLoginService.validateUserCredentials(user) != null) {
             return ResponseEntity.ok(user);
-        }
-        else {
+        } else {
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.set("x-error-code", "Username and password combination does not match");
             return new ResponseEntity<>(httpHeaders, HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/listUsers") //view users that are currently stored in the repository
+    public ResponseEntity<List<User>> list() {
+        return ResponseEntity.ok(apiLoginService.getUsers());
+    }
+
+    @PostMapping("/addUser")
+    public void addUser(@RequestBody User user) {
+        apiLoginService.save(user);
     }
 }
