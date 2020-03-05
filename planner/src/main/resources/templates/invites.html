@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www. .org">
+
+<head>
+    <title>Grand Plan | Home</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/invites.css" rel="stylesheet">
+    <link href="/css/events-sidenav.css" rel="stylesheet">
+    <link href="/css/create-event.css" rel="stylesheet">
+    <link href="/css/color-picker.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.3.3/css/bootstrap-colorpicker.min.css"
+        rel="stylesheet">
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.3.3/js/bootstrap-colorpicker.min.js"></script>
+</head>
+
+<body style="background-color: #C4C4C4;">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span
+                        class="icon-bar"></span> <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Grand Plan</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+                    <li class="active"><a href="/events">Events</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                            aria-haspopup="true" aria-expanded="false"><span
+                                th:text="${user.getFirstName()}"></span><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Settings</a></li>
+                            <li><a href="#">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="container main-container">
+            <div class="row">
+                <h1 class="heading" th:if="${heading}" th:text="${heading}"></h1>
+                <div th:each="invite : ${invites}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="box-part">
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                            <div class="icon-container"><em class="far fa-envelope"></em>
+                            </div>
+                        </div>
+                        <div class="title col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                            <p>You have been invited to attend <label th:text="${invite.title}"></label> by Emma</p>
+                        </div>
+                        <div class="title col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            <p>Date: <label th:text="${invite.start}"></label></p>
+                        </div>
+                        <div class="title col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            <p>Time: <label th:text="${invite.start}"></label>-<label th:text="${invite.end}"></label>
+                            </p>
+                        </div>
+                        <div class="title col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            <button class="button" style="background-color: rgb(0, 150, 177)">Accept</button><button
+                                class="button">Decline</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div th:insert="events-sidenav :: navbar" class="container home-container"></div>
+    <div th:insert="create-event :: modal-fragment" class="event-modal overlay" id="events-modal"></div>
+</body>
+
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/events.js"></script>
+
+</html>

@@ -30,12 +30,14 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String hostUsername;
-    private String eventName;
-    private String date;
-    private String startTime;
-    private String endTime;
+    private String title;
+    private String start;
+    private String end;
     private boolean allDay;
+    private String colour;
+    private String type;
+    private String description;
+    private String hostUsername;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "event")
     private Set<Invite> invites = new HashSet<>();
