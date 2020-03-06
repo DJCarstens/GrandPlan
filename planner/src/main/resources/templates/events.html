@@ -78,7 +78,6 @@
     </nav>
     <div th:insert="events-sidenav :: navbar" class="container home-container"></div>
     <div th:insert="create-event :: modal-fragment" class="event-modal overlay" id="events-modal"></div>
-    <div th:if="${messageModal}" id="modal" th:insert="modal :: modal-fragment" class="overlay"></div>
 </body>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -89,6 +88,7 @@
 <script
     src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 <script type="text/javascript" src="/js/events.js"></script>
 <script type="text/javascript" src="/js/add-tags.js"></script>
 <script type="text/javascript" src="/js/create-event-validation.js" th:inline="javascript"></script>
