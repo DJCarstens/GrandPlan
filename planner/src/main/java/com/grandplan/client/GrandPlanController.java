@@ -197,6 +197,8 @@ public class GrandPlanController {
 
     model.addAttribute("user", currentUser);
 
+    //TODO add NewEvent modal to events to update events
+
     return "events";
   }
 
