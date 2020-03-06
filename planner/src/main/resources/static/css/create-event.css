@@ -38,7 +38,6 @@
 .close-modal{
     color: white;
     font-size: 2rem;
-    margin-left: 70%;
 }
 
 .close-modal:hover{
@@ -151,6 +150,7 @@
 .error-label{
     display: none;
     color: red;
+    margin-top: 0.5%;
 }
 
 .bootstrap-datetimepicker-widget .glyphicon{

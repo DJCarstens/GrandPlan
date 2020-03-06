@@ -3,6 +3,8 @@ $(document).ready(function () {
         let $title = true;
         let $description = true;
         let $members = true;
+        let $start = true;
+        let $end = true;
 
         e.preventDefault();
         e.stopPropagation();
@@ -28,7 +30,19 @@ $(document).ready(function () {
             $("#color").prop("value", '#0096B1');
         }
 
-        if($title && $description && $members){
+        if($('#start').val() == ''){
+            $('#startError').html('Please select a start date and time');
+            $('#startError').css('display', 'block');
+            $start = false;
+        }
+
+        if($('#end').val() == '' && $('#allDay').prop("checked") == false){
+            $('#endError').html('Please select a end date and time');
+            $('#endError').css('display', 'block');
+            $end = false;
+        }
+
+        if($title && $description && $members && $start && $end){
             let $data = {};
             $data['title'] = $('#title').val();
             $data['description'] = $('#description').val();
@@ -69,6 +83,14 @@ $(document).ready(function () {
 
     $('#members').focus(function () {
         $('#membersError').css('display', 'none');
+    });
+
+    $('#start').focus(function () {
+        $('#startError').css('display', 'none');
+    });
+
+    $('#end').focus(function () {
+        $('#endError').css('display', 'none');
     });
 
     $('#start-picker').datetimepicker({ useCurrent: false });
