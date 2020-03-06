@@ -40,8 +40,13 @@ public class ServerController {
     }
 
     @GetMapping("/listUsers") //view users that are currently stored in the repository
-    public ResponseEntity<List<User>> list() {
+    public ResponseEntity<List<User>> listUsers() {
         return ResponseEntity.ok(apiLoginService.getUsers());
+    }
+
+    @GetMapping("/listEvents")
+    public ResponseEntity<List<Event>> listEvents() {
+        return ResponseEntity.ok(apiEventService.getEvents());
     }
 
     @PostMapping("/addUser")
@@ -64,4 +69,8 @@ public class ServerController {
         return apiEventService.deleteEvent(event);
     }
 
+    @PostMapping("/updateEvent")
+    public Event updateEvent(Event event) {
+        return apiEventService.updateEvent(event);
+    }
 }
