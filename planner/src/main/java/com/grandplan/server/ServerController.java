@@ -50,8 +50,13 @@ public class ServerController {
     }
 
     @PostMapping("/addUser")
-    public void addUser(@RequestBody User user) {
-        apiLoginService.save(user);
+    public ResponseEntity<User> addUser(@RequestBody User user) {
+        if (apiLoginService.getUser(user) != null) {
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.set("x-error-code", "User already exists");
+            return new ResponseEntity<>(httpHeaders, HttpStatus.CONFLICT);
+        }
+        return ResponseEntity.ok(apiLoginService.save(user));
     }
 
     @PostMapping("/getUserEvents")
