@@ -33,7 +33,7 @@ public class Event {
     private String title;
     private String start;
     private String end;
-    private boolean allDay;
+    private Boolean allDay;
     private String color;
     private String type;
     private String description;

@@ -10,7 +10,7 @@ import java.util.Set;
 @Repository
 public interface EventRepo extends JpaRepository<Event, Long> {
 
-    public Event findEventById(Long Id);
+    public Event findEventById(Long id);
 
     @Query("SELECT e " +
             "FROM Event as e, User as u, Invite as i " +
@@ -19,4 +19,17 @@ public interface EventRepo extends JpaRepository<Event, Long> {
                 "AND i.user.id = u.id")
     public Set<Event> findEventsByUserEmail(String email);
 
+    @Query("UPDATE Event " +
+            "SET " +
+            "title = ?2, " +
+            "start = ?3, " +
+            "end = ?4, " +
+            "allDay = ?5, " +
+            "color = ?6, " +
+            "type = ?7 " +
+/*
+            "description = ?8 " +
+*/
+            "WHERE id = ?1")
+    public void update(Long id, String title, String start, String end, Boolean allDay, String color, String type/*, String description*/);
 }
