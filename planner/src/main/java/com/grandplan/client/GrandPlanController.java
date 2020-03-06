@@ -92,44 +92,53 @@ public class GrandPlanController {
         model.addAttribute("button", button);
     }
 
-    Event event2 = Event.builder().title("second event")
-                          .start("2020-03-02T10:00")
-                          .end("2020-03-02T10:30")
-                          .allDay(false)
-                          .color("")
-                          .type("test")
-                          .description("")
-                          .build();
-    events.add(event2);
+    @GetMapping("/")
+    public String home(Model model){
+        return "home";
+    }
 
-    Event event3 = Event.builder().title("third event: call")
-                          .start("2020-02-15T11:00")
-                          .end("2020-02-15T12:00")
-                          .allDay(false)
-                          .color("")
-                          .type("test")
-                          .description("")
-                          .build();
-    events.add(event3);
-    events.add(event3);
-    events.add(event3);
-    events.add(event3);
+    @GetMapping("/events")
+    public String events(Model model)
+    {
+        Event event2 = Event.builder().title("second event")
+                            .start("2020-03-02T10:00")
+                            .end("2020-03-02T10:30")
+                            .allDay(false)
+                            .color("")
+                            .type("test")
+                            .description("")
+                            .build();
+        events.add(event2);
 
-    //Temporary user assignment until the login has been completed
-    currentUser = new User();
-    currentUser.setEmail("g@bbd.co.za");
-    currentUser.setFirstName("Grad");
-    currentUser.setLastName("Person");
-    currentUser.setPassword("Password");
-    currentUser.setPhone("0718831926");
+        Event event3 = Event.builder().title("third event: call")
+                            .start("2020-02-15T11:00")
+                            .end("2020-02-15T12:00")
+                            .allDay(false)
+                            .color("")
+                            .type("test")
+                            .description("")
+                            .build();
+        events.add(event3);
+        events.add(event3);
+        events.add(event3);
+        events.add(event3);
 
-    model.addAttribute("user", currentUser);
+        //Temporary user assignment until the login has been completed
+        currentUser = new User();
+        currentUser.setEmail("g@bbd.co.za");
+        currentUser.setFirstName("Grad");
+        currentUser.setLastName("Person");
+        currentUser.setPassword("Password");
+        currentUser.setPhone("0718831926");
 
-    model.addAttribute("heading", months[Calendar.getInstance().get(Calendar.MONTH)] + " " + Calendar.getInstance().get(Calendar.YEAR));
-    model.addAttribute("events", events);
-    return "events";
+        model.addAttribute("user", currentUser);
+        model.addAttribute("heading", months[Calendar.getInstance().get(Calendar.MONTH)] + " " + Calendar.getInstance().get(Calendar.YEAR));
+        model.addAttribute("events", events);
+        return "events";
   }
 
+  @GetMapping("/invites")
+    public String invites(Model model){
         Event event2 = Event.builder().title("second event")
                 .start("2020-03-02T10:00")
                 .end("2020-03-02T10:30")
@@ -159,13 +168,11 @@ public class GrandPlanController {
             currentUser.setFirstName("Testy McTestface");
         }
 
-    //Temporary user assignment until the login has been completed
-    currentUser = new User();
-    currentUser.setEmail("g@bbd.co.za");
-    currentUser.setFirstName("Grad");
-    currentUser.setLastName("Person");
-    currentUser.setPassword("Password");
-    currentUser.setPhone("0718831926");
+        model.addAttribute("user", currentUser);
+        model.addAttribute("heading", months[Calendar.getInstance().get(Calendar.MONTH)] + " " + Calendar.getInstance().get(Calendar.YEAR));
+        model.addAttribute("events", events);
+        return "invites";
+    }
 
     @GetMapping("/error")
     public String error(Model model) {
