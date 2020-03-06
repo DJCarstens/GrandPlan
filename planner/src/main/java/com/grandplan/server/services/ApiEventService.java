@@ -39,16 +39,14 @@ public class ApiEventService {
 
     public Event updateEvent(Event event) {
         eventRepo.update(
-                event.getId(),
                 event.getTitle(),
                 event.getStart(),
                 event.getEnd(),
                 event.getAllDay(),
                 event.getColor(),
-                event.getType()//,
-/*
-                event.getDescription()
-*/
+                event.getType(),
+                event.getDescription(),
+                event.getId()
         );
         return eventRepo.findEventById(event.getId());
     }

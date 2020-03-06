@@ -2,7 +2,9 @@ package com.grandplan.server.repositories;
 
 import com.grandplan.util.Event;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Set;
@@ -19,17 +21,24 @@ public interface EventRepo extends JpaRepository<Event, Long> {
                 "AND i.user.id = u.id")
     public Set<Event> findEventsByUserEmail(String email);
 
-    @Query("UPDATE Event " +
+    @Modifying
+    @Query("UPDATE Event e " +
             "SET " +
-            "title = ?2, " +
-            "start = ?3, " +
-            "end = ?4, " +
-            "allDay = ?5, " +
-            "color = ?6, " +
-            "type = ?7 " +
-/*
-            "description = ?8 " +
-*/
-            "WHERE id = ?1")
-    public void update(Long id, String title, String start, String end, Boolean allDay, String color, String type/*, String description*/);
+            "e.title = :title, " +
+            "e.start = :start, " +
+            "e.end = :end, " +
+            "e.allDay = :allDay, " +
+            "e.color = :color, " +
+            "e.type = :type, " +
+            "e.description = :description " +
+            "WHERE e.id = :id")
+    public void update(
+            @Param("title") String title,
+            @Param("start") String start,
+            @Param("end") String end,
+            @Param("allDay") Boolean allDay,
+            @Param("color") String color,
+            @Param("type") String type,
+            @Param("description") String description,
+            @Param("id") Long id);
 }
