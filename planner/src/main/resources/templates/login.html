@@ -46,8 +46,11 @@
     }
 
     $(document).ready(function () {
-        $('input').focus(function () {
+        $('#email').focus(function () {
             $('label[id*="emailError"]').text('');
+        });
+
+        $('#password').focus(function () {
             $('label[id*="passwordError"]').text('');
         });
     });

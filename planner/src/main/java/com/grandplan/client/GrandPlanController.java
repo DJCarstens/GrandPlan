@@ -5,6 +5,11 @@ import com.grandplan.client.util.SignupUser;
 import com.grandplan.server.services.ApiLoginService;
 import com.grandplan.util.Event;
 import com.grandplan.util.User;
+
+import com.grandplan.client.util.LoginUser;
+import com.grandplan.client.util.SignupUser;
+import com.grandplan.client.util.NewEvent;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +17,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -85,21 +92,43 @@ public class GrandPlanController {
         model.addAttribute("button", button);
     }
 
-    @GetMapping("/")
-    public String home(Model model) {
-        //Temporary user assignment until the login has been completed
-        if (currentUser == null) {
-            currentUser = new User();
-            currentUser.setFirstName("Testy McTestface");
-        }
-        model.addAttribute("user", currentUser);
-        return "home";
-    }
+    Event event2 = Event.builder().title("second event")
+                          .start("2020-03-02T10:00")
+                          .end("2020-03-02T10:30")
+                          .allDay(false)
+                          .color("")
+                          .type("test")
+                          .description("")
+                          .build();
+    events.add(event2);
 
-    @GetMapping("/events")
-    public String events(Model model) {
-        //For testing purposes. Need to remove
-        events = new ArrayList<Event>();
+    Event event3 = Event.builder().title("third event: call")
+                          .start("2020-02-15T11:00")
+                          .end("2020-02-15T12:00")
+                          .allDay(false)
+                          .color("")
+                          .type("test")
+                          .description("")
+                          .build();
+    events.add(event3);
+    events.add(event3);
+    events.add(event3);
+    events.add(event3);
+
+    //Temporary user assignment until the login has been completed
+    currentUser = new User();
+    currentUser.setEmail("g@bbd.co.za");
+    currentUser.setFirstName("Grad");
+    currentUser.setLastName("Person");
+    currentUser.setPassword("Password");
+    currentUser.setPhone("0718831926");
+
+    model.addAttribute("user", currentUser);
+
+    model.addAttribute("heading", months[Calendar.getInstance().get(Calendar.MONTH)] + " " + Calendar.getInstance().get(Calendar.YEAR));
+    model.addAttribute("events", events);
+    return "events";
+  }
 
         Event event2 = Event.builder().title("second event")
                 .start("2020-03-02T10:00")
@@ -130,40 +159,39 @@ public class GrandPlanController {
             currentUser.setFirstName("Testy McTestface");
         }
 
-        model.addAttribute("user", currentUser);
-        model.addAttribute("heading", months[Calendar.getInstance().get(Calendar.MONTH)] + " " + Calendar.getInstance().get(Calendar.YEAR));
-        model.addAttribute("events", events);
-        return "events";
-    }
+    //Temporary user assignment until the login has been completed
+    currentUser = new User();
+    currentUser.setEmail("g@bbd.co.za");
+    currentUser.setFirstName("Grad");
+    currentUser.setLastName("Person");
+    currentUser.setPassword("Password");
+    currentUser.setPhone("0718831926");
 
     @GetMapping("/error")
     public String error(Model model) {
         return "error";
     }
 
-    @GetMapping("/invites")
-    public String invites(Model model) {
-        invites = new ArrayList<Event>();
+  @PostMapping(value="/createEvent")
+  public String createEvent(@RequestBody NewEvent newEvent, Model model) {
+    //TODO create event based on info passed
+    System.out.println(model);
+    showModal(model, "Event Successfully created.", "Ok");
+    
 
-        Event event2 = Event.builder().title("second event")
-                .start("2020-03-02T10:00")
-                .end("2020-03-02T10:30")
-                .allDay(false)
-                .color("")
-                .type("test")
-                .description("")
-                .build();
-        invites.add(event2);
-        invites.add(event2);
+    //Temporary user assignment until the login has been completed
+    currentUser = new User();
+    currentUser.setEmail("g@bbd.co.za");
+    currentUser.setFirstName("Grad");
+    currentUser.setLastName("Person");
+    currentUser.setPassword("Password");
+    currentUser.setPhone("0718831926");
 
-        if (currentUser == null) {
-            currentUser = new User();
-            currentUser.setFirstName("Testy McTestface");
-        }
+    model.addAttribute("user", currentUser);
 
-        model.addAttribute("user", currentUser);
-        model.addAttribute("heading", "Your current event invites");
-        model.addAttribute("invites", invites);
-        return "invites";
-    }
+    //TODO add NewEvent modal to events to update events
+
+    return "events";
+  }
+
 }
