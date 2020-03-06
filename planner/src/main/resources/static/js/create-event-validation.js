@@ -71,19 +71,6 @@ $(document).ready(function () {
         $('#membersError').css('display', 'none');
     });
 
-    $('#start-time-picker').datetimepicker({
-        format: 'LT'
-    });
-
-    $('#end-time-picker').datetimepicker({
-        format: 'LT'
-    });
-
-    $('#start-date-picker').datetimepicker({
-        locale: 'ru'
-    });
-
-    $('#end-date-picker').datetimepicker({
-        locale: 'ru'
-    });
+    $('#start-picker').datetimepicker({ useCurrent: false });
+    $('#end-picker').datetimepicker({ useCurrent: false });
 });
