@@ -121,4 +121,9 @@ public class ClientLoginService {
     public User getCurrentUser(){
         return currentUser;
     }
+
+    public String logout(){
+        currentUser = null;
+        return LOGIN;
+    }
 }

@@ -53,6 +53,11 @@ public class GrandPlanController {
         return SIGNUP;
     }
 
+    @GetMapping("/logout")
+    public String logout(){
+        return clientLoginService.logout();
+    }
+
     @PostMapping(value = "/validateLogin")
     public String validateLogin(@Valid @ModelAttribute("loginUser") LoginUser loginUser, BindingResult bindingResult, Model model) throws Exception {
         return clientLoginService.validateLogin(loginUser, model, bindingResult);
