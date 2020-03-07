@@ -25,8 +25,8 @@ public interface EventRepo extends JpaRepository<Event, Long> {
     @Query("UPDATE Event e " +
             "SET " +
             "e.title = :title, " +
-            "e.startDate = :startDate, " +
-            "e.endTime = :endTime, " +
+            "e.start = :start, " +
+            "e.end = :end, " +
             "e.allDay = :allDay, " +
             "e.color = :color, " +
             "e.tag = :tag, " +
@@ -34,8 +34,8 @@ public interface EventRepo extends JpaRepository<Event, Long> {
             "WHERE e.id = :id")
     public void update(
             @Param("title") String title,
-            @Param("startDate") String startDate,
-            @Param("endTime") String endTime,
+            @Param("start") String start,
+            @Param("end") String end,
             @Param("allDay") Boolean allDay,
             @Param("color") String color,
             @Param("tag") String tag,

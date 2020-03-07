@@ -1,7 +1,7 @@
 [ {
   "title" : "Grad Meetup",
-  "startDate" : "07/03/2020",
-  "endTime" : "12:00",
+  "start" : "",
+  "end" : "",
   "allDay" : true,
   "color": "red",
   "tag" : "",

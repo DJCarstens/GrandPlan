@@ -102,8 +102,8 @@ public class GrandPlanController {
         events = new ArrayList<Event>();
 
         Event event2 = Event.builder().title("second event")
-                .startDate("2020-03-02T10:00")
-                .endTime("2020-03-02T10:30")
+                .start("2020-03-02T10:00")
+                .end("2020-03-02T10:30")
                 .allDay(false)
                 .color("")
                 .tag("test")
@@ -112,8 +112,8 @@ public class GrandPlanController {
         events.add(event2);
 
         Event event3 = Event.builder().title("third event: call")
-                .startDate("2020-02-15T11:00")
-                .endTime("2020-02-15T12:00")
+                .start("2020-02-15T11:00")
+                .end("2020-02-15T12:00")
                 .allDay(false)
                 .color("")
                 .tag("test")
@@ -146,8 +146,8 @@ public class GrandPlanController {
         invites = new ArrayList<Event>();
 
         Event event2 = Event.builder().title("second event")
-                .startDate("2020-03-02T10:00")
-                .endTime("2020-03-02T10:30")
+                .start("2020-03-02T10:00")
+                .end("2020-03-02T10:30")
                 .allDay(false)
                 .color("")
                 .tag("test")

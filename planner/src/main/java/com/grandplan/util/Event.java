@@ -31,8 +31,8 @@ public class Event {
     private Long id;
 
     private String title;
-    private String startDate;
-    private String endTime;
+    private String start;
+    private String end;
     private Boolean allDay;
     private String color;
     private String tag;

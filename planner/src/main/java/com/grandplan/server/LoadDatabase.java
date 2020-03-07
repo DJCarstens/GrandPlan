@@ -63,8 +63,8 @@ public class LoadDatabase {
                     JSONObject jsonObject = (JSONObject) item;
                     Event event = Event.builder()
                             .title(jsonObject.get("title").toString())
-                            .startDate(jsonObject.get("startDate").toString())
-                            .endTime(jsonObject.get("endTime").toString())
+                            .start(jsonObject.get("start").toString())
+                            .end(jsonObject.get("end").toString())
                             .allDay((Boolean) (jsonObject.get("allDay")))
                             .color(jsonObject.get("color").toString())
                             .tag(jsonObject.get("tag").toString())

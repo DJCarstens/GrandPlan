@@ -25,8 +25,8 @@ public class RestWebController {
             events = new ArrayList<>();
 
             Event event1 = Event.builder().title("first event")
-                                  .startDate("2020-02-02")
-                                  .endTime("")
+                                  .start("2020-02-02")
+                                  .end("")
                                   .allDay(true)
                                   .color("blue")
                                   .tag("work")
@@ -35,8 +35,8 @@ public class RestWebController {
             events.add(event1);
 
             Event event2 = Event.builder().title("second event")
-                                  .startDate("2020-03-02")
-                                  .endTime("2020-03-06")
+                                  .start("2020-03-02")
+                                  .end("2020-03-06")
                                   .allDay(true)
                                   .color("#ddd")
                                   .tag("Personal")
@@ -45,8 +45,8 @@ public class RestWebController {
             events.add(event2);
 
             Event event3 = Event.builder().title("third event: call")
-                                  .startDate("2020-02-29T11:00")
-                                  .endTime("2020-02-29T12:00")
+                                  .start("2020-02-29T11:00")
+                                  .end("2020-02-29T12:00")
                                   .allDay(false)
                                   .color("")
                                   .tag("Grad")

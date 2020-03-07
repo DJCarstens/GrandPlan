@@ -47,8 +47,8 @@ public class ApiEventService {
     public Event updateEvent(Event event) {
         eventRepo.update(
                 event.getTitle(),
-                event.getStartDate(),
-                event.getEndTime(),
+                event.getStart(),
+                event.getEnd(),
                 event.getAllDay(),
                 event.getColor(),
                 event.getTag(),
@@ -63,8 +63,8 @@ public class ApiEventService {
         for (Event event : events) {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("title", event.getTitle());
-            jsonObject.put("startDate", event.getStartDate());
-            jsonObject.put("endTime", event.getEndTime());
+            jsonObject.put("start", event.getStart());
+            jsonObject.put("end", event.getEnd());
             jsonObject.put("allDay", event.getAllDay());
             jsonObject.put("color", event.getColor());
             jsonObject.put("tag", event.getTag());
