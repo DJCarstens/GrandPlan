@@ -30,13 +30,16 @@ public class ServerController {
 
     @PostMapping("/validateLogin")
     public ResponseEntity<User> validate(@RequestBody User user) {
-        if (user != null && apiLoginService.validateUserCredentials(user) != null) {
-            return ResponseEntity.ok(user);
-        } else {
-            HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.set("x-error-code", "Username and password combination does not match");
-            return new ResponseEntity<>(httpHeaders, HttpStatus.NOT_FOUND);
+        if (user != null){
+            User validUser = apiLoginService.validateUserCredentials(user);
+            if(validUser != null){
+                return ResponseEntity.ok(validUser);
+            }      
         }
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("x-error-code", "Username and password combination does not match");
+        return new ResponseEntity<>(httpHeaders, HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/listUsers") //view users that are currently stored in the repository

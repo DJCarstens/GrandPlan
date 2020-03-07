@@ -29,7 +29,7 @@ public class ApiLoginService {
         if (fetchedUser == null || !fetchedUser.getPassword().equals(user.getPassword())) {
             return null;
         }
-            return fetchedUser;
+        return fetchedUser;
     }
 
     public User save(User user) {

@@ -3,6 +3,7 @@ package com.grandplan.client;
 import com.grandplan.server.services.ApiLoginService;
 import com.grandplan.util.Event;
 import com.grandplan.util.User;
+import com.grandplan.client.services.ClientEventService;
 import com.grandplan.client.services.ClientLoginService;
 import com.grandplan.client.util.LoginUser;
 import com.grandplan.client.util.SignupUser;
@@ -24,7 +25,6 @@ import java.util.List;
 
 @Controller
 public class GrandPlanController {
-    private User currentUser;
     private List<Event> events;
     private List<Event> invites;
     private String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
@@ -37,7 +37,7 @@ public class GrandPlanController {
     private ClientLoginService clientLoginService;
 
     @Autowired
-    private ApiLoginService loginService;
+    private ClientEventService clientEventService;
 
     @GetMapping("/login")
     public String login(Model model) {
@@ -85,43 +85,20 @@ public class GrandPlanController {
     }
 
     @GetMapping("/events")
-    public String events(Model model)
+    public String events(Model model) throws Exception
     {
-        Event event2 = Event.builder().title("second event")
-                            .start("2020-03-02T10:00")
-                            .end("2020-03-02T10:30")
-                            .allDay(false)
-                            .color("")
-                            .type("test")
-                            .description("")
-                            .build();
-        events.add(event2);
-
-        Event event3 = Event.builder().title("third event: call")
-                            .start("2020-02-15T11:00")
-                            .end("2020-02-15T12:00")
-                            .allDay(false)
-                            .color("")
-                            .type("test")
-                            .description("")
-                            .build();
-        events.add(event3);
-        events.add(event3);
-        events.add(event3);
-        events.add(event3);
-
         //Temporary user assignment until the login has been completed
-        currentUser = new User();
-        currentUser.setEmail("g@bbd.co.za");
-        currentUser.setFirstName("Grad");
-        currentUser.setLastName("Person");
-        currentUser.setPassword("Password");
-        currentUser.setPhone("0718831926");
+        // currentUser = new User();
+        // currentUser.setEmail("g@bbd.co.za");
+        // currentUser.setFirstName("Grad");
+        // currentUser.setLastName("Person");
+        // currentUser.setPassword("Password");
+        // currentUser.setPhone("0718831926");
 
-        model.addAttribute("user", currentUser);
+        model.addAttribute("user", clientLoginService.getCurrentUser());
         model.addAttribute("heading", months[Calendar.getInstance().get(Calendar.MONTH)] + " " + Calendar.getInstance().get(Calendar.YEAR));
-        model.addAttribute("events", events);
-        return "events";
+
+        return clientEventService.getUserEvents(clientLoginService.getCurrentUser(), model);
   }
 
   @GetMapping("/invites")
@@ -150,12 +127,12 @@ public class GrandPlanController {
         events.add(event3);
 
         //Temporary user assignment until the login has been completed
-        if (currentUser == null) {
-            currentUser = new User();
-            currentUser.setFirstName("Testy McTestface");
-        }
+        // if (currentUser == null) {
+        //     currentUser = new User();
+        //     currentUser.setFirstName("Testy McTestface");
+        // }
 
-        model.addAttribute("user", currentUser);
+        model.addAttribute("user", clientLoginService.getCurrentUser());
         model.addAttribute("heading", months[Calendar.getInstance().get(Calendar.MONTH)] + " " + Calendar.getInstance().get(Calendar.YEAR));
         model.addAttribute("events", events);
         return "invites";
@@ -174,14 +151,14 @@ public class GrandPlanController {
     
 
     //Temporary user assignment until the login has been completed
-    currentUser = new User();
-    currentUser.setEmail("g@bbd.co.za");
-    currentUser.setFirstName("Grad");
-    currentUser.setLastName("Person");
-    currentUser.setPassword("Password");
-    currentUser.setPhone("0718831926");
+    // currentUser = new User();
+    // currentUser.setEmail("g@bbd.co.za");
+    // currentUser.setFirstName("Grad");
+    // currentUser.setLastName("Person");
+    // currentUser.setPassword("Password");
+    // currentUser.setPhone("0718831926");
 
-    model.addAttribute("user", currentUser);
+    model.addAttribute("user", clientLoginService.getCurrentUser());
 
     //TODO add NewEvent modal to events to update events
 

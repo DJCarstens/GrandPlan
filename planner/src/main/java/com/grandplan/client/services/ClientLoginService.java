@@ -4,11 +4,16 @@ import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
 
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import com.google.gson.JsonObject;
 import com.grandplan.client.util.LoginUser;
 import com.grandplan.client.util.SignupUser;
 import com.grandplan.util.User;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.util.EntityUtils;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,6 +27,8 @@ public class ClientLoginService {
     @Autowired
     private HttpRequestService httpRequestService;
 
+    private User currentUser;
+
     private static final String LOGIN = "login";
     private static final String SIGNUP = "signup";
     private static final String HOME = "home";
@@ -31,7 +38,7 @@ public class ClientLoginService {
         jsonObject.put("email", loginUser.getEmail());
         jsonObject.put("password", loginUser.getPassword());
 
-        CloseableHttpResponse response = httpRequestService.sendHttpRequest(jsonObject, "http://localhost:8080/api/validateLogin");
+        CloseableHttpResponse response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/validateLogin");
         int statusCode = response.getStatusLine().getStatusCode();
         if(statusCode == 404){
             showModal(model, "Your account was not found. Please check your login details and try again, or signup if you do not have an account.", SIGNUP);
@@ -39,13 +46,32 @@ public class ClientLoginService {
         }
 
         if(statusCode == 200){
-            User user = loginUser.convertUser();
-            model.addAttribute("user", user);
-            return HOME;
+            try{
+                currentUser = getUserInfo(EntityUtils.toString(response.getEntity()));
+                model.addAttribute("user", currentUser);
+                return HOME;
+            }
+            catch(Exception e){
+                showModal(model, "Something went wrong with the login process. Please try again.", LOGIN);
+                return LOGIN;
+            }
         }
 
         showModal(model, "Something went wrong with the login process. Please try again.", LOGIN);
         return LOGIN;
+    }
+
+    private User getUserInfo(String response) throws ParseException{
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse(response);
+        JSONObject jsonBody = (JSONObject) obj;
+        return User.builder()
+            .email(jsonBody.get("email").toString())
+            .password(jsonBody.get("password").toString())
+            .lastName(jsonBody.get("lastName").toString())
+            .firstName(jsonBody.get("firstName").toString())
+            .phone(jsonBody.get("phone").toString())
+            .build();
     }
 
     public void showModal(Model model, String message, String button) {
@@ -61,7 +87,7 @@ public class ClientLoginService {
         jsonObject.put("lastName", signupUser.getLastName());
         jsonObject.put("phone", signupUser.getPhone());
 
-        CloseableHttpResponse response = httpRequestService.sendHttpRequest(jsonObject, "http://localhost:8080/api/addUser");
+        CloseableHttpResponse response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/addUser");
         int statusCode = response.getStatusLine().getStatusCode();
 
         if(statusCode == 409){
@@ -70,12 +96,16 @@ public class ClientLoginService {
         }
 
         if(statusCode == 200){
-            User user = signupUser.convertUser();
-            model.addAttribute("user", user);
+            currentUser = signupUser.convertUser();
+            model.addAttribute("user", currentUser);
             return HOME;
         }
 
         showModal(model, "Something went wrong with the signup process. Please try again.", LOGIN);
         return SIGNUP;
+    }
+
+    public User getCurrentUser(){
+        return currentUser;
     }
 }
