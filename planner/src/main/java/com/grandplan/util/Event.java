@@ -35,7 +35,7 @@ public class Event {
     private String end;
     private Boolean allDay;
     private String color;
-    private String type;
+    private String tag;
     private String description;
     private String hostUsername;
 

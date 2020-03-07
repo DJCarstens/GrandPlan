@@ -106,7 +106,7 @@ public class GrandPlanController {
                 .end("2020-03-02T10:30")
                 .allDay(false)
                 .color("")
-                .type("test")
+                .tag("test")
                 .description("")
                 .build();
         events.add(event2);
@@ -116,7 +116,7 @@ public class GrandPlanController {
                 .end("2020-02-15T12:00")
                 .allDay(false)
                 .color("")
-                .type("test")
+                .tag("test")
                 .description("")
                 .build();
         events.add(event3);
@@ -150,7 +150,7 @@ public class GrandPlanController {
                 .end("2020-03-02T10:30")
                 .allDay(false)
                 .color("")
-                .type("test")
+                .tag("test")
                 .description("")
                 .build();
         invites.add(event2);

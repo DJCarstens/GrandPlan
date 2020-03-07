@@ -29,7 +29,7 @@ public interface EventRepo extends JpaRepository<Event, Long> {
             "e.end = :end, " +
             "e.allDay = :allDay, " +
             "e.color = :color, " +
-            "e.type = :type, " +
+            "e.tag = :tag, " +
             "e.description = :description " +
             "WHERE e.id = :id")
     public void update(
@@ -38,7 +38,7 @@ public interface EventRepo extends JpaRepository<Event, Long> {
             @Param("end") String end,
             @Param("allDay") Boolean allDay,
             @Param("color") String color,
-            @Param("type") String type,
+            @Param("tag") String tag,
             @Param("description") String description,
             @Param("id") Long id);
 }

@@ -29,7 +29,7 @@ public class RestWebController {
                                   .end("")
                                   .allDay(true)
                                   .color("blue")
-                                  .type("work")
+                                  .tag("work")
                                   .description("This is a very long description. It is purely to test the functionality of the modal and how it will cope with more information. So I will keep talking about stuff that is completely unnecessary and irrelevant. We shall see how this goes.")
                                   .build();
             events.add(event1);
@@ -39,7 +39,7 @@ public class RestWebController {
                                   .end("2020-03-06")
                                   .allDay(true)
                                   .color("#ddd")
-                                  .type("Personal")
+                                  .tag("Personal")
                                   .description("Some relevant description")
                                   .build();
             events.add(event2);
@@ -49,7 +49,7 @@ public class RestWebController {
                                   .end("2020-02-29T12:00")
                                   .allDay(false)
                                   .color("")
-                                  .type("Grad")
+                                  .tag("Grad")
                                   .description("Discussing project")
                                   .build();
             events.add(event3);
