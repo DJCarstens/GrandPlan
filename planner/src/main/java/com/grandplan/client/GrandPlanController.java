@@ -54,7 +54,8 @@ public class GrandPlanController {
     }
 
     @GetMapping("/logout")
-    public String logout(){
+    public String logout(Model model){
+        model.addAttribute("loginUser", new LoginUser());
         return clientLoginService.logout();
     }
 
