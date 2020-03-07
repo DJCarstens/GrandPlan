@@ -57,7 +57,7 @@ public class GrandPlanController {
             return LOGIN;
         }
 
-        int responseCode = clientLoginService.sendHttpRequest(loginUser);
+        int responseCode = clientLoginService.validateLogin(loginUser);
         if(responseCode == 404){
             showModal(model, "Your account was not found. Please check your login details and try again, or signup if you do not have an account.", SIGNUP);
             return LOGIN;
