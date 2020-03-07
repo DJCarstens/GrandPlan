@@ -1,11 +1,9 @@
 package com.grandplan.client;
 
-import com.grandplan.client.util.LoginUser;
-import com.grandplan.client.util.SignupUser;
 import com.grandplan.server.services.ApiLoginService;
 import com.grandplan.util.Event;
 import com.grandplan.util.User;
-
+import com.grandplan.client.services.ClientLoginService;
 import com.grandplan.client.util.LoginUser;
 import com.grandplan.client.util.SignupUser;
 import com.grandplan.client.util.NewEvent;
@@ -19,19 +17,24 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 import javax.validation.Valid;
-import java.util.ArrayList;
+
 import java.util.Calendar;
 import java.util.List;
 
 @Controller
 public class GrandPlanController {
-    public Model mainModel;
     private User currentUser;
     private List<Event> events;
     private List<Event> invites;
     private String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+
+    private static final String LOGIN = "login";
+    private static final String SIGNUP = "signup";
+    private static final String HOME = "home";
+
+    @Autowired
+    private ClientLoginService clientLoginService;
 
     @Autowired
     private ApiLoginService loginService;
@@ -39,52 +42,58 @@ public class GrandPlanController {
     @GetMapping("/login")
     public String login(Model model) {
         model.addAttribute("loginUser", new LoginUser());
-        return "login";
+        return LOGIN;
     }
 
     @GetMapping("/signup")
     public String signup(Model model) {
         model.addAttribute("signupUser", new SignupUser());
-        return "signup";
+        return SIGNUP;
     }
 
     @PostMapping(value = "/validateLogin")
-    public String validateLogin(@Valid @ModelAttribute("loginUser") LoginUser loginUser, BindingResult bindingResult, Model model) {
+    public String validateLogin(@Valid @ModelAttribute("loginUser") LoginUser loginUser, BindingResult bindingResult, Model model) throws Exception {
         if (bindingResult.hasErrors()) {
-            return "login";
+            return LOGIN;
         }
 
-        User user = loginService.validateUserCredentials(loginUser.convertUser());
-        if (user == null) {
-            showModal(model, "Your account was not found. Please check your login details and try again, or signup if you do not have an account.", "signup");
-            return "login";
-        } else {
-            model.addAttribute("user", user);
-            return "home";
+        int responseCode = clientLoginService.sendHttpRequest(loginUser);
+        if(responseCode == 404){
+            showModal(model, "Your account was not found. Please check your login details and try again, or signup if you do not have an account.", SIGNUP);
+            return LOGIN;
         }
+
+        if(responseCode == 200){
+            User user = loginUser.convertUser();
+            model.addAttribute("user", user);
+            return HOME;
+        }
+
+        showModal(model, "Something went wrong with the login. Please try again.", LOGIN);
+        return LOGIN;
     }
 
     @PostMapping(value = "/validateSignup")
     public String validateSignup(@Valid @ModelAttribute("signupUser") SignupUser signupUser, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "signup";
+            return SIGNUP;
         }
 
         if (!signupUser.getPassword().equals(signupUser.getConfirmPassword())) {
             model.addAttribute("matchingPasswordError", "The passwords don't match");
-            return "signup";
+            return SIGNUP;
         }
 
         User user = signupUser.convertUser();
         //TODO Check that if user exists when creating user instead of doing it here
         if (loginService.validateUserCredentials(user) != null) {
-            showModal(model, "An account for " + signupUser.getEmail() + ". Please check your signup details and try again, or login if you have an account.", "login");
-            return "signup";
+            showModal(model, "An account for " + signupUser.getEmail() + ". Please check your signup details and try again, or login if you have an account.", LOGIN);
+            return SIGNUP;
         }
 
         //TODO Create user and save details before navigating (backend functionality)
         model.addAttribute("user", user);
-        return "home";
+        return HOME;
     }
 
     public void showModal(Model model, String message, String button) {
@@ -94,7 +103,7 @@ public class GrandPlanController {
 
     @GetMapping("/")
     public String home(Model model){
-        return "home";
+        return HOME;
     }
 
     @GetMapping("/events")
