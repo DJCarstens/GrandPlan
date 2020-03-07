@@ -1,28 +1,18 @@
 package com.grandplan.client.services;
 
 import lombok.RequiredArgsConstructor;
-import lombok.var;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URLEncoder;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
-import java.util.Map;
 
 import com.grandplan.client.util.LoginUser;
+import com.grandplan.util.User;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 @RequiredArgsConstructor
 @Service
@@ -30,12 +20,35 @@ import org.springframework.stereotype.Service;
 public class ClientLoginService {
     @Autowired
     private HttpRequestService httpRequestService;
+
+    private static final String LOGIN = "login";
+    private static final String SIGNUP = "signup";
+    private static final String HOME = "home";
     
-    public Integer validateLogin(LoginUser loginUser) throws IOException{
+    public String validateLogin(LoginUser loginUser, Model model) throws IOException{
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("email", loginUser.getEmail());
         jsonObject.put("password", loginUser.getPassword());
 
-        return httpRequestService.sendHttpRequest(jsonObject, "http://localhost:8080/api/validateLogin");
+        CloseableHttpResponse response = httpRequestService.sendHttpRequest(jsonObject, "http://localhost:8080/api/validateLogin");
+        int statusCode = response.getStatusLine().getStatusCode();
+        if(statusCode == 404){
+            showModal(model, "Your account was not found. Please check your login details and try again, or signup if you do not have an account.", SIGNUP);
+            return LOGIN;
+        }
+
+        if(statusCode == 200){
+            User user = loginUser.convertUser();
+            model.addAttribute("user", user);
+            return HOME;
+        }
+
+        showModal(model, "Something went wrong with the login. Please try again.", LOGIN);
+        return LOGIN;
+    }
+
+    public void showModal(Model model, String message, String button) {
+        model.addAttribute("messageModal", message);
+        model.addAttribute("button", button);
     }
 }

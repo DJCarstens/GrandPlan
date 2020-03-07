@@ -31,7 +31,7 @@ public class HttpRequestService {
             .version(HttpClient.Version.HTTP_2)
             .build();
 
-    public Integer sendHttpRequest(JSONObject jsonObject, String url) throws IOException{
+    public CloseableHttpResponse sendHttpRequest(JSONObject jsonObject, String url) throws IOException{
         CloseableHttpClient client = HttpClients.createDefault();
         try{
             HttpPost httpPost = new HttpPost(url);        
@@ -41,7 +41,7 @@ public class HttpRequestService {
             httpPost.setHeader("Content-type", "application/json");
         
             CloseableHttpResponse response = client.execute(httpPost);
-            return response.getStatusLine().getStatusCode();
+            return response;
         }
         finally{
             client.close();

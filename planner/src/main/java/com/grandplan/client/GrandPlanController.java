@@ -57,20 +57,7 @@ public class GrandPlanController {
             return LOGIN;
         }
 
-        int responseCode = clientLoginService.validateLogin(loginUser);
-        if(responseCode == 404){
-            showModal(model, "Your account was not found. Please check your login details and try again, or signup if you do not have an account.", SIGNUP);
-            return LOGIN;
-        }
-
-        if(responseCode == 200){
-            User user = loginUser.convertUser();
-            model.addAttribute("user", user);
-            return HOME;
-        }
-
-        showModal(model, "Something went wrong with the login. Please try again.", LOGIN);
-        return LOGIN;
+        return clientLoginService.validateLogin(loginUser, model);
     }
 
     @PostMapping(value = "/validateSignup")
