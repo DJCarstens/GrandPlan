@@ -71,8 +71,9 @@
                         </div>
                         <br />
                         <div>
-                            <span class="members"><em class="fas fa-users"></em></span>&nbsp&nbsp<span class="info"><em
-                                    class="fas fa-info-circle"></em>
+                            <span class="members"><em class="fas fa-users"></em></span>&nbsp&nbsp<span
+                                class="updateEvent update"><em class="fas fa-edit"></em><input style="display: none"
+                                    th:attr="value = ${event}" />
                             </span><span class="deleteEvent trash"><em class="fas fa-trash-alt"></em><input
                                     style="display: none" th:attr="value = ${event.id}" /></span>
                         </div>

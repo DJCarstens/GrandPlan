@@ -66,16 +66,14 @@ $(document).ready(function () {
                 contentType: "application/json",
                 url: "/deleteEvent",
                 data: JSON.stringify($data),
-                dataType: 'json',
-                // success: () => {
-                //     $('#events-modal').css('display', 'none');
-                //     $('#modal').css('display', 'block');
-                // },
-                // error: () => {
-                //     $('#events-modal').css('display', 'none');
-                //     $('#modal').css('display', 'block');
-                // }
+                dataType: 'json'
             });
         });
-    })
+    });
+
+    $(".updateEvent").click(function(){
+        $(this).find('input').each(function(){
+            console.log($(this).val());
+        });
+    });
 });
