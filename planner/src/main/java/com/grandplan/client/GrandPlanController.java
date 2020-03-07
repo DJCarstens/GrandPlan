@@ -87,19 +87,10 @@ public class GrandPlanController {
     @GetMapping("/events")
     public String events(Model model) throws Exception
     {
-        //Temporary user assignment until the login has been completed
-        // currentUser = new User();
-        // currentUser.setEmail("g@bbd.co.za");
-        // currentUser.setFirstName("Grad");
-        // currentUser.setLastName("Person");
-        // currentUser.setPassword("Password");
-        // currentUser.setPhone("0718831926");
-
         model.addAttribute("user", clientLoginService.getCurrentUser());
         model.addAttribute("heading", months[Calendar.getInstance().get(Calendar.MONTH)] + " " + Calendar.getInstance().get(Calendar.YEAR));
-
         return clientEventService.getUserEvents(clientLoginService.getCurrentUser(), model);
-  }
+    }
 
   @GetMapping("/invites")
     public String invites(Model model){

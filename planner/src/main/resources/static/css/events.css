@@ -23,6 +23,18 @@
 
 .heading{
   margin-left: 1%;
+  color: black;
+  z-index: 2000;
+}
+
+.no-events{
+  margin: auto;
+  z-index: 2000;
+  text-align: center;
+}
+
+.no-events h2{
+  color: red;
 }
 
 .box-part{

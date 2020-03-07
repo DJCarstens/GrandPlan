@@ -49,7 +49,10 @@
         <div class="container main-container">
             <div class="row">
                 <h1 class="heading" th:if="${heading}" th:text="${heading}"></h1>
-                <div th:each="event : ${events}" class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <div class="no-events" th:if="${noEvents}">
+                    <h2 th:text="${noEvents}"></h2>
+                </div>
+                <div th:if="${events}" th:each="event : ${events}" class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                     <div class="img">
                         <div class="clearfix"></div>
                         <div class="icon-container"><em class="far fa-calendar-alt"></em></div>
