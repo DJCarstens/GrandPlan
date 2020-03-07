@@ -9,6 +9,7 @@ import com.grandplan.client.util.LoginUser;
 import com.grandplan.client.util.SignupUser;
 import com.grandplan.client.util.NewEvent;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -73,9 +76,39 @@ public class GrandPlanController {
     @GetMapping("/events")
     public String events(Model model) throws Exception
     {
-        model.addAttribute("user", clientLoginService.getCurrentUser());
+        User tempUser = User.builder().email("emmac@bbd.co.za").password("Vodacom2").firstName("Emma").lastName("Coetzer").phone("0718831926").build();
+        // model.addAttribute("user", clientLoginService.getCurrentUser());
+        model.addAttribute("user", tempUser);
         model.addAttribute("heading", months[Calendar.getInstance().get(Calendar.MONTH)] + " " + Calendar.getInstance().get(Calendar.YEAR));
-        return clientEventService.getUserEvents(clientLoginService.getCurrentUser(), model);
+
+        events = new ArrayList<Event>();
+        Event event2 = Event.builder().title("second event")
+                .start("2020-03-02T10:00")
+                .end("2020-03-02T10:30")
+                .allDay(false)
+                .color("")
+                .type("test")
+                .description("")
+                .id((long) 12345)
+                .build();
+        events.add(event2);
+
+        Event event3 = Event.builder().title("third event: call")
+                .start("2020-02-15T11:00")
+                .end("2020-02-15T12:00")
+                .allDay(false)
+                .color("")
+                .type("test")
+                .description("")
+                .build();
+        events.add(event3);
+        events.add(event3);
+        events.add(event3);
+        events.add(event3);
+
+        model.addAttribute("events", events);
+        // return clientEventService.getUserEvents(clientLoginService.getCurrentUser(), model);
+        return "events";
     }
 
   @GetMapping("/invites")
@@ -87,32 +120,7 @@ public class GrandPlanController {
             return "invites";
         }
 
-        // Event event2 = Event.builder().title("second event")
-        //         .start("2020-03-02T10:00")
-        //         .end("2020-03-02T10:30")
-        //         .allDay(false)
-        //         .color("")
-        //         .type("test")
-        //         .description("")
-        //         .build();
-        // events.add(event2);
-
-        // Event event3 = Event.builder().title("third event: call")
-        //         .start("2020-02-15T11:00")
-        //         .end("2020-02-15T12:00")
-        //         .allDay(false)
-        //         .color("")
-        //         .type("test")
-        //         .description("")
-        //         .build();
-        // events.add(event3);
-        // events.add(event3);
-        // events.add(event3);
-        // events.add(event3);
-
         model.addAttribute("user", user);
-        // model.addAttribute("heading", months[Calendar.getInstance().get(Calendar.MONTH)] + " " + Calendar.getInstance().get(Calendar.YEAR));
-        // model.addAttribute("events", events);
         return "invites";
     }
 
@@ -121,7 +129,12 @@ public class GrandPlanController {
         return "error";
     }
 
-  @PostMapping(value="/createEvent")
+    @PostMapping("/deleteEvent")
+    public String deleteEvent(@RequestBody JSONObject event, Model model) throws IOException{
+        return clientEventService.deleteEvent(event.get("id").toString(), model);
+    }
+
+  @PostMapping("/createEvent")
   public String createEvent(@RequestBody NewEvent newEvent, Model model) {
     showModal(model, "Event Successfully created.", "Ok");
     model.addAttribute("user", clientLoginService.getCurrentUser());
@@ -130,5 +143,7 @@ public class GrandPlanController {
 
     return "events";
   }
+
+
 
 }

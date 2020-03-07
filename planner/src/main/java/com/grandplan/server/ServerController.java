@@ -73,8 +73,8 @@ public class ServerController {
     }
 
     @PostMapping("/deleteEvent")
-    public ResponseEntity<Boolean> deleteEvent(Event event) {
-        return ResponseEntity.ok(apiEventService.deleteEvent(event));
+    public ResponseEntity<Boolean> deleteEvent(String id) {
+        return ResponseEntity.ok(apiEventService.deleteEvent(Long.parseLong(id)));
     }
 
     @PostMapping("/updateEvent")

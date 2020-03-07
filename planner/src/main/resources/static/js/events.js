@@ -56,4 +56,26 @@ $(document).ready(function () {
     $('#allDay').click(function () {
         $('#end').attr('disabled', !$(this).attr('checked'));
     });
+
+    $(".deleteEvent").click(function () {
+        $(this).find('input').each(function(){
+            let $data = {};
+            $data["id"] = $(this).val();
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/deleteEvent",
+                data: JSON.stringify($data),
+                dataType: 'json',
+                // success: () => {
+                //     $('#events-modal').css('display', 'none');
+                //     $('#modal').css('display', 'block');
+                // },
+                // error: () => {
+                //     $('#events-modal').css('display', 'none');
+                //     $('#modal').css('display', 'block');
+                // }
+            });
+        });
+    })
 });

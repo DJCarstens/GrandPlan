@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import antlr.debug.Event;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -19,8 +20,13 @@ import lombok.RequiredArgsConstructor;
 @Component
 public class ClientEventService {
 
+    private static final String EVENTS ="events";
+
     @Autowired
     private HttpRequestService httpRequestService;
+
+    @Autowired 
+    private ClientLoginService clientLoginService;
 
     public String getUserEvents(User user, Model model) throws IOException{
         JSONObject jsonObject = new JSONObject();
@@ -33,7 +39,30 @@ public class ClientEventService {
             model.addAttribute("noEvents", "You currently have no events");
         }
 
-        return "events";
+        return EVENTS;
+    }
+
+    public String deleteEvent(String eventId, Model model) throws IOException{
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id", eventId);
+
+        CloseableHttpResponse response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/deleteEvent");
+        int statusCode = response.getStatusLine().getStatusCode();
+
+        if (statusCode == 200){
+            showModal(model, "Successfully deleted event", EVENTS);
+        }             
+        else{
+            showModal(model, "Could not delete event. Please try again later.", EVENTS);
+        }                
+
+        model.addAttribute("user", clientLoginService.getCurrentUser());
+        return getUserEvents(clientLoginService.getCurrentUser(), model);
+    }
+
+    public void showModal(Model model, String message, String button) {
+        model.addAttribute("messageModal", message);
+        model.addAttribute("button", button);
     }
 
 }

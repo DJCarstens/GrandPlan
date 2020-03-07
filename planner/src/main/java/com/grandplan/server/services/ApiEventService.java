@@ -29,8 +29,9 @@ public class ApiEventService {
         return event;
     }
 
-    public boolean deleteEvent(Event event) {
-        if (eventRepo.findEventById(event.getId()) == null) {
+    public boolean deleteEvent(Long id) {
+        Event event = eventRepo.findEventById(id);
+        if (event == null) {
             return false;
         }
         eventRepo.delete(event);
