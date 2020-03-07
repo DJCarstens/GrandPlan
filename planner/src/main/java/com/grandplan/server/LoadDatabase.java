@@ -47,7 +47,38 @@ public class LoadDatabase {
             for (User user : users) {
                 log.info("Preloading " + userRepo.save(user));
             }
+            List<Event> events = getListOfEvents();
+            for (Event e : events) {
+                log.info("Preloading " + eventRepo.save(e));
+            }
         };
+    }
+        private List<Event> getListOfEvents() {
+            JSONParser parser = new JSONParser();
+            List<Event> events = new ArrayList<>();
+            try {
+                Object obj = parser.parse(new FileReader("src/main/resources/data/Events.json"));
+                JSONArray jsonObjects = (JSONArray) obj;
+                jsonObjects.forEach(item -> {
+                    JSONObject jsonObject = (JSONObject) item;
+                    Event event = Event.builder()
+                            .title(jsonObject.get("title").toString())
+                            .startDate(jsonObject.get("startDate").toString())
+                            .endTime(jsonObject.get("endTime").toString())
+                            .allDay((Boolean) (jsonObject.get("allDay")))
+                            .color(jsonObject.get("color").toString())
+                            .tag(jsonObject.get("tag").toString())
+                            .description(jsonObject.get("description").toString())
+                            .hostUsername(jsonObject.get("hostUsername").toString())
+                            .invites(new HashSet<>())
+                            .build();
+                    events.add(event);
+                });
+            } catch (Exception e) {
+                log.info("Unable to load events to repository");
+                e.printStackTrace();
+            }
+            return events;
     }
 
     private List<User> getListOfUsers() {

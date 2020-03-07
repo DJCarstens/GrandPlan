@@ -31,11 +31,11 @@ public class Event {
     private Long id;
 
     private String title;
-    private String start;
-    private String end;
+    private String startDate;
+    private String endTime;
     private Boolean allDay;
     private String color;
-    private String type;
+    private String tag;
     private String description;
     private String hostUsername;
 

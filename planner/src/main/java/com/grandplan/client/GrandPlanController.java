@@ -102,21 +102,21 @@ public class GrandPlanController {
         events = new ArrayList<Event>();
 
         Event event2 = Event.builder().title("second event")
-                .start("2020-03-02T10:00")
-                .end("2020-03-02T10:30")
+                .startDate("2020-03-02T10:00")
+                .endTime("2020-03-02T10:30")
                 .allDay(false)
                 .color("")
-                .type("test")
+                .tag("test")
                 .description("")
                 .build();
         events.add(event2);
 
         Event event3 = Event.builder().title("third event: call")
-                .start("2020-02-15T11:00")
-                .end("2020-02-15T12:00")
+                .startDate("2020-02-15T11:00")
+                .endTime("2020-02-15T12:00")
                 .allDay(false)
                 .color("")
-                .type("test")
+                .tag("test")
                 .description("")
                 .build();
         events.add(event3);
@@ -146,11 +146,11 @@ public class GrandPlanController {
         invites = new ArrayList<Event>();
 
         Event event2 = Event.builder().title("second event")
-                .start("2020-03-02T10:00")
-                .end("2020-03-02T10:30")
+                .startDate("2020-03-02T10:00")
+                .endTime("2020-03-02T10:30")
                 .allDay(false)
                 .color("")
-                .type("test")
+                .tag("test")
                 .description("")
                 .build();
         invites.add(event2);

@@ -25,20 +25,20 @@ public interface EventRepo extends JpaRepository<Event, Long> {
     @Query("UPDATE Event e " +
             "SET " +
             "e.title = :title, " +
-            "e.start = :start, " +
-            "e.end = :end, " +
+            "e.startDate = :startDate, " +
+            "e.endTime = :endTime, " +
             "e.allDay = :allDay, " +
             "e.color = :color, " +
-            "e.type = :type, " +
+            "e.tag = :tag, " +
             "e.description = :description " +
             "WHERE e.id = :id")
     public void update(
             @Param("title") String title,
-            @Param("start") String start,
-            @Param("end") String end,
+            @Param("startDate") String startDate,
+            @Param("endTime") String endTime,
             @Param("allDay") Boolean allDay,
             @Param("color") String color,
-            @Param("type") String type,
+            @Param("tag") String tag,
             @Param("description") String description,
             @Param("id") Long id);
 }
