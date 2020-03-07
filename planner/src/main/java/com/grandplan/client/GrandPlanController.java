@@ -61,7 +61,7 @@ public class GrandPlanController {
     }
 
     @PostMapping(value = "/validateSignup")
-    public String validateSignup(@Valid @ModelAttribute("signupUser") SignupUser signupUser, BindingResult bindingResult, Model model) {
+    public String validateSignup(@Valid @ModelAttribute("signupUser") SignupUser signupUser, BindingResult bindingResult, Model model) throws Exception {
         if (bindingResult.hasErrors()) {
             return SIGNUP;
         }
@@ -71,16 +71,7 @@ public class GrandPlanController {
             return SIGNUP;
         }
 
-        User user = signupUser.convertUser();
-        //TODO Check that if user exists when creating user instead of doing it here
-        if (loginService.validateUserCredentials(user) != null) {
-            showModal(model, "An account for " + signupUser.getEmail() + ". Please check your signup details and try again, or login if you have an account.", LOGIN);
-            return SIGNUP;
-        }
-
-        //TODO Create user and save details before navigating (backend functionality)
-        model.addAttribute("user", user);
-        return HOME;
+        return clientLoginService.validateSignup(signupUser, model);
     }
 
     public void showModal(Model model, String message, String button) {

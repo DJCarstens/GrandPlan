@@ -31,7 +31,7 @@ public class SignupUser{
 
     @NotNull(message="Please provide your number")
     @NotEmpty(message="Please provide your number")
-    @Pattern(regexp="^[0-9]$", message="Please provide a valid number")
+    @Pattern(regexp="^[0-9]*$", message="Please provide a valid number")
     private String phone = "";
 
     @NotNull(message="Please provide your password")

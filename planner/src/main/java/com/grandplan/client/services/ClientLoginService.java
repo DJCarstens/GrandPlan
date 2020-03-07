@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import java.io.IOException;
 
 import com.grandplan.client.util.LoginUser;
+import com.grandplan.client.util.SignupUser;
 import com.grandplan.util.User;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -43,12 +44,38 @@ public class ClientLoginService {
             return HOME;
         }
 
-        showModal(model, "Something went wrong with the login. Please try again.", LOGIN);
+        showModal(model, "Something went wrong with the login process. Please try again.", LOGIN);
         return LOGIN;
     }
 
     public void showModal(Model model, String message, String button) {
         model.addAttribute("messageModal", message);
         model.addAttribute("button", button);
+    }
+
+    public String validateSignup(SignupUser signupUser, Model model) throws IOException{
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("email", signupUser.getEmail());
+        jsonObject.put("password", signupUser.getPassword());
+        jsonObject.put("firstName", signupUser.getFirstName());
+        jsonObject.put("lastName", signupUser.getLastName());
+        jsonObject.put("phone", signupUser.getPhone());
+
+        CloseableHttpResponse response = httpRequestService.sendHttpRequest(jsonObject, "http://localhost:8080/api/addUser");
+        int statusCode = response.getStatusLine().getStatusCode();
+
+        if(statusCode == 409){
+            showModal(model, "An account for " + signupUser.getEmail() + " already exists. Please check your signup details and try again, or login if you have an account.", LOGIN);
+            return SIGNUP;
+        }
+
+        if(statusCode == 200){
+            User user = signupUser.convertUser();
+            model.addAttribute("user", user);
+            return HOME;
+        }
+
+        showModal(model, "Something went wrong with the signup process. Please try again.", LOGIN);
+        return SIGNUP;
     }
 }

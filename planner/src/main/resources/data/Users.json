@@ -1,4 +1,10 @@
 [ {
+  "firstName" : "grad",
+  "lastName" : "McGrad",
+  "password" : "password",
+  "phone" : "911",
+  "email" : "grad@bbd.co.za"
+}, {
   "firstName" : "Linda",
   "lastName" : "Marks",
   "password" : "chocolate",
@@ -28,4 +34,10 @@
   "password" : "nougat",
   "phone" : "0652321474",
   "email" : "caleyt@bbd.co.za"
+}, {
+  "firstName" : "Emma",
+  "lastName" : "Coetzer",
+  "password" : "Vodacom2",
+  "phone" : "0718831926",
+  "email" : "emmac@bbd.co.za"
 } ]
