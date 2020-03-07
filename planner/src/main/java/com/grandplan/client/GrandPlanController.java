@@ -53,25 +53,12 @@ public class GrandPlanController {
 
     @PostMapping(value = "/validateLogin")
     public String validateLogin(@Valid @ModelAttribute("loginUser") LoginUser loginUser, BindingResult bindingResult, Model model) throws Exception {
-        if (bindingResult.hasErrors()) {
-            return LOGIN;
-        }
-
-        return clientLoginService.validateLogin(loginUser, model);
+        return clientLoginService.validateLogin(loginUser, model, bindingResult);
     }
 
     @PostMapping(value = "/validateSignup")
     public String validateSignup(@Valid @ModelAttribute("signupUser") SignupUser signupUser, BindingResult bindingResult, Model model) throws Exception {
-        if (bindingResult.hasErrors()) {
-            return SIGNUP;
-        }
-
-        if (!signupUser.getPassword().equals(signupUser.getConfirmPassword())) {
-            model.addAttribute("matchingPasswordError", "The passwords don't match");
-            return SIGNUP;
-        }
-
-        return clientLoginService.validateSignup(signupUser, model);
+        return clientLoginService.validateSignup(signupUser, model, bindingResult);
     }
 
     public void showModal(Model model, String message, String button) {
@@ -136,19 +123,7 @@ public class GrandPlanController {
 
   @PostMapping(value="/createEvent")
   public String createEvent(@RequestBody NewEvent newEvent, Model model) {
-    //TODO create event based on info passed
-    System.out.println(model);
     showModal(model, "Event Successfully created.", "Ok");
-    
-
-    //Temporary user assignment until the login has been completed
-    // currentUser = new User();
-    // currentUser.setEmail("g@bbd.co.za");
-    // currentUser.setFirstName("Grad");
-    // currentUser.setLastName("Person");
-    // currentUser.setPassword("Password");
-    // currentUser.setPhone("0718831926");
-
     model.addAttribute("user", clientLoginService.getCurrentUser());
 
     //TODO add NewEvent modal to events to update events

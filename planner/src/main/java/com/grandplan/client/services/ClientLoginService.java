@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 
 @RequiredArgsConstructor
 @Service
@@ -33,7 +34,11 @@ public class ClientLoginService {
     private static final String SIGNUP = "signup";
     private static final String HOME = "home";
     
-    public String validateLogin(LoginUser loginUser, Model model) throws IOException{
+    public String validateLogin(LoginUser loginUser, Model model, BindingResult bindingResult) throws IOException{
+        if(bindingResult.hasErrors()){
+            return LOGIN;
+        }
+
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("email", loginUser.getEmail());
         jsonObject.put("password", loginUser.getPassword());
@@ -79,7 +84,16 @@ public class ClientLoginService {
         model.addAttribute("button", button);
     }
 
-    public String validateSignup(SignupUser signupUser, Model model) throws IOException{
+    public String validateSignup(SignupUser signupUser, Model model, BindingResult bindingResult) throws IOException{
+        if (bindingResult.hasErrors()) {
+            return SIGNUP;
+        }
+
+        if (!signupUser.getPassword().equals(signupUser.getConfirmPassword())) {
+            model.addAttribute("matchingPasswordError", "The passwords don't match");
+            return SIGNUP;
+        }
+
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("email", signupUser.getEmail());
         jsonObject.put("password", signupUser.getPassword());
@@ -89,7 +103,6 @@ public class ClientLoginService {
 
         CloseableHttpResponse response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/addUser");
         int statusCode = response.getStatusLine().getStatusCode();
-
         if(statusCode == 409){
             showModal(model, "An account for " + signupUser.getEmail() + " already exists. Please check your signup details and try again, or login if you have an account.", LOGIN);
             return SIGNUP;
