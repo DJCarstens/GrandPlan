@@ -26,7 +26,6 @@ import java.util.List;
 @Controller
 public class GrandPlanController {
     private List<Event> events;
-    private List<Event> invites;
     private String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
     private static final String LOGIN = "login";
@@ -81,38 +80,39 @@ public class GrandPlanController {
 
   @GetMapping("/invites")
     public String invites(Model model){
-        Event event2 = Event.builder().title("second event")
-                .start("2020-03-02T10:00")
-                .end("2020-03-02T10:30")
-                .allDay(false)
-                .color("")
-                .type("test")
-                .description("")
-                .build();
-        events.add(event2);
+        User user = clientLoginService.getCurrentUser();
+        if(user.getInvites() == null){
+            model.addAttribute("user", user);
+            model.addAttribute("noInvites", "You currently have no invitations");
+            return "invites";
+        }
 
-        Event event3 = Event.builder().title("third event: call")
-                .start("2020-02-15T11:00")
-                .end("2020-02-15T12:00")
-                .allDay(false)
-                .color("")
-                .type("test")
-                .description("")
-                .build();
-        events.add(event3);
-        events.add(event3);
-        events.add(event3);
-        events.add(event3);
+        // Event event2 = Event.builder().title("second event")
+        //         .start("2020-03-02T10:00")
+        //         .end("2020-03-02T10:30")
+        //         .allDay(false)
+        //         .color("")
+        //         .type("test")
+        //         .description("")
+        //         .build();
+        // events.add(event2);
 
-        //Temporary user assignment until the login has been completed
-        // if (currentUser == null) {
-        //     currentUser = new User();
-        //     currentUser.setFirstName("Testy McTestface");
-        // }
+        // Event event3 = Event.builder().title("third event: call")
+        //         .start("2020-02-15T11:00")
+        //         .end("2020-02-15T12:00")
+        //         .allDay(false)
+        //         .color("")
+        //         .type("test")
+        //         .description("")
+        //         .build();
+        // events.add(event3);
+        // events.add(event3);
+        // events.add(event3);
+        // events.add(event3);
 
-        model.addAttribute("user", clientLoginService.getCurrentUser());
-        model.addAttribute("heading", months[Calendar.getInstance().get(Calendar.MONTH)] + " " + Calendar.getInstance().get(Calendar.YEAR));
-        model.addAttribute("events", events);
+        model.addAttribute("user", user);
+        // model.addAttribute("heading", months[Calendar.getInstance().get(Calendar.MONTH)] + " " + Calendar.getInstance().get(Calendar.YEAR));
+        // model.addAttribute("events", events);
         return "invites";
     }
 

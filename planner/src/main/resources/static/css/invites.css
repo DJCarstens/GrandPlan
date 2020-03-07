@@ -16,6 +16,16 @@
     margin-left: 1%;;
 }
 
+.no-invites{
+    margin: auto;
+    margin-top: 5%;
+    text-align: center;
+}
+
+.no-invites h2{
+    color: red;
+}
+
 .box-part{
     background-color: rgb(221, 221, 221);
     border-radius: 0.125rem;
