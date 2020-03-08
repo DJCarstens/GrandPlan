@@ -18,7 +18,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
-@EqualsAndHashCode(exclude = {"invites"})
+@EqualsAndHashCode(exclude = {"invites", "attendees"})
 @Entity
 @Builder
 @NoArgsConstructor
@@ -38,6 +38,8 @@ public class Event {
     private String tag;
     private String description;
     private String hostUsername;
+
+    private Set<User> attendees = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "event")
     private Set<Invite> invites = new HashSet<>();

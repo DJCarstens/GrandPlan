@@ -19,7 +19,7 @@ import java.util.Set;
 import java.io.Serializable;
 
 @Data
-@EqualsAndHashCode(exclude = {"invites"})
+@EqualsAndHashCode(exclude = {"invites", "attending"})
 @Entity
 @Builder
 @NoArgsConstructor
@@ -36,6 +36,8 @@ public class User implements Serializable {
     private String firstName;
     private String lastName;
     private String phone;
+
+    private Set<Event> attending = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private Set<Invite> invites = new HashSet<>();
