@@ -82,39 +82,8 @@ public class GrandPlanController {
     @GetMapping("/events")
     public String events(Model model) throws Exception
     {
-        User tempUser = User.builder().email("emmac@bbd.co.za").password("Vodacom2").firstName("Emma").lastName("Coetzer").phone("0718831926").build();
-        // model.addAttribute("user", clientLoginService.getCurrentUser());
-        model.addAttribute("user", tempUser);
-        model.addAttribute("heading", months[Calendar.getInstance().get(Calendar.MONTH)] + " " + Calendar.getInstance().get(Calendar.YEAR));
-
-        events = new ArrayList<Event>();
-        Event event2 = Event.builder().title("second event")
-                .start("2020-03-02T10:00")
-                .end("2020-03-02T10:30")
-                .allDay(false)
-                .color("")
-                .type("test")
-                .description("")
-                .id((long) 12345)
-                .build();
-        events.add(event2);
-
-        Event event3 = Event.builder().title("third event: call")
-                .start("2020-02-15T11:00")
-                .end("2020-02-15T12:00")
-                .allDay(false)
-                .color("")
-                .type("test")
-                .description("")
-                .build();
-        events.add(event3);
-        events.add(event3);
-        events.add(event3);
-        events.add(event3);
-
-        model.addAttribute("events", events);
-        // return clientEventService.getUserEvents(clientLoginService.getCurrentUser(), model);
-        return "events";
+        model.addAttribute("user", clientLoginService.getCurrentUser());
+        return clientEventService.getUserEvents(clientLoginService.getCurrentUser(), model);
     }
 
   @GetMapping("/invites")
