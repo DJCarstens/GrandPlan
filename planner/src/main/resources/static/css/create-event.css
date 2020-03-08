@@ -17,9 +17,9 @@
 
 .modal-div{
     background-color: white;
-    width: 60%;
+    width: 65%;
     margin: auto;
-    margin-top: 6%;
+    margin-top: 1%;
 }
 
 .modal-header{
@@ -38,7 +38,6 @@
 .close-modal{
     color: white;
     font-size: 2rem;
-    margin-left: 70%;
 }
 
 .close-modal:hover{
@@ -59,18 +58,6 @@
     width: 30%;
     font-size: 1.5rem;
     margin-top: 3%;
-}
-
-.checkbox-label{
-    position: relative;
-    margin-left: 23%;
-}
-
-input[type="checkbox"]{
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    margin-left: 15%;
 }
 
 .form-button:hover{
@@ -117,4 +104,72 @@ input[type="checkbox"]{
     content: " ";
     clear: both;
     height: 0;
+}
+
+.checkbox label:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.checkbox .cr {
+  position: relative;
+  display: inline-block;
+  border: 1px solid #a9a9a9;
+  border-radius: .25em;
+  width: 1.3em;
+  height: 1.3em;
+  float: left;
+  margin-right: 1em;
+}
+
+.checkbox .cr .cr-icon {
+  position: absolute;
+  font-size: .8em;
+  line-height: 0;
+  top: 50%;
+  left: 15%;
+}
+
+.checkbox label input[type="checkbox"] {
+  display: none;
+}
+
+.checkbox label input[type="checkbox"]+.cr>.cr-icon {
+  opacity: 0;
+}
+
+.checkbox label input[type="checkbox"]:checked+.cr>.cr-icon {
+  opacity: 1;
+}
+
+.checkbox label input[type="checkbox"]:disabled+.cr {
+  opacity: .5;
+}
+
+.error-label{
+    display: none;
+    color: red;
+    margin-top: 0.5%;
+}
+
+.bootstrap-datetimepicker-widget .glyphicon{
+    color: black;
+}
+
+.datepicker table tr td.active:active, 
+.datepicker table tr td.active.highlighted:active, 
+.datepicker table tr td.active.active, 
+.datepicker table tr td.active.highlighted.active, 
+.open > .dropdown-toggle.datepicker table tr td.active, 
+.open > .dropdown-toggle.datepicker table tr td.active.highlighted
+{
+    background-color: rgb(0, 150, 177);
+}
+
+.btn[data-action="togglePeriod"], 
+.btn-primary[data-action="togglePeriod"]
+{
+    background-color: rgb(0, 150, 177);
+    border: none;
 }

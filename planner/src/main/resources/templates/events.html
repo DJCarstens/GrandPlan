@@ -4,17 +4,18 @@
 <head>
     <title>Grand Plan | Home</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/events.css" rel="stylesheet">
     <link href="/css/events-sidenav.css" rel="stylesheet">
     <link href="/css/create-event.css" rel="stylesheet">
     <link href="/css/color-picker.css" rel="stylesheet">
+    <link href="/css/modal.css" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.3.3/css/bootstrap-colorpicker.min.css"
         rel="stylesheet">
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.3.3/js/bootstrap-colorpicker.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css" rel="stylesheet" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
 </head>
 
 <body style="background-color: #C4C4C4;">
@@ -35,11 +36,11 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                            aria-haspopup="true" aria-expanded="false"><span
-                                th:text="${user.getFirstName()}"></span><span class="caret"></span></a>
+                            aria-haspopup="true" aria-expanded="false"><span th:text="${user.toString()}"></span><span
+                                class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Settings</a></li>
-                            <li><a href="#">Logout</a></li>
+                            <li><a href="/logout">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -48,7 +49,10 @@
         <div class="container main-container">
             <div class="row">
                 <h1 class="heading" th:if="${heading}" th:text="${heading}"></h1>
-                <div th:each="event : ${events}" class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <div class="no-events" th:if="${noEvents}">
+                    <h2 th:text="${noEvents}"></h2>
+                </div>
+                <div th:if="${events}" th:each="event : ${events}" class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                     <div class="img">
                         <div class="clearfix"></div>
                         <div class="icon-container"><em class="far fa-calendar-alt"></em></div>
@@ -65,10 +69,13 @@
                                     th:text="${event.start}"></label> -
                                 <label th:text="${event.end}"></label></label>
                         </div>
-                        <div class="attendees-icon">
-                            <span><em class="fas fa-users"></em></span>&nbsp&nbsp<span onclick="openInfoModal()"><em
-                                    class="fas fa-info-circle"></em>
-                            </span>
+                        <br />
+                        <div>
+                            <span class="members"><em class="fas fa-users"></em></span>&nbsp&nbsp<span
+                                class="updateEvent update"><em class="fas fa-edit"></em><input style="display: none"
+                                    th:attr="value = ${event}" />
+                            </span><span class="deleteEvent trash"><em class="fas fa-trash-alt"></em><input
+                                    style="display: none" th:attr="value = ${event.id}" /></span>
                         </div>
                     </div>
                 </div>
@@ -77,17 +84,25 @@
     </nav>
     <div th:insert="events-sidenav :: navbar" class="container home-container"></div>
     <div th:insert="create-event :: modal-fragment" class="event-modal overlay" id="events-modal"></div>
+    <div th:if="${messageModal}" id="modal" th:insert="modal :: modal-fragment" class="overlay"></div>
 </body>
 <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet">
 </link>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css" rel="stylesheet" />
+
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js"></script>
-
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.3.3/js/bootstrap-colorpicker.min.js"></script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 <script type="text/javascript" src="/js/events.js"></script>
 <script type="text/javascript" src="/js/add-tags.js"></script>
+<script type="text/javascript" src="/js/create-event-validation.js" th:inline="javascript"></script>
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <!-- <link rel="stylesheet" href="/resources/demos/style.css">  -->

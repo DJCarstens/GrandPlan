@@ -29,7 +29,7 @@
                     <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}" id="passwordError"></label>
                 </div>
                 <button type="submit" class="btn btnSubmit">LOGIN</button>
-                <p>Don't have an account? <a href="signup">SIGN UP</a></p>
+                <p>Don't have an account? <a style="color: grey" href="signup">SIGN UP</a></p>
                 <div class="hive-image"></div>
             </form>
             <div class="col-md-6 mh-100 img ">
@@ -46,8 +46,11 @@
     }
 
     $(document).ready(function () {
-        $('input').focus(function () {
+        $('#email').focus(function () {
             $('label[id*="emailError"]').text('');
+        });
+
+        $('#password').focus(function () {
             $('label[id*="passwordError"]').text('');
         });
     });

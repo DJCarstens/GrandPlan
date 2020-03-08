@@ -11,7 +11,7 @@ $(document).ready(function(){
                 id:"tag-element"
             });
             $('#tag').css('display', 'none');
-            $('#tag').value(txt);
+            $('#tag').val(txt);
         }
           this.value = "";
         },

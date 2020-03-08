@@ -14,9 +14,10 @@
         <div class="modal-header">
             <label onclick="closeModal()" class="close-modal">x</label>
         </div>
-        <h3 th:text="${messageModal}"></h3>
-        <button class="modal-button"><a th:text="${button}" th:href="${button}"></a></button>&nbsp&nbsp<button
-            onclick="closeModal()" class="modal-button">Close</button>
+        <h3 th:text="${messageModal}" id="modal-message"></h3>
+        <button class="modal-button"><a th:text="${button}" th:href="${button}"
+                id="modal-button"></a></button>&nbsp&nbsp<button onclick="closeModal()"
+            class="modal-button">Close</button>
     </div>
 </body>
 

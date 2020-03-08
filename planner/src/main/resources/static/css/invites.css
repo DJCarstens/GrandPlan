@@ -13,7 +13,17 @@
 }
 
 .heading{
-    margin-left: 1%;;
+    margin-left: 1%;
+}
+
+.no-invites{
+    margin: auto;
+    margin-top: 5%;
+    text-align: center;
+}
+
+.no-invites h2{
+    color: red;
 }
 
 .box-part{

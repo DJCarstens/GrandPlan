@@ -29,17 +29,21 @@ public class ApiLoginService {
         if (fetchedUser == null || !fetchedUser.getPassword().equals(user.getPassword())) {
             return null;
         }
-            return fetchedUser;
+        return fetchedUser;
     }
 
     public User save(User user) {
-        User response = userRepo.save(user);
+        userRepo.save(user);
         writeListOfUsers(getUsers()); //overwrites current list of users in Users.json
-        return response;
+        return user;
     }
 
     public List<User> getUsers() {
         return userRepo.findAll();
+    }
+
+    public User getUser(User user) {
+        return userRepo.getUserByEmail(user.getEmail());
     }
 
     private void writeListOfUsers(List<User> users) {
@@ -54,15 +58,14 @@ public class ApiLoginService {
             jsonObject.put("phone", user.getPhone());
             jsonObjects.add(jsonObject);
         }
-        try {
-            FileWriter file = new FileWriter("src/main/resources/data/Users.json", false);//false indicates that Users.json will get overridden with the current user data
+        try (FileWriter file = new FileWriter("src/main/resources/data/Users.json", false)) {
+            //false indicates that Users.json will get overridden with the current user data
             String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObjects);
             file.write(indented);
             log.info("JSON file updated: " + jsonObjects);
-            file.close();
         } catch (IOException e) {
             log.info("Unable to write Users to Users.json");
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 }

@@ -6,6 +6,7 @@ $(document).ready(function () {
 
     $("#createEvent").click(function () {
         $('#events-modal').css('display', 'block');
+        $('#color').css("display", "none");
     });
     $("#createEvent").click(function () {
         $('#eventCreateCalendar').fullCalendar({
@@ -96,5 +97,25 @@ $(document).ready(function () {
         close: function (el) {
             el.target.value = '';
         }
+    });
+    
+    $(".deleteEvent").click(function () {
+        $(this).find('input').each(function(){
+            let $data = {};
+            $data["id"] = $(this).val();
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/deleteEvent",
+                data: JSON.stringify($data),
+                dataType: 'json'
+            });
+        });
+    });
+
+    $(".updateEvent").click(function(){
+        $(this).find('input').each(function(){
+            console.log($(this).val());
+        });
     });
 });

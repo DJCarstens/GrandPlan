@@ -23,6 +23,18 @@
 
 .heading{
   margin-left: 1%;
+  color: black;
+  z-index: 2000;
+}
+
+.no-events{
+  margin: auto;
+  z-index: 2000;
+  text-align: center;
+}
+
+.no-events h2{
+  color: red;
 }
 
 .box-part{
@@ -32,7 +44,7 @@
   box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2);
 }
 
-em{
+.icon-container em{
   font-size: 3rem;
 }
 
@@ -64,8 +76,8 @@ em{
   font-size: 1.6rem;
 }
 
-.attendees-icon{
-  margin-left: 70%;
+em:hover{
+  color: rgb(107, 107, 107);
 }
 
 .attendees-icon em:hover{
@@ -74,4 +86,18 @@ em{
 
 .ui-autocomplete {
   z-index: 10000;
+}
+
+.trash{
+  margin-left: 64%;
+  font-size: 2.2rem;
+}
+
+.members{
+  font-size: 2.2rem;
+}
+
+.update{
+  margin-left: 2%;
+  font-size: 2.2rem;
 }
