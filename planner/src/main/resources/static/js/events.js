@@ -7,19 +7,19 @@ $(document).ready(function () {
     $("#createEvent").click(function () {
         $('#events-modal').css('display', 'block');
     });
-    $("#createEvent").click(function() {
-        $('#eventCreateCalendar').fullCalendar({  
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
-                },
-                navLinks: true,
-                editable: true,
-                eventLimit: true,
-                events: {
-                    url : '/api/event/all'
-                }
+    $("#createEvent").click(function () {
+        $('#eventCreateCalendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            navLinks: true,
+            editable: true,
+            eventLimit: true,
+            events: {
+                url: '/api/event/all'
+            }
         });
     });
 
@@ -54,5 +54,47 @@ $(document).ready(function () {
 
     $('#allDay').click(function () {
         $('#end').attr('disabled', !$(this).attr('checked'));
+    });
+
+    //Get users to add to event
+    var tags = [
+        "Delhi",
+        "Ahemdabad",
+        "Punjab",
+        "Uttar Pradesh",
+        "Himachal Pradesh",
+        "Karnatka",
+        "Kerela",
+        "Maharashtra",
+        "Gujrat",
+        "Rajasthan",
+        "Bihar",
+        "Tamil Nadu",
+        "Haryana"];
+    console.log("TAGS");
+    console.log(tags);
+
+    //TODO: replace "tags" with userlist
+
+    $("#members").autocomplete({
+        source: tags,
+        select: function (event, ui) {
+            if (ui.item.label) {
+                $("<span/>", {
+                    text: ui.item.label,
+                    appendTo: "#invitedUsers",
+                    class: "dashfolio-tag",
+                    id: "tag-element",
+                }).bind('click', function () {
+                    console.log("REMOVING User: " + $(this).html());
+                    //Remove that user's events from the calendar
+                });
+                //Add the user to the event and get their calendar
+                this.value = "";
+            }
+        },
+        close: function (el) {
+            el.target.value = '';
+        }
     });
 });

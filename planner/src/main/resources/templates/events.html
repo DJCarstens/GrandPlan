@@ -78,7 +78,9 @@
     <div th:insert="events-sidenav :: navbar" class="container home-container"></div>
     <div th:insert="create-event :: modal-fragment" class="event-modal overlay" id="events-modal"></div>
 </body>
-
+<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet">
+</link>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js"></script>
@@ -86,5 +88,15 @@
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/js/events.js"></script>
 <script type="text/javascript" src="/js/add-tags.js"></script>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!-- <link rel="stylesheet" href="/resources/demos/style.css">  -->
+<!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>  -->
+<!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  -->
+<style>
+    ul.ui-front {
+        z-index: 10000;
+    }
+</style>
 
 </html>

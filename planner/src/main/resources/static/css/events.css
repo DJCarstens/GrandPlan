@@ -71,3 +71,7 @@ em{
 .attendees-icon em:hover{
   color: rgb(107, 107, 107);
 }
+
+.ui-autocomplete {
+  z-index: 10000;
+}

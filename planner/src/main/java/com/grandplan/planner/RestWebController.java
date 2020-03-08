@@ -10,11 +10,17 @@ import com.grandplan.util.Event;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.grandplan.util.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.grandplan.server.services.ApiLoginService;
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/event")
 public class RestWebController {
   private List<Event> events;
+  @Autowired
+  private ApiLoginService loginService;
 
   @GetMapping(value = "/all")
   public String mapCurrentUserEvents() {
@@ -60,4 +66,33 @@ public class RestWebController {
         return jsonEvents;
   }
 
+  @GetMapping(value = "/userlist")
+    public List<String> userlist(HttpServletRequest request) {
+        // return productService.search(request.getParameter("term"));
+        // @Transactional
+        // @Service("productService")
+        // public class ProductServiceImpl implements ProductService {
+
+        //     @Autowired
+        //     private ProductRepository productRepository;
+
+        //     @Override
+        //     public List<String> search(String keyword) {
+        //         return productRepository.search(keyword);
+        //     }
+
+        // }
+        System.out.println("GETTING USERS");
+        List<String> userPrompts = new ArrayList<>();
+        List<User> allUsers = loginService.getUsers();
+        for (User user : allUsers) {
+            userPrompts.add(user.getFirstName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
+            System.out.println(user.getFirstName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
+        }
+        return userPrompts;
+    }
 }
+
+// http://learningprogramming.net/java/spring-mvc/autocomplete-with-spring-data-jpa-in-spring-mvc//
+// https://frontbackend.com/thymeleaf/spring-boot-bootstrap-thymeleaf-autocomplete
+// https://stackoverflow.com/questions/46760315/spring-boot-autocomplete-ajax
