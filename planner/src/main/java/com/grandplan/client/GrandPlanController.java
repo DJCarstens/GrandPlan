@@ -1,7 +1,5 @@
 package com.grandplan.client;
 
-import com.grandplan.server.services.ApiLoginService;
-import com.grandplan.util.Event;
 import com.grandplan.util.User;
 import com.grandplan.client.services.ClientEventService;
 import com.grandplan.client.services.ClientLoginService;
@@ -22,15 +20,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.validation.Valid;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 @Controller
 public class GrandPlanController {
-    private List<Event> events;
-    private String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-
     private static final String LOGIN = "login";
     private static final String SIGNUP = "signup";
     private static final String HOME = "home";
@@ -60,12 +52,12 @@ public class GrandPlanController {
     }
 
     @PostMapping(value = "/validateLogin")
-    public String validateLogin(@Valid @ModelAttribute("loginUser") LoginUser loginUser, BindingResult bindingResult, Model model) throws Exception {
+    public String validateLogin(@Valid @ModelAttribute("loginUser") LoginUser loginUser, BindingResult bindingResult, Model model) throws IOException {
         return clientLoginService.validateLogin(loginUser, model, bindingResult);
     }
 
     @PostMapping(value = "/validateSignup")
-    public String validateSignup(@Valid @ModelAttribute("signupUser") SignupUser signupUser, BindingResult bindingResult, Model model) throws Exception {
+    public String validateSignup(@Valid @ModelAttribute("signupUser") SignupUser signupUser, BindingResult bindingResult, Model model) throws IOException {
         return clientLoginService.validateSignup(signupUser, model, bindingResult);
     }
 
@@ -80,8 +72,7 @@ public class GrandPlanController {
     }
 
     @GetMapping("/events")
-    public String events(Model model) throws Exception
-    {
+    public String events(Model model) throws IOException {
         model.addAttribute("user", clientLoginService.getCurrentUser());
         return clientEventService.getUserEvents(clientLoginService.getCurrentUser(), model);
     }

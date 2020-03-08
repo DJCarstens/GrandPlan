@@ -1,6 +1,7 @@
 package com.grandplan.client.services;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import com.grandplan.util.User;
 
@@ -28,22 +29,25 @@ public class ClientEventService {
     private ClientLoginService clientLoginService;
 
     public String getUserEvents(User user, Model model) throws IOException{
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("email", user.getEmail());
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("email", user.getEmail());
+        JSONObject jsonObject = new JSONObject(hashMap);
 
         CloseableHttpResponse response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/getUserEvents");
-        String responseBody = EntityUtils.toString(response.getEntity());
+        // String responseBody = EntityUtils.toString(response.getEntity());
+        System.out.println(EntityUtils.toString(response.getEntity()));
 
-        if(responseBody.equals("[]")){
-            model.addAttribute("noEvents", "You currently have no events");
-        }
+        // if(responseBody.equals("[]")){
+        //     model.addAttribute("noEvents", "You currently have no events");
+        // }
 
         return EVENTS;
     }
 
     public String deleteEvent(String eventId, Model model) throws IOException{
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id", eventId);
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("id", eventId);
+        JSONObject jsonObject = new JSONObject(hashMap);
 
         CloseableHttpResponse response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/deleteEvent");
         int statusCode = response.getStatusLine().getStatusCode();

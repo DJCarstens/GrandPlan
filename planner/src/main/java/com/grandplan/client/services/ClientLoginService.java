@@ -3,11 +3,11 @@ package com.grandplan.client.services;
 import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.google.gson.JsonObject;
 import com.grandplan.client.util.LoginUser;
 import com.grandplan.client.util.SignupUser;
 import com.grandplan.util.User;
@@ -33,15 +33,18 @@ public class ClientLoginService {
     private static final String LOGIN = "login";
     private static final String SIGNUP = "signup";
     private static final String HOME = "home";
+    private static final String EMAIL = "email";
+    private static final String PASSWORD = "password";
     
     public String validateLogin(LoginUser loginUser, Model model, BindingResult bindingResult) throws IOException{
         if(bindingResult.hasErrors()){
             return LOGIN;
         }
 
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("email", loginUser.getEmail());
-        jsonObject.put("password", loginUser.getPassword());
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put(EMAIL, loginUser.getEmail());
+        hashMap.put(PASSWORD, loginUser.getPassword());
+        JSONObject jsonObject = new JSONObject(hashMap);
 
         CloseableHttpResponse response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/validateLogin");
         int statusCode = response.getStatusLine().getStatusCode();
@@ -71,8 +74,8 @@ public class ClientLoginService {
         Object obj = parser.parse(response);
         JSONObject jsonBody = (JSONObject) obj;
         return User.builder()
-            .email(jsonBody.get("email").toString())
-            .password(jsonBody.get("password").toString())
+            .email(jsonBody.get(EMAIL).toString())
+            .password(jsonBody.get(PASSWORD).toString())
             .lastName(jsonBody.get("lastName").toString())
             .firstName(jsonBody.get("firstName").toString())
             .phone(jsonBody.get("phone").toString())
@@ -94,12 +97,13 @@ public class ClientLoginService {
             return SIGNUP;
         }
 
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("email", signupUser.getEmail());
-        jsonObject.put("password", signupUser.getPassword());
-        jsonObject.put("firstName", signupUser.getFirstName());
-        jsonObject.put("lastName", signupUser.getLastName());
-        jsonObject.put("phone", signupUser.getPhone());
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put(EMAIL, signupUser.getEmail());
+        hashMap.put(PASSWORD, signupUser.getPassword());
+        hashMap.put("firstName", signupUser.getFirstName());
+        hashMap.put("lastName", signupUser.getLastName());
+        hashMap.put("phone", signupUser.getPhone());
+        JSONObject jsonObject = new JSONObject(hashMap);
 
         CloseableHttpResponse response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/addUser");
         int statusCode = response.getStatusLine().getStatusCode();

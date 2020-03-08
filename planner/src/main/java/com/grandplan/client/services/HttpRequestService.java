@@ -3,7 +3,6 @@ package com.grandplan.client.services;
 import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
-import java.net.http.HttpClient;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -19,10 +18,6 @@ import org.springframework.stereotype.Service;
 @Service
 @Component
 public class HttpRequestService {
-    private final HttpClient httpClient = HttpClient.newBuilder()
-            .version(HttpClient.Version.HTTP_2)
-            .build();
-
     public CloseableHttpResponse sendHttpPost(JSONObject jsonObject, String url) throws IOException{
         CloseableHttpClient client = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(url);        
