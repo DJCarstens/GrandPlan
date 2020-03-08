@@ -33,7 +33,6 @@ public class ApiEventService {
 
     public Event createEvent(Event event) {
         Event e = eventRepo.save(event);
-        System.out.println(e);
         writeListOfEvents(getEvents());
         return e;
     }
