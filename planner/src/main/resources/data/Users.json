@@ -5,6 +5,12 @@
   "phone" : "911",
   "email" : "grad@bbd.co.za"
 }, {
+  "firstName" : "grad",
+  "lastName" : "McGrad",
+  "password" : "password",
+  "phone" : "911",
+  "email" : "grad@bbd.co.za"
+}, {
   "firstName" : "Linda",
   "lastName" : "Marks",
   "password" : "chocolate",
@@ -40,4 +46,10 @@
   "password" : "Vodacom2",
   "phone" : "0718831926",
   "email" : "emmac@bbd.co.za"
+}, {
+  "firstName" : "Kelly",
+  "lastName" : "Coetzer",
+  "password" : "7f1f927cfae3218a1f0e6f0b0499a7ba064f327a1f3cf95abd733ea250bbf7ca",
+  "phone" : "0834680189",
+  "email" : "kelly@bbd.co.za"
 } ]

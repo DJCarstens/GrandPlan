@@ -5,6 +5,8 @@ import com.grandplan.server.repositories.UserRepo;
 import com.grandplan.util.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.apache.commons.codec.digest.DigestUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +28,15 @@ public class ApiLoginService {
 
     public User validateUserCredentials(User user) {
         User fetchedUser = userRepo.getUserByEmail(user.getEmail());
-        if (fetchedUser == null || !fetchedUser.getPassword().equals(user.getPassword())) {
+        if (fetchedUser == null || !fetchedUser.getPassword().equals(generatePasswordHash(user.getPassword()))) {
             return null;
         }
         return fetchedUser;
+    }
+
+    private String generatePasswordHash(String password){
+        String salt = DigestUtils.sha256Hex(password);
+        return DigestUtils.sha256Hex(password.concat(salt));
     }
 
     public User save(User user) {

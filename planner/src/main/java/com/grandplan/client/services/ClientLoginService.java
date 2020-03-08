@@ -12,6 +12,7 @@ import com.grandplan.client.util.LoginUser;
 import com.grandplan.client.util.SignupUser;
 import com.grandplan.util.User;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.json.simple.JSONObject;
@@ -26,7 +27,7 @@ import org.springframework.validation.BindingResult;
 @Component
 public class ClientLoginService {
     @Autowired
-    private HttpRequestService httpRequestService;
+    private HttpRequestService httpRequestService;  
 
     private User currentUser;
 
@@ -99,7 +100,7 @@ public class ClientLoginService {
 
         HashMap<String,String> hashMap = new HashMap<>();
         hashMap.put(EMAIL, signupUser.getEmail());
-        hashMap.put(PASSWORD, signupUser.getPassword());
+        hashMap.put(PASSWORD, generatePasswordHash(signupUser.getPassword()));
         hashMap.put("firstName", signupUser.getFirstName());
         hashMap.put("lastName", signupUser.getLastName());
         hashMap.put("phone", signupUser.getPhone());
@@ -129,5 +130,10 @@ public class ClientLoginService {
     public String logout(){
         currentUser = null;
         return LOGIN;
+    }
+
+    private String generatePasswordHash(String password){
+        String salt = DigestUtils.sha256Hex(password);
+        return DigestUtils.sha256Hex(password.concat(salt));
     }
 }
