@@ -29,16 +29,21 @@ public class ApiLoginService {
         if (fetchedUser == null || !fetchedUser.getPassword().equals(user.getPassword())) {
             return null;
         }
-            return fetchedUser;
+        return fetchedUser;
     }
 
-    public void save(User user) {
+    public User save(User user) {
         userRepo.save(user);
         writeListOfUsers(getUsers()); //overwrites current list of users in Users.json
+        return user;
     }
 
     public List<User> getUsers() {
         return userRepo.findAll();
+    }
+
+    public User getUser(User user) {
+        return userRepo.getUserByEmail(user.getEmail());
     }
 
     private void writeListOfUsers(List<User> users) {

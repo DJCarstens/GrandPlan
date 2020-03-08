@@ -56,4 +56,24 @@ $(document).ready(function () {
     $('#allDay').click(function () {
         $('#end').attr('disabled', !$(this).attr('checked'));
     });
+
+    $(".deleteEvent").click(function () {
+        $(this).find('input').each(function(){
+            let $data = {};
+            $data["id"] = $(this).val();
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/deleteEvent",
+                data: JSON.stringify($data),
+                dataType: 'json'
+            });
+        });
+    });
+
+    $(".updateEvent").click(function(){
+        $(this).find('input').each(function(){
+            console.log($(this).val());
+        });
+    });
 });
