@@ -113,13 +113,12 @@ public class ServerController {
         log.info("userEmail: " + newInvite.getUserEmail());
         Event eventObj = apiEventService.getEventById(newInvite.getEventId());
         User userObj = apiLoginService.getUserByEmail(newInvite.getUserEmail());
-        // Invite inv = Invite.builder()
-        // .user(userObj)
-        // .event(eventObj)
-        // .accepted(newInvite.getIsAccepted())
-        // .build();
+        Invite inv = Invite.builder()
+        .user(userObj)
+        .event(eventObj)
+        .accepted(newInvite.getIsAccepted())
+        .build();
 
-        Invite inv = new Invite(userObj, eventObj, newInvite.getIsAccepted());
 
       
 
