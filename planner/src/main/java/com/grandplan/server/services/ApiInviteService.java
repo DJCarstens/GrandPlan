@@ -1,14 +1,16 @@
 package com.grandplan.server.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.grandplan.server.repositories.EventRepo;
-import com.grandplan.util.Event;
+import com.grandplan.server.repositories.InviteRepo;
+import com.grandplan.util.Invite;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+
+import org.springframework.boot.CommandLineRunner;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -23,12 +25,12 @@ public class ApiInviteService {
 
     private final InviteRepo inviteRepo;
 
-    public List<Invite> getEvents() {
+    public List<Invite> getInvites() {
         return inviteRepo.findAll();
     }
 
-    public Set<Event> getUserEvents(String email) {
-        return eventRepo.findEventsByUserEmail(email);
+    public Set<Invite> getUserInvites(String email) {
+        return inviteRepo.findInvitesByEmail(email);
     }
 
     public Invite createInvite(Invite invite) {
@@ -36,43 +38,45 @@ public class ApiInviteService {
         return invite;
     }
 
-    public boolean deleteInvite(Invite invite) {
-        if (eventRepo.findInviteById(invite.getId()) == null) {
+    public Boolean deleteInvite(Invite invite) {
+        if (inviteRepo.findInviteById(invite.getId()) == null) {
             return false;
         }
         inviteRepo.delete(invite);
         return true;
     }
 
-    public Invite updateInvite(Invite invite) {
-        invite.update(
-                invite.getAccepted(),
-                invite.getId(),
+    public Invite updateInvite(Invite invite, Boolean accepted) {
+
+        if (invite == null)
+        {
+            log.info("Unable to update invite");
+            return null;
+        }
+        inviteRepo.update(
+                accepted,
+                invite.getId()
         );
         return inviteRepo.findInviteById(invite.getId());
     }
-    private void writeListOfInvites(List<Event> events) {
+    private void writeListOfInvites(List<Invite> invites) {
         ObjectMapper mapper = new ObjectMapper();
         JSONArray jsonObjects = new JSONArray();
-        for (Event event : events) {
+        for (Invite inv : invites) {
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("title", event.getTitle());
-            jsonObject.put("start", event.getStart());
-            jsonObject.put("end", event.getEnd());
-            jsonObject.put("allDay", event.getAllDay());
-            jsonObject.put("color", event.getColor());
-            jsonObject.put("tag", event.getTag());
-            jsonObject.put("description", event.getDescription());
-            jsonObject.put("hostUsername", event.getHostUsername());
+            jsonObject.put("inviteId", inv.getId());
+            jsonObject.put("userId", inv.getUser().getId());
+            jsonObject.put("eventId", inv.getEvent().getId());
+            jsonObject.put("accepted", inv.getAccepted());
             jsonObjects.add(jsonObject);
         }
-        try (FileWriter file = new FileWriter("src/main/resources/data/Events.json", false)) {
-            //false indicates that Users.json will get overridden with the current user data
+        try (FileWriter file = new FileWriter("src/main/resources/data/Invites.json", false)) {
+            //false indicates that Invites.json will get overridden with the current user data
             String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObjects);
             file.write(indented);
             log.info("JSON file updated: " + jsonObjects);
         } catch (IOException e) {
-            log.info("Unable to write Events to Events.json");
+            log.info("Unable to write Invites to Invites.json");
             log.error(e.getMessage());
         }
     }

@@ -37,8 +37,6 @@ public class User implements Serializable {
     private String lastName;
     private String phone;
 
-    private Set<Event> attending = new HashSet<>();
-
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private Set<Invite> invites = new HashSet<>();
 }

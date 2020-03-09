@@ -17,6 +17,8 @@ import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
+import java.io.Serializable;
+
 @Data
 @EqualsAndHashCode(exclude = {"invites", "attendees"})
 @Entity
@@ -24,7 +26,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "events")
-public class Event {
+public class Event implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +41,7 @@ public class Event {
     private String description;
     private String hostUsername;
 
-    private Set<User> attendees = new HashSet<>();
+  
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "event")
     private Set<Invite> invites = new HashSet<>();
