@@ -78,7 +78,7 @@ public class ClientEventService {
         }
     }
 
-    public String transferEvent(String eventId, String userEmail, Model model) throws IOException{
+    public String transferEvent(String eventId, String userEmail, Model model){
         HashMap<String,String> hashMap = new HashMap<>();
         hashMap.put("id", eventId);
         hashMap.put("userEmail", userEmail);

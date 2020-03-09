@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,10 +75,10 @@ public class GrandPlanController {
     }
 
     @GetMapping("/events")
-    public String events(Model model) throws IOException {
+    public String events(Model model) {
         // model.addAttribute("user", clientLoginService.getCurrentUser());
         // return clientEventService.getUserEvents(clientLoginService.getCurrentUser(), model);
-        List<Event> eventsList = new ArrayList<Event>();
+        List<Event> eventsList = new ArrayList<>();
         Event event1 = Event.builder()          
         .title("Event1")
         .description("This is an event")
@@ -113,7 +112,7 @@ public class GrandPlanController {
         user.setPhone("0718831926");
 
         model.addAttribute("user", user);
-        model.addAttribute("events", eventsList);
+        model.addAttribute(EVENTS, eventsList);
 
         return EVENTS;
     }
