@@ -53,11 +53,17 @@ public class ApiLoginService {
         return userRepo.getUserByEmail(user.getEmail());
     }
 
+    public User getUserByEmail(String email)
+    {
+        return userRepo.getUserByEmail(email);
+    }
+
     private void writeListOfUsers(List<User> users) {
         ObjectMapper mapper = new ObjectMapper();
         JSONArray jsonObjects = new JSONArray();
         for (User user : users) {
             JSONObject jsonObject = new JSONObject();
+            jsonObject.put("id", user.getId());
             jsonObject.put("email", user.getEmail());
             jsonObject.put("password", user.getPassword());
             jsonObject.put("firstName", user.getFirstName());
