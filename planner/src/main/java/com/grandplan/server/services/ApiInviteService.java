@@ -97,7 +97,6 @@ public class ApiInviteService {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("inviteId", inv.getId());
             jsonObject.put("userId", inv.getUser().getId());
-            jsonObject.put("userEmail", inv.getUser().getEmail());
             jsonObject.put("eventId", inv.getEvent().getId());
             jsonObject.put("accepted", inv.getAccepted());
             jsonObjects.add(jsonObject);
