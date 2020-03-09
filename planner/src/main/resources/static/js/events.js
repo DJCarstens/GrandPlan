@@ -5,9 +5,10 @@ $(document).ready(function () {
     });
 
     $("#createEvent").click(function () {
-        $('#events-modal').css('display', 'block');
-        $('#color').css("display", "none");
+        $('#events-modal').toggle();
+        $('#color').toggle();
     });
+
     $("#createEvent").click(function() {
         $('#eventCreateCalendar').fullCalendar({  
                 header: {
@@ -46,34 +47,14 @@ $(document).ready(function () {
     });
 
     $('#close-create').click(function () {
-        $('#events-modal').css('display', 'none');
+        $('#events-modal').toggle();
     });
 
     $('#close-modal').click(function () {
-        $('#events-modal').css('display', 'none');
+        $('#events-modal').toggle();
     });
 
     $('#allDay').click(function () {
         $('#end').attr('disabled', !$(this).attr('checked'));
-    });
-
-    $(".deleteEvent").click(function () {
-        $(this).find('input').each(function(){
-            let $data = {};
-            $data["id"] = $(this).val();
-            $.ajax({
-                type: "POST",
-                contentType: "application/json",
-                url: "/deleteEvent",
-                data: JSON.stringify($data),
-                dataType: 'json'
-            });
-        });
-    });
-
-    $(".updateEvent").click(function(){
-        $(this).find('input').each(function(){
-            console.log($(this).val());
-        });
     });
 });

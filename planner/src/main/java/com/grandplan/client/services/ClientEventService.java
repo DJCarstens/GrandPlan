@@ -44,9 +44,10 @@ public class ClientEventService {
         return EVENTS;
     }
 
-    public String deleteEvent(String eventId, Model model) throws IOException{
+    public String deleteEvent(String eventId, String userEmail, Model model) throws IOException{
         HashMap<String,String> hashMap = new HashMap<>();
         hashMap.put("id", eventId);
+        hashMap.put("userEmail", userEmail);
         JSONObject jsonObject = new JSONObject(hashMap);
 
         CloseableHttpResponse response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/deleteEvent");
@@ -61,6 +62,10 @@ public class ClientEventService {
 
         model.addAttribute("user", clientLoginService.getCurrentUser());
         return getUserEvents(clientLoginService.getCurrentUser(), model);
+    }
+
+    public String transferEvent(String id, String userEmail, Model model){
+       
     }
 
     public void showModal(Model model, String message, String button) {
