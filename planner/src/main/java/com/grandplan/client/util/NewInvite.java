@@ -18,5 +18,4 @@ public class NewInvite{
 
     private Long eventId;
     private String userEmail;
-    private Boolean isAccepted;
 }

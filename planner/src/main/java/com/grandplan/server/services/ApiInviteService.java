@@ -44,6 +44,7 @@ public class ApiInviteService {
 
     public Invite createInvite(Invite invite) {
         inviteRepo.save(invite);
+        writeListOfInvites(getInvites());
         return invite;
     }
 

@@ -19,7 +19,7 @@ import java.util.Set;
 import java.io.Serializable;
 
 @Data
-@EqualsAndHashCode(exclude = {"invites", "attending"})
+@EqualsAndHashCode(exclude = {"invites"})
 @Entity
 @Builder
 @NoArgsConstructor

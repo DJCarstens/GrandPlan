@@ -101,26 +101,30 @@ public class ServerController {
     }
 
     @PostMapping("/declineInvite")
-    public ResponseEntity<Invite> declineInvite(@RequestBody Invite invite)
+    public ResponseEntity<Boolean> declineInvite(@RequestBody Invite invite)
     {
-        return ResponseEntity.ok(apiInviteService.updateInvite(invite, false));
+
+        return ResponseEntity.ok(apiInviteService.deleteInvite(invite));
     }
 
     @PostMapping("/createInvite")
     public ResponseEntity<Invite> createInvite(@RequestBody NewInvite newInvite)
     {
-        log.info("eventId: " + newInvite.getEventId());
-        log.info("userEmail: " + newInvite.getUserEmail());
+        
         Event eventObj = apiEventService.getEventById(newInvite.getEventId());
         User userObj = apiLoginService.getUserByEmail(newInvite.getUserEmail());
+
+        log.info("eventId: " + eventObj.getHostUsername());
+        log.info("userEmail: " + userObj.getEmail());
+        if (eventObj == null || userObj == null)
+            return ResponseEntity.badRequest().body(null);
+
+        Boolean isHost = eventObj.getHostUsername().equals(userObj.getEmail()) ? true : false;
         Invite inv = Invite.builder()
         .user(userObj)
         .event(eventObj)
-        .accepted(newInvite.getIsAccepted())
+        .accepted(isHost)
         .build();
-
-
-      
 
         return ResponseEntity.ok(apiInviteService.createInvite(inv));
     }
@@ -142,28 +146,24 @@ public class ServerController {
         return ResponseEntity.ok(apiInviteService.getEventInvites(e.getId()));
     }
 
-    @PostMapping("/getUserEventInvite")
-    public ResponseEntity<Invite> getUserEventInvite(@RequestBody UserEventQuery ue)
+    @PostMapping("/getInviteByUserAndEvent")
+    public ResponseEntity<Invite> getInviteByUserAndEvent(@RequestBody UserEventQuery ue)
     {
-        
         log.info("event Id: " + ue.getEvent().getId());
         log.info("user email: " + ue.getUser().getEmail());
        
-
         return ResponseEntity.ok(apiInviteService.getUserEventInvite(ue.getUser().getEmail(), ue.getEvent().getId()));
     }
 
     @GetMapping("/listInvites")
     public ResponseEntity<List<Invite>> listInvites()
     {
-
         return ResponseEntity.ok(apiInviteService.getInvites());
     } 
 
     @PostMapping("/deleteInvite")
     public ResponseEntity<Boolean> deleteInvite(@RequestBody Invite inv)
     {      
-
         return ResponseEntity.ok(apiInviteService.deleteInvite(inv));
     }
 
