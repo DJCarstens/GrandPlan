@@ -10,8 +10,6 @@ import org.json.simple.JSONObject;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import org.springframework.boot.CommandLineRunner;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
@@ -43,6 +41,9 @@ public class ApiInviteService {
     }
 
     public Invite createInvite(Invite invite) {
+        if (inviteRepo.findInviteById(invite.getId()) != null) {
+            return inviteRepo.findInviteById(invite.getId());
+        }
         inviteRepo.save(invite);
         writeListOfInvites(getInvites());
         return invite;
@@ -57,7 +58,6 @@ public class ApiInviteService {
     }
 
     public Invite updateInvite(Invite invite, Boolean accepted) {
-
         if (invite == null)
         {
             log.info("Unable to update invite");
