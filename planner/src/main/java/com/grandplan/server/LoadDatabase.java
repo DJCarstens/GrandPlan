@@ -46,7 +46,7 @@ public class LoadDatabase {
                 jsonObjects.forEach(item -> {
                     JSONObject jsonObject = (JSONObject) item;
                     Event event = Event.builder()
-                            .id((Long)jsonObject.get("id"))
+                            .id(Long.valueOf((jsonObject.get("id")).toString()))
                             .title(jsonObject.get("title").toString())
                             .start(jsonObject.get("start").toString())
                             .end(jsonObject.get("end").toString())
@@ -75,7 +75,7 @@ public class LoadDatabase {
             jsonObjects.forEach(item -> {
                 JSONObject jsonObject = (JSONObject) item;
                 User user = User.builder()
-                        .id((long)jsonObject.get("id"))
+                        .id(Long.valueOf((jsonObject.get("id")).toString()))
                         .email(jsonObject.get("email").toString())
                         .password(jsonObject.get("password").toString())
                         .firstName(jsonObject.get("firstName").toString())
