@@ -57,30 +57,24 @@ $(document).ready(function () {
         $('#end').attr('disabled', !$(this).attr('checked'));
     });
 
-    //Get users to add to event
-    var tags = [
-        "Delhi",
-        "Ahemdabad",
-        "Punjab",
-        "Uttar Pradesh",
-        "Himachal Pradesh",
-        "Karnatka",
-        "Kerela",
-        "Maharashtra",
-        "Gujrat",
-        "Rajasthan",
-        "Bihar",
-        "Tamil Nadu",
-        "Haryana"];
-    console.log("TAGS");
-    console.log(tags);
-
-    //TODO: replace "tags" with userlist
+    //TODO : fix auto complete not updating while typing
 
     $("#members").autocomplete({
-        source: tags,
+        source: 'http://localhost:8080/api/event/userlist',
         select: function (event, ui) {
             if (ui.item.label) {
+                //Send the user to be stored
+                // 'http://localhost:8080/api/event/addUser?username=' + ui.item.label;
+                let $data = {};
+                $data["username"] = ui.item.label;
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json",
+                    url: "http://localhost:8080/api/event/addUser",
+                    data: JSON.stringify($data),
+                    dataType: 'json'
+                });
+                //Add user to display
                 $("<span/>", {
                     text: ui.item.label,
                     appendTo: "#invitedUsers",
@@ -88,9 +82,29 @@ $(document).ready(function () {
                     id: "tag-element",
                 }).bind('click', function () {
                     console.log("REMOVING User: " + $(this).html());
+                    let $data = {};
+                    $data["username"] = $(this).html();
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json",
+                        url: "http://localhost:8080/api/event/deleteUser",
+                        data: JSON.stringify($data),
+                        dataType: 'json'
+                    });
                     //Remove that user's events from the calendar
+                    //TODO: Get all the events from that user and remove them
+                    $('#eventCreateCalendar').fullCalendar('removeEvents', [5]);
                 });
+
                 //Add the user to the event and get their calendar
+                //TODO : get all the events of the added user and add them
+                $('#eventCreateCalendar').fullCalendar('renderEvent', {
+                    id: 5,
+                    title: 'Some Title',
+                    start: '2020-03-30',
+                    end: '2020-03-30',
+                    className: 'fancy-color'
+                }, true);
                 this.value = "";
             }
         },
@@ -98,9 +112,9 @@ $(document).ready(function () {
             el.target.value = '';
         }
     });
-    
+
     $(".deleteEvent").click(function () {
-        $(this).find('input').each(function(){
+        $(this).find('input').each(function () {
             let $data = {};
             $data["id"] = $(this).val();
             $.ajax({
@@ -113,8 +127,8 @@ $(document).ready(function () {
         });
     });
 
-    $(".updateEvent").click(function(){
-        $(this).find('input').each(function(){
+    $(".updateEvent").click(function () {
+        $(this).find('input').each(function () {
             console.log($(this).val());
         });
     });
