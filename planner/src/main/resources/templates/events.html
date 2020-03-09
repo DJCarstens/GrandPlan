@@ -57,8 +57,9 @@
                         </div>
                     </div>
                     <div th:attr="class = ${event.id}" style="display: none; text-align: center; position: fixed;">
-                        <button class="delete-button transferEvent">Transfer event to another member<input
-                                style="display: none" th:attr="value = ${event.title}" /></button>
+                        <button class="delete-button transferEvent" th:if="${event.hostUsername == user.email}">Transfer
+                            event to another member<input style="display: none"
+                                th:attr="value = ${event.title}" /></button>
                         <button class="delete-button removeEvent">Delete
                             entire event</button>
                         <button class="cancel-button"><input style="display: none"
