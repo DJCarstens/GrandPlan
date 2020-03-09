@@ -73,22 +73,22 @@ public class ServerController {
     }
 
     @PostMapping("/getUserEvents")
-    public ResponseEntity<Set<Event>> getUserEvents(String email) {
+    public ResponseEntity<Set<Event>> getUserEvents(@RequestBody String email) {
         return ResponseEntity.ok(apiEventService.getUserEvents(email));
     }
 
     @PostMapping("/createEvent")
-    public ResponseEntity<Event> createEvent(Event event) {
+    public ResponseEntity<Event> createEvent(@RequestBody Event event) {
         return ResponseEntity.ok(apiEventService.createEvent(event));
     }
 
     @PostMapping("/deleteEvent")
-    public ResponseEntity<Boolean> deleteEvent(Event event) {
+    public ResponseEntity<Boolean> deleteEvent(@RequestBody Event event) {
         return ResponseEntity.ok(apiEventService.deleteEvent(event));
     }
 
     @PostMapping("/updateEvent")
-    public ResponseEntity<Event> updateEvent(Event event) {
+    public ResponseEntity<Event> updateEvent(@RequestBody Event event) {
         return ResponseEntity.ok(apiEventService.updateEvent(event));
     }
 

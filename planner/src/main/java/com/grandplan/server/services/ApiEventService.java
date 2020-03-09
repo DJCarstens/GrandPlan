@@ -37,8 +37,9 @@ public class ApiEventService {
     }
 
     public Event createEvent(Event event) {
-        eventRepo.save(event);
-        return event;
+        Event e = eventRepo.save(event);
+        writeListOfEvents(getEvents());
+        return e;
     }
 
     public boolean deleteEvent(Event event) {
@@ -67,6 +68,7 @@ public class ApiEventService {
         JSONArray jsonObjects = new JSONArray();
         for (Event event : events) {
             JSONObject jsonObject = new JSONObject();
+            jsonObject.put("id", event.getId());
             jsonObject.put("title", event.getTitle());
             jsonObject.put("start", event.getStart());
             jsonObject.put("end", event.getEnd());

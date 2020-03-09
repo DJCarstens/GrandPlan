@@ -56,6 +56,7 @@ public class ApiLoginService {
         JSONArray jsonObjects = new JSONArray();
         for (User user : users) {
             JSONObject jsonObject = new JSONObject();
+            jsonObject.put("id", user.getId());
             jsonObject.put("email", user.getEmail());
             jsonObject.put("password", user.getPassword());
             jsonObject.put("firstName", user.getFirstName());
