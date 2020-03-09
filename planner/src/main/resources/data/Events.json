@@ -1,11 +1,21 @@
 [ {
-  "title" : "Grad Meetup",
-  "start" : "",
-  "end" : "",
   "allDay" : true,
-  "color": "red",
-  "tag" : "",
+  "color" : "red",
+  "hostUsername" : "lindama@bbd.com",
+  "start" : "",
   "description" : "",
-  "hostUsername" : "lindama@bbd.co.za"
-}
-]
+  "end" : "",
+  "id" : 1,
+  "tag" : "",
+  "title" : "Grad Meetup"
+}, {
+  "allDay" : false,
+  "color" : "blue",
+  "hostUsername" : "lindama@bbd.com",
+  "start" : "",
+  "description" : "",
+  "end" : "",
+  "id" : 2,
+  "tag" : "",
+  "title" : "Test Event"
+} ]

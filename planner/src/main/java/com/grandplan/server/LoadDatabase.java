@@ -26,22 +26,6 @@ public class LoadDatabase {
     @Bean
     CommandLineRunner initDatabase(UserRepo userRepo, EventRepo eventRepo) {
         return args -> {
-            User testUser = User.builder()
-                    .email("grad@bbd.co.za")
-                    .password("password")
-                    .firstName("grad")
-                    .lastName("McGrad")
-                    .phone("911")
-                    .invites(new HashSet<>())
-                    .build();
-
-            Event event = Event.builder()
-                    .title("Test event")
-                    .invites(new HashSet<>())
-                    .build();
-
-            log.info("Preloading " + userRepo.save(testUser));
-            log.info("Preloading " + eventRepo.save(event));
 
             List<User> users = getListOfUsers();
             for (User user : users) {
@@ -62,6 +46,7 @@ public class LoadDatabase {
                 jsonObjects.forEach(item -> {
                     JSONObject jsonObject = (JSONObject) item;
                     Event event = Event.builder()
+                            .id(Long.valueOf((jsonObject.get("id")).toString()))
                             .title(jsonObject.get("title").toString())
                             .start(jsonObject.get("start").toString())
                             .end(jsonObject.get("end").toString())
@@ -90,6 +75,7 @@ public class LoadDatabase {
             jsonObjects.forEach(item -> {
                 JSONObject jsonObject = (JSONObject) item;
                 User user = User.builder()
+                        .id(Long.valueOf((jsonObject.get("id")).toString()))
                         .email(jsonObject.get("email").toString())
                         .password(jsonObject.get("password").toString())
                         .firstName(jsonObject.get("firstName").toString())

@@ -16,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.io.Serializable;
 
 @Data
 @EqualsAndHashCode(exclude = {"user", "event"})
@@ -23,7 +24,7 @@ import javax.persistence.ManyToOne;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Invite {
+public class Invite implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
