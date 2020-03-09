@@ -7,6 +7,7 @@ import com.grandplan.util.Event;
 import com.grandplan.util.User;
 import com.grandplan.util.Invite;
 import com.grandplan.client.util.NewInvite;
+import com.grandplan.client.util.UserEventQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -92,13 +93,14 @@ public class ServerController {
     }
 
     @PostMapping("/acceptInvite")
-    public ResponseEntity<Invite> acceptInvite(Invite invite)
+    public ResponseEntity<Invite> acceptInvite(@RequestBody Invite invite)
     {
+        log.info("Invite id: " + invite.getId());
         return ResponseEntity.ok(apiInviteService.updateInvite(invite, true));
     }
 
     @PostMapping("/declineInvite")
-    public ResponseEntity<Invite> declineInvite(Invite invite)
+    public ResponseEntity<Invite> declineInvite(@RequestBody Invite invite)
     {
         return ResponseEntity.ok(apiInviteService.updateInvite(invite, false));
     }
@@ -110,11 +112,13 @@ public class ServerController {
         log.info("userEmail: " + newInvite.getUserEmail());
         Event eventObj = apiEventService.getEventById(newInvite.getEventId());
         User userObj = apiLoginService.getUserByEmail(newInvite.getUserEmail());
-        Invite inv = Invite.builder()
-        .user(userObj)
-        .event(eventObj)
-        .accepted(newInvite.getIsAccepted())
-        .build();
+        // Invite inv = Invite.builder()
+        // .user(userObj)
+        // .event(eventObj)
+        // .accepted(newInvite.getIsAccepted())
+        // .build();
+
+        Invite inv = new Invite(userObj, eventObj, newInvite.getIsAccepted());
 
       
 
@@ -122,13 +126,34 @@ public class ServerController {
     }
 
     @PostMapping("/getUserInvites")
-    public ResponseEntity<Set<Invite>> getUserInvites(String email)
+    public ResponseEntity<Set<Invite>> getUserInvites(@RequestBody User u)
     {
         
-        log.info("userEmail: " + email);
+        log.info("userEmail: " + u.getEmail());
        
 
-        return ResponseEntity.ok(apiInviteService.getUserInvites(email));
+        return ResponseEntity.ok(apiInviteService.getUserInvites(u.getEmail()));
+    }
+
+    @PostMapping("/getEventInvites")
+    public ResponseEntity<Set<Invite>> getEventInvites(@RequestBody Event e)
+    {
+        
+        log.info("event Id: " + e.getId());
+       
+
+        return ResponseEntity.ok(apiInviteService.getEventInvites(e.getId()));
+    }
+
+    @PostMapping("/getUserEventInvite")
+    public ResponseEntity<Invite> getUserEventInvite(@RequestBody UserEventQuery ue)
+    {
+        
+        log.info("event Id: " + ue.getEvent().getId());
+        log.info("user email: " + ue.getUser().getEmail());
+       
+
+        return ResponseEntity.ok(apiInviteService.getUserEventInvite(ue.getUser().getEmail(), ue.getEvent().getId()));
     }
 
     @GetMapping("/listInvites")

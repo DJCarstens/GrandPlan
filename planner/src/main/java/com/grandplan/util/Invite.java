@@ -29,12 +29,12 @@ import java.io.Serializable;
 @Table(name = "invites")
 public class Invite implements Serializable {
 
-    // public Invite(User u, Event e, Boolean accepted)
-    // {
-    //     this.user = u;
-    //     this.event = e;
-    //     this.accepted = accepted;
-    // }
+    public Invite(User u, Event e, Boolean accepted)
+    {
+        this.user = u;
+        this.event = e;
+        this.accepted = accepted;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

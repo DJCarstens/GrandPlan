@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.Set;
 
@@ -18,8 +20,7 @@ public interface InviteRepo extends JpaRepository<Invite, Long> {
     @Query("SELECT i " +
             "FROM Invite as i, User as u " +
             "WHERE u.email = ?1 " +
-                "AND i.user.id = u.id " +
-                "AND i.accepted = true")
+                "AND i.user.id = u.id")
     public Set<Invite> findInvitesByEmail(String email);
 
     @Query("SELECT i " +
@@ -36,6 +37,7 @@ public interface InviteRepo extends JpaRepository<Invite, Long> {
                 "AND i.user.id = u.id")
     public Invite findInviteByEventAndUser(@Param("email") String email, @Param("eventId") Long eventId);
 
+    @Transactional
     @Modifying
     @Query("UPDATE Invite i " +
             "SET " +

@@ -33,6 +33,15 @@ public class ApiInviteService {
         return inviteRepo.findInvitesByEmail(email);
     }
 
+    public Set<Invite> getEventInvites(Long id) {
+        return inviteRepo.findInvitesByEvent(id);
+    }
+
+    public Invite getUserEventInvite(String email, Long id)
+    {
+        return inviteRepo.findInviteByEventAndUser(email, id);
+    }
+
     public Invite createInvite(Invite invite) {
         inviteRepo.save(invite);
         return invite;
@@ -66,6 +75,7 @@ public class ApiInviteService {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("inviteId", inv.getId());
             jsonObject.put("userId", inv.getUser().getId());
+            jsonObject.put("userEmail", inv.getUser().getEmail());
             jsonObject.put("eventId", inv.getEvent().getId());
             jsonObject.put("accepted", inv.getAccepted());
             jsonObjects.add(jsonObject);
