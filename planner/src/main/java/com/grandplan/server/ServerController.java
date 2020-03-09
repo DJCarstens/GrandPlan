@@ -92,6 +92,7 @@ public class ServerController {
         return ResponseEntity.ok(apiEventService.updateEvent(event));
     }
 
+    // ----------------- INVITES --------------------
     @PostMapping("/acceptInvite")
     public ResponseEntity<Invite> acceptInvite(@RequestBody Invite invite)
     {
@@ -128,9 +129,7 @@ public class ServerController {
     @PostMapping("/getUserInvites")
     public ResponseEntity<Set<Invite>> getUserInvites(@RequestBody User u)
     {
-        
         log.info("userEmail: " + u.getEmail());
-       
 
         return ResponseEntity.ok(apiInviteService.getUserInvites(u.getEmail()));
     }
@@ -140,8 +139,7 @@ public class ServerController {
     {
         
         log.info("event Id: " + e.getId());
-       
-
+    
         return ResponseEntity.ok(apiInviteService.getEventInvites(e.getId()));
     }
 
@@ -168,6 +166,30 @@ public class ServerController {
     {      
 
         return ResponseEntity.ok(apiInviteService.deleteInvite(inv));
+    }
+
+    @PostMapping("/getUnacceptedUserInvites")
+    public ResponseEntity<Set<Invite>> getUnacceptedUserInvites(@RequestBody User u)
+    {
+        return ResponseEntity.ok(apiInviteService.getUnacceptedUserInvites(u.getEmail()));
+    }
+
+    @PostMapping("/getAcceptedUserInvites")
+    public ResponseEntity<Set<Invite>> getAcceptedUserInvites(@RequestBody User u)
+    {
+        return ResponseEntity.ok(apiInviteService.getAcceptedUserInvites(u.getEmail()));
+    }
+
+    @PostMapping("/getUnacceptedEventInvites")
+    public ResponseEntity<Set<Invite>> getUnacceptedEventInvites(@RequestBody Event e)
+    {
+        return ResponseEntity.ok(apiInviteService.getUnacceptedEventInvites(e.getId()));
+    }
+
+    @PostMapping("/getAcceptedEventInvites")
+    public ResponseEntity<Set<Invite>> getAcceptedEventInvites(@RequestBody Event e)
+    {
+        return ResponseEntity.ok(apiInviteService.getAcceptedEventInvites(e.getId()));
     }
 
 

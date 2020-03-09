@@ -68,6 +68,27 @@ public class ApiInviteService {
         );
         return inviteRepo.findInviteById(invite.getId());
     }
+
+    public Set<Invite> getUnacceptedUserInvites(String email)
+    {
+        return inviteRepo.findUnacceptedInvitesByEmail(email);
+    }
+
+    public Set<Invite> getAcceptedUserInvites(String email)
+    {
+        return inviteRepo.findAcceptedInvitesByEmail(email);
+    }
+
+    public Set<Invite> getUnacceptedEventInvites(Long id)
+    {
+        return inviteRepo.findUnacceptedInvitesByEvent(id);
+    }
+
+    public Set<Invite> getAcceptedEventInvites(Long id)
+    {
+        return inviteRepo.findAcceptedInvitesByEvent(id);
+    }
+
     private void writeListOfInvites(List<Invite> invites) {
         ObjectMapper mapper = new ObjectMapper();
         JSONArray jsonObjects = new JSONArray();

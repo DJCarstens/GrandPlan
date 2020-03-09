@@ -19,15 +19,44 @@ public interface InviteRepo extends JpaRepository<Invite, Long> {
 
     @Query("SELECT i " +
             "FROM Invite as i, User as u " +
-            "WHERE u.email = ?1 " +
+            "WHERE u.email = :email " +
                 "AND i.user.id = u.id")
-    public Set<Invite> findInvitesByEmail(String email);
+    public Set<Invite> findInvitesByEmail(@Param("email") String email);
+
+    @Query("SELECT i " +
+            "FROM Invite as i, User as u " +
+            "WHERE u.email = :email " +
+                "AND i.user.id = u.id " +
+                "AND i.accepted = false")
+    public Set<Invite> findUnacceptedInvitesByEmail(@Param("email") String email);
+
+
+    @Query("SELECT i " +
+            "FROM Invite as i, User as u " +
+            "WHERE u.email = :email " +
+                "AND i.user.id = u.id " +
+                "AND i.accepted = true")
+    public Set<Invite> findAcceptedInvitesByEmail(@Param("email") String email);
 
     @Query("SELECT i " +
             "FROM Event as e, Invite as i " +
             "WHERE e.id = :id " +
                 "AND i.event.id = e.id")
     public Set<Invite> findInvitesByEvent(@Param("id") Long id);
+
+    @Query("SELECT i " +
+            "FROM Event as e, Invite as i " +
+            "WHERE e.id = :id " +
+                "AND i.event.id = e.id " + 
+                "AND i.accepted = false")
+    public Set<Invite> findUnacceptedInvitesByEvent(@Param("id") Long id);
+
+    @Query("SELECT i " +
+            "FROM Event as e, Invite as i " +
+            "WHERE e.id = :id " +
+                "AND i.event.id = e.id " + 
+                "AND i.accepted = true")
+    public Set<Invite> findAcceptedInvitesByEvent(@Param("id") Long id);
 
     @Query("SELECT i " +
             "FROM Event as e, Invite as i, User as u " +
