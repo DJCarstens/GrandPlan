@@ -20,32 +20,7 @@
 
 <body style="background-color: #C4C4C4;">
     <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span
-                        class="icon-bar"></span> <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">Grand Plan</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="/">Home</a></li>
-                    <li class="active"><a href="/events">Events</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                            aria-haspopup="true" aria-expanded="false"><span th:text="${user.toString()}"></span><span
-                                class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Settings</a></li>
-                            <li><a href="/logout">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        <div th:insert="top-nav :: top-nav"></div>
         <div class="container main-container">
             <div class="row">
                 <h1 class="heading" th:if="${heading}" th:text="${heading}"></h1>
@@ -53,30 +28,49 @@
                     <h2 th:text="${noEvents}"></h2>
                 </div>
                 <div th:if="${events}" th:each="event : ${events}" class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                    <div class="img">
-                        <div class="clearfix"></div>
-                        <div class="icon-container"><em class="far fa-calendar-alt"></em></div>
+                    <div th:attr="id = ${event.id}">
+                        <div class="img">
+                            <div class="clearfix"></div>
+                            <div class="icon-container"><em class="far fa-calendar-alt"></em></div>
+                        </div>
+                        <div class="box-part text-center">
+                            <div class="title">
+                                <label th:text="${event.title}"></label>
+                            </div>
+                            <div>
+                                <label class="item-heading">Date: &nbsp</label><label th:text="${event.start}"></label>
+                            </div>
+                            <div>
+                                <label class="item-heading">Time: &nbsp</label><label><label
+                                        th:text="${event.start}"></label> -
+                                    <label th:text="${event.end}"></label></label>
+                            </div>
+                            <br />
+                            <div>
+                                <span class="members"><em class="fas fa-users"></em></span>&nbsp&nbsp<span
+                                    th:if="${event.hostUsername == user.email}" class="updateEvent update"><em
+                                        class="fas fa-edit"></em><input style="display: none"
+                                        th:attr="value = ${event}" />
+                                </span><span class="deleteEvent trash"><em class="fas fa-trash-alt"></em><input
+                                        style="display: none" th:attr="value = ${event.id}" /></span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="box-part text-center">
-                        <div class="title">
-                            <label th:text="${event.title}"></label>
-                        </div>
-                        <div>
-                            <label class="item-heading">Date: &nbsp</label><label th:text="${event.start}"></label>
-                        </div>
-                        <div>
-                            <label class="item-heading">Time: &nbsp</label><label><label
-                                    th:text="${event.start}"></label> -
-                                <label th:text="${event.end}"></label></label>
-                        </div>
-                        <br />
-                        <div>
-                            <span class="members"><em class="fas fa-users"></em></span>&nbsp&nbsp<span
-                                class="updateEvent update"><em class="fas fa-edit"></em><input style="display: none"
-                                    th:attr="value = ${event}" />
-                            </span><span class="deleteEvent trash"><em class="fas fa-trash-alt"></em><input
-                                    style="display: none" th:attr="value = ${event.id}" /></span>
-                        </div>
+                    <div th:attr="class = ${event.id}" style="display: none; text-align: center; position: fixed;">
+                        <button class="delete-button transferEvent">Transfer event to another member<input
+                                style="display: none" th:attr="value = ${event.title}" /></button>
+                        <button class="delete-button removeEvent">Delete
+                            entire event</button>
+                        <button class="cancel-button"><input style="display: none"
+                                th:attr="value = ${event.id}" />Cancel</button>
+                    </div>
+                    <div th:attr="class = ${event.title}" style="display: none; text-align: center; position: fixed;">
+                        <label>Transfer event to another member</label>
+                        <input type="text" placeholder="Email of member" class="email-input" />
+                        <input style="display: none" th:attr="value = ${event.id}" /><br />
+                        <button class="transfer-event">Transfer event</button><br />
+                        <button class="cancel-delete-button"><input style="display: none"
+                                th:attr="value = ${event.id}" />Cancel</button>
                     </div>
                 </div>
             </div>
@@ -98,6 +92,7 @@
 
 <script type="text/javascript" src="/js/events.js"></script>
 <script type="text/javascript" src="/js/add-tags.js"></script>
-<script type="text/javascript" src="/js/create-event-validation.js" th:inline="javascript"></script>
+<script type="text/javascript" src="/js/create-event.js" th:inline="javascript"></script>
+<script type="text/javascript" src="/js/delete-event.js" th:inline="javascript"></script>
 
 </html>
