@@ -91,7 +91,7 @@ public class GrandPlanController {
         .build();
 
         Event event2 = Event.builder()          
-        .title("Event2")
+        .title("Event3")
         .description("This is an event")
         .start("2020-03-02T10:00")
         .end("2020-03-02T11:00")
