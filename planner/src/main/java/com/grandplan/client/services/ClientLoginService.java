@@ -36,8 +36,9 @@ public class ClientLoginService {
     private static final String HOME = "home";
     private static final String EMAIL = "email";
     private static final String PASSWORD = "password";
+    private static final String LOGIN_ERROR = "Something went wrong with the login process. Please try again.";
     
-    public String validateLogin(LoginUser loginUser, Model model, BindingResult bindingResult) throws IOException{
+    public String validateLogin(LoginUser loginUser, Model model, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return LOGIN;
         }
@@ -45,28 +46,35 @@ public class ClientLoginService {
         HashMap<String,String> hashMap = new HashMap<>();
         hashMap.put(EMAIL, loginUser.getEmail());
         hashMap.put(PASSWORD, loginUser.getPassword());
-        JSONObject jsonObject = new JSONObject(hashMap);
+        JSONObject jsonObject = new JSONObject(hashMap); 
 
-        CloseableHttpResponse response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/validateLogin");
-        int statusCode = response.getStatusLine().getStatusCode();
-        if(statusCode == 404){
-            showModal(model, "Your account was not found. Please check your login details and try again, or signup if you do not have an account.", SIGNUP);
+        CloseableHttpResponse response;
+        try{
+            response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/validateLogin");
+            int statusCode = response.getStatusLine().getStatusCode();
+            if(statusCode == 404){
+                showModal(model, "Your account was not found. Please check your login details and try again, or signup if you do not have an account.", SIGNUP);
+                return LOGIN;
+            }
+
+            if(statusCode == 200){
+                try{
+                    currentUser = getUserInfo(EntityUtils.toString(response.getEntity()));
+                    model.addAttribute("user", currentUser);
+                    return HOME;
+                }
+                catch(Exception e){
+                    showModal(model, LOGIN_ERROR, LOGIN);
+                    return LOGIN;
+                }
+            }
+        }
+        catch(IOException exception){
+            showModal(model, LOGIN_ERROR, LOGIN);
             return LOGIN;
         }
 
-        if(statusCode == 200){
-            try{
-                currentUser = getUserInfo(EntityUtils.toString(response.getEntity()));
-                model.addAttribute("user", currentUser);
-                return HOME;
-            }
-            catch(Exception e){
-                showModal(model, "Something went wrong with the login process. Please try again.", LOGIN);
-                return LOGIN;
-            }
-        }
-
-        showModal(model, "Something went wrong with the login process. Please try again.", LOGIN);
+        showModal(model, LOGIN_ERROR, LOGIN);
         return LOGIN;
     }
 
@@ -88,7 +96,7 @@ public class ClientLoginService {
         model.addAttribute("button", button);
     }
 
-    public String validateSignup(SignupUser signupUser, Model model, BindingResult bindingResult) throws IOException{
+    public String validateSignup(SignupUser signupUser, Model model, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             return SIGNUP;
         }
@@ -106,17 +114,24 @@ public class ClientLoginService {
         hashMap.put("phone", signupUser.getPhone());
         JSONObject jsonObject = new JSONObject(hashMap);
 
-        CloseableHttpResponse response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/addUser");
-        int statusCode = response.getStatusLine().getStatusCode();
-        if(statusCode == 409){
-            showModal(model, "An account for " + signupUser.getEmail() + " already exists. Please check your signup details and try again, or login if you have an account.", LOGIN);
-            return SIGNUP;
-        }
+        CloseableHttpResponse response;
+        try{
+            response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/addUser");
+            int statusCode = response.getStatusLine().getStatusCode();
+            if(statusCode == 409){
+                showModal(model, "An account for " + signupUser.getEmail() + " already exists. Please check your signup details and try again, or login if you have an account.", LOGIN);
+                return SIGNUP;
+            }
 
-        if(statusCode == 200){
-            currentUser = signupUser.convertUser();
-            model.addAttribute("user", currentUser);
-            return HOME;
+            if(statusCode == 200){
+                currentUser = signupUser.convertUser();
+                model.addAttribute("user", currentUser);
+                return HOME;
+            }
+        }
+        catch(IOException exception){
+            showModal(model, "Something went wrong with the signup process. Please try again.", LOGIN);
+            return SIGNUP;
         }
 
         showModal(model, "Something went wrong with the signup process. Please try again.", LOGIN);

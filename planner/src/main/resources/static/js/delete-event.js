@@ -57,7 +57,17 @@ $(document).ready(function () {
             contentType: "application/json",
             url: "/transferEvent",
             data: JSON.stringify($data),
-            dataType: 'json'
+            dataType: 'json',
+            success: () => {
+                let $id = "#" + $items[1];
+                $($id).css("opacity", "1");
+                $(this).parent().parent().toggle();
+            },
+            error: () => {
+                let $id = "#" + $items[1];
+                $($id).css("opacity", "1");
+                $(this).parent().parent().toggle();
+            }
         });
     });
 
@@ -76,7 +86,19 @@ $(document).ready(function () {
             contentType: "application/json",
             url: "/deleteEvent",
             data: JSON.stringify($data),
-            dataType: 'json'
+            dataType: 'json',
+            success: () => {
+                let $id = "#" + $items[1];
+                let $class = "." + $items[1];
+                $($id).css("opacity", "1");
+                $($class).toggle();
+            },
+            error: () => {
+                let $id = "#" + $items[1];
+                let $class = "." + $items[1];
+                $($id).css("opacity", "1");
+                $($class).toggle();
+            }
         });
     });
 

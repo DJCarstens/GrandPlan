@@ -61,12 +61,12 @@ public class GrandPlanController {
     }
 
     @PostMapping(value = "/validateLogin")
-    public String validateLogin(@Valid @ModelAttribute("loginUser") LoginUser loginUser, BindingResult bindingResult, Model model) throws IOException {
+    public String validateLogin(@Valid @ModelAttribute("loginUser") LoginUser loginUser, BindingResult bindingResult, Model model) {
         return clientLoginService.validateLogin(loginUser, model, bindingResult);
     }
 
     @PostMapping(value = "/validateSignup")
-    public String validateSignup(@Valid @ModelAttribute("signupUser") SignupUser signupUser, BindingResult bindingResult, Model model) throws IOException {
+    public String validateSignup(@Valid @ModelAttribute("signupUser") SignupUser signupUser, BindingResult bindingResult, Model model) {
         return clientLoginService.validateSignup(signupUser, model, bindingResult);
     }
 
@@ -137,7 +137,7 @@ public class GrandPlanController {
     }
 
     @PostMapping("/deleteEvent")
-    public String deleteEvent(@RequestBody JSONObject deleteEvent, Model model) throws IOException{
+    public String deleteEvent(@RequestBody JSONObject deleteEvent, Model model){
         return clientEventService.deleteEvent(deleteEvent.get("id").toString(), deleteEvent.get("hostUsername").toString(), model);
     }
 
@@ -146,14 +146,14 @@ public class GrandPlanController {
         return clientEventService.transferEvent(tranferEvent.get("id").toString(), tranferEvent.get("hostUsername").toString(), model);
     }
 
-  @PostMapping("/createEvent")
-  public String createEvent(@RequestBody NewEvent newEvent, Model model) {
-    showModal(model, "Event Successfully created.", "Ok");
-    model.addAttribute("user", clientLoginService.getCurrentUser());
+    @PostMapping("/createEvent")
+    public String createEvent(@RequestBody NewEvent newEvent, Model model) {
+        showModal(model, "Event Successfully created.", "Ok");
+        model.addAttribute("user", clientLoginService.getCurrentUser());
 
-    //TODO add NewEvent modal to events to update events
+        //TODO add NewEvent modal to events to update events
 
-    return EVENTS;
-  }
+        return EVENTS;
+    }
 
 }
