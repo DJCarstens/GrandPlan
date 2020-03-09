@@ -1,55 +1,43 @@
 [ {
-  "firstName" : "grad",
-  "lastName" : "McGrad",
-  "password" : "password",
-  "phone" : "911",
-  "email" : "grad@bbd.co.za"
-}, {
-  "firstName" : "grad",
-  "lastName" : "McGrad",
-  "password" : "password",
-  "phone" : "911",
-  "email" : "grad@bbd.co.za"
-}, {
+  "id": 1,
   "firstName" : "Linda",
   "lastName" : "Marks",
   "password" : "chocolate",
   "phone" : "0814568825",
   "email" : "lindama@bbd.co.za"
 }, {
+  "id": 2,
   "firstName" : "Lauren",
   "lastName" : "van der Merwe",
   "password" : "smarties",
   "phone" : "0868852132",
   "email" : "laurenv@bbd.co.za"
 }, {
+  "id": 3,
   "firstName" : "Liam",
   "lastName" : "Leyers",
   "password" : "kitkat",
   "phone" : "0758896552",
   "email" : "liaml@bbd.co.za"
 }, {
+  "id": 4,
   "firstName" : "Kyle",
   "lastName" : "Smuts",
   "password" : "aero",
   "phone" : "0868457896",
   "email" : "kylesm@bbd.co.za"
 }, {
+  "id": 5,
   "firstName" : "Caley",
   "lastName" : "Taylor",
   "password" : "nougat",
   "phone" : "0652321474",
   "email" : "caleyt@bbd.co.za"
 }, {
-  "firstName" : "Emma",
-  "lastName" : "Coetzer",
-  "password" : "Vodacom2",
-  "phone" : "0718831926",
-  "email" : "emmac@bbd.co.za"
-}, {
-  "firstName" : "Kelly",
-  "lastName" : "Coetzer",
-  "password" : "7f1f927cfae3218a1f0e6f0b0499a7ba064f327a1f3cf95abd733ea250bbf7ca",
-  "phone" : "0834680189",
-  "email" : "kelly@bbd.co.za"
+  "id": 6,
+  "firstName" : "test",
+  "lastName" : "Leyers",
+  "password" : "password",
+  "phone" : "0758896552",
+  "email" : "test@bbd.co.za"
 } ]

@@ -23,6 +23,10 @@ public class ApiEventService {
 
     private final EventRepo eventRepo;
 
+    public Event getEventById(Long id) {
+        return eventRepo.findEventById(id);
+    }
+
     public List<Event> getEvents() {
         return eventRepo.findAll();
     }
@@ -32,8 +36,9 @@ public class ApiEventService {
     }
 
     public Event createEvent(Event event) {
-        eventRepo.save(event);
-        return event;
+        Event e = eventRepo.save(event);
+        writeListOfEvents(getEvents());
+        return e;
     }
 
     public boolean deleteEvent(Long id) {
@@ -63,6 +68,7 @@ public class ApiEventService {
         JSONArray jsonObjects = new JSONArray();
         for (Event event : events) {
             JSONObject jsonObject = new JSONObject();
+            jsonObject.put("id", event.getId());
             jsonObject.put("title", event.getTitle());
             jsonObject.put("start", event.getStart());
             jsonObject.put("end", event.getEnd());
