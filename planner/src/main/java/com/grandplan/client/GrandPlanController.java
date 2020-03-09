@@ -1,8 +1,8 @@
 package com.grandplan.client;
 
-import com.grandplan.util.Event;
 import com.grandplan.util.User;
 import com.grandplan.client.services.ClientEventService;
+import com.grandplan.client.services.ClientInviteService;
 import com.grandplan.client.services.ClientLoginService;
 import com.grandplan.client.util.LoginUser;
 import com.grandplan.client.util.SignupUser;
@@ -20,9 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Controller
 public class GrandPlanController {
     private static final String LOGIN = "login";
@@ -35,6 +32,9 @@ public class GrandPlanController {
 
     @Autowired
     private ClientEventService clientEventService;
+
+    @Autowired
+    private ClientInviteService clientInviteService;
 
     @GetMapping("/login")
     public String login(Model model) {
@@ -56,6 +56,7 @@ public class GrandPlanController {
 
     @GetMapping("/")
     public String home(Model model){
+        model.addAttribute("user", clientLoginService.getCurrentUser());
         return HOME;
     }
 
@@ -76,58 +77,14 @@ public class GrandPlanController {
 
     @GetMapping("/events")
     public String events(Model model) {
-        // model.addAttribute("user", clientLoginService.getCurrentUser());
-        // return clientEventService.getUserEvents(clientLoginService.getCurrentUser(), model);
-        List<Event> eventsList = new ArrayList<>();
-        Event event1 = Event.builder()          
-        .title("Event1")
-        .description("This is an event")
-        .start("2020-03-02T10:00")
-        .end("2020-03-02T11:00")
-        .color("red")
-        .tag("Grad Meeting")
-        .id((long) 1)
-        .hostUsername("emmac@bbd.co.za")
-        .build();
-
-        Event event2 = Event.builder()          
-        .title("Event3")
-        .description("This is an event")
-        .start("2020-03-02T10:00")
-        .end("2020-03-02T11:00")
-        .color("red")
-        .tag("Grad Meeting")
-        .id((long) 2)
-        .hostUsername("kelly@bbd.co.za")
-        .build();   
-
-        eventsList.add(event1);
-        eventsList.add(event2);
-
-        User user = new User();
-        user.setEmail("emmac@bbd.co.za");
-        user.setPassword("Vodacom2");
-        user.setFirstName("Emma");
-        user.setLastName("Coetzer");
-        user.setPhone("0718831926");
-
-        model.addAttribute("user", user);
-        model.addAttribute(EVENTS, eventsList);
-
-        return EVENTS;
+        model.addAttribute("user", clientLoginService.getCurrentUser());
+        return clientEventService.getUserEvents(clientLoginService.getCurrentUser(), model);
     }
 
   @GetMapping("/invites")
     public String invites(Model model){
-        User user = clientLoginService.getCurrentUser();
-        if(user.getInvites() == null){
-            model.addAttribute("user", user);
-            model.addAttribute("noInvites", "You currently have no invitations");
-            return "invites";
-        }
-
-        model.addAttribute("user", user);
-        return "invites";
+        model.addAttribute("user", clientLoginService.getCurrentUser());
+        return clientInviteService.getInvites(clientLoginService.getCurrentUser(), model);
     }
 
     @GetMapping("/error")
@@ -142,7 +99,8 @@ public class GrandPlanController {
 
     @PostMapping("/transferEvent")
     public String transferEvent(@RequestBody JSONObject tranferEvent, Model model){
-        return clientEventService.transferEvent(tranferEvent.get("id").toString(), tranferEvent.get("hostUsername").toString(), model);
+        // return clientEventService.transferEvent(tranferEvent.get("id").toString(), tranferEvent.get("hostUsername").toString(), model);
+        return EVENTS;
     }
 
     @PostMapping("/createEvent")

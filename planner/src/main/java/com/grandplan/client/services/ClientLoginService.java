@@ -93,7 +93,9 @@ public class ClientLoginService {
 
     public void showModal(Model model, String message, String button) {
         model.addAttribute("messageModal", message);
-        model.addAttribute("button", button);
+        if(!button.equals("")){
+            model.addAttribute("button", button);
+        }
     }
 
     public String validateSignup(SignupUser signupUser, Model model, BindingResult bindingResult){
@@ -130,11 +132,11 @@ public class ClientLoginService {
             }
         }
         catch(IOException exception){
-            showModal(model, "Something went wrong with the signup process. Please try again.", LOGIN);
+            showModal(model, "Something went wrong with the signup process. Please try again.", "");
             return SIGNUP;
         }
 
-        showModal(model, "Something went wrong with the signup process. Please try again.", LOGIN);
+        showModal(model, "Something went wrong with the signup process. Please try again.", "");
         return SIGNUP;
     }
 

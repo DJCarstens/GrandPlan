@@ -36,19 +36,21 @@ public class ClientEventService {
         CloseableHttpResponse response;
         try{
             response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/getUserEvents");
-            // String responseBody = EntityUtils.toString(response.getEntity());
-            System.out.println(EntityUtils.toString(response.getEntity()));
+            String responseBody = EntityUtils.toString(response.getEntity());
+            if(responseBody.equals("[]")){
+                model.addAttribute("noEvents", "You currently have no events");
+                return EVENTS;
+            }
 
-            // if(responseBody.equals("[]")){
-            //     model.addAttribute("noEvents", "You currently have no events");
-            // }
+            // model.addAttribute(EVENTS, responseBody);
+            // model.addAttribute("user", clientLoginService.getCurrentUser());
         }
         catch(IOException exception){
-            showModal(model, "Something went wrong when getting your events. Please try again later.", "Ok");
+            showModal(model, "Something went wrong when getting your events. Please try again later.", "");
             return EVENTS;
         }
 
-        showModal(model, "Something went wrong when getting your events. Please try again later.", "Ok");
+        showModal(model, "Something went wrong when getting your events. Please try again later.", "");
         return EVENTS;
     }
 
@@ -73,41 +75,43 @@ public class ClientEventService {
             return getUserEvents(clientLoginService.getCurrentUser(), model);
         }
         catch(IOException exception){
-            showModal(model, "Something went wrong deleting this event. Please try again later.", "Ok");
+            showModal(model, "Something went wrong deleting this event. Please try again later.", "");
             return EVENTS;
         }
     }
 
-    public String transferEvent(String eventId, String userEmail, Model model){
-        HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("id", eventId);
-        hashMap.put("userEmail", userEmail);
-        JSONObject jsonObject = new JSONObject(hashMap);
+    // public String transferEvent(String eventId, String userEmail, Model model){
+    //     HashMap<String,String> hashMap = new HashMap<>();
+    //     hashMap.put("id", eventId);
+    //     hashMap.put("userEmail", userEmail);
+    //     JSONObject jsonObject = new JSONObject(hashMap);
 
-        CloseableHttpResponse response;
-        try{
-            response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/transferEvent");
-            int statusCode = response.getStatusLine().getStatusCode();
+    //     CloseableHttpResponse response;
+    //     try{
+    //         response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/transferEvent");
+    //         int statusCode = response.getStatusLine().getStatusCode();
 
-            if (statusCode == 200){
-                showModal(model, "Successfully transferred event", EVENTS);
-            }             
-            else{
-                showModal(model, "Could not transfer event. Please try again later.", EVENTS);
-            }                
+    //         if (statusCode == 200){
+    //             showModal(model, "Successfully transferred event", EVENTS);
+    //         }             
+    //         else{
+    //             showModal(model, "Could not transfer event. Please try again later.", EVENTS);
+    //         }                
 
-            model.addAttribute("user", clientLoginService.getCurrentUser());
-            return getUserEvents(clientLoginService.getCurrentUser(), model);
-        }
-        catch(IOException exception){
-            showModal(model, "Something went wrong transferring this event. Please try again later.", "Ok");
-            return EVENTS;
-        }
-    }
+    //         model.addAttribute("user", clientLoginService.getCurrentUser());
+    //         return getUserEvents(clientLoginService.getCurrentUser(), model);
+    //     }
+    //     catch(IOException exception){
+    //         showModal(model, "Something went wrong transferring this event. Please try again later.");
+    //         return EVENTS;
+    //     }
+    // }
 
     public void showModal(Model model, String message, String button) {
         model.addAttribute("messageModal", message);
-        model.addAttribute("button", button);
+        if(!button.equals("")){
+            model.addAttribute("button", button);
+        }
     }
 
 }
