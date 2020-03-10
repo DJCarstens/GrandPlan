@@ -37,11 +37,11 @@ public class LoadDatabase {
             for (Event event : events) {
                 log.info("Preloading " + eventRepo.save(event));
             }
-            List<Invite> invites = getListOfInvites();
-            for (Invite invite : invites) {
-                inviteRepo.save(invite);
-                log.info("Preloading " + invite.toString());
-            }
+            // List<Invite> invites = getListOfInvites();
+            // for (Invite invite : invites) {
+            //     inviteRepo.save(invite);
+            //     log.info("Preloading " + invite.toString());
+            // }
         };
     }
         private List<Event> getListOfEvents() {
@@ -98,29 +98,31 @@ public class LoadDatabase {
         }
         return users;
     }
-    private List<Invite> getListOfInvites() {
-        JSONParser parser = new JSONParser();
-        List<Invite> invites = new ArrayList<>();
-        try {
-            Object obj = parser.parse(new FileReader("src/main/resources/data/Invites.json"));
-            JSONArray jsonObjects = (JSONArray) obj;
 
-            jsonObjects.forEach(item -> {
-                JSONObject jsonObject = (JSONObject) item;
-                Invite invite = Invite.builder()
-                        .event(getEventById(Long.valueOf((jsonObject.get("eventId")).toString())))
-                        .user(getUserById(Long.valueOf((jsonObject.get("userId")).toString())))
-                        .id(Long.valueOf((jsonObject.get("inviteId")).toString()))
-                        .accepted((Boolean) (jsonObject.get("accepted")))
-                        .build();
-                invites.add(invite);
-            });
-        } catch (Exception e) {
-            log.info("Unable to load Invites to repository");
-            e.printStackTrace();
-        }
-        return invites;
-    }
+    // private List<Invite> getListOfInvites() {
+    //     JSONParser parser = new JSONParser();
+    //     List<Invite> invites = new ArrayList<>();
+    //     try {
+    //         Object obj = parser.parse(new FileReader("src/main/resources/data/Invites.json"));
+    //         JSONArray jsonObjects = (JSONArray) obj;
+
+    //         jsonObjects.forEach(item -> {
+    //             JSONObject jsonObject = (JSONObject) item;
+    //             Invite invite = Invite.builder()
+    //                     .event(getEventById(Long.valueOf((jsonObject.get("eventId")).toString())))
+    //                     .user(getUserById(Long.valueOf((jsonObject.get("userId")).toString())))
+    //                     .id(Long.valueOf((jsonObject.get("inviteId")).toString()))
+    //                     .accepted((Boolean) (jsonObject.get("accepted")))
+    //                     .build();
+    //             invites.add(invite);
+    //         });
+    //     } catch (Exception e) {
+    //         log.info("Unable to load Invites to repository");
+    //         e.printStackTrace();
+    //     }
+    //     return invites;
+    // }
+
     private Event getEventById(Long eventId)
     {
         List<Event> events = getListOfEvents();
@@ -130,6 +132,7 @@ public class LoadDatabase {
         }
        return null;
     }
+
     private User getUserById(Long userId)
     {
         List<User> users = getListOfUsers();

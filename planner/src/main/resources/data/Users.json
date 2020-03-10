@@ -1,11 +1,4 @@
-[ {
-  "firstName" : "Linda",
-  "lastName" : "Marks",
-  "password" : "chocolate",
-  "phone" : "0814568825",
-  "id" : 1,
-  "email" : "lindama@bbd.co.za"
-}, {
+[{
   "firstName" : "Lauren",
   "lastName" : "van der Merwe",
   "password" : "smarties",
@@ -38,7 +31,7 @@
   "lastName" : "Leyers",
   "password" : "password",
   "phone" : "0758896552",
-  "id" : 6,
+  "id" : 8,
   "email" : "test@bbd.co.za"
 }, {
   "firstName" : "Linda",
