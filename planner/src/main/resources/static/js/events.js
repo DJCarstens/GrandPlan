@@ -9,19 +9,19 @@ $(document).ready(function () {
         $('#color').toggle();
     });
 
-    $("#createEvent").click(function() {
-        $('#eventCreateCalendar').fullCalendar({  
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
-                },
-                navLinks: true,
-                editable: true,
-                eventLimit: true,
-                events: {
-                    url : '/api/event/all'
-                }
+    $("#createEvent").click(function () {
+        $('#eventCreateCalendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            navLinks: true,
+            editable: true,
+            eventLimit: true,
+            events: {
+                url: '/api/event/all'
+            }
         });
     });
 
@@ -61,7 +61,7 @@ $(document).ready(function () {
     //TODO : fix auto complete not updating while typing
 
     $("#members").autocomplete({
-        source: 'http://localhost:8080/api/event/userlist',
+        source: 'http://localhost:8080/api/allUsersList',
         select: function (event, ui) {
             if (ui.item.label) {
                 //Send the user to be stored
@@ -71,7 +71,7 @@ $(document).ready(function () {
                 $.ajax({
                     type: "POST",
                     contentType: "application/json",
-                    url: "http://localhost:8080/api/event/addUser",
+                    url: "http://localhost:8080/api/addUserToEvent",
                     data: JSON.stringify($data),
                     dataType: 'json'
                 });
@@ -88,12 +88,41 @@ $(document).ready(function () {
                     $.ajax({
                         type: "POST",
                         contentType: "application/json",
-                        url: "http://localhost:8080/api/event/deleteUser",
+                        url: "http://localhost:8080/api/deleteUserFromEvent",
                         data: JSON.stringify($data),
-                        dataType: 'json'
+                        dataType: 'json',
+                        success: function (data) {
+                            //called when successful
+                            console.log("EMAIL: ");
+                            console.log(data.email);
+                            $data["email"] = data.email;
+                            $.ajax({
+                                url: 'http://localhost:8080/api/getUserEventsByEmail',
+                                type: 'POST',
+                                data: $data["email"] + "",
+                                // dataType: 'string',
+                                success: function (data) {
+                                    //called when successful
+                                    console.log(data);
+                                },
+                                error: function (e) {
+                                    //called when there is an error
+                                    console.log(e);
+                                    console.log(e.message);
+                                }
+                            });
+                        },
+                        error: function (e) {
+                            //called when there is an error
+                            console.log(e);
+                            console.log(e.message);
+                        }
                     });
+
+                    console.log("EMAIL: " + $data["email"])
                     //Remove that user's events from the calendar
                     //TODO: Get all the events from that user and remove them
+                   
                     $('#eventCreateCalendar').fullCalendar('removeEvents', [5]);
                 });
 
