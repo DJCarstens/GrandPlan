@@ -101,3 +101,60 @@ em:hover{
   margin-left: 2%;
   font-size: 2.2rem;
 }
+
+.delete-button{
+  width: 80%;
+  color: white;
+  background-color: #C72F2E;
+  border: none;
+  border-radius: 0.3125rem;
+  padding: 2%;
+  margin-top: 2%;
+}
+
+.delete-button:hover, .transfer-event:hover{
+  color: white;
+  box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2), 0 0.5625rem 1.625rem 0 rgba(0, 0, 0, 0.19);
+}
+
+.cancel-button{
+  width: 35%;
+  color: black;
+  background-color: rgb(165, 165, 165);
+  border: none;
+  border-radius: 0.3125rem;
+  padding: 0.8%;
+  margin-top: 2%;
+}
+
+.cancel-delete-button{
+  width: 35%;
+  color: black;
+  background-color: rgb(165, 165, 165);
+  border: none;
+  border-radius: 0.3125rem;
+  padding: 0.8%;
+  margin-top: 2%;
+}
+
+.transfer-event{
+  width: 50%;
+  color: white;
+  background-color: #C72F2E;
+  border: none;
+  border-radius: 0.3125rem;
+  padding: 0.8%;
+  margin-top: 2%;
+}
+
+.cancel-button:hover, .cancel-delete-button:hover{
+  color: black;
+  box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2), 0 0.5625rem 1.625rem 0 rgba(0, 0, 0, 0.19);
+}
+
+.email-input{
+  width: 50%;
+  border-radius: 0.3rem;
+  border: 1.6px solid #C72F2E;
+  padding: 4px;
+}

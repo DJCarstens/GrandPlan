@@ -5,22 +5,23 @@ $(document).ready(function () {
     });
 
     $("#createEvent").click(function () {
-        $('#events-modal').css('display', 'block');
-        $('#color').css("display", "none");
+        $('#events-modal').toggle();
+        $('#color').toggle();
     });
-    $("#createEvent").click(function () {
-        $('#eventCreateCalendar').fullCalendar({
-            header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'month,agendaWeek,agendaDay'
-            },
-            navLinks: true,
-            editable: true,
-            eventLimit: true,
-            events: {
-                url: '/api/event/all'
-            }
+
+    $("#createEvent").click(function() {
+        $('#eventCreateCalendar').fullCalendar({  
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                navLinks: true,
+                editable: true,
+                eventLimit: true,
+                events: {
+                    url : '/api/event/all'
+                }
         });
     });
 
@@ -46,11 +47,11 @@ $(document).ready(function () {
     });
 
     $('#close-create').click(function () {
-        $('#events-modal').css('display', 'none');
+        $('#events-modal').toggle();
     });
 
     $('#close-modal').click(function () {
-        $('#events-modal').css('display', 'none');
+        $('#events-modal').toggle();
     });
 
     $('#allDay').click(function () {

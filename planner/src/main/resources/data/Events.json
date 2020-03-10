@@ -1,7 +1,7 @@
 [ {
   "allDay" : true,
   "color" : "red",
-  "hostUsername" : "lindama@bbd.com",
+  "hostUsername" : "lindama@bbd.co.za",
   "start" : "",
   "description" : "",
   "end" : "",
@@ -11,7 +11,7 @@
 }, {
   "allDay" : false,
   "color" : "blue",
-  "hostUsername" : "lindama@bbd.com",
+  "hostUsername" : "lindama@bbd.co.za",
   "start" : "",
   "description" : "",
   "end" : "",
