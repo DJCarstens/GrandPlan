@@ -46,17 +46,17 @@ public class LoadDatabase {
                 jsonObjects.forEach(item -> {
                     JSONObject jsonObject = (JSONObject) item;
                     Event event = Event.builder()
-                    .id(Long.valueOf((jsonObject.get("id")).toString()))
-                    .title(jsonObject.get("title").toString())
-                    .start(jsonObject.get("start").toString())
-                    .end(jsonObject.get("end").toString())
-                    .allDay((Boolean) (jsonObject.get("allDay")))
-                    .color(jsonObject.get("color").toString())
-                    .tag(jsonObject.get("tag").toString())
-                    .description(jsonObject.get("description").toString())
-                    .hostUsername(jsonObject.get("hostUsername").toString())
-                    .invites(new HashSet<>())
-                    .build();
+                            .id(Long.valueOf((jsonObject.get("id")).toString()))
+                            .title(jsonObject.get("title").toString())
+                            .start(jsonObject.get("start").toString())
+                            .end(jsonObject.get("end").toString())
+                            .allDay((Boolean) (jsonObject.get("allDay")))
+                            .color(jsonObject.get("color").toString())
+                            .tag(jsonObject.get("tag").toString())
+                            .description(jsonObject.get("description").toString())
+                            .hostUsername(jsonObject.get("hostUsername").toString())
+                            .invites(new HashSet<>())
+                            .build();
                     events.add(event);
                 });
             } catch (Exception e) {

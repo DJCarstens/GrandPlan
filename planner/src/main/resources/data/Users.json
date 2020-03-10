@@ -1,37 +1,44 @@
 [ {
+  "firstName" : "Linda",
+  "lastName" : "Marks",
+  "password" : "chocolate",
+  "phone" : "0814568825",
+  "id" : 1,
+  "email" : "lindama@bbd.co.za"
+}, {
   "firstName" : "Lauren",
   "lastName" : "van der Merwe",
   "password" : "smarties",
   "phone" : "0868852132",
-  "id" : 1,
+  "id" : 2,
   "email" : "laurenv@bbd.co.za"
 }, {
   "firstName" : "Liam",
   "lastName" : "Leyers",
   "password" : "kitkat",
   "phone" : "0758896552",
-  "id" : 2,
+  "id" : 3,
   "email" : "liaml@bbd.co.za"
 }, {
   "firstName" : "Kyle",
   "lastName" : "Smuts",
   "password" : "aero",
   "phone" : "0868457896",
-  "id" : 3,
+  "id" : 4,
   "email" : "kylesm@bbd.co.za"
 }, {
   "firstName" : "Caley",
   "lastName" : "Taylor",
   "password" : "nougat",
   "phone" : "0652321474",
-  "id" : 4,
+  "id" : 5,
   "email" : "caleyt@bbd.co.za"
 }, {
   "firstName" : "test",
   "lastName" : "Leyers",
   "password" : "password",
   "phone" : "0758896552",
-  "id" : 5,
+  "id" : 6,
   "email" : "test@bbd.co.za"
 }, {
   "firstName" : "Linda",
@@ -40,4 +47,11 @@
   "phone" : "0814568825",
   "id" : 6,
   "email" : "lindama@bbd.co.za"
+}, {
+  "firstName" : "Sam",
+  "lastName" : "Hillebrand",
+  "password" : "1234",
+  "phone" : "0837153699",
+  "id" : 7,
+  "email" : "samah@bbd.co.za"
 } ]
