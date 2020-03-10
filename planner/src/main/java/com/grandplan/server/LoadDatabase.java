@@ -39,7 +39,8 @@ public class LoadDatabase {
             }
             List<Invite> invites = getListOfInvites();
             for (Invite invite : invites) {
-                log.info("Preloading " + inviteRepo.save(invite));
+                inviteRepo.save(invite);
+                log.info("Preloading " + invite.toString());
             }
         };
     }
