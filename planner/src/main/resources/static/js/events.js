@@ -11,17 +11,17 @@ $(document).ready(function () {
 
     $("#createEvent").click(function() {
         $('#eventCreateCalendar').fullCalendar({  
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
-                },
-                navLinks: true,
-                editable: true,
-                eventLimit: true,
-                events: {
-                    url : '/api/event/all'
-                }
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            navLinks: true,
+            editable: true,
+            eventLimit: true,
+            events: {
+                url : '/api/event/all'
+            }
         });
     });
 

@@ -2,9 +2,15 @@ $(document).ready(function () {
     $('#create-event').click(function (e) {
         let $title = true;
         let $description = true;
-        let $members = true;
         let $start = true;
         let $end = true;
+
+        let $members = [];
+        $('#invitedUsers').find('span').each(function(){
+            let $first = $(this).text().split("(");
+            let $second = $first[1].split(")");
+            $members.push($second[0]);
+        });
 
         e.preventDefault();
         e.stopPropagation();
@@ -18,12 +24,6 @@ $(document).ready(function () {
             $('#descriptionError').html('Please provide a description for this event');
             $('#descriptionError').css('display', 'block');
             $description = false;
-        }
-
-        if ($('#members').val() == '') {
-            $('#membersError').html('Please add members to this event');
-            $('#membersError').css('display', 'block');
-            $members = false;
         }
 
         if($('#color').val() == '') {
@@ -42,17 +42,18 @@ $(document).ready(function () {
             $end = false;
         }
 
-        if($title && $description && $members && $start && $end){
+        if($title && $description && $start && $end){
             let $data = {};
             $data['title'] = $('#title').val();
             $data['description'] = $('#description').val();
-            $data['members'] = $('#members').val();
-            $data['startDate'] = $('#startDate').val();
-            $data['endDate'] = $('#endDate').val();
-            $data['startTime'] = $('#startTime').val();
-            $data['endTime'] = $('#endTime').val();
+            $data['members'] = JSON.stringify({ paramName: $members });
+            $data['start'] = $('#start').val();
+            $data['end'] = $('#end').val();
             $data['allDay'] = $('#allDay').prop("checked") ? true : false;
-            $data['tag'] = $('#tag').val();
+            $data['tag'] = null;
+            $('#tags').find('span').each(function(){
+                $data['tag'] = $(this).text();
+            });
             $data['color'] = $('#color').val();
             
             $.ajax({
@@ -79,10 +80,6 @@ $(document).ready(function () {
 
     $('#description').focus(function () {
         $('#descriptionError').css('display', 'none');
-    });
-
-    $('#members').focus(function () {
-        $('#membersError').css('display', 'none');
     });
 
     $('#start').focus(function () {

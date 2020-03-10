@@ -18,4 +18,24 @@
   "id" : 2,
   "tag" : "",
   "title" : "Test Event"
+}, {
+  "allDay" : true,
+  "color" : "#ec2d48",
+  "hostUsername" : "lindama@bbd.co.za",
+  "start" : "03/24/2020 12:00 AM",
+  "description" : "ujkm",
+  "end" : "",
+  "id" : 3,
+  "tag" : "jk",
+  "title" : "ujkmn"
+}, {
+  "allDay" : true,
+  "color" : "#0096B1",
+  "hostUsername" : "lindama@bbd.co.za",
+  "start" : "03/18/2020 12:00 AM",
+  "description" : "jkm",
+  "end" : "",
+  "id" : 4,
+  "tag" : null,
+  "title" : "ujk"
 } ]

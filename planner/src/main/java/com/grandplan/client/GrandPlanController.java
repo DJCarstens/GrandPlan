@@ -106,11 +106,7 @@ public class GrandPlanController {
     @PostMapping("/createEvent")
     public String createEvent(@RequestBody NewEvent newEvent, Model model) {
         showModal(model, "Event Successfully created.", "Ok");
-        model.addAttribute("user", clientLoginService.getCurrentUser());
-
-        //TODO add NewEvent modal to events to update events
-
-        return EVENTS;
+        return clientEventService.createEvent(newEvent, model);
     }
 
 }

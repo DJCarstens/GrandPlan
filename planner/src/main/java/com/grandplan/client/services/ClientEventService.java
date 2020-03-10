@@ -3,6 +3,8 @@ package com.grandplan.client.services;
 import java.io.IOException;
 import java.util.HashMap;
 
+import com.grandplan.client.util.NewEvent;
+import com.grandplan.util.Event;
 import com.grandplan.util.User;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -37,22 +39,44 @@ public class ClientEventService {
         try{
             response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/getUserEvents");
             String responseBody = EntityUtils.toString(response.getEntity());
-            System.out.println(responseBody);
             if(responseBody.equals("[]")){
                 model.addAttribute("noEvents", "You currently have no events");
+                model.addAttribute("user", user);
                 return EVENTS;
             }
 
-            // model.addAttribute(EVENTS, responseBody);
-            // model.addAttribute("user", clientLoginService.getCurrentUser());
+            model.addAttribute(EVENTS, responseBody);
+            model.addAttribute("user", user);
+            return EVENTS;
         }
         catch(IOException exception){
             showModal(model, "Something went wrong when getting your events. Please try again later.", "");
+            model.addAttribute("user", user);
             return EVENTS;
         }
+    }
 
-        showModal(model, "Something went wrong when getting your events. Please try again later.", "");
-        return EVENTS;
+    public String createEvent(NewEvent newEvent, Model model){
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("title", newEvent.getTitle());
+        hashMap.put("description", newEvent.getDescription());
+        hashMap.put("start", newEvent.getStart());
+        hashMap.put("end", newEvent.getEnd());
+        hashMap.put("allDay", newEvent.getAllDay().toString());
+        hashMap.put("color", newEvent.getColor());
+        hashMap.put("hostUsername", clientLoginService.getCurrentUser().getEmail());
+        hashMap.put("tag", newEvent.getTag());
+        JSONObject jsonObject = new JSONObject(hashMap);
+
+        try{
+            httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/createEvent");
+            showModal(model, "Successfully created event!", "");
+            return getUserEvents(clientLoginService.getCurrentUser(), model);
+        }
+        catch(IOException exception){
+            showModal(model, "Something went wrong creating your event. Please try again later.", "");
+            return getUserEvents(clientLoginService.getCurrentUser(), model);
+        }
     }
 
     public String deleteEvent(String eventId, String userEmail, Model model){
@@ -77,7 +101,7 @@ public class ClientEventService {
         }
         catch(IOException exception){
             showModal(model, "Something went wrong deleting this event. Please try again later.", "");
-            return EVENTS;
+            return getUserEvents(clientLoginService.getCurrentUser(), model);
         }
     }
 
@@ -104,7 +128,7 @@ public class ClientEventService {
     //     }
     //     catch(IOException exception){
     //         showModal(model, "Something went wrong transferring this event. Please try again later.");
-    //         return EVENTS;
+    //         return getUserEvents(clientLoginService.getCurrentUser(), model);
     //     }
     // }
 
