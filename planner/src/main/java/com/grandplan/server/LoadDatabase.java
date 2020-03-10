@@ -1,8 +1,10 @@
 package com.grandplan.server;
 
 import com.grandplan.server.repositories.EventRepo;
+import com.grandplan.server.repositories.InviteRepo;
 import com.grandplan.server.repositories.UserRepo;
 import com.grandplan.util.Event;
+import com.grandplan.util.Invite;
 import com.grandplan.util.User;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,7 +26,7 @@ import java.io.FileReader;
 @Slf4j
 public class LoadDatabase {
     @Bean
-    CommandLineRunner initDatabase(UserRepo userRepo, EventRepo eventRepo) {
+    CommandLineRunner initDatabase(UserRepo userRepo, EventRepo eventRepo, InviteRepo inviteRepo) {
         return args -> {
 
             List<User> users = getListOfUsers();
@@ -32,8 +34,13 @@ public class LoadDatabase {
                 log.info("Preloading " + userRepo.save(user));
             }
             List<Event> events = getListOfEvents();
-            for (Event e : events) {
-                log.info("Preloading " + eventRepo.save(e));
+            for (Event event : events) {
+                log.info("Preloading " + eventRepo.save(event));
+            }
+            List<Invite> invites = getListOfInvites();
+            for (Invite invite : invites) {
+                inviteRepo.save(invite);
+                log.info("Preloading " + invite.toString());
             }
         };
     }
@@ -90,5 +97,46 @@ public class LoadDatabase {
             e.printStackTrace();
         }
         return users;
+    }
+    private List<Invite> getListOfInvites() {
+        JSONParser parser = new JSONParser();
+        List<Invite> invites = new ArrayList<>();
+        try {
+            Object obj = parser.parse(new FileReader("src/main/resources/data/Invites.json"));
+            JSONArray jsonObjects = (JSONArray) obj;
+
+            jsonObjects.forEach(item -> {
+                JSONObject jsonObject = (JSONObject) item;
+                Invite invite = Invite.builder()
+                        .event(getEventById(Long.valueOf((jsonObject.get("eventId")).toString())))
+                        .user(getUserById(Long.valueOf((jsonObject.get("userId")).toString())))
+                        .id(Long.valueOf((jsonObject.get("inviteId")).toString()))
+                        .accepted((Boolean) (jsonObject.get("accepted")))
+                        .build();
+                invites.add(invite);
+            });
+        } catch (Exception e) {
+            log.info("Unable to load Invites to repository");
+            e.printStackTrace();
+        }
+        return invites;
+    }
+    private Event getEventById(Long eventId)
+    {
+        List<Event> events = getListOfEvents();
+        for (Event event : events) {
+            if(eventId.equals(event.getId()))
+                return event;
+        }
+       return null;
+    }
+    private User getUserById(Long userId)
+    {
+        List<User> users = getListOfUsers();
+        for (User user : users) {
+            if(userId.equals(user.getId()))
+                return user;
+        }
+        return null;
     }
 }
