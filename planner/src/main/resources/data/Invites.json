@@ -4,4 +4,11 @@
   "accepted" : true,
   "userEmail" : "lindama@bbd.co.za",
   "userId" : 1
-} ]
+},
+  {
+    "eventId" : 1,
+    "inviteId" : 2,
+    "accepted" : false,
+    "userEmail" : "laurenv@bbd.co.za",
+    "userId" : 2
+  }]
