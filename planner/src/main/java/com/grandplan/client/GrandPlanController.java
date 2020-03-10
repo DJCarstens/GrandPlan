@@ -1,6 +1,5 @@
 package com.grandplan.client;
 
-import com.grandplan.util.User;
 import com.grandplan.client.services.ClientEventService;
 import com.grandplan.client.services.ClientInviteService;
 import com.grandplan.client.services.ClientLoginService;

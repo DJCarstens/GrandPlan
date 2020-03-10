@@ -7,9 +7,9 @@ import com.grandplan.util.Event;
 import com.grandplan.util.User;
 import com.grandplan.util.Invite;
 import com.grandplan.client.util.NewInvite;
+import com.grandplan.client.util.requestObjects.UserDTO;
 import com.grandplan.client.util.UserEventQuery;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -40,7 +40,7 @@ public class ServerController {
     private ApiInviteService apiInviteService;
 
     @PostMapping("/validateLogin")
-    public ResponseEntity<User> validate(@RequestBody User user) {
+    public ResponseEntity<User> validate(@RequestBody UserDTO user) {
         if (user != null){
             User validUser = apiLoginService.validateUserCredentials(user);
             if(validUser != null){
@@ -64,7 +64,7 @@ public class ServerController {
     }
 
     @PostMapping("/addUser")
-    public ResponseEntity<User> addUser(@RequestBody User user) {
+    public ResponseEntity<User> addUser(@RequestBody UserDTO user) {
         if (apiLoginService.getUser(user) != null) {
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.set("x-error-code", "User already exists");
@@ -130,13 +130,13 @@ public class ServerController {
     }
 
     @PostMapping("/getEventInvites")
-    public ResponseEntity<Set<Invite>> getEventInvites(@RequestBody Event e){
-        return ResponseEntity.ok(apiInviteService.getEventInvites(e.getId()));
+    public ResponseEntity<Set<Invite>> getEventInvites(@RequestBody Event event){
+        return ResponseEntity.ok(apiInviteService.getEventInvites(event.getId()));
     }
 
     @PostMapping("/getInviteByUserAndEvent")
-    public ResponseEntity<Invite> getInviteByUserAndEvent(@RequestBody UserEventQuery ue){
-        return ResponseEntity.ok(apiInviteService.getUserEventInvite(ue.getUser().getEmail(), ue.getEvent().getId()));
+    public ResponseEntity<Invite> getInviteByUserAndEvent(@RequestBody UserEventQuery userEventQuery){
+        return ResponseEntity.ok(apiInviteService.getUserEventInvite(userEventQuery.getUser().getEmail(), userEventQuery.getEvent().getId()));
     }
 
     @GetMapping("/listInvites")
@@ -145,28 +145,28 @@ public class ServerController {
     } 
 
     @PostMapping("/deleteInvite")
-    public ResponseEntity<Boolean> deleteInvite(@RequestBody Invite inv){      
-        return ResponseEntity.ok(apiInviteService.deleteInvite(inv));
+    public ResponseEntity<Boolean> deleteInvite(@RequestBody Invite invite){      
+        return ResponseEntity.ok(apiInviteService.deleteInvite(invite));
     }
 
     @PostMapping("/getUnacceptedUserInvites")
-    public ResponseEntity<Set<Invite>> getUnacceptedUserInvites(@RequestBody User u){
-        return ResponseEntity.ok(apiInviteService.getUnacceptedUserInvites(u.getEmail()));
+    public ResponseEntity<Set<Invite>> getUnacceptedUserInvites(@RequestBody User user){
+        return ResponseEntity.ok(apiInviteService.getUnacceptedUserInvites(user.getEmail()));
     }
 
     @PostMapping("/getAcceptedUserInvites")
-    public ResponseEntity<Set<Invite>> getAcceptedUserInvites(@RequestBody User u){
-        return ResponseEntity.ok(apiInviteService.getAcceptedUserInvites(u.getEmail()));
+    public ResponseEntity<Set<Invite>> getAcceptedUserInvites(@RequestBody User user){
+        return ResponseEntity.ok(apiInviteService.getAcceptedUserInvites(user.getEmail()));
     }
 
     @PostMapping("/getUnacceptedEventInvites")
-    public ResponseEntity<Set<Invite>> getUnacceptedEventInvites(@RequestBody Event e){
-        return ResponseEntity.ok(apiInviteService.getUnacceptedEventInvites(e.getId()));
+    public ResponseEntity<Set<Invite>> getUnacceptedEventInvites(@RequestBody Event event){
+        return ResponseEntity.ok(apiInviteService.getUnacceptedEventInvites(event.getId()));
     }
 
     @PostMapping("/getAcceptedEventInvites")
-    public ResponseEntity<Set<Invite>> getAcceptedEventInvites(@RequestBody Event e){
-        return ResponseEntity.ok(apiInviteService.getAcceptedEventInvites(e.getId()));
+    public ResponseEntity<Set<Invite>> getAcceptedEventInvites(@RequestBody Event event){
+        return ResponseEntity.ok(apiInviteService.getAcceptedEventInvites(event.getId()));
     }
 
 }
