@@ -46,6 +46,7 @@ public class LoadDatabase {
                 jsonObjects.forEach(item -> {
                     JSONObject jsonObject = (JSONObject) item;
                     Event event = Event.builder()
+                            .id(Long.valueOf((jsonObject.get("id")).toString()))
                             .title(jsonObject.get("title").toString())
                             .start(jsonObject.get("start").toString())
                             .end(jsonObject.get("end").toString())
