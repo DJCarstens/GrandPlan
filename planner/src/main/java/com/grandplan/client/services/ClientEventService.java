@@ -44,7 +44,7 @@ public class ClientEventService {
                 model.addAttribute("user", user);
                 return EVENTS;
             }
-
+            showModal(model, "Successfully created event!", "");
             model.addAttribute(EVENTS, responseBody);
             model.addAttribute("user", user);
             return EVENTS;

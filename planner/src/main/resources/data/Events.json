@@ -19,23 +19,13 @@
   "tag" : "",
   "title" : "Test Event"
 }, {
-  "allDay" : true,
-  "color" : "#ec2d48",
+  "allDay" : false,
+  "color" : "#f320e2",
   "hostUsername" : "lindama@bbd.co.za",
-  "start" : "03/24/2020 12:00 AM",
-  "description" : "ujkm",
-  "end" : "",
+  "start" : "03/18/2020 12:00 PM",
+  "description" : "Event description",
+  "end" : "03/18/2020 1:00 PM",
   "id" : 3,
-  "tag" : "jk",
-  "title" : "ujkmn"
-}, {
-  "allDay" : true,
-  "color" : "#0096B1",
-  "hostUsername" : "lindama@bbd.co.za",
-  "start" : "03/18/2020 12:00 AM",
-  "description" : "jkm",
-  "end" : "",
-  "id" : 4,
-  "tag" : null,
-  "title" : "ujk"
+  "tag" : "gradprogram",
+  "title" : "New event"
 } ]

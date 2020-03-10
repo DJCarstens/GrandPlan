@@ -80,8 +80,6 @@ public class ServerController {
 
     @PostMapping("/createEvent")
     public ResponseEntity<Event> createEvent(@RequestBody Event event) {
-        System.out.println("EVENT CREATING HERE");
-        System.out.println(event);
         return ResponseEntity.ok(apiEventService.createEvent(event));
     }
 
