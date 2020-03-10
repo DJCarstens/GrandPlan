@@ -93,8 +93,6 @@ public class GrandPlanController {
     }
 
     @PostMapping("/deleteEvent")
-    public String deleteEvent(@RequestBody JSONObject event, Model model) throws IOException{
-        return clientEventService.deleteEvent(event.get("id").toString(), model);
     public String deleteEvent(@RequestBody JSONObject deleteEvent, Model model){
         return clientEventService.deleteEvent(deleteEvent.get("id").toString(), deleteEvent.get("hostUsername").toString(), model);
     }
