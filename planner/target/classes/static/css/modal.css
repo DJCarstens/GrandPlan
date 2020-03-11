@@ -1,0 +1,78 @@
+.overlay{
+    width: 100% !important;
+    height: 100% !important;
+    background-color: rgb(179, 179, 179, 0.8);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    overflow: auto;
+}
+
+.modal-header{
+    height: 6rem !important;
+    background-color: #C72F2E;
+    opacity: 1;
+    z-index: 100;
+}
+
+.modal-container{
+    width: 34%;
+    height: 30%;
+    margin: auto;
+    opacity: 1;
+    z-index: 100;
+    margin-top: 10%;
+    border-radius: 3px;
+    background-color: white;
+    box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2), 0 0.5625rem 1.625rem 0 rgba(0, 0, 0, 0.19);
+}
+
+h3{
+    padding: 4rem;
+    padding-top: 2rem;
+    font-size: 2rem;
+}
+
+.modal-button{
+    background-color: #C72F2E;
+    color: white;
+    border: none;
+    border-radius: 0.3125rem;
+    padding: 1rem 2rem 1rem 2rem;
+    margin-top: 1.875rem;
+    width: 30% !important;
+    text-transform: uppercase;
+}
+
+button.modal-button{
+    padding: 0.85rem 0.5rem 0.84rem 0.5rem;
+}
+
+.modal-button:hover{
+    color: white;
+    text-decoration: none;
+    font-size: 1.6rem;
+    box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2), 0 0.5625rem 1.625rem 0 rgba(0, 0, 0, 0.19);
+}
+
+a{
+    color: white;
+}
+
+a:hover{
+    color: white;
+}
+
+.close-modal{
+    color: white;
+    font-size: 2.1rem;
+    margin-left: 94%;
+}
+
+.close-modal:hover{
+    color: white;
+    font-size: 2.4rem;
+}
