@@ -27,3 +27,12 @@ hs_err_pid*
 ### Maven ###
 .mvn/
 mvnw
+mvnw.cmd
+
+.classpath
+.factorypath
+.mvn/*
+.project
+.settings/
+.settings/*
+*/target/ *
