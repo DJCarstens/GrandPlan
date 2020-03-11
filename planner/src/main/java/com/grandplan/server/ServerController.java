@@ -7,7 +7,6 @@ import com.grandplan.util.Event;
 import com.grandplan.util.User;
 import com.grandplan.util.Invite;
 import com.grandplan.client.util.NewInvite;
-import com.grandplan.client.util.requestObjects.UserDTO;
 import com.grandplan.client.util.UserEventQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +39,7 @@ public class ServerController {
     private ApiInviteService apiInviteService;
 
     @PostMapping("/validateLogin")
-    public ResponseEntity<User> validate(@RequestBody UserDTO user) {
+    public ResponseEntity<User> validate(@RequestBody User user) {
         if (user != null){
             User validUser = apiLoginService.validateUserCredentials(user);
             if(validUser != null){
@@ -64,7 +63,7 @@ public class ServerController {
     }
 
     @PostMapping("/addUser")
-    public ResponseEntity<User> addUser(@RequestBody UserDTO user) {
+    public ResponseEntity<User> addUser(@RequestBody User user) {
         if (apiLoginService.getUser(user) != null) {
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.set("x-error-code", "User already exists");
@@ -95,9 +94,9 @@ public class ServerController {
 
     // ----------------- INVITES --------------------
     @PostMapping("/acceptInvite")
-    public ResponseEntity<Invite> acceptInvite(@RequestBody Invite invite){
-        log.info("Invite id: " + invite.getId());
-        return ResponseEntity.ok(apiInviteService.updateInvite(invite, true));
+    public ResponseEntity<Invite> acceptInvite(@RequestBody String inviteId){
+        log.info("Invite id: " + inviteId);
+        return ResponseEntity.ok(apiInviteService.updateInvite(Long.parseLong(inviteId), true));
     }
 
     @PostMapping("/declineInvite")
@@ -115,13 +114,13 @@ public class ServerController {
         }
 
         Boolean isHost = eventObj.getHostUsername().equals(userObj.getEmail());
-        Invite inv = Invite.builder()
+        Invite invite = Invite.builder()
                 .user(userObj)
                 .event(eventObj)
                 .accepted(isHost)
                 .build();
 
-        return ResponseEntity.ok(apiInviteService.createInvite(inv));
+        return ResponseEntity.ok(apiInviteService.createInvite(invite));
     }
 
     @PostMapping("/getUserInvites")

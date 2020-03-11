@@ -5,11 +5,11 @@ $(document).ready(function () {
         let $start = true;
         let $end = true;
 
-        let $members = [];
+        let $members = '';
         $('#invitedUsers').find('span').each(function(){
             let $first = $(this).text().split("(");
             let $second = $first[1].split(")");
-            $members.push($second[0]);
+            $members += (',' + $second[0]);
         });
 
         e.preventDefault();
@@ -46,7 +46,7 @@ $(document).ready(function () {
             let $data = {};
             $data['title'] = $('#title').val();
             $data['description'] = $('#description').val();
-            $data['members'] = JSON.stringify({ paramName: $members });
+            $data['members'] = $members;
             $data['start'] = $('#start').val();
             $data['end'] = $('#end').val();
             $data['allDay'] = $('#allDay').prop("checked") ? true : false;

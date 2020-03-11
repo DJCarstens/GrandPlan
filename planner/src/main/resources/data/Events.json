@@ -19,13 +19,13 @@
   "tag" : "",
   "title" : "Test Event"
 }, {
-  "allDay" : false,
-  "color" : "#f320e2",
+  "allDay" : true,
+  "color" : "#0096B1",
   "hostUsername" : "lindama@bbd.co.za",
-  "start" : "03/18/2020 12:00 PM",
-  "description" : "Event description",
-  "end" : "03/18/2020 1:00 PM",
+  "start" : "03/17/2020 12:00 AM",
+  "description" : "d",
+  "end" : "",
   "id" : 3,
-  "tag" : "gradprogram",
-  "title" : "New event"
+  "tag" : null,
+  "title" : "d"
 } ]

@@ -57,36 +57,31 @@ public class ApiInviteService {
         return true;
     }
 
-    public Invite updateInvite(Invite invite, Boolean accepted) {
-        if (invite == null)
-        {
+    public Invite updateInvite(Long inviteId, Boolean accepted) {
+        if (inviteId == null){
             log.info("Unable to update invite");
             return null;
         }
         inviteRepo.update(
-                accepted,
-                invite.getId()
+            accepted,
+            inviteId
         );
-        return inviteRepo.findInviteById(invite.getId());
+        return inviteRepo.findInviteById(inviteId);
     }
 
-    public Set<Invite> getUnacceptedUserInvites(String email)
-    {
+    public Set<Invite> getUnacceptedUserInvites(String email){
         return inviteRepo.findUnacceptedInvitesByEmail(email);
     }
 
-    public Set<Invite> getAcceptedUserInvites(String email)
-    {
+    public Set<Invite> getAcceptedUserInvites(String email){
         return inviteRepo.findAcceptedInvitesByEmail(email);
     }
 
-    public Set<Invite> getUnacceptedEventInvites(Long id)
-    {
+    public Set<Invite> getUnacceptedEventInvites(Long id){
         return inviteRepo.findUnacceptedInvitesByEvent(id);
     }
 
-    public Set<Invite> getAcceptedEventInvites(Long id)
-    {
+    public Set<Invite> getAcceptedEventInvites(Long id){
         return inviteRepo.findAcceptedInvitesByEvent(id);
     }
 

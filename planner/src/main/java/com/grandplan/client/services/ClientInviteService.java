@@ -3,6 +3,7 @@ package com.grandplan.client.services;
 import java.io.IOException;
 import java.util.HashMap;
 
+import com.grandplan.util.Event;
 import com.grandplan.util.User;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -52,6 +53,23 @@ public class ClientInviteService {
 
         showModal(model, "Something went wrong when getting your invites. Please try again later.", "");
         return INVITES;
+    }
+
+    public Boolean createInvites(String userEmail, Long eventId){
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("eventId", eventId.toString());
+        hashMap.put("userEmail", userEmail);
+        JSONObject jsonObject = new JSONObject(hashMap);
+
+        CloseableHttpResponse response;
+        try{
+            response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/createInvite");
+            int statusCode = response.getStatusLine().getStatusCode();
+            return (statusCode == 200);
+        }
+        catch(IOException exception){
+            return false;
+        }
     }
 
     public void showModal(Model model, String message, String button) {

@@ -9,6 +9,8 @@ import com.grandplan.util.User;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -20,7 +22,6 @@ import lombok.RequiredArgsConstructor;
 @Service
 @Component
 public class ClientEventService {
-
     private static final String EVENTS ="events";
 
     @Autowired
@@ -28,6 +29,9 @@ public class ClientEventService {
 
     @Autowired 
     private ClientLoginService clientLoginService;
+
+    @Autowired
+    private ClientInviteService clientInviteService;
 
     public String getUserEvents(User user, Model model){
         HashMap<String,String> hashMap = new HashMap<>();
@@ -43,7 +47,7 @@ public class ClientEventService {
                 model.addAttribute("user", user);
                 return EVENTS;
             }
-            showModal(model, "Successfully created event!", "");
+            
             model.addAttribute(EVENTS, responseBody);
             model.addAttribute("user", user);
             return EVENTS;
@@ -55,7 +59,7 @@ public class ClientEventService {
         }
     }
 
-    public String createEvent(NewEvent newEvent, Model model){
+    public String createEvent(NewEvent newEvent, Model model) throws ParseException{
         HashMap<String,String> hashMap = new HashMap<>();
         hashMap.put("title", newEvent.getTitle());
         hashMap.put("description", newEvent.getDescription());
@@ -67,15 +71,43 @@ public class ClientEventService {
         hashMap.put("tag", newEvent.getTag());
         JSONObject jsonObject = new JSONObject(hashMap);
 
+        CloseableHttpResponse response;
         try{
-            httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/createEvent");
-            showModal(model, "Successfully created event!", "");
-            return getUserEvents(clientLoginService.getCurrentUser(), model);
+            response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/createEvent");
+            int statusCode = response.getStatusLine().getStatusCode();
+            if(statusCode == 200){
+                if(createEventInvites(response, newEvent)){
+                    showModal(model, "Successfully created event!", "");
+                }
+                else{
+                    showModal(model, "There was an error creating your event. Please try again later.", "");
+                }
+                return getUserEvents(clientLoginService.getCurrentUser(), model);
+            }
         }
         catch(IOException exception){
             showModal(model, "Something went wrong creating your event. Please try again later.", "");
             return getUserEvents(clientLoginService.getCurrentUser(), model);
         }
+
+        showModal(model, "Something went wrong creating your event. Please try again later.", "");
+        return getUserEvents(clientLoginService.getCurrentUser(), model);
+    }
+
+    private Boolean createEventInvites(CloseableHttpResponse response, NewEvent newEvent) throws ParseException, IOException{
+        String responseBody = EntityUtils.toString(response.getEntity());
+        JSONParser parser = new JSONParser();
+        JSONObject json = (JSONObject) parser.parse(responseBody);
+        Long eventId = (Long) json.get("id");
+
+        String[] members = newEvent.getMembers().split(",");
+        for(int i = 1; i < members.length; i++){
+            if(!clientInviteService.createInvites(members[i], eventId)){
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public String deleteEvent(String eventId, String userEmail, Model model){
