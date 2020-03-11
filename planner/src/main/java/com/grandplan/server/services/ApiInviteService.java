@@ -49,8 +49,9 @@ public class ApiInviteService {
         return invite;
     }
 
-    public Boolean deleteInvite(Invite invite) {
-        if (inviteRepo.findInviteById(invite.getId()) == null) {
+    public Boolean deleteInvite(Long inviteId) {
+        Invite invite = inviteRepo.findInviteById(inviteId);
+        if (invite == null) {
             return false;
         }
         inviteRepo.delete(invite);

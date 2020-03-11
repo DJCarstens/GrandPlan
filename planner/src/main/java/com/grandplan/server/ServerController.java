@@ -100,8 +100,8 @@ public class ServerController {
     }
 
     @PostMapping("/declineInvite")
-    public ResponseEntity<Boolean> declineInvite(@RequestBody Invite invite){
-        return ResponseEntity.ok(apiInviteService.deleteInvite(invite));
+    public ResponseEntity<Boolean> declineInvite(@RequestBody String inviteId){
+        return ResponseEntity.ok(apiInviteService.deleteInvite(Long.parseLong(inviteId)));
     }
 
     @PostMapping("/createInvite")
@@ -144,8 +144,8 @@ public class ServerController {
     } 
 
     @PostMapping("/deleteInvite")
-    public ResponseEntity<Boolean> deleteInvite(@RequestBody Invite invite){      
-        return ResponseEntity.ok(apiInviteService.deleteInvite(invite));
+    public ResponseEntity<Boolean> deleteInvite(@RequestBody String inviteId){      
+        return ResponseEntity.ok(apiInviteService.deleteInvite(Long.parseLong(inviteId)));
     }
 
     @PostMapping("/getUnacceptedUserInvites")

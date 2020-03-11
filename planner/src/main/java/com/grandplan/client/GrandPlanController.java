@@ -4,13 +4,12 @@ import com.grandplan.client.services.ClientEventService;
 import com.grandplan.client.services.ClientInviteService;
 import com.grandplan.client.services.ClientLoginService;
 import com.grandplan.client.util.InviteStatus;
+import com.grandplan.client.util.EventStatus;
 import com.grandplan.client.util.LoginUser;
 import com.grandplan.client.util.SignupUser;
 import com.grandplan.util.Event;
-import com.grandplan.util.Invite;
 import com.grandplan.client.util.NewEvent;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -77,15 +76,43 @@ public class GrandPlanController {
         return clientLoginService.validateSignup(signupUser, model, bindingResult);
     }
 
-    public void showModal(Model model, String message, String button) {
-        model.addAttribute("messageModal", message);
-        model.addAttribute("button", button);
-    }
-
     @GetMapping("/events")
     public String events(Model model) {
         model.addAttribute("user", clientLoginService.getCurrentUser());
-        return clientEventService.getUserEvents(clientLoginService.getCurrentUser(), model);
+
+        Event event1 = Event.builder()
+        .id((long) 1)
+        .title("Event1")
+        .description("")
+        .color("red")
+        .start("03/17/2020 12:00 PM")
+        .end("03/17/2020  1:00 PM")
+        .tag("")
+        .hostUsername("lindama@bbd.co.za")
+        .allDay(false)
+        .build();
+
+        Event event2 = Event.builder()
+        .id((long) 2)
+        .title("Event2")
+        .description("")
+        .color("red")
+        .start("03/17/2020 12:00 PM")
+        .end("03/17/2020  1:00 PM")
+        .tag("")
+        .hostUsername("emmac@bbd.co.za")
+        .allDay(true)
+        .build();
+
+        List<Event> events = new ArrayList<>();
+        events.add(event1);
+        events.add(event2);
+
+        model.addAttribute("delete", new EventStatus());
+        model.addAttribute("transfer", new EventStatus());
+        model.addAttribute("events", events);
+        return "events";
+        // return clientEventService.getUserEvents(clientLoginService.getCurrentUser(), model);
     }
 
   @GetMapping("/invites")
@@ -99,14 +126,13 @@ public class GrandPlanController {
     }
 
     @PostMapping("/deleteEvent")
-    public String deleteEvent(@RequestBody JSONObject deleteEvent, Model model){
-        return clientEventService.deleteEvent(deleteEvent.get("id").toString(), deleteEvent.get("hostUsername").toString(), model);
+    public String deleteEvent(@ModelAttribute("delete") EventStatus deleteEvent, Model model){
+        return clientEventService.deleteEvent(deleteEvent, model);
     }
 
     @PostMapping("/transferEvent")
-    public String transferEvent(@RequestBody JSONObject tranferEvent, Model model){
-        // return clientEventService.transferEvent(tranferEvent.get("id").toString(), tranferEvent.get("hostUsername").toString(), model);
-        return EVENTS;
+    public String transferEvent(@ModelAttribute("transfer") EventStatus transferEvent, Model model){
+        return clientEventService.transferEvent(transferEvent, model);
     }
 
     @PostMapping("/createEvent")

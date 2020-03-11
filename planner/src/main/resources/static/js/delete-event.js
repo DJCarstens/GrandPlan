@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $(".deleteEvent").click(function() {
+    $(".delete-event").click(function() {
         let $items = [];
         $(this).parent().find('input').each(function(){
             $items.push($(this).val());
@@ -57,66 +57,6 @@ $(document).ready(function () {
         });
 
         $(this).parent().toggle();
-    });
-
-    $(".transfer-event").click(function(){
-        let $items = [];
-        $(this).parent().find('input').each(function(){
-            $items.push($(this).val());
-        });
-        
-        let $data = {};
-        $data['id'] = $items[1];
-        $data['hostUsername'] = $items[0];
-        
-        $.ajax({
-            type: "POST",
-            contentType: "application/json",
-            url: "/transferEvent",
-            data: JSON.stringify($data),
-            dataType: 'json',
-            success: () => {
-                let $id = "#" + $items[1];
-                $($id).css("opacity", "1");
-                $(this).parent().parent().toggle();
-            },
-            error: () => {
-                let $id = "#" + $items[1];
-                $($id).css("opacity", "1");
-                $(this).parent().parent().toggle();
-            }
-        });
-    });
-
-    $(".removeEvent").click(function() {
-        let $items = [];
-        $(this).parent().find('input').each(function(){
-            $items.push($(this).val());
-        });
-
-        let $data = {};
-        $data['id'] = $items[1];
-        $data['hostUsername'] = $items[0];
-        
-        $.ajax({
-            type: "POST",
-            contentType: "application/json",
-            url: "/deleteEvent",
-            data: JSON.stringify($data),
-            dataType: 'json',
-            success: () => {
-                let $id = "#" + $items[1];
-                let $class = "." + $items[1];
-                $($id).css("opacity", "1");
-                $($class).toggle();
-            },
-            error: () => {
-                let $id = "#" + $items[1];
-                let $class = "." + $items[1];
-                $($id).css("opacity", "1");
-                $($class).toggle();
-            }
-        });
     });
 
     $(".updateEvent").click(function(){

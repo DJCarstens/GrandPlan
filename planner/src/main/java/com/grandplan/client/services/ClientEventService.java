@@ -2,9 +2,11 @@ package com.grandplan.client.services;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
+import com.grandplan.client.util.EventStatus;
 import com.grandplan.client.util.NewEvent;
-import com.grandplan.util.Invite;
+import com.grandplan.util.Event;
 import com.grandplan.util.User;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -45,17 +47,14 @@ public class ClientEventService {
             String responseBody = EntityUtils.toString(response.getEntity());
             if(responseBody.equals("[]")){
                 model.addAttribute("noEvents", "You currently have no events");
-                model.addAttribute("user", user);
                 return EVENTS;
             }
             
             model.addAttribute(EVENTS, responseBody);
-            model.addAttribute("user", user);
             return EVENTS;
         }
         catch(IOException exception){
             showModal(model, "Something went wrong when getting your events. Please try again later.", "");
-            model.addAttribute("user", user);
             return EVENTS;
         }
     }
@@ -111,21 +110,24 @@ public class ClientEventService {
         return true;
     }
 
-    public String deleteEvent(String eventId, String userEmail, Model model){
+    public String deleteEvent(EventStatus eventStatus, Model model){
         HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("id", eventId);
-        hashMap.put("userEmail", userEmail);
+        hashMap.put("id", eventStatus.getEventId());
+        hashMap.put("userEmail", eventStatus.getHostUsername());
         JSONObject jsonObject = new JSONObject(hashMap);
 
         CloseableHttpResponse response;
         try{
-            response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/deleteEvent");
+            response = (eventStatus.getHostUsername().equals(clientLoginService.getCurrentUser().getEmail()))
+                ? httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/deleteEvent")
+                : httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/deleteEvent"); //TODO: remove invite from user
+            
             int statusCode = response.getStatusLine().getStatusCode();
             if (statusCode == 200){
-                showModal(model, "Successfully deleted event", EVENTS);
+                showModal(model, "Successfully deleted event", "");
             }             
             else{
-                showModal(model, "Could not delete event. Please try again later.", EVENTS);
+                showModal(model, "Could not delete event. Please try again later.", "");
             }                
 
             model.addAttribute("user", clientLoginService.getCurrentUser());
@@ -137,32 +139,32 @@ public class ClientEventService {
         }
     }
 
-    // public String transferEvent(String eventId, String userEmail, Model model){
-    //     HashMap<String,String> hashMap = new HashMap<>();
-    //     hashMap.put("id", eventId);
-    //     hashMap.put("userEmail", userEmail);
-    //     JSONObject jsonObject = new JSONObject(hashMap);
+    public String transferEvent(EventStatus eventStatus, Model model){
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("id", eventStatus.getEventId());
+        hashMap.put("userEmail", eventStatus.getHostUsername());
+        JSONObject jsonObject = new JSONObject(hashMap);
 
-    //     CloseableHttpResponse response;
-    //     try{
-    //         response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/transferEvent");
-    //         int statusCode = response.getStatusLine().getStatusCode();
+        CloseableHttpResponse response;
+        try{
+            response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/updateEvent");
+            int statusCode = response.getStatusLine().getStatusCode();
 
-    //         if (statusCode == 200){
-    //             showModal(model, "Successfully transferred event", EVENTS);
-    //         }             
-    //         else{
-    //             showModal(model, "Could not transfer event. Please try again later.", EVENTS);
-    //         }                
+            if (statusCode == 200){
+                showModal(model, "Successfully transferred event", "");
+            }             
+            else{
+                showModal(model, "Could not transfer event. Please try again later.", "");
+            }                
 
-    //         model.addAttribute("user", clientLoginService.getCurrentUser());
-    //         return getUserEvents(clientLoginService.getCurrentUser(), model);
-    //     }
-    //     catch(IOException exception){
-    //         showModal(model, "Something went wrong transferring this event. Please try again later.");
-    //         return getUserEvents(clientLoginService.getCurrentUser(), model);
-    //     }
-    // }
+            model.addAttribute("user", clientLoginService.getCurrentUser());
+            return getUserEvents(clientLoginService.getCurrentUser(), model);
+        }
+        catch(IOException exception){
+            showModal(model, "Something went wrong transferring this event. Please try again later.", "");
+            return getUserEvents(clientLoginService.getCurrentUser(), model);
+        }
+    }
 
     public void showModal(Model model, String message, String button) {
         model.addAttribute("messageModal", message);
