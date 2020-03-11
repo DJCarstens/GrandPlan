@@ -1,0 +1,54 @@
+.container{
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+}
+
+.red{
+    width: 45%;
+    height: 200rem;
+    background-color: #C72F2E;
+}
+
+.message{
+    margin-top: 17%;
+    text-align: center;
+}
+
+h1{
+    color: #C72F2E;
+    text-decoration: solid;
+    font-size: 24rem;
+    text-shadow: 5px 5px rgb(179, 179, 179);
+}
+
+h3{
+    color: grey;
+    text-transform: uppercase;
+    font-size: 3rem;
+}
+
+.img{
+    padding: 9%;
+    background-image: url("../../images/not-found.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    height: 40%;
+}
+
+button{
+    background-color: #C72F2E;
+    border: none;
+    border-radius: 0.3125rem;
+    color: white;
+    font-size: 3rem;
+    margin-top: 4%;
+    padding: 1rem 2rem 1rem 2rem;
+}
+
+button:hover{
+    color: white;
+    box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2), 0 0.5625rem 1.625rem 0 rgba(0, 0, 0, 0.19);
+}
