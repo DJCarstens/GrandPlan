@@ -8,8 +8,9 @@ $(document).ready(function () {
         $('#events-modal').toggle();
         $('#color').toggle();
     });
-    $("#createEvent").click(function () {
-        $('#eventCreateCalendar').fullCalendar({
+
+    $("#createEvent").click(function() {
+        $('#eventCreateCalendar').fullCalendar({  
             header: {
                 left: 'prev,next today',
                 center: 'title',
@@ -19,7 +20,7 @@ $(document).ready(function () {
             editable: true,
             eventLimit: true,
             events: {
-                url: '/api/event/all'
+                url : '/api/event/all'
             }
         });
     });

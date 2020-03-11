@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.grandplan.util.User;
 
@@ -73,36 +72,27 @@ public class RestWebController {
         return jsonEvents;
   }
 
-//   @GetMapping(value = "/userlist")
-//     public List<String> userlist(HttpServletRequest request) {
-//         //TODO : remove the user creating the event from the prompt list
-//         System.out.println("GETTING USERS");
-//         List<String> userPrompts = new ArrayList<>();
-//         List<User> allUsers = loginService.getUsers();
-//         for (User user : allUsers) {
-//             userPrompts.add(user.getFirstName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
-//             System.out.println(user.getFirstName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
-//         }
-//         return userPrompts;
-//     }
+  @GetMapping(value = "/userlist")
+    public List<String> userlist(HttpServletRequest request) {
+        //TODO : remove the user creating the event from the prompt list
+        List<String> userPrompts = new ArrayList<>();
+        List<User> allUsers = loginService.getUsers();
+        for (User user : allUsers) {
+            userPrompts.add(user.getFirstName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
+        }
+        return userPrompts;
+    }
 
-//     @PostMapping("/addUser")
-//     public void addUser(@RequestBody JSONObject user) {
-//         System.out.println("ADDING USER:");
-//         System.out.println(user.get("username"));
-//         //Gets the user's email
-//         String userEmail = user.get("username").toString().split("[\\(\\)]")[1];
-//         System.out.println(userEmail);
-//         // TODO: add to list of users that will be invited to the event when the event is created
-//     }
+    @PostMapping("/addUser")
+    public void addUser(@RequestBody JSONObject user) {
+        String userEmail = user.get("username").toString().split("[\\(\\)]")[1];
+        // TODO: add to list of users that will be invited to the event when the event is created
+    }
 
-//     @PostMapping("/deleteUser")
-//     public void deleteUser(@RequestBody JSONObject user) {
-//         System.out.println("REMOVING USER:");
-//         System.out.println(user.get("username"));
-//         //Gets the user's email
-//         String userEmail = user.get("username").toString().split("[\\(\\)]")[1];
-//         System.out.println(userEmail);
-//         // TODO: remove from list of users that will be invited to the event when the event is created
-//     }
+    @PostMapping("/deleteUser")
+    public void deleteUser(@RequestBody JSONObject user) {
+        //Gets the user's email
+        String userEmail = user.get("username").toString().split("[\\(\\)]")[1];
+        // TODO: remove from list of users that will be invited to the event when the event is created
+    }
 }
