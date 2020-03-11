@@ -1,14 +1,20 @@
 package com.grandplan.client.services;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.grandplan.client.util.InviteStatus;
+import com.grandplan.util.Invite;
 import com.grandplan.util.User;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.util.EntityUtils;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -40,11 +46,21 @@ public class ClientInviteService {
                 return INVITES;
             }
 
+            JSONParser parser = new JSONParser();
+            Object object = parser.parse(responseBody);
+            JSONArray jsonArray = (JSONArray) object;
+            List<Invite> invites = new ArrayList<>();
+            jsonArray.forEach(item -> {
+                JSONObject obj = (JSONObject) item;
+                System.out.println(obj);
+                // events.add(generateInviteObject(obj));
+            });
+
             // model.addAttribute(INVITES, responseBody);
             // model.addAttribute("user", clientLoginService.getCurrentUser());
             // return INVITES;
         }
-        catch(IOException exception){
+        catch(Exception exception){
             showModal(model, INVITE_ERROR, "");
             model.addAttribute("user", clientLoginService.getCurrentUser());
             return INVITES;
