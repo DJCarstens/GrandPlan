@@ -3,8 +3,11 @@ package com.grandplan.client;
 import com.grandplan.client.services.ClientEventService;
 import com.grandplan.client.services.ClientInviteService;
 import com.grandplan.client.services.ClientLoginService;
+import com.grandplan.client.util.InviteStatus;
 import com.grandplan.client.util.LoginUser;
 import com.grandplan.client.util.SignupUser;
+import com.grandplan.util.Event;
+import com.grandplan.util.Invite;
 import com.grandplan.client.util.NewEvent;
 
 import org.json.simple.JSONObject;
@@ -18,6 +21,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import org.json.simple.parser.ParseException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -85,7 +91,28 @@ public class GrandPlanController {
   @GetMapping("/invites")
     public String invites(Model model){
         model.addAttribute("user", clientLoginService.getCurrentUser());
-        return clientInviteService.getInvites(clientLoginService.getCurrentUser(), model);
+        Event event = Event.builder()
+        .id((long) 1)
+        .title("New Event")
+        .description("")
+        .hostUsername("lindama@bbd.co.za")
+        .color("red")
+        .start("03/17/2020 12:00 AM")
+        .end("03/17/2020 12:00 AM")
+        .tag("")
+        .allDay(false)
+        .build();
+        Invite invite1 = Invite.builder().id((long) 1).user(clientLoginService.getCurrentUser()).event(event).accepted(false).build();
+        Invite invite2 = Invite.builder().id((long) 2).user(clientLoginService.getCurrentUser()).event(event).accepted(false).build();
+        List<Invite> invites = new ArrayList<>();
+        invites.add(invite1);
+        invites.add(invite2);
+
+        model.addAttribute("invites", invites);
+        model.addAttribute("accept", new InviteStatus());
+        model.addAttribute("decline", new InviteStatus());
+        return "invites";
+        // return clientInviteService.getInvites(clientLoginService.getCurrentUser(), model);
     }
 
     @GetMapping("/error")
@@ -107,6 +134,16 @@ public class GrandPlanController {
     @PostMapping("/createEvent")
     public String createEvent(@RequestBody NewEvent newEvent, Model model) throws ParseException{
         return clientEventService.createEvent(newEvent, model);
+    }
+
+    @PostMapping("/acceptInvite")
+    public String acceptInvite(@ModelAttribute("accept") InviteStatus acceptInvite, Model model){
+        return clientInviteService.acceptInvite(acceptInvite, model);
+    }
+
+    @PostMapping("/declineInvite")
+    public String declineInvite(@ModelAttribute("decline") InviteStatus declineInvite, Model model){
+        return clientInviteService.declineInvite(declineInvite, model);
     }
 
 }

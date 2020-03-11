@@ -3,7 +3,7 @@ package com.grandplan.client.services;
 import java.io.IOException;
 import java.util.HashMap;
 
-import com.grandplan.util.Event;
+import com.grandplan.client.util.InviteStatus;
 import com.grandplan.util.User;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -27,6 +27,7 @@ public class ClientInviteService {
     private ClientLoginService clientLoginService;
 
     private static final String INVITES = "invites";
+    private static final String INVITE_ERROR = "Something went wrong when getting your invites. Please try again later.";
 
     public String getInvites(User user, Model model){
         HashMap<String,String> hashMap = new HashMap<>();
@@ -47,11 +48,13 @@ public class ClientInviteService {
             // return INVITES;
         }
         catch(IOException exception){
-            showModal(model, "Something went wrong when getting your invites. Please try again later.", "");
+            showModal(model, INVITE_ERROR, "");
+            model.addAttribute("user", clientLoginService.getCurrentUser());
             return INVITES;
         }
 
-        showModal(model, "Something went wrong when getting your invites. Please try again later.", "");
+        showModal(model, INVITE_ERROR, "");
+        model.addAttribute("user", clientLoginService.getCurrentUser());
         return INVITES;
     }
 
@@ -70,6 +73,54 @@ public class ClientInviteService {
         catch(IOException exception){
             return false;
         }
+    }
+
+    public String acceptInvite(InviteStatus acceptInvite, Model model){
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("inviteId", acceptInvite.getInviteId());
+        JSONObject jsonObject = new JSONObject(hashMap);
+
+        CloseableHttpResponse response;
+        try{
+            response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/acceptInvite");
+            int statusCode = response.getStatusLine().getStatusCode();
+            if(statusCode == 200){
+                showModal(model, "Successfully accepted invite. This event has been added to your profile.", "");
+                //TODO: added invite as event to user events
+                return getInvites(clientLoginService.getCurrentUser(), model);
+            }
+        }
+        catch(IOException exception){
+            showModal(model, "Could not accept invite. Please try again later", "");
+            return getInvites(clientLoginService.getCurrentUser(), model);
+        }
+
+        showModal(model, "Could not accept invite. Please try again later", "");
+        return getInvites(clientLoginService.getCurrentUser(), model);
+    }
+
+    public String declineInvite(InviteStatus declineInvite, Model model){
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("inviteId", declineInvite.getInviteId());
+        JSONObject jsonObject = new JSONObject(hashMap);
+
+        CloseableHttpResponse response;
+        try{
+            response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/declineInvite");
+            int statusCode = response.getStatusLine().getStatusCode();
+            if(statusCode == 200){
+                showModal(model, "Successfully declined invite.", "");
+                //TODO: remove member from event
+                return getInvites(clientLoginService.getCurrentUser(), model);
+            }
+        }
+        catch(IOException exception){
+            showModal(model, "Could not decline invite. Please try again later", "");
+            return getInvites(clientLoginService.getCurrentUser(), model);
+        }
+
+        showModal(model, "Could not decline invite. Please try again later", "");
+        return getInvites(clientLoginService.getCurrentUser(), model);
     }
 
     public void showModal(Model model, String message, String button) {
