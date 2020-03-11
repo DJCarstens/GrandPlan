@@ -79,45 +79,6 @@ public class GrandPlanController {
     public String events(Model model) throws IOException {
         model.addAttribute("user", clientLoginService.getCurrentUser());
         return clientEventService.getUserEvents(clientLoginService.getCurrentUser(), model);
-         // model.addAttribute("user", clientLoginService.getCurrentUser());
-        // return clientEventService.getUserEvents(clientLoginService.getCurrentUser(), model);
-        // List<Event> eventsList = new ArrayList<>();
-        // Event event1 = Event.builder()          
-        // .title("Event1")
-        // .description("This is an event")
-        // .start("20202-03-02T10:00")
-        // .end("2020-03-02T11:00")
-        // .color("red")
-        // .tag("Grad Meeting")
-        // .id((long) 1)
-        // .hostUsername("emmac@bbd.co.za")
-        // .build();
-
-        // Event event2 = Event.builder()          
-        // .title("Event2")
-        // .description("This is an event")
-        // .start("20202-03-02T10:00")
-        // .end("2020-03-02T11:00")
-        // .color("red")
-        // .tag("Grad Meeting")
-        // .id((long) 2)
-        // .hostUsername("kelly@bbd.co.za")
-        // .build();   
-
-        // eventsList.add(event1);
-        // eventsList.add(event2);
-
-        // User user = new User();
-        // user.setEmail("emmac@bbd.co.za");
-        // user.setPassword("Vodacom2");
-        // user.setFirstName("Emma");
-        // user.setLastName("Coetzer");
-        // user.setPhone("0718831926");
-
-        // model.addAttribute("user", user);
-        // model.addAttribute(EVENTS, eventsList);
-
-        // return EVENTS;
     }
 
   @GetMapping("/invites")
