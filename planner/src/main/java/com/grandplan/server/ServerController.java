@@ -10,6 +10,7 @@ import com.grandplan.client.util.EventStatus;
 import com.grandplan.client.util.InviteStatus;
 import com.grandplan.client.util.NewInvite;
 import com.grandplan.client.util.UserEventQuery;
+import com.grandplan.client.util.UserStatus;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -75,8 +76,8 @@ public class ServerController {
     }
 
     @PostMapping("/getUserEvents")
-    public ResponseEntity<Set<Event>> getUserEvents(@RequestBody User user) {
-        return ResponseEntity.ok(apiEventService.getUserEvents(user.getEmail()));
+    public ResponseEntity<Set<Event>> getUserEvents(@RequestBody UserStatus userStatus) {
+        return ResponseEntity.ok(apiEventService.getUserEvents(userStatus.getEmail()));
     }
 
     @PostMapping("/getEventById")
