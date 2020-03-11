@@ -144,7 +144,7 @@ public class ClientEventService {
     public String deleteEvent(EventStatus eventStatus, Model model){
         try{
             if(eventStatus.getHostUsername().equals(clientLoginService.getCurrentUser().getEmail())){
-                response = httpRequestService.sendHttpPost(generateDeleteEventObject(eventStatus), "http://localhost:8080/api/deleteEvent")
+                response = httpRequestService.sendHttpPost(generateDeleteEventObject(eventStatus), "http://localhost:8080/api/deleteEvent");
             }
             else{
                 httpRequestService.sendHttpPost(generateDeleteEventObject(eventStatus), "http://localhost:8080/api/deleteInvite"); //TODO: remove invite from user
