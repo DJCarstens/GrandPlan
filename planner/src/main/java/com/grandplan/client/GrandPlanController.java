@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,46 +76,48 @@ public class GrandPlanController {
     }
 
     @GetMapping("/events")
-    public String events(Model model) {
-        // model.addAttribute("user", clientLoginService.getCurrentUser());
+    public String events(Model model) throws IOException {
+        model.addAttribute("user", clientLoginService.getCurrentUser());
+        return clientEventService.getUserEvents(clientLoginService.getCurrentUser(), model);
+         // model.addAttribute("user", clientLoginService.getCurrentUser());
         // return clientEventService.getUserEvents(clientLoginService.getCurrentUser(), model);
-        List<Event> eventsList = new ArrayList<>();
-        Event event1 = Event.builder()          
-        .title("Event1")
-        .description("This is an event")
-        .start("20202-03-02T10:00")
-        .end("2020-03-02T11:00")
-        .color("red")
-        .tag("Grad Meeting")
-        .id((long) 1)
-        .hostUsername("emmac@bbd.co.za")
-        .build();
+        // List<Event> eventsList = new ArrayList<>();
+        // Event event1 = Event.builder()          
+        // .title("Event1")
+        // .description("This is an event")
+        // .start("20202-03-02T10:00")
+        // .end("2020-03-02T11:00")
+        // .color("red")
+        // .tag("Grad Meeting")
+        // .id((long) 1)
+        // .hostUsername("emmac@bbd.co.za")
+        // .build();
 
-        Event event2 = Event.builder()          
-        .title("Event2")
-        .description("This is an event")
-        .start("20202-03-02T10:00")
-        .end("2020-03-02T11:00")
-        .color("red")
-        .tag("Grad Meeting")
-        .id((long) 2)
-        .hostUsername("kelly@bbd.co.za")
-        .build();   
+        // Event event2 = Event.builder()          
+        // .title("Event2")
+        // .description("This is an event")
+        // .start("20202-03-02T10:00")
+        // .end("2020-03-02T11:00")
+        // .color("red")
+        // .tag("Grad Meeting")
+        // .id((long) 2)
+        // .hostUsername("kelly@bbd.co.za")
+        // .build();   
 
-        eventsList.add(event1);
-        eventsList.add(event2);
+        // eventsList.add(event1);
+        // eventsList.add(event2);
 
-        User user = new User();
-        user.setEmail("emmac@bbd.co.za");
-        user.setPassword("Vodacom2");
-        user.setFirstName("Emma");
-        user.setLastName("Coetzer");
-        user.setPhone("0718831926");
+        // User user = new User();
+        // user.setEmail("emmac@bbd.co.za");
+        // user.setPassword("Vodacom2");
+        // user.setFirstName("Emma");
+        // user.setLastName("Coetzer");
+        // user.setPhone("0718831926");
 
-        model.addAttribute("user", user);
-        model.addAttribute(EVENTS, eventsList);
+        // model.addAttribute("user", user);
+        // model.addAttribute(EVENTS, eventsList);
 
-        return EVENTS;
+        // return EVENTS;
     }
 
   @GetMapping("/invites")

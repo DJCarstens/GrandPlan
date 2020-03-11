@@ -8,7 +8,6 @@ $(document).ready(function () {
         $('#events-modal').toggle();
         $('#color').toggle();
     });
-
     $("#createEvent").click(function () {
         $('#eventCreateCalendar').fullCalendar({
             header: {
