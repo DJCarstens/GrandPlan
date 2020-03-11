@@ -1,0 +1,11 @@
+[ {
+  "eventId" : 1,
+  "inviteId" : 1,
+  "accepted" : false,
+  "userId" : 3
+}, {
+  "eventId" : 2,
+  "inviteId" : 2,
+  "accepted" : false,
+  "userId" : 6
+} ]
