@@ -23,8 +23,6 @@ import lombok.RequiredArgsConstructor;
 @Service
 @Component
 public class ClientEventService {
-    private static final String EVENTS ="events";
-
     @Autowired
     private HttpRequestService httpRequestService;
 
@@ -34,12 +32,14 @@ public class ClientEventService {
     @Autowired
     private ClientInviteService clientInviteService;
 
+    private static final String EVENTS ="events";
+    private CloseableHttpResponse response;
+
     public String getUserEvents(User user, Model model){
         HashMap<String,String> hashMap = new HashMap<>();
         hashMap.put("email", user.getEmail());
         JSONObject jsonObject = new JSONObject(hashMap);
 
-        CloseableHttpResponse response;
         try{
             response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/getUserEvents");
             String responseBody = EntityUtils.toString(response.getEntity());
@@ -57,12 +57,11 @@ public class ClientEventService {
         }
     }
 
-    public HashMap<String, String> getEventById(String eventId){
+    private HashMap<String, String> getEventById(String eventId){
         HashMap<String,String> hashMap = new HashMap<>();
         hashMap.put("eventId", eventId);
         JSONObject jsonObject = new JSONObject(hashMap);
 
-        CloseableHttpResponse response;
         try{
             response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/getEventById");
             String responseBody = EntityUtils.toString(response.getEntity());
@@ -86,20 +85,8 @@ public class ClientEventService {
     }
 
     public String createEvent(NewEvent newEvent, Model model) throws ParseException{
-        HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("title", newEvent.getTitle());
-        hashMap.put("description", newEvent.getDescription());
-        hashMap.put("start", newEvent.getStart());
-        hashMap.put("end", newEvent.getEnd());
-        hashMap.put("allDay", newEvent.getAllDay().toString());
-        hashMap.put("color", newEvent.getColor());
-        hashMap.put("hostUsername", clientLoginService.getCurrentUser().getEmail());
-        hashMap.put("tag", newEvent.getTag());
-        JSONObject jsonObject = new JSONObject(hashMap);
-
-        CloseableHttpResponse response;
         try{
-            response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/createEvent");
+            response = httpRequestService.sendHttpPost(generateEventObject(newEvent), "http://localhost:8080/api/createEvent");
             int statusCode = response.getStatusLine().getStatusCode();
             if(statusCode == 200){
                 if(createEventInvites(response, newEvent)){
@@ -110,14 +97,27 @@ public class ClientEventService {
                 }
                 return getUserEvents(clientLoginService.getCurrentUser(), model);
             }
-        }
-        catch(IOException exception){
+
             showModal(model, "Something went wrong creating your event. Please try again later.", "");
             return getUserEvents(clientLoginService.getCurrentUser(), model);
         }
+        catch(Exception exception){
+            showModal(model, "Something went wrong creating your event. Please try again later.", "");
+            return getUserEvents(clientLoginService.getCurrentUser(), model);
+        }
+    }
 
-        showModal(model, "Something went wrong creating your event. Please try again later.", "");
-        return getUserEvents(clientLoginService.getCurrentUser(), model);
+    private JSONObject generateEventObject(NewEvent newEvent){
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("title", newEvent.getTitle());
+        hashMap.put("description", newEvent.getDescription());
+        hashMap.put("start", newEvent.getStart());
+        hashMap.put("end", newEvent.getEnd());
+        hashMap.put("allDay", newEvent.getAllDay().toString());
+        hashMap.put("color", newEvent.getColor());
+        hashMap.put("hostUsername", clientLoginService.getCurrentUser().getEmail());
+        hashMap.put("tag", newEvent.getTag());
+        return new JSONObject(hashMap);
     }
 
     private Boolean createEventInvites(CloseableHttpResponse response, NewEvent newEvent) throws ParseException, IOException{
@@ -137,16 +137,10 @@ public class ClientEventService {
     }
 
     public String deleteEvent(EventStatus eventStatus, Model model){
-        HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("id", eventStatus.getEventId());
-        hashMap.put("userEmail", eventStatus.getHostUsername());
-        JSONObject jsonObject = new JSONObject(hashMap);
-
-        CloseableHttpResponse response;
         try{
             response = (eventStatus.getHostUsername().equals(clientLoginService.getCurrentUser().getEmail()))
-                ? httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/deleteEvent")
-                : httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/deleteInvite"); //TODO: remove invite from user
+                ? httpRequestService.sendHttpPost(generateDeleteEventObject(eventStatus), "http://localhost:8080/api/deleteEvent")
+                : httpRequestService.sendHttpPost(generateDeleteEventObject(eventStatus), "http://localhost:8080/api/deleteInvite"); //TODO: remove invite from user
             
             int statusCode = response.getStatusLine().getStatusCode();
             if (statusCode == 200){
@@ -165,12 +159,18 @@ public class ClientEventService {
         }
     }
 
+    private JSONObject generateDeleteEventObject(EventStatus eventStatus){
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("id", eventStatus.getEventId());
+        hashMap.put("userEmail", eventStatus.getHostUsername());
+        return new JSONObject(hashMap);
+    }
+
     public String transferEvent(EventStatus eventStatus, Model model){
         HashMap<String,String> hashMap = getEventById(eventStatus.getEventId());
         hashMap.put("hostUsername", eventStatus.getHostUsername());
         JSONObject jsonObject = new JSONObject(hashMap);
 
-        CloseableHttpResponse response;
         try{
             response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/updateEvent");
             int statusCode = response.getStatusLine().getStatusCode();

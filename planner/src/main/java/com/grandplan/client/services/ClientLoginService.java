@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Hashtable;
 
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -30,6 +31,7 @@ public class ClientLoginService {
     private HttpRequestService httpRequestService;  
 
     private User currentUser;
+    private CloseableHttpResponse response;
 
     private static final String LOGIN = "login";
     private static final String SIGNUP = "signup";
@@ -37,20 +39,15 @@ public class ClientLoginService {
     private static final String EMAIL = "email";
     private static final String PASSWORD = "password";
     private static final String LOGIN_ERROR = "Something went wrong with the login process. Please try again.";
+    private static final String SIGNUP_ERROR = "Something went wrong with the signup process. Please try again.";
     
     public String validateLogin(LoginUser loginUser, Model model, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return LOGIN;
         }
 
-        HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put(EMAIL, loginUser.getEmail());
-        hashMap.put(PASSWORD, loginUser.getPassword());
-        JSONObject jsonObject = new JSONObject(hashMap); 
-
-        CloseableHttpResponse response;
         try{
-            response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/validateLogin");
+            response = httpRequestService.sendHttpPost(generateLoginObject(loginUser), "http://localhost:8080/api/validateLogin");
             int statusCode = response.getStatusLine().getStatusCode();
             if(statusCode == 404){
                 showModal(model, "Your account was not found. Please check your login details and try again, or signup if you do not have an account.", SIGNUP);
@@ -58,24 +55,25 @@ public class ClientLoginService {
             }
 
             if(statusCode == 200){
-                try{
-                    currentUser = getUserInfo(EntityUtils.toString(response.getEntity()));
-                    model.addAttribute("user", currentUser);
-                    return HOME;
-                }
-                catch(Exception e){
-                    showModal(model, LOGIN_ERROR, LOGIN);
-                    return LOGIN;
-                }
+                currentUser = getUserInfo(EntityUtils.toString(response.getEntity()));
+                model.addAttribute("user", currentUser);
+                return HOME;
             }
-        }
-        catch(IOException exception){
+
             showModal(model, LOGIN_ERROR, LOGIN);
             return LOGIN;
         }
+        catch(Exception exception){
+            showModal(model, LOGIN_ERROR, LOGIN);
+            return LOGIN;
+        }
+    }
 
-        showModal(model, LOGIN_ERROR, LOGIN);
-        return LOGIN;
+    private JSONObject generateLoginObject(LoginUser loginUser){
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put(EMAIL, loginUser.getEmail());
+        hashMap.put(PASSWORD, loginUser.getPassword());
+        return new JSONObject(hashMap); 
     }
 
     private User getUserInfo(String response) throws ParseException{
@@ -108,17 +106,8 @@ public class ClientLoginService {
             return SIGNUP;
         }
 
-        HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put(EMAIL, signupUser.getEmail());
-        hashMap.put(PASSWORD, generatePasswordHash(signupUser.getPassword()));
-        hashMap.put("firstName", signupUser.getFirstName());
-        hashMap.put("lastName", signupUser.getLastName());
-        hashMap.put("phone", signupUser.getPhone());
-        JSONObject jsonObject = new JSONObject(hashMap);
-
-        CloseableHttpResponse response;
         try{
-            response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/addUser");
+            response = httpRequestService.sendHttpPost(generateSignupObject(signupUser), "http://localhost:8080/api/addUser");
             int statusCode = response.getStatusLine().getStatusCode();
             if(statusCode == 409){
                 showModal(model, "An account for " + signupUser.getEmail() + " already exists. Please check your signup details and try again, or login if you have an account.", LOGIN);
@@ -130,14 +119,24 @@ public class ClientLoginService {
                 model.addAttribute("user", currentUser);
                 return HOME;
             }
-        }
-        catch(IOException exception){
-            showModal(model, "Something went wrong with the signup process. Please try again.", "");
+
+            showModal(model, SIGNUP_ERROR, "");
             return SIGNUP;
         }
+        catch(IOException exception){
+            showModal(model, SIGNUP_ERROR, "");
+            return SIGNUP;
+        }
+    }
 
-        showModal(model, "Something went wrong with the signup process. Please try again.", "");
-        return SIGNUP;
+    private JSONObject generateSignupObject(SignupUser signupUser){
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put(EMAIL, signupUser.getEmail());
+        hashMap.put(PASSWORD, generatePasswordHash(signupUser.getPassword()));
+        hashMap.put("firstName", signupUser.getFirstName());
+        hashMap.put("lastName", signupUser.getLastName());
+        hashMap.put("phone", signupUser.getPhone());
+        return new JSONObject(hashMap);
     }
 
     public User getCurrentUser(){
