@@ -143,9 +143,12 @@ public class ClientEventService {
 
     public String deleteEvent(EventStatus eventStatus, Model model){
         try{
-            response = (eventStatus.getHostUsername().equals(clientLoginService.getCurrentUser().getEmail()))
-                ? httpRequestService.sendHttpPost(generateDeleteEventObject(eventStatus), "http://localhost:8080/api/deleteEvent")
-                : httpRequestService.sendHttpPost(generateDeleteEventObject(eventStatus), "http://localhost:8080/api/deleteInvite"); //TODO: remove invite from user
+            if(eventStatus.getHostUsername().equals(clientLoginService.getCurrentUser().getEmail())){
+                response = httpRequestService.sendHttpPost(generateDeleteEventObject(eventStatus), "http://localhost:8080/api/deleteEvent")
+            }
+            else{
+                httpRequestService.sendHttpPost(generateDeleteEventObject(eventStatus), "http://localhost:8080/api/deleteInvite"); //TODO: remove invite from user
+            }
             
             int statusCode = response.getStatusLine().getStatusCode();
             if (statusCode == 200){
