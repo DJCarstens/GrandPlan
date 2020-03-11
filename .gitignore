@@ -36,3 +36,4 @@ mvnw.cmd
 */.settings/
 */.settings/*
 */.target/*
+*/target/*
