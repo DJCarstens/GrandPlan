@@ -43,7 +43,9 @@ public class ClientEventService {
         try{
             response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/getUserEvents");
             String responseBody = EntityUtils.toString(response.getEntity());
-            System.out.println(responseBody);
+            JSONParser parser = new JSONParser();
+            JSONObject temp = (JSONObject) parser.parse(responseBody)
+            System.out.println(temp);
             if(responseBody.equals("[]")){
                 model.addAttribute("noEvents", "You currently have no events");
                 return addModelAttributes(model);
