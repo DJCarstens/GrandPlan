@@ -30,7 +30,9 @@ mvnw
 mvnw.cmd
 
 */.classpath/*
+*/.classpath
 */.factorypath/*
+*/.factorypath
 */.mvn/*
 */.project
 */.settings/
