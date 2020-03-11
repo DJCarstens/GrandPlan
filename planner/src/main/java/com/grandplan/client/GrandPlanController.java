@@ -75,7 +75,7 @@ public class GrandPlanController {
     }
 
     @GetMapping("/events")
-    public String events(Model model) throws IOException {
+    public String events(Model model) {
         model.addAttribute("user", clientLoginService.getCurrentUser());
         return clientEventService.getUserEvents(clientLoginService.getCurrentUser(), model);
     }
@@ -99,8 +99,6 @@ public class GrandPlanController {
     }
 
     @PostMapping("/deleteEvent")
-    public String deleteEvent(@RequestBody JSONObject event, Model model) throws IOException{
-        return clientEventService.deleteEvent(event.get("id").toString(), model);
     public String deleteEvent(@RequestBody JSONObject deleteEvent, Model model){
         return clientEventService.deleteEvent(deleteEvent.get("id").toString(), deleteEvent.get("hostUsername").toString(), model);
     }
