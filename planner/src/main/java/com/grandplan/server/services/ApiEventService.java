@@ -62,6 +62,7 @@ public class ApiEventService {
             event.getId(),
             event.getHostUsername()
         );
+        writeListOfEvents(getEvents());
         return eventRepo.findEventById(event.getId());
     }
     private void writeListOfEvents(List<Event> events) {
