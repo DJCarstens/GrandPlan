@@ -6,6 +6,8 @@ import com.grandplan.server.services.ApiInviteService;
 import com.grandplan.util.Event;
 import com.grandplan.util.User;
 import com.grandplan.util.Invite;
+import com.grandplan.client.util.EventStatus;
+import com.grandplan.client.util.InviteStatus;
 import com.grandplan.client.util.NewInvite;
 import com.grandplan.client.util.UserEventQuery;
 
@@ -77,6 +79,11 @@ public class ServerController {
         return ResponseEntity.ok(apiEventService.getUserEvents(user.getEmail()));
     }
 
+    @PostMapping("/getEventById")
+    public ResponseEntity<Event> getEventById(@RequestBody EventStatus eventStatus) {
+        return ResponseEntity.ok(apiEventService.getEventById(Long.parseLong(eventStatus.getEventId())));
+    }
+
     @PostMapping("/createEvent")
     public ResponseEntity<Event> createEvent(@RequestBody Event event) {
         return ResponseEntity.ok(apiEventService.createEvent(event));
@@ -94,14 +101,13 @@ public class ServerController {
 
     // ----------------- INVITES --------------------
     @PostMapping("/acceptInvite")
-    public ResponseEntity<Invite> acceptInvite(@RequestBody String inviteId){
-        log.info("Invite id: " + inviteId);
-        return ResponseEntity.ok(apiInviteService.updateInvite(Long.parseLong(inviteId), true));
+    public ResponseEntity<Invite> acceptInvite(@RequestBody InviteStatus inviteStatus){
+        return ResponseEntity.ok(apiInviteService.updateInvite(Long.parseLong(inviteStatus.getInviteId()), true));
     }
 
     @PostMapping("/declineInvite")
-    public ResponseEntity<Boolean> declineInvite(@RequestBody String inviteId){
-        return ResponseEntity.ok(apiInviteService.deleteInvite(Long.parseLong(inviteId)));
+    public ResponseEntity<Boolean> declineInvite(@RequestBody InviteStatus inviteStatus){
+        return ResponseEntity.ok(apiInviteService.deleteInvite(Long.parseLong(inviteStatus.getInviteId())));
     }
 
     @PostMapping("/createInvite")
@@ -144,8 +150,8 @@ public class ServerController {
     } 
 
     @PostMapping("/deleteInvite")
-    public ResponseEntity<Boolean> deleteInvite(@RequestBody String inviteId){      
-        return ResponseEntity.ok(apiInviteService.deleteInvite(Long.parseLong(inviteId)));
+    public ResponseEntity<Boolean> deleteInvite(@RequestBody InviteStatus inviteStatus){      
+        return ResponseEntity.ok(apiInviteService.deleteInvite(Long.parseLong(inviteStatus.getInviteId())));
     }
 
     @PostMapping("/getUnacceptedUserInvites")

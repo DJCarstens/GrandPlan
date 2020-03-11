@@ -2,11 +2,9 @@ package com.grandplan.client.services;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 
 import com.grandplan.client.util.EventStatus;
 import com.grandplan.client.util.NewEvent;
-import com.grandplan.util.Event;
 import com.grandplan.util.User;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -49,13 +47,41 @@ public class ClientEventService {
                 model.addAttribute("noEvents", "You currently have no events");
                 return EVENTS;
             }
-            
+           
             model.addAttribute(EVENTS, responseBody);
             return EVENTS;
         }
         catch(IOException exception){
             showModal(model, "Something went wrong when getting your events. Please try again later.", "");
             return EVENTS;
+        }
+    }
+
+    public HashMap<String,String> getEventById(String eventId){
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("eventId", eventId);
+        JSONObject jsonObject = new JSONObject(hashMap);
+
+        CloseableHttpResponse response;
+        try{
+            response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/getEventById");
+            String responseBody = EntityUtils.toString(response.getEntity());
+            JSONParser parser = new JSONParser();
+            JSONObject obj = (JSONObject) parser.parse(responseBody);
+            hashMap.clear();
+            hashMap.put("id", obj.get("id").toString());
+            hashMap.put("title", obj.get("title").toString());
+            hashMap.put("description", obj.get("description").toString());
+            hashMap.put("start", obj.get("start").toString());
+            hashMap.put("end", obj.get("end").toString());
+            hashMap.put("tag", obj.get("tag").toString());
+            hashMap.put("color", obj.get("color").toString());
+            hashMap.put("hostUsername", obj.get("hostUsername").toString());
+            hashMap.put("allDay", obj.get("allDay").toString());
+            return hashMap;
+        }
+        catch(Exception exception){
+            return null;
         }
     }
 
@@ -140,9 +166,8 @@ public class ClientEventService {
     }
 
     public String transferEvent(EventStatus eventStatus, Model model){
-        HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("id", eventStatus.getEventId());
-        hashMap.put("userEmail", eventStatus.getHostUsername());
+        HashMap<String,String> hashMap = getEventById(eventStatus.getEventId());
+        hashMap.put("hostUsername", eventStatus.getHostUsername());
         JSONObject jsonObject = new JSONObject(hashMap);
 
         CloseableHttpResponse response;
@@ -152,6 +177,7 @@ public class ClientEventService {
 
             if (statusCode == 200){
                 showModal(model, "Successfully transferred event", "");
+                //TODO: delete invite from user;
             }             
             else{
                 showModal(model, "Could not transfer event. Please try again later.", "");

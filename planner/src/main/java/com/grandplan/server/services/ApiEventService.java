@@ -52,14 +52,15 @@ public class ApiEventService {
 
     public Event updateEvent(Event event) {
         eventRepo.update(
-                event.getTitle(),
-                event.getStart(),
-                event.getEnd(),
-                event.getAllDay(),
-                event.getColor(),
-                event.getTag(),
-                event.getDescription(),
-                event.getId()
+            event.getTitle(),
+            event.getStart(),
+            event.getEnd(),
+            event.getAllDay(),
+            event.getColor(),
+            event.getTag(),
+            event.getDescription(),
+            event.getId(),
+            event.getHostUsername()
         );
         return eventRepo.findEventById(event.getId());
     }
