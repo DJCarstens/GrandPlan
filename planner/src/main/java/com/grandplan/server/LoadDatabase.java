@@ -25,22 +25,22 @@ import java.io.FileReader;
 @Configuration
 @Slf4j
 public class LoadDatabase {
+    private static final String PRELOADING = "Preloading ";
     @Bean
     CommandLineRunner initDatabase(UserRepo userRepo, EventRepo eventRepo, InviteRepo inviteRepo) {
         return args -> {
-
             List<User> users = getListOfUsers();
             for (User user : users) {
-                log.info("Preloading " + userRepo.save(user));
+                log.info(PRELOADING + userRepo.save(user));
             }
             List<Event> events = getListOfEvents();
             for (Event event : events) {
-                log.info("Preloading " + eventRepo.save(event));
+                log.info(PRELOADING + eventRepo.save(event));
             }
             List<Invite> invites = getListOfInvites();
             for (Invite invite : invites) {
                 inviteRepo.save(invite);
-                log.info("Preloading " + invite.toString());
+                log.info(PRELOADING + invite.toString());
             }
         };
     }
@@ -98,6 +98,7 @@ public class LoadDatabase {
         }
         return users;
     }
+
     private List<Invite> getListOfInvites() {
         JSONParser parser = new JSONParser();
         List<Invite> invites = new ArrayList<>();
@@ -121,8 +122,8 @@ public class LoadDatabase {
         }
         return invites;
     }
-    private Event getEventById(Long eventId)
-    {
+
+    private Event getEventById(Long eventId){
         List<Event> events = getListOfEvents();
         for (Event event : events) {
             if(eventId.equals(event.getId()))
@@ -130,8 +131,8 @@ public class LoadDatabase {
         }
        return null;
     }
-    private User getUserById(Long userId)
-    {
+
+    private User getUserById(Long userId){
         List<User> users = getListOfUsers();
         for (User user : users) {
             if(userId.equals(user.getId()))

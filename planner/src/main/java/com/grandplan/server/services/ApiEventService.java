@@ -41,8 +41,8 @@ public class ApiEventService {
         return e;
     }
 
-    public boolean deleteEvent(Event event) {
-        Event e = eventRepo.findEventById(event.getId());
+    public boolean deleteEvent(Long eventId) {
+        Event e = eventRepo.findEventById(eventId);
         if (e == null) {
             return false;
         }
@@ -52,15 +52,17 @@ public class ApiEventService {
 
     public Event updateEvent(Event event) {
         eventRepo.update(
-                event.getTitle(),
-                event.getStart(),
-                event.getEnd(),
-                event.getAllDay(),
-                event.getColor(),
-                event.getTag(),
-                event.getDescription(),
-                event.getId()
+            event.getTitle(),
+            event.getStart(),
+            event.getEnd(),
+            event.getAllDay(),
+            event.getColor(),
+            event.getTag(),
+            event.getDescription(),
+            event.getId(),
+            event.getHostUsername()
         );
+        writeListOfEvents(getEvents());
         return eventRepo.findEventById(event.getId());
     }
     private void writeListOfEvents(List<Event> events) {

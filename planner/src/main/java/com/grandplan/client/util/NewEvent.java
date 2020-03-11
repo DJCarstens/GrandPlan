@@ -13,7 +13,7 @@ public class NewEvent{
     private String members;
     private String start;
     private String end;
-    private boolean allDay;
+    private Boolean allDay;
     private String tag;
     private String color;
 }

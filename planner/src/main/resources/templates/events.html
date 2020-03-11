@@ -38,12 +38,13 @@
                                 <label th:text="${event.title}"></label>
                             </div>
                             <div>
-                                <label class="item-heading">Date: &nbsp</label><label th:text="${event.start}"></label>
+                                <label class="item-heading">Date: &nbsp</label><label
+                                    th:text="${(event.start).substring(0, 10)}"></label>
                             </div>
                             <div>
                                 <label class="item-heading">Time: &nbsp</label><label><label
-                                        th:text="${event.start}"></label> -
-                                    <label th:text="${event.end}"></label></label>
+                                        th:text="${event.start.substring(11, 19)}"></label> -
+                                    <label th:text="${event.end.substring(11, 19)}"></label></label>
                             </div>
                             <br />
                             <div>
@@ -51,24 +52,37 @@
                                     th:if="${event.hostUsername == user.email}" class="updateEvent update"><em
                                         class="fas fa-edit"></em><input style="display: none"
                                         th:attr="value = ${event}" />
-                                </span><span class="deleteEvent trash"><em class="fas fa-trash-alt"></em><input
+                                </span><span class="delete-event trash"><em class="fas fa-trash-alt"></em><input
                                         style="display: none" th:attr="value = ${event.id}" /></span>
                             </div>
                         </div>
                     </div>
                     <div th:attr="class = ${event.id}" style="display: none; text-align: center; position: fixed;">
-                        <button class="delete-button transferEvent">Transfer event to another member<input
-                                style="display: none" th:attr="value = ${event.title}" /></button>
-                        <button class="delete-button removeEvent">Delete
-                            entire event</button>
+                        <button class="delete-button transferEvent" th:if="${event.hostUsername == user.email}">Transfer
+                            event to another member<input style="display: none"
+                                th:attr="value = ${event.title}" /></button>
+
+                        <form autocomplete="off" action="deleteEvent" method="post" th:object="${delete}" role="form"
+                            style="display: inline;">
+                            <input type="hidden" th:value="${event.id}" id="eventId" name="eventId" />
+                            <input type="hidden" th:value="${event.hostUsername}" id="hostUsername"
+                                name="hostUsername" />
+                            <button type="submit" class="delete-button removeEvent">Delete event</button>
+                        </form>
+
                         <button class="cancel-button"><input style="display: none"
                                 th:attr="value = ${event.id}" />Cancel</button>
                     </div>
                     <div th:attr="class = ${event.title}" style="display: none; text-align: center; position: fixed;">
-                        <label>Transfer event to another member</label>
-                        <input type="text" placeholder="Email of member" class="email-input" />
-                        <input style="display: none" th:attr="value = ${event.id}" /><br />
-                        <button class="transfer-event">Transfer event</button><br />
+                        <form autocomplete="off" action="transferEvent" method="post" th:object="${transfer}"
+                            role="form" style="display: inline;">
+                            <input type="hidden" th:value="${event.id}" id="eventId" name="eventId" />
+                            <label>Transfer event to another member</label>
+                            <input type="text" placeholder="Email of member" class="email-input"
+                                th:field="*{hostUsername}" name="hostUsername" />
+                            <button type="submit" class="transfer-event">Transfer event</button><br />
+                        </form>
+
                         <button class="cancel-delete-button"><input style="display: none"
                                 th:attr="value = ${event.id}" />Cancel</button>
                     </div>
@@ -88,7 +102,6 @@
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css" rel="stylesheet" />
 
-<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js"></script>
 <script
@@ -97,19 +110,16 @@
     src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="/js/events.js"></script>
 <script type="text/javascript" src="/js/add-tags.js"></script>
 <script type="text/javascript" src="/js/create-event.js" th:inline="javascript"></script>
 <script type="text/javascript" src="/js/delete-event.js" th:inline="javascript"></script>
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<!-- <link rel="stylesheet" href="/resources/demos/style.css">  -->
-<!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>  -->
-<!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  -->
-<style>
-    ul.ui-front {
-        z-index: 10000;
+<script type="text/javascript">
+    function closeModal() {
+        $('#modal').css('display', 'none');
     }
-</style>
+</script>
 
 </html>
