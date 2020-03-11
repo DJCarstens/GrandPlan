@@ -1,0 +1,21 @@
+[ {
+  "allDay" : true,
+  "color" : "red",
+  "hostUsername" : "lindama@bbd.co.za",
+  "start" : "18/03/2020 12:00 PM",
+  "description" : "",
+  "end" : "18/03/2020  3:00 PM",
+  "id" : 1,
+  "tag" : "",
+  "title" : "Grad Meetup"
+}, {
+  "allDay" : false,
+  "color" : "blue",
+  "hostUsername" : "lindama@bbd.co.za",
+  "start" : "18/03/2020 12:00 PM",
+  "description" : "",
+  "end" : "18/03/2020  1:00 PM",
+  "id" : 2,
+  "tag" : "",
+  "title" : "Test Event"
+} ]
