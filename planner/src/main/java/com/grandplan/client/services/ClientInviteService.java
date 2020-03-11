@@ -70,7 +70,7 @@ public class ClientInviteService {
             int statusCode = response.getStatusLine().getStatusCode();
             return (statusCode == 200);
         }
-        catch(IOException exception){
+        catch(Exception exception){
             return false;
         }
     }
@@ -86,7 +86,6 @@ public class ClientInviteService {
             int statusCode = response.getStatusLine().getStatusCode();
             if(statusCode == 200){
                 showModal(model, "Successfully accepted invite. This event has been added to your profile.", "");
-                //TODO: added invite as event to user events
                 return getInvites(clientLoginService.getCurrentUser(), model);
             }
         }
@@ -110,7 +109,6 @@ public class ClientInviteService {
             int statusCode = response.getStatusLine().getStatusCode();
             if(statusCode == 200){
                 showModal(model, "Successfully declined invite.", "");
-                //TODO: remove member from event
                 return getInvites(clientLoginService.getCurrentUser(), model);
             }
         }

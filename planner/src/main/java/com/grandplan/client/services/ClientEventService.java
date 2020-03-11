@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import com.grandplan.client.util.NewEvent;
+import com.grandplan.util.Invite;
 import com.grandplan.util.User;
 
 import org.apache.http.client.methods.CloseableHttpResponse;

@@ -90,29 +90,7 @@ public class GrandPlanController {
 
   @GetMapping("/invites")
     public String invites(Model model){
-        model.addAttribute("user", clientLoginService.getCurrentUser());
-        Event event = Event.builder()
-        .id((long) 1)
-        .title("New Event")
-        .description("")
-        .hostUsername("lindama@bbd.co.za")
-        .color("red")
-        .start("03/17/2020 12:00 AM")
-        .end("03/17/2020 12:00 AM")
-        .tag("")
-        .allDay(false)
-        .build();
-        Invite invite1 = Invite.builder().id((long) 1).user(clientLoginService.getCurrentUser()).event(event).accepted(false).build();
-        Invite invite2 = Invite.builder().id((long) 2).user(clientLoginService.getCurrentUser()).event(event).accepted(false).build();
-        List<Invite> invites = new ArrayList<>();
-        invites.add(invite1);
-        invites.add(invite2);
-
-        model.addAttribute("invites", invites);
-        model.addAttribute("accept", new InviteStatus());
-        model.addAttribute("decline", new InviteStatus());
-        return "invites";
-        // return clientInviteService.getInvites(clientLoginService.getCurrentUser(), model);
+        return clientInviteService.getInvites(clientLoginService.getCurrentUser(), model);
     }
 
     @GetMapping("/error")

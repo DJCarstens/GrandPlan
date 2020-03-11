@@ -115,10 +115,10 @@ public class ServerController {
 
         Boolean isHost = eventObj.getHostUsername().equals(userObj.getEmail());
         Invite invite = Invite.builder()
-                .user(userObj)
-                .event(eventObj)
-                .accepted(isHost)
-                .build();
+            .user(userObj)
+            .event(eventObj)
+            .accepted(isHost)
+            .build();
 
         return ResponseEntity.ok(apiInviteService.createInvite(invite));
     }
