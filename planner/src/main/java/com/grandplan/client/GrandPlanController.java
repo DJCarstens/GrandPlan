@@ -78,41 +78,7 @@ public class GrandPlanController {
 
     @GetMapping("/events")
     public String events(Model model) {
-        model.addAttribute("user", clientLoginService.getCurrentUser());
-
-        Event event1 = Event.builder()
-        .id((long) 1)
-        .title("Event1")
-        .description("")
-        .color("red")
-        .start("03/17/2020 12:00 PM")
-        .end("03/17/2020  1:00 PM")
-        .tag("")
-        .hostUsername("lindama@bbd.co.za")
-        .allDay(false)
-        .build();
-
-        Event event2 = Event.builder()
-        .id((long) 2)
-        .title("Event2")
-        .description("")
-        .color("red")
-        .start("03/17/2020 12:00 PM")
-        .end("03/17/2020  1:00 PM")
-        .tag("")
-        .hostUsername("emmac@bbd.co.za")
-        .allDay(true)
-        .build();
-
-        List<Event> events = new ArrayList<>();
-        events.add(event1);
-        events.add(event2);
-
-        model.addAttribute("delete", new EventStatus());
-        model.addAttribute("transfer", new EventStatus());
-        model.addAttribute("events", events);
-        return "events";
-        // return clientEventService.getUserEvents(clientLoginService.getCurrentUser(), model);
+        return clientEventService.getUserEvents(clientLoginService.getCurrentUser(), model);
     }
 
   @GetMapping("/invites")

@@ -57,7 +57,7 @@ public class ClientEventService {
         }
     }
 
-    public HashMap<String,String> getEventById(String eventId){
+    public HashMap<String, String> getEventById(String eventId){
         HashMap<String,String> hashMap = new HashMap<>();
         hashMap.put("eventId", eventId);
         JSONObject jsonObject = new JSONObject(hashMap);
@@ -146,7 +146,7 @@ public class ClientEventService {
         try{
             response = (eventStatus.getHostUsername().equals(clientLoginService.getCurrentUser().getEmail()))
                 ? httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/deleteEvent")
-                : httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/deleteEvent"); //TODO: remove invite from user
+                : httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/deleteInvite"); //TODO: remove invite from user
             
             int statusCode = response.getStatusLine().getStatusCode();
             if (statusCode == 200){
