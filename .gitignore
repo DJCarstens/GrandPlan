@@ -23,3 +23,16 @@
 hs_err_pid*
 
 .idea/*
+
+### Maven ###
+.mvn/
+mvnw
+mvnw.cmd
+
+*/.classpath/*
+*/.factorypath/*
+*/.mvn/*
+*/.project
+*/.settings/
+*/.settings/*
+*/.target/*

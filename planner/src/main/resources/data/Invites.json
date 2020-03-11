@@ -1,12 +1,11 @@
 [ {
-  "eventId" : 2,
+  "eventId" : 1,
   "inviteId" : 1,
-  "accepted" : true,
-  "userId" : 1
-},
-  {
-    "eventId" : 1,
-    "inviteId" : 2,
-    "accepted" : false,
-    "userId" : 2
-  }]
+  "accepted" : false,
+  "userId" : 3
+}, {
+  "eventId" : 2,
+  "inviteId" : 2,
+  "accepted" : false,
+  "userId" : 6
+} ]

@@ -9,14 +9,24 @@ import com.grandplan.util.Event;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.grandplan.util.User;
+
+import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.grandplan.server.services.ApiLoginService;
+import javax.servlet.http.HttpServletRequest;
 
 @Slf4j
 @RestController
 @RequestMapping("/api/event")
 public class RestWebController {
   private List<Event> events;
+  @Autowired
+  private ApiLoginService loginService;
 
   @GetMapping(value = "/all")
   public String mapCurrentUserEvents() {
@@ -62,4 +72,27 @@ public class RestWebController {
         return jsonEvents;
   }
 
+  @GetMapping(value = "/userlist")
+    public List<String> userlist(HttpServletRequest request) {
+        //TODO : remove the user creating the event from the prompt list
+        List<String> userPrompts = new ArrayList<>();
+        List<User> allUsers = loginService.getUsers();
+        for (User user : allUsers) {
+            userPrompts.add(user.getFirstName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
+        }
+        return userPrompts;
+    }
+
+    @PostMapping("/addUser")
+    public void addUser(@RequestBody JSONObject user) {
+        String userEmail = user.get("username").toString().split("[\\(\\)]")[1];
+        // TODO: add to list of users that will be invited to the event when the event is created
+    }
+
+    @PostMapping("/deleteUser")
+    public void deleteUser(@RequestBody JSONObject user) {
+        //Gets the user's email
+        String userEmail = user.get("username").toString().split("[\\(\\)]")[1];
+        // TODO: remove from list of users that will be invited to the event when the event is created
+    }
 }

@@ -41,25 +41,28 @@ public class ApiEventService {
         return e;
     }
 
-    public boolean deleteEvent(Event event) {
-        if (eventRepo.findEventById(event.getId()) == null) {
+    public boolean deleteEvent(Long eventId) {
+        Event e = eventRepo.findEventById(eventId);
+        if (e == null) {
             return false;
         }
-        eventRepo.delete(event);
+        eventRepo.delete(e);
         return true;
     }
 
     public Event updateEvent(Event event) {
         eventRepo.update(
-                event.getTitle(),
-                event.getStart(),
-                event.getEnd(),
-                event.getAllDay(),
-                event.getColor(),
-                event.getTag(),
-                event.getDescription(),
-                event.getId()
+            event.getTitle(),
+            event.getStart(),
+            event.getEnd(),
+            event.getAllDay(),
+            event.getColor(),
+            event.getTag(),
+            event.getDescription(),
+            event.getId(),
+            event.getHostUsername()
         );
+        writeListOfEvents(getEvents());
         return eventRepo.findEventById(event.getId());
     }
     private void writeListOfEvents(List<Event> events) {
