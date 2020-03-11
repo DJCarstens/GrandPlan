@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import org.json.simple.parser.ParseException;
-
 import javax.validation.Valid;
 
 @Controller
@@ -92,7 +90,7 @@ public class GrandPlanController {
     }
 
     @PostMapping("/createEvent")
-    public String createEvent(@RequestBody NewEvent newEvent, Model model) throws ParseException{
+    public String createEvent(@RequestBody NewEvent newEvent, Model model){
         return clientEventService.createEvent(newEvent, model);
     }
 
