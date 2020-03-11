@@ -81,11 +81,6 @@ public class GrandPlanController {
         return clientInviteService.getInvites(clientLoginService.getCurrentUser(), model);
     }
 
-    @GetMapping("/error")
-    public String error(Model model) {
-        return "error";
-    }
-
     @PostMapping("/deleteEvent")
     public String deleteEvent(@ModelAttribute("delete") EventStatus deleteEvent, Model model){
         return clientEventService.deleteEvent(deleteEvent, model);

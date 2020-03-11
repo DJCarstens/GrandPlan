@@ -40,7 +40,7 @@ public class User implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     private Set<Invite> invites = new HashSet<>();
 
-    public String toString(){
+    public String getFullName(){
         return firstName + " " + lastName;
     }
 }

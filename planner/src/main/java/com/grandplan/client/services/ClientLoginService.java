@@ -1,6 +1,5 @@
 package com.grandplan.client.services;
 
-import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -22,7 +21,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
-@RequiredArgsConstructor
 @Service
 @Component
 public class ClientLoginService {
