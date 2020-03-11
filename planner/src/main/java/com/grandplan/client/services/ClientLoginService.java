@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Hashtable;
 
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;

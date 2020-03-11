@@ -45,16 +45,24 @@ public class ClientEventService {
             String responseBody = EntityUtils.toString(response.getEntity());
             if(responseBody.equals("[]")){
                 model.addAttribute("noEvents", "You currently have no events");
-                return EVENTS;
+                return addModelAttributes(model);
             }
-           
+            
             model.addAttribute(EVENTS, responseBody);
-            return EVENTS;
+            return addModelAttributes(model);
         }
         catch(IOException exception){
+            model.addAttribute("noEvents", "Your events could not be loaded");
             showModal(model, "Something went wrong when getting your events. Please try again later.", "");
-            return EVENTS;
+            return addModelAttributes(model);
         }
+    }
+
+    private String addModelAttributes(Model model){
+        model.addAttribute("user", clientLoginService.getCurrentUser());
+        model.addAttribute("delete", new EventStatus());
+        model.addAttribute("transfer", new EventStatus());
+        return EVENTS;
     }
 
     private HashMap<String, String> getEventById(String eventId){
@@ -150,7 +158,6 @@ public class ClientEventService {
                 showModal(model, "Could not delete event. Please try again later.", "");
             }                
 
-            model.addAttribute("user", clientLoginService.getCurrentUser());
             return getUserEvents(clientLoginService.getCurrentUser(), model);
         }
         catch(IOException exception){
@@ -183,7 +190,6 @@ public class ClientEventService {
                 showModal(model, "Could not transfer event. Please try again later.", "");
             }                
 
-            model.addAttribute("user", clientLoginService.getCurrentUser());
             return getUserEvents(clientLoginService.getCurrentUser(), model);
         }
         catch(IOException exception){

@@ -7,7 +7,6 @@ import com.grandplan.client.util.InviteStatus;
 import com.grandplan.client.util.EventStatus;
 import com.grandplan.client.util.LoginUser;
 import com.grandplan.client.util.SignupUser;
-import com.grandplan.util.Event;
 import com.grandplan.client.util.NewEvent;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import org.json.simple.parser.ParseException;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.validation.Valid;
 
 @Controller
@@ -31,7 +27,6 @@ public class GrandPlanController {
     private static final String LOGIN = "login";
     private static final String SIGNUP = "signup";
     private static final String HOME = "home";
-    private static final String EVENTS = "events";
 
     @Autowired
     private ClientLoginService clientLoginService;
