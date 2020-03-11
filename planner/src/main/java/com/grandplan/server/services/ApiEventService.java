@@ -41,12 +41,12 @@ public class ApiEventService {
         return e;
     }
 
-    public boolean deleteEvent(Long id) {
-        Event event = eventRepo.findEventById(id);
-        if (event == null) {
+    public boolean deleteEvent(Event event) {
+        Event e = eventRepo.findEventById(event.getId());
+        if (e == null) {
             return false;
         }
-        eventRepo.delete(event);
+        eventRepo.delete(e);
         return true;
     }
 
