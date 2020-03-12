@@ -78,6 +78,7 @@ public class ClientLoginService {
         Object obj = parser.parse(response);
         JSONObject jsonBody = (JSONObject) obj;
         return User.builder()
+            .id(Long.parseLong(jsonBody.get("id").toString()))
             .email(jsonBody.get(EMAIL).toString())
             .password(jsonBody.get(PASSWORD).toString())
             .lastName(jsonBody.get("lastName").toString())

@@ -14,7 +14,6 @@ import org.apache.http.util.EntityUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -29,6 +28,7 @@ public class ClientInviteService {
     @Autowired
     private ClientLoginService clientLoginService;
 
+    private CloseableHttpResponse response;
     private static final String INVITES = "invites";
     private static final String INVITE_ERROR = "Something went wrong when getting your invites. Please try again later.";
 
@@ -37,7 +37,6 @@ public class ClientInviteService {
         hashMap.put("email", user.getEmail());
         JSONObject jsonObject = new JSONObject(hashMap);
 
-        CloseableHttpResponse response;
         try{
             response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/getUserInvites");
             String responseBody = EntityUtils.toString(response.getEntity());
@@ -52,8 +51,9 @@ public class ClientInviteService {
             List<Invite> invites = new ArrayList<>();
             jsonArray.forEach(item -> {
                 JSONObject obj = (JSONObject) item;
+                // invites.add(getInviteByUserAndEvent(json));
                 System.out.println(obj);
-                // events.add(generateInviteObject(obj));
+                getInvite(Long.parseLong(obj.get("id").toString()));
             });
 
             // model.addAttribute(INVITES, responseBody);
@@ -71,13 +71,21 @@ public class ClientInviteService {
         return INVITES;
     }
 
+    private void getInvite(Long inviteId){
+        try{
+           
+        }
+        catch(Exception exception){
+            // return null;
+        }
+    }
+
     public Boolean createInvites(String userEmail, Long eventId){
         HashMap<String,String> hashMap = new HashMap<>();
         hashMap.put("eventId", eventId.toString());
         hashMap.put("userEmail", userEmail);
         JSONObject jsonObject = new JSONObject(hashMap);
 
-        CloseableHttpResponse response;
         try{
             response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/createInvite");
             int statusCode = response.getStatusLine().getStatusCode();
@@ -93,7 +101,6 @@ public class ClientInviteService {
         hashMap.put("inviteId", acceptInvite.getInviteId());
         JSONObject jsonObject = new JSONObject(hashMap);
 
-        CloseableHttpResponse response;
         try{
             response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/acceptInvite");
             int statusCode = response.getStatusLine().getStatusCode();
@@ -116,7 +123,6 @@ public class ClientInviteService {
         hashMap.put("inviteId", declineInvite.getInviteId());
         JSONObject jsonObject = new JSONObject(hashMap);
 
-        CloseableHttpResponse response;
         try{
             response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/declineInvite");
             int statusCode = response.getStatusLine().getStatusCode();

@@ -89,7 +89,7 @@ public class ClientEventService {
         return EVENTS;
     }
 
-    private HashMap<String, String> getEventById(String eventId){
+    private HashMap<String, String> getEventHashMap(String eventId){
         HashMap<String,String> hashMap = new HashMap<>();
         hashMap.put("eventId", eventId);
         JSONObject jsonObject = new JSONObject(hashMap);
@@ -201,7 +201,7 @@ public class ClientEventService {
     }
 
     public String transferEvent(EventStatus eventStatus, Model model){
-        HashMap<String,String> hashMap = getEventById(eventStatus.getEventId());
+        HashMap<String,String> hashMap = getEventHashMap(eventStatus.getEventId());
         hashMap.put("hostUsername", eventStatus.getHostUsername());
         JSONObject jsonObject = new JSONObject(hashMap);
 
