@@ -28,7 +28,7 @@ public class ClientLoginService {
     @Autowired
     private HttpRequestService httpRequestService;  
 
-    private User currentUser;
+    private User currentUser = null;
     private CloseableHttpResponse response;
 
     private static final String LOGIN_ERROR = "Something went wrong with the login process. Please try again.";
