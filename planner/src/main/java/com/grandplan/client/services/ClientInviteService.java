@@ -8,7 +8,7 @@ import java.util.List;
 import com.grandplan.util.Event;
 import com.grandplan.util.Invite;
 import com.grandplan.util.User;
-import com.grandplan.client.util.Constants;
+import com.grandplan.util.Constants;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.util.EntityUtils;
