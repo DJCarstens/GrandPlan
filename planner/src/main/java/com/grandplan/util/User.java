@@ -41,6 +41,6 @@ public class User implements Serializable {
     private Set<Invite> invites = new HashSet<>();
 
     public String getFullName(){
-        return firstName + " " + lastName;
+        return this.firstName + " " + this.lastName;
     }
 }

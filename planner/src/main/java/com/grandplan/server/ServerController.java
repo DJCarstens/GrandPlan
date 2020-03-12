@@ -6,11 +6,8 @@ import com.grandplan.server.services.ApiInviteService;
 import com.grandplan.util.Event;
 import com.grandplan.util.User;
 import com.grandplan.util.Invite;
-import com.grandplan.client.util.EventStatus;
-import com.grandplan.client.util.InviteStatus;
-import com.grandplan.client.util.NewInvite;
-import com.grandplan.client.util.UserEventQuery;
-import com.grandplan.client.util.UserStatus;
+import com.grandplan.util.NewInvite;
+import com.grandplan.util.UserEventQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -65,11 +62,6 @@ public class ServerController {
         return ResponseEntity.ok(apiLoginService.getUsers());
     }
 
-    @GetMapping("/listEvents")
-    public ResponseEntity<List<Event>> listEvents() {
-        return ResponseEntity.ok(apiEventService.getEvents());
-    }
-
     @PostMapping("/addUser")
     public ResponseEntity<User> addUser(@RequestBody User user) {
         if (apiLoginService.getUser(user) != null) {
@@ -80,14 +72,20 @@ public class ServerController {
         return ResponseEntity.ok(apiLoginService.save(user));
     }
 
+    // ======================================== EVENTS ========================================
+    @GetMapping("/listEvents")
+    public ResponseEntity<List<Event>> listEvents() {
+        return ResponseEntity.ok(apiEventService.getEvents());
+    }
+
     @PostMapping("/getUserEvents")
-    public ResponseEntity<Set<Event>> getUserEvents(@RequestBody UserStatus userStatus) {
-        return ResponseEntity.ok(apiEventService.getUserEvents(userStatus.getEmail()));
+    public ResponseEntity<Set<Event>> getUserEvents(@RequestBody User user) {
+        return ResponseEntity.ok(apiEventService.getUserEvents(user.getEmail()));
     }
 
     @PostMapping("/getEventById")
-    public ResponseEntity<Event> getEventById(@RequestBody EventStatus eventStatus) {
-        return ResponseEntity.ok(apiEventService.getEventById(Long.parseLong(eventStatus.getEventId())));
+    public ResponseEntity<Event> getEventById(@RequestBody Event event) {
+        return ResponseEntity.ok(apiEventService.getEventById(event.getId()));
     }
 
     @PostMapping("/createEvent")
@@ -107,13 +105,13 @@ public class ServerController {
 
     // ----------------- INVITES --------------------
     @PostMapping("/acceptInvite")
-    public ResponseEntity<Invite> acceptInvite(@RequestBody InviteStatus inviteStatus){
-        return ResponseEntity.ok(apiInviteService.updateInvite(Long.parseLong(inviteStatus.getInviteId()), true));
+    public ResponseEntity<Invite> acceptInvite(@RequestBody Invite invite){
+        return ResponseEntity.ok(apiInviteService.updateInvite(invite.getId(), true));
     }
 
     @PostMapping("/declineInvite")
-    public ResponseEntity<Boolean> declineInvite(@RequestBody InviteStatus inviteStatus){
-        return ResponseEntity.ok(apiInviteService.deleteInvite(Long.parseLong(inviteStatus.getInviteId())));
+    public ResponseEntity<Boolean> declineInvite(@RequestBody Invite invite){
+        return ResponseEntity.ok(apiInviteService.deleteInvite(invite.getId()));
     }
 
     @PostMapping("/createInvite")
@@ -156,8 +154,8 @@ public class ServerController {
     } 
 
     @PostMapping("/deleteInvite")
-    public ResponseEntity<Boolean> deleteInvite(@RequestBody InviteStatus inviteStatus){      
-        return ResponseEntity.ok(apiInviteService.deleteInvite(Long.parseLong(inviteStatus.getInviteId())));
+    public ResponseEntity<Boolean> deleteInvite(@RequestBody Invite invite){
+        return ResponseEntity.ok(apiInviteService.deleteInvite(invite.getId()));
     }
 
     @PostMapping("/getUnacceptedUserInvites")

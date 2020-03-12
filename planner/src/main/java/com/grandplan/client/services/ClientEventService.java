@@ -6,8 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.grandplan.client.util.Constants;
-import com.grandplan.client.util.EventStatus;
-import com.grandplan.client.util.NewEvent;
+import com.grandplan.util.NewEvent;
 import com.grandplan.util.Event;
 import com.grandplan.util.User;
 
@@ -38,7 +37,7 @@ public class ClientEventService {
 
     public String getUserEvents(User user, Model model){
         JSONObject jsonObject = generateJsonObject(
-            new ArrayList<String>(){{add(Constants.EMAIL);}}, 
+            new ArrayList<String>(){{add(Constants.EMAIL);}},
             new ArrayList<String>(){{add(user.getEmail());}}
         );
 
@@ -93,8 +92,8 @@ public class ClientEventService {
 
     private String addModelAttributes(Model model){
         model.addAttribute("user", clientLoginService.getCurrentUser());
-        model.addAttribute("delete", new EventStatus());
-        model.addAttribute("transfer", new EventStatus());
+        model.addAttribute("delete", new Event());
+        model.addAttribute("transfer", new Event());
         return Constants.EVENTS;
     }
 
@@ -159,7 +158,7 @@ public class ClientEventService {
                 add(Constants.COLOR);
                 add(Constants.HOSTUSERNAME);
                 add(Constants.TAG);
-            }}, 
+            }},
             new ArrayList<String>(){{
                 add(newEvent.getTitle());
                 add(newEvent.getDescription());
@@ -189,13 +188,13 @@ public class ClientEventService {
         return true;
     }
 
-    public String deleteEvent(EventStatus eventStatus, Model model){
+    public String deleteEvent(Event event, Model model){
         try{
-            if(eventStatus.getHostUsername().equals(clientLoginService.getCurrentUser().getEmail())){
-                response = httpRequestService.sendHttpPost(generateDeleteEventObject(eventStatus), "http://localhost:8080/api/deleteEvent");
+            if(event.getHostUsername().equals(clientLoginService.getCurrentUser().getEmail())){
+                response = httpRequestService.sendHttpPost(generateDeleteEventObject(event), "http://localhost:8080/api/deleteEvent");
             }
             else{
-                response = httpRequestService.sendHttpPost(generateDeleteEventObject(eventStatus), "http://localhost:8080/api/deleteInvite"); //TODO: remove invite from user
+                response = httpRequestService.sendHttpPost(generateDeleteEventObject(event), "http://localhost:8080/api/deleteInvite"); //TODO: remove invite from user
             }
             
             int statusCode = response.getStatusLine().getStatusCode();
@@ -214,16 +213,16 @@ public class ClientEventService {
         }
     }
 
-    private JSONObject generateDeleteEventObject(EventStatus eventStatus){
+    private JSONObject generateDeleteEventObject(Event event){
         return generateJsonObject(
-            new ArrayList<String>(){{add(Constants.ID); add("userEmail");}}, 
-            new ArrayList<String>(){{add(eventStatus.getEventId()); add(eventStatus.getHostUsername());}}
+            new ArrayList<String>(){{add(Constants.ID); add("userEmail");}},
+            new ArrayList<String>(){{add(event.getId().toString()); add(event.getHostUsername());}}
         );
     }
 
-    public String transferEvent(EventStatus eventStatus, Model model){
-        HashMap<String, String> hashMap = getEventHashMap(eventStatus.getEventId());
-        hashMap.put(Constants.HOSTUSERNAME, eventStatus.getHostUsername());
+    public String transferEvent(Event event, Model model){
+        HashMap<String, String> hashMap = getEventHashMap(event.getId().toString());
+        hashMap.put(Constants.HOSTUSERNAME, event.getHostUsername());
         JSONObject jsonObject = new JSONObject(hashMap);
 
         try{

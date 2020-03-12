@@ -1,4 +1,4 @@
-package com.grandplan.client.util;
+package com.grandplan.util;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EventStatus{
-    private String eventId;
-    private String hostUsername;
+public class NewInvite{
+    private Long eventId;
+    private String userEmail;
 }

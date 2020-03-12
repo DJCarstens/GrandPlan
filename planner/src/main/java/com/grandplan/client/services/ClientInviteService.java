@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.grandplan.client.util.InviteStatus;
 import com.grandplan.util.Event;
 import com.grandplan.util.Invite;
 import com.grandplan.util.User;
@@ -38,7 +37,7 @@ public class ClientInviteService {
 
     public String getInvites(User user, Model model){
         JSONObject jsonObject = generateJsonObject(
-            new ArrayList<String>(){{add(Constants.EMAIL);}}, 
+            new ArrayList<String>(){{add(Constants.EMAIL);}},
             new ArrayList<String>(){{add(user.getEmail());}}
         );
 
@@ -73,7 +72,7 @@ public class ClientInviteService {
 
     private Invite getInvite(Long inviteId, Boolean accepted){
         JSONObject jsonObject = generateJsonObject(
-            new ArrayList<String>(){{add("eventId");}}, 
+            new ArrayList<String>(){{add("eventId");}},
             new ArrayList<String>(){{add(inviteId.toString());}}
         );
 
@@ -99,7 +98,7 @@ public class ClientInviteService {
 
     public Boolean createInvites(String userEmail, Long eventId){
         JSONObject jsonObject = generateJsonObject(
-            new ArrayList<String>(){{add("eventId"); add("userEmail");}}, 
+            new ArrayList<String>(){{add("eventId"); add("userEmail");}},
             new ArrayList<String>(){{add(eventId.toString()); add(userEmail);}}
         );
 
@@ -113,10 +112,10 @@ public class ClientInviteService {
         }
     }
 
-    public String acceptInvite(InviteStatus acceptInvite, Model model){
+    public String acceptInvite(Invite acceptInvite, Model model){
         JSONObject jsonObject = generateJsonObject(
-            new ArrayList<String>(){{add("inviteId");}}, 
-            new ArrayList<String>(){{add(acceptInvite.getInviteId());}}
+            new ArrayList<String>(){{add("inviteId");}},
+            new ArrayList<String>(){{add(acceptInvite.getId().toString());}}
         );
 
         try{
@@ -136,10 +135,10 @@ public class ClientInviteService {
         return getInvites(clientLoginService.getCurrentUser(), model);
     }
 
-    public String declineInvite(InviteStatus declineInvite, Model model){
+    public String declineInvite(Invite declineInvite, Model model){
         JSONObject jsonObject = generateJsonObject(
-            new ArrayList<String>(){{add("inviteId");}}, 
-            new ArrayList<String>(){{add(declineInvite.getInviteId());}}
+            new ArrayList<String>(){{add("inviteId");}},
+            new ArrayList<String>(){{add(declineInvite.getId().toString());}}
         );
 
         try{
