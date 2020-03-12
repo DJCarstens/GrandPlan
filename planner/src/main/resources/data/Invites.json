@@ -8,4 +8,19 @@
   "inviteId" : 2,
   "accepted" : false,
   "userId" : 6
+}, {
+  "eventId" : 3,
+  "inviteId" : 3,
+  "accepted" : false,
+  "userId" : 7
+}, {
+  "eventId" : 4,
+  "inviteId" : 4,
+  "accepted" : false,
+  "userId" : 7
+}, {
+  "eventId" : 5,
+  "inviteId" : 5,
+  "accepted" : false,
+  "userId" : 7
 } ]

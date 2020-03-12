@@ -18,4 +18,34 @@
   "id" : 2,
   "tag" : "",
   "title" : "Test Event"
+}, {
+  "allDay" : true,
+  "color" : "blue",
+  "hostUsername" : "samah@bbd.co.za",
+  "start" : "2020-03-02",
+  "description" : "This is a very long description. It is purely to test the functionality of the modal and how it will cope with more information. So I will keep talking about stuff that is completely unnecessary and irrelevant. We shall see how this goes.",
+  "end" : "",
+  "id" : 3,
+  "tag" : "work",
+  "title" : "first event"
+}, {
+  "allDay" : true,
+  "color" : "#ddd",
+  "hostUsername" : "samah@bbd.co.za",
+  "start" : "2020-03-02",
+  "description" : "Some relevant description",
+  "end" : "2020-03-06",
+  "id" : 4,
+  "tag" : "Personal",
+  "title" : "second event"
+}, {
+  "allDay" : false,
+  "color" : "",
+  "hostUsername" : "samah@bbd.co.za",
+  "start" :"2020-03-29T11:00",
+  "description" : "Discussing project",
+  "end" : "2020-03-29T12:00",
+  "id" : 5,
+  "tag" : "Grad",
+  "title" : "third event: call"
 } ]

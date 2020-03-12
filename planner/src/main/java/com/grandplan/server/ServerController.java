@@ -225,26 +225,15 @@ public class ServerController {
         return ResponseEntity.ok("{\"msg\":\"success\", \"email\":\"" + userEmail + "\"}");
     }
 
-    @PostMapping("/getCurrentUserEvents")
-    public ResponseEntity<String> getCurrentUserEvents() {
-        String jsonEvents = null;
-        try {
-            List<Event> events = new ArrayList<>();
-            Set<Event> setEvents = apiEventService.getUserEvents(clientLoginService.getCurrentUser().getEmail());
-            for (Event event : setEvents) {
-                events.add(event);
-            }
-            ObjectMapper mapper = new ObjectMapper();
-            jsonEvents = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(events);
-        } catch (IOException e) {
-            log.error(e.getMessage());
-        }
-        return ResponseEntity.ok(jsonEvents);
+    @GetMapping("/getCurrentUserEvents")
+    public ResponseEntity<Set<Event>> getCurrentUserEvents() {
+        System.out.println("Logged in email: " + clientLoginService.getCurrentUser().getEmail());
+        System.out.println("Events: " + apiEventService.getUserEvents(clientLoginService.getCurrentUser().getEmail()));
+        return ResponseEntity.ok(apiEventService.getUserEvents(clientLoginService.getCurrentUser().getEmail()));
     }
 
     @PostMapping("/getUserEventsByEmail")
     public ResponseEntity<Set<Event>> getUserEventsByEmail(@RequestBody JSONObject data) {
-        System.out.println("GETTING EVENTS FOR: " + data.get("email").toString());
         return ResponseEntity.ok(apiEventService.getUserEvents(data.get("email").toString()));
     }
 
