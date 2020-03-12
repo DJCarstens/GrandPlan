@@ -1,0 +1,154 @@
+.event-modal{
+    display: none;
+}
+
+.overlay{
+    width: 100% !important;
+    height: 100% !important;
+    background-color: rgb(179, 179, 179, 0.8);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2000;
+    overflow: auto;
+}
+
+.modal-div{
+    background-color: white;
+    width: 65%;
+    margin: auto;
+    margin-top: 1%;
+}
+
+.modal-header{
+    background-color: #C72F2E;
+    width: 100%;
+    height: 6.5rem !important;
+}
+
+.heading{
+    font-size: 3rem;
+    color: white;
+    margin-top: 0.1rem;
+    margin-left: 50%;
+}
+
+.close-modal{
+    color: white;
+    font-size: 2rem;
+}
+
+.close-modal:hover{
+    font-size: 2.3rem;
+}
+
+.event-form{
+    padding-left: 10%;
+    margin-top: 4%;
+}
+
+.form-button{
+    background-color: #C72F2E;
+    border: none;
+    color: white;
+    border-radius: 0.3125rem;
+    padding: 0.9rem;
+    width: 30%;
+    font-size: 1.5rem;
+    margin-top: 3%;
+}
+
+.form-button:hover{
+    color: white;
+    box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2), 0 0.5625rem 1.625rem 0 rgba(0, 0, 0, 0.19);
+    font-size: 1.6rem;
+}
+
+.color-picker-button{
+    background-color: rgb(216, 216, 216);
+    border: none;
+    color: black;
+    border-radius: 0.3125rem;
+    padding: 0.7rem;
+    font-size: 1.5rem;
+    width: 100%;
+}
+
+.color-picker-button:hover{
+    background-color: rgb(180, 180, 180);
+}
+    
+.dashfolio-tag {
+    cursor:pointer;
+    background-color: rgb(0, 150, 177);
+    padding: 5px 10px 5px 10px;
+    display: inline-block;
+    margin-top: 3px;
+    color:#fff;
+    padding-right: 20px;
+    margin-right: 4px;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.dashfolio-tag:hover{
+    opacity:0.7;
+}
+
+.tags:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+.checkbox label:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.checkbox .cr {
+  position: relative;
+  display: inline-block;
+  border: 1px solid #a9a9a9;
+  border-radius: .25em;
+  width: 1.3em;
+  height: 1.3em;
+  float: left;
+  margin-right: 1em;
+}
+
+.checkbox .cr .cr-icon {
+  position: absolute;
+  font-size: .8em;
+  line-height: 0;
+  top: 50%;
+  left: 15%;
+}
+
+.checkbox label input[type="checkbox"] {
+  display: none;
+}
+
+.checkbox label input[type="checkbox"]+.cr>.cr-icon {
+  opacity: 0;
+}
+
+.checkbox label input[type="checkbox"]:checked+.cr>.cr-icon {
+  opacity: 1;
+}
+
+.checkbox label input[type="checkbox"]:disabled+.cr {
+  opacity: .5;
+}
+
+.error-label{
+    display: none;
+    color: red;
+    margin-top: 0.5%;
+}
