@@ -23,4 +23,9 @@
   "inviteId" : 5,
   "accepted" : false,
   "userId" : 7
+}, {
+  "eventId" : 6,
+  "inviteId" : 6,
+  "accepted" : false,
+  "userId" : 6
 } ]

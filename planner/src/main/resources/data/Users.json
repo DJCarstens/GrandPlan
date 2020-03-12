@@ -1,4 +1,4 @@
-[{
+[ {
   "firstName" : "Lauren",
   "lastName" : "van der Merwe",
   "password" : "smarties",
@@ -31,7 +31,7 @@
   "lastName" : "Leyers",
   "password" : "password",
   "phone" : "0758896552",
-  "id" : 8,
+  "id" : 5,
   "email" : "test@bbd.co.za"
 }, {
   "firstName" : "Linda",
@@ -47,4 +47,11 @@
   "phone" : "0837153699",
   "id" : 7,
   "email" : "samah@bbd.co.za"
+}, {
+  "firstName" : "Dylan",
+  "lastName" : "Carstens",
+  "password" : "bd25f93e765c380a414d1cb7887a9cfcf5394fbc36443810256df3ce39f7ab32",
+  "phone" : "0726457575",
+  "id" : 8,
+  "email" : "dylanca@bbd.co.za"
 } ]

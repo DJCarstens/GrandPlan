@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.grandplan.client.util.EventStatus;
-import com.grandplan.client.util.NewEvent;
+import com.grandplan.client.util.Constants;
+import com.grandplan.util.NewEvent;
 import com.grandplan.util.Event;
 import com.grandplan.util.User;
 
@@ -33,13 +33,13 @@ public class ClientEventService {
     @Autowired
     private ClientInviteService clientInviteService;
 
-    private static final String EVENTS ="events";
     private CloseableHttpResponse response;
 
     public String getUserEvents(User user, Model model){
-        HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("email", user.getEmail());
-        JSONObject jsonObject = new JSONObject(hashMap);
+        JSONObject jsonObject = generateJsonObject(
+            new ArrayList<String>(){{add(Constants.EMAIL);}},
+            new ArrayList<String>(){{add(user.getEmail());}}
+        );
 
         try{
             response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/getUserEvents");
@@ -49,7 +49,7 @@ public class ClientEventService {
                 return addModelAttributes(model);
             }
             
-            model.addAttribute(EVENTS, generateResponse(responseBody));
+            model.addAttribute(Constants.EVENTS, generateResponse(responseBody));
             return addModelAttributes(model);
         }
         catch(Exception exception){
@@ -76,28 +76,28 @@ public class ClientEventService {
         }
     }
 
-    private Event generateEventObject(JSONObject jsonObject){
+    public Event generateEventObject(JSONObject jsonObject){
         return Event.builder()
-        .id(Long.parseLong(jsonObject.get("id").toString()))
-        .title(jsonObject.get("title").toString())
-        .description(jsonObject.get("description").toString())
-        .start(jsonObject.get("start").toString())
-        .end(jsonObject.get("end").toString())
-        .tag(jsonObject.get("tag").toString())
-        .color(jsonObject.get("color").toString())
-        .hostUsername(jsonObject.get("hostUsername").toString())
-        .allDay(Boolean.parseBoolean(jsonObject.get("allDay").toString()))
+        .id(Long.parseLong(jsonObject.get(Constants.ID).toString()))
+        .title(jsonObject.get(Constants.TITLE).toString())
+        .description(jsonObject.get(Constants.DESCRIPTION).toString())
+        .start(jsonObject.get(Constants.START).toString())
+        .end(jsonObject.get(Constants.END).toString())
+        .tag(jsonObject.get(Constants.TAG).toString())
+        .color(jsonObject.get(Constants.COLOR).toString())
+        .hostUsername(jsonObject.get(Constants.HOSTUSERNAME).toString())
+        .allDay(Boolean.parseBoolean(jsonObject.get(Constants.ALLDAY).toString()))
         .build();
     }
 
     private String addModelAttributes(Model model){
         model.addAttribute("user", clientLoginService.getCurrentUser());
-        model.addAttribute("delete", new EventStatus());
-        model.addAttribute("transfer", new EventStatus());
-        return EVENTS;
+        model.addAttribute("delete", new Event());
+        model.addAttribute("transfer", new Event());
+        return Constants.EVENTS;
     }
 
-    private HashMap<String, String> getEventById(String eventId){
+    private HashMap<String, String> getEventHashMap(String eventId){
         HashMap<String,String> hashMap = new HashMap<>();
         hashMap.put("eventId", eventId);
         JSONObject jsonObject = new JSONObject(hashMap);
@@ -108,15 +108,15 @@ public class ClientEventService {
             JSONParser parser = new JSONParser();
             JSONObject obj = (JSONObject) parser.parse(responseBody);
             hashMap.clear();
-            hashMap.put("id", obj.get("id").toString());
-            hashMap.put("title", obj.get("title").toString());
-            hashMap.put("description", obj.get("description").toString());
-            hashMap.put("start", obj.get("start").toString());
-            hashMap.put("end", obj.get("end").toString());
-            hashMap.put("tag", obj.get("tag").toString());
-            hashMap.put("color", obj.get("color").toString());
-            hashMap.put("hostUsername", obj.get("hostUsername").toString());
-            hashMap.put("allDay", obj.get("allDay").toString());
+            hashMap.put(Constants.ID, obj.get(Constants.ID).toString());
+            hashMap.put(Constants.TITLE, obj.get(Constants.TITLE).toString());
+            hashMap.put(Constants.DESCRIPTION, obj.get(Constants.DESCRIPTION).toString());
+            hashMap.put(Constants.START, obj.get(Constants.START).toString());
+            hashMap.put(Constants.END, obj.get(Constants.END).toString());
+            hashMap.put(Constants.TAG, obj.get(Constants.TAG).toString());
+            hashMap.put(Constants.COLOR, obj.get(Constants.COLOR).toString());
+            hashMap.put(Constants.HOSTUSERNAME, obj.get(Constants.HOSTUSERNAME).toString());
+            hashMap.put(Constants.ALLDAY, obj.get(Constants.ALLDAY).toString());
             return hashMap;
         }
         catch(Exception exception){
@@ -148,23 +148,35 @@ public class ClientEventService {
     }
 
     private JSONObject generateEventHashMapObject(NewEvent newEvent){
-        HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("title", newEvent.getTitle());
-        hashMap.put("description", newEvent.getDescription());
-        hashMap.put("start", newEvent.getStart());
-        hashMap.put("end", newEvent.getEnd());
-        hashMap.put("allDay", newEvent.getAllDay().toString());
-        hashMap.put("color", newEvent.getColor());
-        hashMap.put("hostUsername", clientLoginService.getCurrentUser().getEmail());
-        hashMap.put("tag", newEvent.getTag());
-        return new JSONObject(hashMap);
+        return generateJsonObject(
+            new ArrayList<String>(){{
+                add(Constants.TITLE);
+                add(Constants.DESCRIPTION);
+                add(Constants.START);
+                add(Constants.END);
+                add(Constants.ALLDAY);
+                add(Constants.COLOR);
+                add(Constants.HOSTUSERNAME);
+                add(Constants.TAG);
+            }},
+            new ArrayList<String>(){{
+                add(newEvent.getTitle());
+                add(newEvent.getDescription());
+                add(newEvent.getStart());
+                add(newEvent.getEnd());
+                add(newEvent.getAllDay().toString());
+                add(newEvent.getColor());
+                add(clientLoginService.getCurrentUser().getEmail());
+                add(newEvent.getTag());
+            }}
+        );
     }
 
     private Boolean createEventInvites(CloseableHttpResponse response, NewEvent newEvent) throws ParseException, IOException{
         String responseBody = EntityUtils.toString(response.getEntity());
         JSONParser parser = new JSONParser();
         JSONObject json = (JSONObject) parser.parse(responseBody);
-        Long eventId = (Long) json.get("id");
+        Long eventId = (Long) json.get(Constants.ID);
 
         String[] members = newEvent.getMembers().split(",");
         for(int i = 1; i < members.length; i++){
@@ -176,13 +188,13 @@ public class ClientEventService {
         return true;
     }
 
-    public String deleteEvent(EventStatus eventStatus, Model model){
+    public String deleteEvent(Event event, Model model){
         try{
-            if(eventStatus.getHostUsername().equals(clientLoginService.getCurrentUser().getEmail())){
-                response = httpRequestService.sendHttpPost(generateDeleteEventObject(eventStatus), "http://localhost:8080/api/deleteEvent");
+            if(event.getHostUsername().equals(clientLoginService.getCurrentUser().getEmail())){
+                response = httpRequestService.sendHttpPost(generateDeleteEventObject(event), "http://localhost:8080/api/deleteEvent");
             }
             else{
-                response = httpRequestService.sendHttpPost(generateDeleteEventObject(eventStatus), "http://localhost:8080/api/deleteInvite"); //TODO: remove invite from user
+                response = httpRequestService.sendHttpPost(generateDeleteEventObject(event), "http://localhost:8080/api/deleteInvite"); //TODO: remove invite from user
             }
             
             int statusCode = response.getStatusLine().getStatusCode();
@@ -201,16 +213,16 @@ public class ClientEventService {
         }
     }
 
-    private JSONObject generateDeleteEventObject(EventStatus eventStatus){
-        HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("id", eventStatus.getEventId());
-        hashMap.put("userEmail", eventStatus.getHostUsername());
-        return new JSONObject(hashMap);
+    private JSONObject generateDeleteEventObject(Event event){
+        return generateJsonObject(
+            new ArrayList<String>(){{add(Constants.ID); add("userEmail");}},
+            new ArrayList<String>(){{add(event.getId().toString()); add(event.getHostUsername());}}
+        );
     }
 
-    public String transferEvent(EventStatus eventStatus, Model model){
-        HashMap<String,String> hashMap = getEventById(eventStatus.getEventId());
-        hashMap.put("hostUsername", eventStatus.getHostUsername());
+    public String transferEvent(Event event, Model model){
+        HashMap<String, String> hashMap = getEventHashMap(event.getId().toString());
+        hashMap.put(Constants.HOSTUSERNAME, event.getHostUsername());
         JSONObject jsonObject = new JSONObject(hashMap);
 
         try{
@@ -231,6 +243,14 @@ public class ClientEventService {
             showModal(model, "Something went wrong transferring this event. Please try again later.", "");
             return getUserEvents(clientLoginService.getCurrentUser(), model);
         }
+    }
+
+    private JSONObject generateJsonObject(List<String> keys, List<String> values){
+        HashMap<String,String> hashMap = new HashMap<>();
+        for(int i = 0; i < keys.size(); i++){
+            hashMap.put(keys.get(i), values.get(i));
+        }
+        return new JSONObject(hashMap);
     }
 
     public void showModal(Model model, String message, String button) {

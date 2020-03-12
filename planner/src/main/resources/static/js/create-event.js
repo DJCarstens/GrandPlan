@@ -15,14 +15,12 @@ $(document).ready(function () {
         e.preventDefault();
         e.stopPropagation();
         if ($('#title').val() == '') {
-            $('#titleError').html('Please provide a title for this event');
-            $('#titleError').css('display', 'block');
+            $('#titleError').toggle();
             $title = false;
         }
 
         if ($('#description').val() == '') {
-            $('#descriptionError').html('Please provide a description for this event');
-            $('#descriptionError').css('display', 'block');
+            $('#descriptionError').toggle();
             $description = false;
         }
 
@@ -31,14 +29,12 @@ $(document).ready(function () {
         }
 
         if($('#start').val() == ''){
-            $('#startError').html('Please select a start date and time');
-            $('#startError').css('display', 'block');
+            $('#startError').toggle();
             $start = false;
         }
 
-        if($('#end').val() == '' && $('#allDay').prop("checked") == false){
-            $('#endError').html('Please select a end date and time');
-            $('#endError').css('display', 'block');
+        if($('#end').val() == 'null' && $('#allDay').prop("checked") == false){
+            $('#endError').toggle();
             $end = false;
         }
 
@@ -50,7 +46,7 @@ $(document).ready(function () {
             $data['start'] = $('#start').val();
             $data['end'] = $('#end').val();
             $data['allDay'] = $('#allDay').prop("checked") ? true : false;
-            $data['tag'] = null;
+            $data['tag'] = "";
             $('#tags').find('span').each(function(){
                 $data['tag'] = $(this).text();
             });
