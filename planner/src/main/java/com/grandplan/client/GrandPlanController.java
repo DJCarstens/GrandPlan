@@ -39,11 +39,11 @@ public class GrandPlanController {
         User user = clientLoginService.getCurrentUser();
         if(user == null){
             model.addAttribute("loginUser", new LoginUser());
-            return LOGIN;
+            return Constants.LOGIN;
         }
         else{
             model.addAttribute("user", clientLoginService.getCurrentUser());
-            return HOME;
+            return Constants.HOME;
         }
     }
 

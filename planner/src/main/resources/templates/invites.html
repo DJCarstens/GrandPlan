@@ -28,7 +28,7 @@
                     <h2 th:text="${noInvites}"></h2>
                 </div>
                 <div th:if="${invites}" th:each="invite : ${invites}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="box-part">
+                    <div class="box-part" th:if="${invite.event.hostUsername != user.email}">
                         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                             <div class="icon-container"><em class="far fa-envelope"></em>
                             </div>
@@ -43,27 +43,25 @@
                         </div>
                         <div class="title col-lg-2 col-md-2 col-sm-2 col-xs-2">
                             <p th:if="${invite.event.allDay}">Time: <label
-                                    th:text="${invite.event.start.substring(11, 19)}"></label>-<label
-                                    th:text="${invite.event.end.substring(11, 19)}"></label>
+                                    th:text="${invite.event.start.substring(11, 16)}"></label>-<label
+                                    th:text="${invite.event.end.substring(11, 16)}"></label>
                             </p>
                             <p th:if="${!invite.event.allDay}">All day event starting at: <label
-                                    th:text="${invite.event.start.substring(11, 19)}"></label>
+                                    th:text="${invite.event.start.substring(11, 16)}"></label>
                             </p>
                         </div>
                         <div class="title col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                            <div th:if="${invite.event.hostUsername != user.email}">
-                                <form autocomplete="off" action="acceptInvite" method="post" th:object="${accept}"
-                                    role="form" style="display: inline;">
-                                    <input type="hidden" th:value="${invite.id}" id="inviteId" name="inviteId" />
-                                    <button type="submit" class="button"
-                                        style="background-color: rgb(0, 150, 177)">Accept</button>
-                                </form>
-                                <form autocomplete="off" action="declineInvite" method="post" th:object="${decline}"
-                                    role="form" style="display: inline;">
-                                    <input type="hidden" th:value="${invite.id}" id="inviteId" name="inviteId" />
-                                    <button type="submit" class="button">Decline</button>
-                                </form>
-                            </div>
+                            <form autocomplete="off" action="acceptInvite" method="post" th:object="${accept}"
+                                role="form" style="display: inline;">
+                                <input type="hidden" th:value="${invite.id}" id="inviteId" name="inviteId" />
+                                <button type="submit" class="button"
+                                    style="background-color: rgb(0, 150, 177)">Accept</button>
+                            </form>
+                            <form autocomplete="off" action="declineInvite" method="post" th:object="${decline}"
+                                role="form" style="display: inline;">
+                                <input type="hidden" th:value="${invite.id}" id="inviteId" name="inviteId" />
+                                <button type="submit" class="button">Decline</button>
+                            </form>
                         </div>
                     </div>
                 </div>
