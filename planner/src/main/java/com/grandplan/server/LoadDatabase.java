@@ -84,8 +84,8 @@ public class LoadDatabase {
                 JSONObject jsonObject = (JSONObject) item;
                 User user = User.builder()
                         .id(Long.valueOf((jsonObject.get("id")).toString()))
-                        .email(formatEmail(jsonObject.get("email").toString()))
-                        .password(generatePasswordHash(jsonObject.get("realPassword").toString()))
+                        .email(jsonObject.get("email").toString())
+                        .password(jsonObject.get("password").toString())
                         .firstName(jsonObject.get("firstName").toString())
                         .lastName(jsonObject.get("lastName").toString())
                         .phone(jsonObject.get("phone").toString())
@@ -142,13 +142,4 @@ public class LoadDatabase {
         return null;
     }
 
-    private String formatEmail(String email) {
-        String[] parts = email.split("@");
-        return parts[0] + "@bbd.co.za";
-    }
-
-    private String generatePasswordHash(String password){
-        String salt = DigestUtils.sha256Hex(password);
-        return DigestUtils.sha256Hex(password.concat(salt));
-    }
 }

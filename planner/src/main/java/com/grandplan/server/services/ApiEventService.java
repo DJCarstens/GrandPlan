@@ -85,7 +85,7 @@ public class ApiEventService {
             jsonObject.put("hostUsername", event.getHostUsername());
             jsonObjects.add(jsonObject);
         }
-        try (FileWriter file = new FileWriter("src/main/resources/data/Events.json", false)) {
+        try (FileWriter file = new FileWriter("src/main/resources/data/Events2.json", false)) {
             //false indicates that Users.json will get overridden with the current user data
             String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObjects);
             file.write(indented);
