@@ -33,9 +33,10 @@ public class ClientInviteService {
     private static final String INVITE_ERROR = "Something went wrong when getting your invites. Please try again later.";
 
     public String getInvites(User user, Model model){
-        HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("email", user.getEmail());
-        JSONObject jsonObject = new JSONObject(hashMap);
+        JSONObject jsonObject = generateJsonObject(
+            new ArrayList<String>(){{add("email");}}, 
+            new ArrayList<String>(){{add(user.getEmail());}}
+        );
 
         try{
             response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/getUserInvites");
@@ -81,10 +82,10 @@ public class ClientInviteService {
     }
 
     public Boolean createInvites(String userEmail, Long eventId){
-        HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("eventId", eventId.toString());
-        hashMap.put("userEmail", userEmail);
-        JSONObject jsonObject = new JSONObject(hashMap);
+        JSONObject jsonObject = generateJsonObject(
+            new ArrayList<String>(){{add("eventId"); add("userEmail");}}, 
+            new ArrayList<String>(){{add(eventId.toString()); add(userEmail);}}
+        );
 
         try{
             response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/createInvite");
@@ -97,9 +98,10 @@ public class ClientInviteService {
     }
 
     public String acceptInvite(InviteStatus acceptInvite, Model model){
-        HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("inviteId", acceptInvite.getInviteId());
-        JSONObject jsonObject = new JSONObject(hashMap);
+        JSONObject jsonObject = generateJsonObject(
+            new ArrayList<String>(){{add("inviteId");}}, 
+            new ArrayList<String>(){{add(acceptInvite.getInviteId());}}
+        );
 
         try{
             response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/acceptInvite");
@@ -119,9 +121,10 @@ public class ClientInviteService {
     }
 
     public String declineInvite(InviteStatus declineInvite, Model model){
-        HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("inviteId", declineInvite.getInviteId());
-        JSONObject jsonObject = new JSONObject(hashMap);
+        JSONObject jsonObject = generateJsonObject(
+            new ArrayList<String>(){{add("inviteId");}}, 
+            new ArrayList<String>(){{add(declineInvite.getInviteId());}}
+        );
 
         try{
             response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/declineInvite");
@@ -145,5 +148,13 @@ public class ClientInviteService {
         if(!button.equals("")){
             model.addAttribute("button", button);
         }
+    }
+
+    private JSONObject generateJsonObject(List<String> keys, List<String> values){
+        HashMap<String,String> hashMap = new HashMap<>();
+        for(int i = 0; i < keys.size(); i++){
+            hashMap.put(keys.get(i), values.get(i));
+        }
+        return new JSONObject(hashMap);
     }
 }
