@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Sidenav</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div th:fragment="modal-fragment" class="modal-container text-center">
+        <div class="modal-header">
+            <label onclick="closeModal()" class="close-modal">x</label>
+        </div>
+        <h3 th:text="${messageModal}" id="modal-message"></h3>
+        <button th:if="${button}" class="modal-button"><a th:text="${button}" th:href="${button}"
+                id="modal-button"></a></button>&nbsp&nbsp<button onclick="closeModal()"
+            class="modal-button">Close</button>
+    </div>
+</body>
+
+</html>
