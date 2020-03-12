@@ -51,7 +51,7 @@
                             </p>
                         </div>
                         <div class="title col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                            <div th:if="${invite.event.hostUsername == user.email}">
+                            <div th:if="${invite.event.hostUsername != user.email}">
                                 <form autocomplete="off" action="acceptInvite" method="post" th:object="${accept}"
                                     role="form" style="display: inline;">
                                     <input type="hidden" th:value="${invite.id}" id="inviteId" name="inviteId" />
