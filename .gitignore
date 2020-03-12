@@ -29,13 +29,10 @@ hs_err_pid*
 mvnw
 mvnw.cmd
 
-*/.classpath/*
-*/.classpath
-*/.factorypath/*
-*/.factorypath
-*/.mvn/*
-*/.project
-*/.settings/
-*/.settings/*
-*/.target/*
-*/target/*
+**/.mvn/**
+**/.settings/**
+**/target/**
+
+planner/.classpath
+planner/.factorypath
+planner/.project

@@ -92,7 +92,7 @@ public class GrandPlanController {
     }
 
     @PostMapping("/createEvent")
-    public String createEvent(@RequestBody NewEvent newEvent, Model model) throws ParseException{
+    public String createEvent(@RequestBody NewEvent newEvent, Model model){
         return clientEventService.createEvent(newEvent, model);
     }
 

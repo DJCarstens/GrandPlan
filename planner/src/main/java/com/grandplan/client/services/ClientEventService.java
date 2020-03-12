@@ -1,14 +1,18 @@
 package com.grandplan.client.services;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.grandplan.client.util.EventStatus;
 import com.grandplan.client.util.NewEvent;
+import com.grandplan.util.Event;
 import com.grandplan.util.User;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.util.EntityUtils;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -45,14 +49,45 @@ public class ClientEventService {
                 return addModelAttributes(model);
             }
             
-            model.addAttribute(EVENTS, responseBody);
+            model.addAttribute(EVENTS, generateResponse(responseBody));
             return addModelAttributes(model);
         }
-        catch(IOException exception){
+        catch(Exception exception){
             model.addAttribute("noEvents", "Your events could not be loaded");
             showModal(model, "Something went wrong when getting your events. Please try again later.", "");
             return addModelAttributes(model);
         }
+    }
+
+    private List<Event> generateResponse(String responseBody){
+        List<Event> events = new ArrayList<>();
+        try{
+            JSONParser parser = new JSONParser();
+            Object object = parser.parse(responseBody);
+            JSONArray jsonArray = (JSONArray) object;
+            jsonArray.forEach(item -> {
+                JSONObject obj = (JSONObject) item;
+                events.add(generateEventObject(obj));
+            });
+            return events;
+        }
+        catch(Exception exception){
+            return events;
+        }
+    }
+
+    private Event generateEventObject(JSONObject jsonObject){
+        return Event.builder()
+        .id(Long.parseLong(jsonObject.get("id").toString()))
+        .title(jsonObject.get("title").toString())
+        .description(jsonObject.get("description").toString())
+        .start(jsonObject.get("start").toString())
+        .end(jsonObject.get("end").toString())
+        .tag(jsonObject.get("tag").toString())
+        .color(jsonObject.get("color").toString())
+        .hostUsername(jsonObject.get("hostUsername").toString())
+        .allDay(Boolean.parseBoolean(jsonObject.get("allDay").toString()))
+        .build();
     }
 
     private String addModelAttributes(Model model){
@@ -89,9 +124,9 @@ public class ClientEventService {
         }
     }
 
-    public String createEvent(NewEvent newEvent, Model model) throws ParseException{
+    public String createEvent(NewEvent newEvent, Model model){
         try{
-            response = httpRequestService.sendHttpPost(generateEventObject(newEvent), "http://localhost:8080/api/createEvent");
+            response = httpRequestService.sendHttpPost(generateEventHashMapObject(newEvent), "http://localhost:8080/api/createEvent");
             int statusCode = response.getStatusLine().getStatusCode();
             if(statusCode == 200){
                 if(createEventInvites(response, newEvent)){
@@ -112,7 +147,7 @@ public class ClientEventService {
         }
     }
 
-    private JSONObject generateEventObject(NewEvent newEvent){
+    private JSONObject generateEventHashMapObject(NewEvent newEvent){
         HashMap<String,String> hashMap = new HashMap<>();
         hashMap.put("title", newEvent.getTitle());
         hashMap.put("description", newEvent.getDescription());
@@ -147,7 +182,7 @@ public class ClientEventService {
                 response = httpRequestService.sendHttpPost(generateDeleteEventObject(eventStatus), "http://localhost:8080/api/deleteEvent");
             }
             else{
-                httpRequestService.sendHttpPost(generateDeleteEventObject(eventStatus), "http://localhost:8080/api/deleteInvite"); //TODO: remove invite from user
+                response = httpRequestService.sendHttpPost(generateDeleteEventObject(eventStatus), "http://localhost:8080/api/deleteInvite"); //TODO: remove invite from user
             }
             
             int statusCode = response.getStatusLine().getStatusCode();
