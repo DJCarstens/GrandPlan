@@ -214,10 +214,9 @@ public class ClientEventService {
     }
 
     public String transferEvent(EventStatus eventStatus, Model model){
-        JSONObject jsonObject = generateJsonObject(
-            new ArrayList<String>(){{add("hostUsername");}}, 
-            new ArrayList<String>(){{add(eventStatus.getHostUsername());}}
-        );
+        HashMap<String, String> hashMap = getEventHashMap(eventStatus.getEventId());
+        hashMap.put("hostUsername", eventStatus.getHostUsername());
+        JSONObject jsonObject = new JSONObject(hashMap);
 
         try{
             response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/updateEvent");
