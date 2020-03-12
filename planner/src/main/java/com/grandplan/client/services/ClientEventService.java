@@ -50,7 +50,7 @@ public class ClientEventService {
                 return addModelAttributes(model);
             }
             
-            model.addAttribute(EVENTS, generateResponse(responseBody));
+            model.addAttribute(Constants.EVENTS, generateResponse(responseBody));
             return addModelAttributes(model);
         }
         catch(Exception exception){
@@ -70,9 +70,7 @@ public class ClientEventService {
                 JSONObject obj = (JSONObject) item;
                 events.add(generateEventObject(obj));
             });
-            
-            model.addAttribute(Constants.EVENTS, events);
-            return addModelAttributes(model);
+            return events;
         }
         catch(Exception exception){
             return events;
