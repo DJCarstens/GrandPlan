@@ -37,9 +37,10 @@ public class ClientEventService {
     private CloseableHttpResponse response;
 
     public String getUserEvents(User user, Model model){
-        HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("email", user.getEmail());
-        JSONObject jsonObject = new JSONObject(hashMap);
+        JSONObject jsonObject = generateJsonObject(
+            new ArrayList<String>(){{add("email");}}, 
+            new ArrayList<String>(){{add(user.getEmail());}}
+        );
 
         try{
             response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/getUserEvents");
@@ -140,16 +141,28 @@ public class ClientEventService {
     }
 
     private JSONObject generateEventHashMapObject(NewEvent newEvent){
-        HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("title", newEvent.getTitle());
-        hashMap.put("description", newEvent.getDescription());
-        hashMap.put("start", newEvent.getStart());
-        hashMap.put("end", newEvent.getEnd());
-        hashMap.put("allDay", newEvent.getAllDay().toString());
-        hashMap.put("color", newEvent.getColor());
-        hashMap.put("hostUsername", clientLoginService.getCurrentUser().getEmail());
-        hashMap.put("tag", newEvent.getTag());
-        return new JSONObject(hashMap);
+        return generateJsonObject(
+            new ArrayList<String>(){{
+                add("title");
+                add("description");
+                add("start");
+                add("end");
+                add("allDay");
+                add("color");
+                add("hostUsername");
+                add("tag");
+            }}, 
+            new ArrayList<String>(){{
+                add(newEvent.getTitle());
+                add(newEvent.getDescription());
+                add(newEvent.getStart());
+                add(newEvent.getEnd());
+                add(newEvent.getAllDay().toString());
+                add(newEvent.getColor());
+                add(clientLoginService.getCurrentUser().getEmail());
+                add(newEvent.getTag());
+            }}
+        );
     }
 
     private Boolean createEventInvites(CloseableHttpResponse response, NewEvent newEvent) throws ParseException, IOException{
@@ -194,16 +207,17 @@ public class ClientEventService {
     }
 
     private JSONObject generateDeleteEventObject(EventStatus eventStatus){
-        HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("id", eventStatus.getEventId());
-        hashMap.put("userEmail", eventStatus.getHostUsername());
-        return new JSONObject(hashMap);
+        return generateJsonObject(
+            new ArrayList<String>(){{add("id"); add("userEmail");}}, 
+            new ArrayList<String>(){{add(eventStatus.getEventId()); add(eventStatus.getHostUsername());}}
+        );
     }
 
     public String transferEvent(EventStatus eventStatus, Model model){
-        HashMap<String,String> hashMap = getEventHashMap(eventStatus.getEventId());
-        hashMap.put("hostUsername", eventStatus.getHostUsername());
-        JSONObject jsonObject = new JSONObject(hashMap);
+        JSONObject jsonObject = generateJsonObject(
+            new ArrayList<String>(){{add("hostUsername");}}, 
+            new ArrayList<String>(){{add(eventStatus.getHostUsername());}}
+        );
 
         try{
             response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/updateEvent");
@@ -223,6 +237,14 @@ public class ClientEventService {
             showModal(model, "Something went wrong transferring this event. Please try again later.", "");
             return getUserEvents(clientLoginService.getCurrentUser(), model);
         }
+    }
+
+    private JSONObject generateJsonObject(List<String> keys, List<String> values){
+        HashMap<String,String> hashMap = new HashMap<>();
+        for(int i = 0; i < keys.size(); i++){
+            hashMap.put(keys.get(i), values.get(i));
+        }
+        return new JSONObject(hashMap);
     }
 
     public void showModal(Model model, String message, String button) {
