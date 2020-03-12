@@ -77,7 +77,7 @@ public class ClientInviteService {
         );
 
         try{
-            response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/getEventById");
+            response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/getUnacceptedUserInvites");
             String responseBody = EntityUtils.toString(response.getEntity());
             JSONParser parser = new JSONParser();
             Object object = parser.parse(responseBody);
