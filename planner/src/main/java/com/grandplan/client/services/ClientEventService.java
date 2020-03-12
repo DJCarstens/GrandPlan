@@ -49,6 +49,8 @@ public class ClientEventService {
                 return addModelAttributes(model);
             }
             
+            model.addAttribute("delete", new Event());
+            model.addAttribute("transfer", new Event());
             model.addAttribute(Constants.EVENTS, generateResponse(responseBody));
             return addModelAttributes(model);
         }
@@ -184,7 +186,6 @@ public class ClientEventService {
                 return false;
             }
         }
-
         return true;
     }
 
@@ -194,7 +195,7 @@ public class ClientEventService {
                 response = httpRequestService.sendHttpPost(generateDeleteEventObject(event), "http://localhost:8080/api/deleteEvent");
             }
             else{
-                response = httpRequestService.sendHttpPost(generateDeleteEventObject(event), "http://localhost:8080/api/deleteInvite"); //TODO: remove invite from user
+                response = httpRequestService.sendHttpPost(generateDeleteEventObject(event), "http://localhost:8080/api/deleteInvite");
             }
             
             int statusCode = response.getStatusLine().getStatusCode();
@@ -231,7 +232,6 @@ public class ClientEventService {
 
             if (statusCode == 200){
                 showModal(model, "Successfully transferred event", "");
-                //TODO: delete invite from user;
             }             
             else{
                 showModal(model, "Could not transfer event. Please try again later.", "");

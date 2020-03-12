@@ -7,10 +7,10 @@ import com.grandplan.util.LoginUser;
 import com.grandplan.util.SignupUser;
 import com.grandplan.util.NewEvent;
 import com.grandplan.util.Constants;
-
-import com.grandplan.util.User;
 import com.grandplan.util.Event;
+import com.grandplan.util.User;
 import com.grandplan.util.Invite;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
