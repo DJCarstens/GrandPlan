@@ -53,13 +53,13 @@
                         <div class="title col-lg-2 col-md-2 col-sm-2 col-xs-2 buttons">
                             <form autocomplete="off" action="acceptInvite" method="post" th:object="${accept}"
                                 role="form" style="display: inline;">
-                                <input type="hidden" th:value="${invite.id}" id="inviteId" name="inviteId" />
+                                <input type="hidden" th:value="${invite.id}" id="id" name="id" />
                                 <button type="submit" class="button"
                                     style="background-color: rgb(0, 150, 177)">Accept</button>
                             </form>
                             <form autocomplete="off" action="declineInvite" method="post" th:object="${decline}"
                                 role="form" style="display: inline;">
-                                <input type="hidden" th:value="${invite.id}" id="inviteId" name="inviteId" />
+                                <input type="hidden" th:value="${invite.id}" id="id" name="id" />
                                 <button type="submit" class="button">Decline</button>
                             </form>
                         </div>
