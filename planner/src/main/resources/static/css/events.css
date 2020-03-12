@@ -31,6 +31,7 @@
 .no-events{
   margin: auto;
   z-index: 2000;
+  margin-top: 5%;
   text-align: center;
 }
 
