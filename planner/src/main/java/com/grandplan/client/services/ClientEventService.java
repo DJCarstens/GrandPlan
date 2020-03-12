@@ -49,11 +49,23 @@ public class ClientEventService {
                 model.addAttribute("noEvents", "You currently have no events");
                 return addModelAttributes(model);
             }
+            
+            model.addAttribute(EVENTS, generateResponse(responseBody));
+            return addModelAttributes(model);
+        }
+        catch(Exception exception){
+            model.addAttribute("noEvents", "Your events could not be loaded");
+            showModal(model, "Something went wrong when getting your events. Please try again later.", "");
+            return addModelAttributes(model);
+        }
+    }
 
+    private List<Event> generateResponse(String responseBody){
+        List<Event> events = new ArrayList<>();
+        try{
             JSONParser parser = new JSONParser();
             Object object = parser.parse(responseBody);
             JSONArray jsonArray = (JSONArray) object;
-            List<Event> events = new ArrayList<>();
             jsonArray.forEach(item -> {
                 JSONObject obj = (JSONObject) item;
                 events.add(generateEventObject(obj));
@@ -63,9 +75,7 @@ public class ClientEventService {
             return addModelAttributes(model);
         }
         catch(Exception exception){
-            model.addAttribute("noEvents", "Your events could not be loaded");
-            showModal(model, "Something went wrong when getting your events. Please try again later.", "");
-            return addModelAttributes(model);
+            return events;
         }
     }
 
@@ -187,7 +197,7 @@ public class ClientEventService {
                 response = httpRequestService.sendHttpPost(generateDeleteEventObject(eventStatus), "http://localhost:8080/api/deleteEvent");
             }
             else{
-                httpRequestService.sendHttpPost(generateDeleteEventObject(eventStatus), "http://localhost:8080/api/deleteInvite"); //TODO: remove invite from user
+                response = httpRequestService.sendHttpPost(generateDeleteEventObject(eventStatus), "http://localhost:8080/api/deleteInvite"); //TODO: remove invite from user
             }
             
             int statusCode = response.getStatusLine().getStatusCode();
