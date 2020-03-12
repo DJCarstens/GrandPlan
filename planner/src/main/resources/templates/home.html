@@ -35,6 +35,11 @@
             return day + ' ' + monthNames[monthIndex] + ' ' + year;
         }
         $(document).ready(function () {
+            $('.tabs li').click(function () {
+                $('li', $(this).parent()).removeClass('active');
+                $(this).addClass('active');
+            });
+
             var calendar = $("#calendar").fullCalendar({
                 header: {
                     left: 'prev,next today',

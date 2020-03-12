@@ -91,6 +91,13 @@
     function closeModal() {
         $('#modal').css('display', 'none');
     }
+
+    $(document).ready(function () {
+        $('.tabs li').click(function () {
+            $('li', $(this).parent()).removeClass('active');
+            $(this).addClass('active');
+        });
+    });
 </script>
 
 </html>
