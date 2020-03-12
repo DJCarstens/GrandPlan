@@ -45,6 +45,7 @@ public class ClientInviteService {
             response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/getUnacceptedUserInvites");
             String responseBody = EntityUtils.toString(response.getEntity());
             if(responseBody.equals("[]")){
+                model.addAttribute("user", clientLoginService.getCurrentUser());
                 model.addAttribute("noInvites", "You currently have no events");
                 return Constants.INVITES;
             }
