@@ -42,8 +42,12 @@
                             <p>Date: <label th:text="${invite.event.start.substring(0, 10)}"></label></p>
                         </div>
                         <div class="title col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                            <p>Time: <label th:text="${invite.event.start.substring(11, 19)}"></label>-<label
+                            <p th:if="${invite.event.allDay}">Time: <label
+                                    th:text="${invite.event.start.substring(11, 19)}"></label>-<label
                                     th:text="${invite.event.end.substring(11, 19)}"></label>
+                            </p>
+                            <p th:if="${!invite.event.allDay}">All day event starting at: <label
+                                    th:text="${invite.event.start.substring(11, 19)}"></label>
                             </p>
                         </div>
                         <div class="title col-lg-2 col-md-2 col-sm-2 col-xs-2">

@@ -41,10 +41,14 @@
                                 <label class="item-heading">Date: &nbsp</label><label
                                     th:text="${(event.start).substring(0, 10)}"></label>
                             </div>
-                            <div>
+                            <div th:if="${event.allDay}">
                                 <label class="item-heading">Time: &nbsp</label><label><label
                                         th:text="${event.start.substring(11, 19)}"></label> -
                                     <label th:text="${event.end.substring(11, 19)}"></label></label>
+                            </div>
+                            <div th:if="${!event.allDay}">
+                                <label class="item-heading">All day event starting at: </label><label><label
+                                        th:text="${event.start.substring(11, 19)}"></label>
                             </div>
                             <br />
                             <div>
