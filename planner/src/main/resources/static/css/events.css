@@ -104,13 +104,14 @@ em:hover{
 }
 
 .delete-button{
-  width: 80%;
+  width: 100%;
   color: white;
   background-color: #C72F2E;
   border: none;
   border-radius: 0.3125rem;
   padding: 2%;
   margin-top: 2%;
+  font-size: 2rem;
 }
 
 .delete-button:hover, .transfer-event:hover{
@@ -119,13 +120,14 @@ em:hover{
 }
 
 .cancel-button{
-  width: 35%;
+  width: 50%;
   color: black;
   background-color: rgb(165, 165, 165);
   border: none;
   border-radius: 0.3125rem;
-  padding: 0.8%;
-  margin-top: 2%;
+  padding: 0.9%;
+  margin-top: 3%;
+  font-size: 1.4rem;
 }
 
 .cancel-delete-button{
