@@ -8,4 +8,9 @@
   "inviteId" : 2,
   "accepted" : false,
   "userId" : 6
+}, {
+  "eventId" : 3,
+  "inviteId" : 3,
+  "accepted" : false,
+  "userId" : 3
 } ]
