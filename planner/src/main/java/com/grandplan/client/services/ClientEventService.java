@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.grandplan.client.util.Constants;
+import com.grandplan.util.Constants;
 import com.grandplan.util.NewEvent;
 import com.grandplan.util.Event;
 import com.grandplan.util.User;

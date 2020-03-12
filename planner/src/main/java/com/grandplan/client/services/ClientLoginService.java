@@ -9,7 +9,7 @@ import org.json.simple.parser.ParseException;
 import com.grandplan.util.LoginUser;
 import com.grandplan.util.SignupUser;
 import com.grandplan.util.User;
-import com.grandplan.client.util.Constants;
+import com.grandplan.util.Constants;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;

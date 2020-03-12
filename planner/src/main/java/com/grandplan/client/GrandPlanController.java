@@ -6,7 +6,7 @@ import com.grandplan.client.services.ClientLoginService;
 import com.grandplan.util.LoginUser;
 import com.grandplan.util.SignupUser;
 import com.grandplan.util.NewEvent;
-import com.grandplan.client.util.Constants;
+import com.grandplan.util.Constants;
 
 import com.grandplan.util.User;
 import com.grandplan.util.Event;
@@ -49,6 +49,10 @@ public class GrandPlanController {
 
     @GetMapping("/login")
     public String login(Model model) {
+        if (clientLoginService.getCurrentUser() != null) {
+            model.addAttribute("user", clientLoginService.getCurrentUser());
+            return Constants.HOME;
+        }
         model.addAttribute("loginUser", new LoginUser());
         return Constants.LOGIN;
     }
