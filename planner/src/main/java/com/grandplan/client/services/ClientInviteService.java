@@ -72,7 +72,7 @@ public class ClientInviteService {
 
     private Invite getInvite(Long inviteId, Boolean accepted){
         JSONObject jsonObject = generateJsonObject(
-            new ArrayList<String>(){{add("eventId");}},
+            new ArrayList<String>(){{add("inviteId");}},
             new ArrayList<String>(){{add(inviteId.toString());}}
         );
 
