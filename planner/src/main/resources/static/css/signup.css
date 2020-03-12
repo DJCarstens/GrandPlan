@@ -1,0 +1,82 @@
+.signup-container{
+    margin: auto;
+    margin-top: 5%;
+    position: relative;
+}
+
+.signup-form{
+    padding: 9%;
+    background: white;
+    box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2), 0 0.5625rem 1.625rem 0 rgba(0, 0, 0, 0.19);
+    height: 70rem;
+    padding-top: 4%;
+}
+
+.img{
+    padding: 9%;
+    background-image: url("../../images/abstract-background-design_1297-82.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2), 0 0.5625rem 1.625rem 0 rgba(0, 0, 0, 0.19);
+    position: relative;
+    height: 70rem;
+}
+
+.logo{
+    background-image: url("../../images/logo.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 30rem;
+    height: 8rem;
+}
+
+.hive-image{
+    width: 38%;
+    height: 16%;
+    background-image: url("../../images/hive.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    float: none;
+    margin: 0 auto;
+    margin-top: 7%;
+}
+
+.btnSubmit{
+    width: 80%;
+    color: white;
+    background-color: #C72F2E;
+    border: none;
+    border-radius: 0.3125rem;
+    padding: 2%;
+    margin-left: 11%;
+    margin-top: 2.5rem;
+}
+
+.btnSubmit:hover{
+    color: white;
+    box-shadow: 0 0.3125rem 0.5rem 0 rgba(0, 0, 0, 0.2), 0 0.5625rem 1.625rem 0 rgba(0, 0, 0, 0.19);
+}
+
+p{
+    color: grey;
+    text-align: center;
+    margin-top: 4%;
+}
+
+a{
+    color: grey;
+}
+
+a:hover{
+    color: grey;
+    text-decoration: none;
+    font-size: 1.6rem;
+}
+
+label{
+    color: red;
+}
+
+.center{
+    margin-left: 33%;
+}
