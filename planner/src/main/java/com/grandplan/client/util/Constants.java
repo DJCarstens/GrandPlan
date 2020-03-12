@@ -18,4 +18,5 @@ public abstract class Constants{
     public static final String ALLDAY = "allDay";
     public static final String COLOR = "color";
     public static final String TAG = "tag";
+    public static final String HOSTUSERNAME = "hostUsername";
 }

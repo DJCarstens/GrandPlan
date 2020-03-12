@@ -34,7 +34,7 @@ public class ClientInviteService {
 
     public String getInvites(User user, Model model){
         JSONObject jsonObject = generateJsonObject(
-            new ArrayList<String>(){{add("email");}}, 
+            new ArrayList<String>(){{add(Constants.EMAIL);}}, 
             new ArrayList<String>(){{add(user.getEmail());}}
         );
 
@@ -54,7 +54,7 @@ public class ClientInviteService {
                 JSONObject obj = (JSONObject) item;
                 // invites.add(getInviteByUserAndEvent(json));
                 System.out.println(obj);
-                getInvite(Long.parseLong(obj.get("id").toString()));
+                getInvite(Long.parseLong(obj.get(Constants.ID).toString()));
             });
 
             // model.addAttribute(INVITES, responseBody);

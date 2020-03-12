@@ -78,8 +78,8 @@ public class ClientEventService {
         .end(jsonObject.get(Constants.END).toString())
         .tag(jsonObject.get(Constants.TAG).toString())
         .color(jsonObject.get(Constants.COLOR).toString())
-        .hostUsername(jsonObject.get("hostUsername").toString())
-        .allDay(Boolean.parseBoolean(jsonObject.get("allDay").toString()))
+        .hostUsername(jsonObject.get(Constants.HOSTUSERNAME).toString())
+        .allDay(Boolean.parseBoolean(jsonObject.get(Constants.ALLDAY).toString()))
         .build();
     }
 
@@ -101,15 +101,15 @@ public class ClientEventService {
             JSONParser parser = new JSONParser();
             JSONObject obj = (JSONObject) parser.parse(responseBody);
             hashMap.clear();
-            hashMap.put("id", obj.get("id").toString());
-            hashMap.put("title", obj.get("title").toString());
-            hashMap.put("description", obj.get("description").toString());
-            hashMap.put("start", obj.get("start").toString());
-            hashMap.put("end", obj.get("end").toString());
-            hashMap.put("tag", obj.get("tag").toString());
-            hashMap.put("color", obj.get("color").toString());
-            hashMap.put("hostUsername", obj.get("hostUsername").toString());
-            hashMap.put("allDay", obj.get("allDay").toString());
+            hashMap.put(Constants.ID, obj.get(Constants.ID).toString());
+            hashMap.put(Constants.TITLE, obj.get(Constants.TITLE).toString());
+            hashMap.put(Constants.DESCRIPTION, obj.get(Constants.DESCRIPTION).toString());
+            hashMap.put(Constants.START, obj.get(Constants.START).toString());
+            hashMap.put(Constants.END, obj.get(Constants.END).toString());
+            hashMap.put(Constants.TAG, obj.get(Constants.TAG).toString());
+            hashMap.put(Constants.COLOR, obj.get(Constants.COLOR).toString());
+            hashMap.put(Constants.HOSTUSERNAME, obj.get(Constants.HOSTUSERNAME).toString());
+            hashMap.put(Constants.ALLDAY, obj.get(Constants.ALLDAY).toString());
             return hashMap;
         }
         catch(Exception exception){
@@ -143,14 +143,14 @@ public class ClientEventService {
     private JSONObject generateEventHashMapObject(NewEvent newEvent){
         return generateJsonObject(
             new ArrayList<String>(){{
-                add("title");
-                add("description");
-                add("start");
-                add("end");
-                add("allDay");
-                add("color");
-                add("hostUsername");
-                add("tag");
+                add(Constants.TITLE);
+                add(Constants.DESCRIPTION);
+                add(Constants.START);
+                add(Constants.END);
+                add(Constants.ALLDAY);
+                add(Constants.COLOR);
+                add(Constants.HOSTUSERNAME);
+                add(Constants.TAG);
             }}, 
             new ArrayList<String>(){{
                 add(newEvent.getTitle());
@@ -169,7 +169,7 @@ public class ClientEventService {
         String responseBody = EntityUtils.toString(response.getEntity());
         JSONParser parser = new JSONParser();
         JSONObject json = (JSONObject) parser.parse(responseBody);
-        Long eventId = (Long) json.get("id");
+        Long eventId = (Long) json.get(Constants.ID);
 
         String[] members = newEvent.getMembers().split(",");
         for(int i = 1; i < members.length; i++){
@@ -208,14 +208,14 @@ public class ClientEventService {
 
     private JSONObject generateDeleteEventObject(EventStatus eventStatus){
         return generateJsonObject(
-            new ArrayList<String>(){{add("id"); add("userEmail");}}, 
+            new ArrayList<String>(){{add(Constants.ID); add("userEmail");}}, 
             new ArrayList<String>(){{add(eventStatus.getEventId()); add(eventStatus.getHostUsername());}}
         );
     }
 
     public String transferEvent(EventStatus eventStatus, Model model){
         HashMap<String, String> hashMap = getEventHashMap(eventStatus.getEventId());
-        hashMap.put("hostUsername", eventStatus.getHostUsername());
+        hashMap.put(Constants.HOSTUSERNAME, eventStatus.getHostUsername());
         JSONObject jsonObject = new JSONObject(hashMap);
 
         try{
