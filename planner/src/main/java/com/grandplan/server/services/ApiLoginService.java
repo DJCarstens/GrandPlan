@@ -53,8 +53,7 @@ public class ApiLoginService {
         return userRepo.getUserByEmail(user.getEmail());
     }
 
-    public User getUserByEmail(String email)
-    {
+    public User getUserByEmail(String email){
         return userRepo.getUserByEmail(email);
     }
 

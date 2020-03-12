@@ -35,8 +35,7 @@ public class ApiInviteService {
         return inviteRepo.findInvitesByEvent(id);
     }
 
-    public Invite getUserEventInvite(String email, Long id)
-    {
+    public Invite getUserEventInvite(String email, Long id){
         return inviteRepo.findInviteByEventAndUser(email, id);
     }
 

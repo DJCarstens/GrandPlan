@@ -55,6 +55,11 @@ public class ServerController {
         return new ResponseEntity<>(httpHeaders, HttpStatus.NOT_FOUND);
     }
 
+    @PostMapping("/getUserByEmail")
+    public ResponseEntity<User> getUserByEmail(@RequestBody UserStatus userStatus){
+        return ResponseEntity.ok(apiLoginService.getUserByEmail(userStatus.getEmail()));
+    }
+
     @GetMapping("/listUsers") //view users that are currently stored in the repository
     public ResponseEntity<List<User>> listUsers() {
         return ResponseEntity.ok(apiLoginService.getUsers());
@@ -142,7 +147,7 @@ public class ServerController {
 
     @PostMapping("/getInviteByUserAndEvent")
     public ResponseEntity<Invite> getInviteByUserAndEvent(@RequestBody UserEventQuery userEventQuery){
-        return ResponseEntity.ok(apiInviteService.getUserEventInvite(userEventQuery.getUser().getEmail(), userEventQuery.getEvent().getId()));
+        return ResponseEntity.ok(apiInviteService.getUserEventInvite(userEventQuery.getEmail(), Long.parseLong(userEventQuery.getEventId())));
     }
 
     @GetMapping("/listInvites")
