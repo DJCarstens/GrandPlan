@@ -17,10 +17,10 @@ public interface EventRepo extends JpaRepository<Event, Long> {
 
     @Query("SELECT e " +
             "FROM Event as e, User as u, Invite as i " +
-            "WHERE u.email = ?1 " +
+            "WHERE u.email = :email " +
                 "AND i.event.id = e.id " +
                 "AND i.user.id = u.id")
-    public Set<Event> findEventsByUserEmail(String email);
+    public Set<Event> findEventsByUserEmail(@Param("email") String email);
 
     @Transactional
     @Modifying
