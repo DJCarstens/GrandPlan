@@ -15,6 +15,9 @@ public interface EventRepo extends JpaRepository<Event, Long> {
 
     public Event findEventById(Long id);
 
+    @Query("SELECT e FROM Event as e, Invite as i WHERE i.event.id = e.id AND i.id = :inviteId")
+    public Event findEventByInvite_id(@Param("inviteId") Long inviteId);
+
     @Query("SELECT e " +
             "FROM Event as e, User as u, Invite as i " +
             "WHERE u.email = :email " +

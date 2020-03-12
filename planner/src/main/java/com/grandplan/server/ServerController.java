@@ -143,6 +143,11 @@ public class ServerController {
         return ResponseEntity.ok(apiInviteService.getEventInvites(event.getId()));
     }
 
+    @PostMapping("/getEventByInviteId")
+    public ResponseEntity<Event> getEventByInviteId(@RequestBody Invite invite) {
+        return ResponseEntity.ok(apiEventService.getEventByInviteId(invite.getId()));
+    }
+
     @PostMapping("/getInviteByUserAndEvent")
     public ResponseEntity<Invite> getInviteByUserAndEvent(@RequestBody UserEventQuery userEventQuery){
         return ResponseEntity.ok(apiInviteService.getUserEventInvite(userEventQuery.getEmail(), Long.parseLong(userEventQuery.getEventId())));
