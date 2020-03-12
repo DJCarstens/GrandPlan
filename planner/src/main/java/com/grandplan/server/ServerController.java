@@ -243,21 +243,9 @@ public class ServerController {
     }
 
     @PostMapping("/getUserEventsByEmail")
-    public ResponseEntity<String> getUserEventsByEmail(@RequestBody String email) {
-        String jsonEvents = null;
-        try {
-            List<Event> events = new ArrayList<>();
-            Set<Event> setEvents = apiEventService.getUserEvents(email);
-            for (Event event : setEvents) {
-                events.add(event);
-            }
-            ObjectMapper mapper = new ObjectMapper();
-            jsonEvents = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(events);
-            System.out.println(jsonEvents);
-        } catch (IOException e) {
-            log.error(e.getMessage());
-        }
-        return ResponseEntity.ok(jsonEvents);
+    public ResponseEntity<Set<Event>> getUserEventsByEmail(@RequestBody JSONObject data) {
+        System.out.println("GETTING EVENTS FOR: " + data.get("email").toString());
+        return ResponseEntity.ok(apiEventService.getUserEvents(data.get("email").toString()));
     }
 
 }

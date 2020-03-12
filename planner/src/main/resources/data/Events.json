@@ -2,9 +2,9 @@
   "allDay" : true,
   "color" : "red",
   "hostUsername" : "lindama@bbd.co.za",
-  "start" : "18/03/2020 12:00 PM",
+  "start" : "2020-03-18T12:00",
   "description" : "",
-  "end" : "18/03/2020  3:00 PM",
+  "end" : "2020-03-18T15:00",
   "id" : 1,
   "tag" : "",
   "title" : "Grad Meetup"
@@ -12,9 +12,9 @@
   "allDay" : false,
   "color" : "blue",
   "hostUsername" : "lindama@bbd.co.za",
-  "start" : "18/03/2020 12:00 PM",
+  "start" : "2020-03-18T12:00",
   "description" : "",
-  "end" : "18/03/2020  1:00 PM",
+  "end" : "2020-03-18T13:00",
   "id" : 2,
   "tag" : "",
   "title" : "Test Event"
