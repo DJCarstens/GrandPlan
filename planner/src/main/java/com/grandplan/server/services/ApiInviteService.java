@@ -96,7 +96,7 @@ public class ApiInviteService {
             jsonObject.put("accepted", inv.getAccepted());
             jsonObjects.add(jsonObject);
         }
-        try (FileWriter file = new FileWriter("src/main/resources/data/Invites.json", false)) {
+        try (FileWriter file = new FileWriter("src/main/resources/data/Invites2.json", false)) {
             //false indicates that Invites.json will get overridden with the current user data
             String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObjects);
             file.write(indented);

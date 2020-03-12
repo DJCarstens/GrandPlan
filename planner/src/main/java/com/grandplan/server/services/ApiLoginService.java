@@ -70,7 +70,7 @@ public class ApiLoginService {
             jsonObject.put("phone", user.getPhone());
             jsonObjects.add(jsonObject);
         }
-        try (FileWriter file = new FileWriter("src/main/resources/data/Users.json", false)) {
+        try (FileWriter file = new FileWriter("src/main/resources/data/Users2.json", false)) {
             //false indicates that Users.json will get overridden with the current user data
             String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObjects);
             file.write(indented);
