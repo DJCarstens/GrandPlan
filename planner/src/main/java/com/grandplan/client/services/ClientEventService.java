@@ -8,7 +8,6 @@ import java.util.List;
 import com.grandplan.util.Constants;
 import com.grandplan.util.NewEvent;
 import com.grandplan.util.Event;
-import com.grandplan.util.EventStatus;
 import com.grandplan.util.User;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -50,6 +49,8 @@ public class ClientEventService {
                 return addModelAttributes(model);
             }
             
+            model.addAttribute("delete", new Event());
+            model.addAttribute("transfer", new Event());
             model.addAttribute(Constants.EVENTS, generateResponse(responseBody));
             return addModelAttributes(model);
         }
@@ -185,17 +186,16 @@ public class ClientEventService {
                 return false;
             }
         }
-
         return true;
     }
 
-    public String deleteEvent(EventStatus event, Model model){
+    public String deleteEvent(Event event, Model model){
         try{
             if(event.getHostUsername().equals(clientLoginService.getCurrentUser().getEmail())){
                 response = httpRequestService.sendHttpPost(generateDeleteEventObject(event), "http://localhost:8080/api/deleteEvent");
             }
             else{
-                response = httpRequestService.sendHttpPost(generateDeleteEventObject(event), "http://localhost:8080/api/deleteInvite"); //TODO: remove invite from user
+                response = httpRequestService.sendHttpPost(generateDeleteEventObject(event), "http://localhost:8080/api/deleteInvite");
             }
             
             int statusCode = response.getStatusLine().getStatusCode();
@@ -214,15 +214,15 @@ public class ClientEventService {
         }
     }
 
-    private JSONObject generateDeleteEventObject(EventStatus event){
+    private JSONObject generateDeleteEventObject(Event event){
         return generateJsonObject(
             new ArrayList<String>(){{add(Constants.ID); add("userEmail");}},
-            new ArrayList<String>(){{add(event.getEventId()); add(event.getHostUsername());}}
+            new ArrayList<String>(){{add(event.getId().toString()); add(event.getHostUsername());}}
         );
     }
 
-    public String transferEvent(EventStatus event, Model model){
-        HashMap<String, String> hashMap = getEventHashMap(event.getEventId().toString());
+    public String transferEvent(Event event, Model model){
+        HashMap<String, String> hashMap = getEventHashMap(event.getId().toString());
         hashMap.put(Constants.HOSTUSERNAME, event.getHostUsername());
         JSONObject jsonObject = new JSONObject(hashMap);
 
@@ -232,7 +232,6 @@ public class ClientEventService {
 
             if (statusCode == 200){
                 showModal(model, "Successfully transferred event", "");
-                //TODO: delete invite from user;
             }             
             else{
                 showModal(model, "Could not transfer event. Please try again later.", "");

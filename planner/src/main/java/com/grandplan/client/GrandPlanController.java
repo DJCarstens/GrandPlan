@@ -7,12 +7,9 @@ import com.grandplan.util.LoginUser;
 import com.grandplan.util.SignupUser;
 import com.grandplan.util.NewEvent;
 import com.grandplan.util.Constants;
-
-import com.grandplan.util.User;
 import com.grandplan.util.Event;
-import com.grandplan.util.EventStatus;
+import com.grandplan.util.User;
 import com.grandplan.util.Invite;
-import com.grandplan.util.InviteStatus;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -104,12 +101,12 @@ public class GrandPlanController {
     }
 
     @PostMapping("/deleteEvent")
-    public String deleteEvent(@ModelAttribute("delete") EventStatus event, Model model){
+    public String deleteEvent(@ModelAttribute("delete") Event event, Model model){
         return clientEventService.deleteEvent(event, model);
     }
 
     @PostMapping("/transferEvent")
-    public String transferEvent(@ModelAttribute("transfer") EventStatus event, Model model){
+    public String transferEvent(@ModelAttribute("transfer") Event event, Model model){
         return clientEventService.transferEvent(event, model);
     }
 
@@ -119,14 +116,12 @@ public class GrandPlanController {
     }
 
     @PostMapping("/acceptInvite")
-    public String acceptInvite(@ModelAttribute("accept") InviteStatus acceptInvite, Model model){
-        System.out.println("HERE");
-        System.out.println(acceptInvite);
+    public String acceptInvite(@ModelAttribute("accept") Invite acceptInvite, Model model){
         return clientInviteService.acceptInvite(acceptInvite, model);
     }
 
     @PostMapping("/declineInvite")
-    public String declineInvite(@ModelAttribute("decline") InviteStatus declineInvite, Model model){
+    public String declineInvite(@ModelAttribute("decline") Invite declineInvite, Model model){
         return clientInviteService.declineInvite(declineInvite, model);
     }
 
