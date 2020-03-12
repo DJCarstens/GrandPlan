@@ -1,4 +1,4 @@
-package com.grandplan.client.util;
+package com.grandplan.util;
 
 public abstract class Constants{
     public static final String LOGIN = "login";
