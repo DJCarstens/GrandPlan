@@ -52,6 +52,11 @@ public class GrandPlanController {
 
     @GetMapping("/")
     public String home(Model model){
+        if(clientLoginService.getCurrentUser() == null){
+            model.addAttribute("loginUser", new LoginUser());
+            return Constants.LOGIN;
+        }
+        
         model.addAttribute("user", clientLoginService.getCurrentUser());
         return Constants.HOME;
     }

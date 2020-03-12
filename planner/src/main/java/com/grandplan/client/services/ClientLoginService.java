@@ -28,7 +28,7 @@ public class ClientLoginService {
     @Autowired
     private HttpRequestService httpRequestService;  
 
-    private User currentUser;
+    private User currentUser = null;
     private CloseableHttpResponse response;
 
     private static final String LOGIN_ERROR = "Something went wrong with the login process. Please try again.";
@@ -105,7 +105,7 @@ public class ClientLoginService {
             response = httpRequestService.sendHttpPost(generateSignupObject(signupUser), "http://localhost:8080/api/addUser");
             int statusCode = response.getStatusLine().getStatusCode();
             if(statusCode == 409){
-                showModal(model, "An account for " + signupUser.getEmail() + " already exists. Please check your signup details and try again, or login if you have an account.", LOGIN);
+                showModal(model, "An account for " + signupUser.getEmail() + " already exists. Please check your signup details and try again, or login if you have an account.", Constants.LOGIN);
                 return Constants.SIGNUP;
             }
 
