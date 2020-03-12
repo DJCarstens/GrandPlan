@@ -53,7 +53,7 @@ public class ServerController {
     }
 
     @PostMapping("/getUserByEmail")
-    public ResponseEntity<User> getUserByEmail(@RequestBody UserStatus userStatus){
+    public ResponseEntity<User> getUserByEmail(@RequestBody User userStatus){
         return ResponseEntity.ok(apiLoginService.getUserByEmail(userStatus.getEmail()));
     }
 
