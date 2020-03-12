@@ -9,6 +9,7 @@ import com.grandplan.client.util.LoginUser;
 import com.grandplan.client.util.SignupUser;
 import com.grandplan.client.util.NewEvent;
 
+import com.grandplan.util.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +35,20 @@ public class GrandPlanController {
 
     @Autowired
     private ClientInviteService clientInviteService;
+
+
+    @GetMapping("/redirect")
+    public String redirect(Model model) {
+        User user = clientLoginService.getCurrentUser();
+        if(user == null){
+            model.addAttribute("loginUser", new LoginUser());
+            return LOGIN;
+        }
+        else{
+            model.addAttribute("user", clientLoginService.getCurrentUser());
+            return HOME;
+        }
+    }
 
     @GetMapping("/login")
     public String login(Model model) {
