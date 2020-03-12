@@ -27,6 +27,10 @@ public class ApiEventService {
         return eventRepo.findEventById(id);
     }
 
+    public Event getEventByInviteId(Long inviteId) {
+        return eventRepo.findEventByInvite_id(inviteId);
+    }
+
     public List<Event> getEvents() {
         return eventRepo.findAll();
     }
