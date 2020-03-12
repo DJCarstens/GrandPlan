@@ -73,6 +73,7 @@ public class ClientLoginService {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(response);
         JSONObject jsonBody = (JSONObject) obj;
+
         return User.builder()
             .id(Long.parseLong(jsonBody.get(Constants.ID).toString()))
             .email(jsonBody.get(Constants.EMAIL).toString())
@@ -120,6 +121,21 @@ public class ClientLoginService {
         catch(IOException exception){
             showModal(model, SIGNUP_ERROR, "");
             return Constants.SIGNUP;
+        }
+    }
+
+    public User getUserByEmail(String email){
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("email", email);
+        JSONObject jsonObject = new JSONObject(hashMap);
+
+        try{
+            response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/getUserByEmail");
+            String responseBody = EntityUtils.toString(response.getEntity());
+            return getUserInfo(responseBody);
+        }
+        catch(Exception exception){
+            return null;
         }
     }
 

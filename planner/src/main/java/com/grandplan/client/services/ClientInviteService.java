@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.grandplan.client.util.InviteStatus;
+import com.grandplan.util.Event;
 import com.grandplan.util.Invite;
 import com.grandplan.util.User;
 import com.grandplan.client.util.Constants;
@@ -29,6 +30,9 @@ public class ClientInviteService {
     @Autowired
     private ClientLoginService clientLoginService;
 
+    @Autowired
+    private ClientEventService clientEventService;
+
     private CloseableHttpResponse response;
     private static final String INVITE_ERROR = "Something went wrong when getting your invites. Please try again later.";
 
@@ -48,36 +52,48 @@ public class ClientInviteService {
 
             JSONParser parser = new JSONParser();
             Object object = parser.parse(responseBody);
+            System.out.println(object);
             JSONArray jsonArray = (JSONArray) object;
             List<Invite> invites = new ArrayList<>();
             jsonArray.forEach(item -> {
                 JSONObject obj = (JSONObject) item;
-                // invites.add(getInviteByUserAndEvent(json));
-                System.out.println(obj);
-                getInvite(Long.parseLong(obj.get(Constants.ID).toString()));
+                invites.add(getInvite(Long.parseLong(obj.get(Constants.ID).toString()), Boolean.parseBoolean(obj.get("accepted").toString())));
             });
 
-            // model.addAttribute(INVITES, responseBody);
-            // model.addAttribute("user", clientLoginService.getCurrentUser());
-            // return INVITES;
+            model.addAttribute(Constants.INVITES, invites);
+            model.addAttribute("user", clientLoginService.getCurrentUser());
+            return Constants.INVITES;
         }
         catch(Exception exception){
             showModal(model, INVITE_ERROR, "");
             model.addAttribute("user", clientLoginService.getCurrentUser());
             return Constants.INVITES;
         }
-
-        showModal(model, INVITE_ERROR, "");
-        model.addAttribute("user", clientLoginService.getCurrentUser());
-        return Constants.INVITES;
     }
 
-    private void getInvite(Long inviteId){
+    private Invite getInvite(Long inviteId, Boolean accepted){
+        JSONObject jsonObject = generateJsonObject(
+            new ArrayList<String>(){{add("eventId");}}, 
+            new ArrayList<String>(){{add(inviteId.toString());}}
+        );
+
         try{
-           
+            response = httpRequestService.sendHttpPost(jsonObject, "http://localhost:8080/api/getEventById");
+            String responseBody = EntityUtils.toString(response.getEntity());
+            JSONParser parser = new JSONParser();
+            Object object = parser.parse(responseBody);
+            JSONObject json = (JSONObject) object;
+            Event event = clientEventService.generateEventObject(json);
+            User user = clientLoginService.getUserByEmail(event.getHostUsername());
+            return Invite.builder()
+                .id(inviteId)
+                .accepted(accepted)
+                .event(event)
+                .user(user)
+                .build();
         }
         catch(Exception exception){
-            // return null;
+            return null;
         }
     }
 

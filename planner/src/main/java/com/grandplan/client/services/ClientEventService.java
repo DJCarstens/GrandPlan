@@ -69,7 +69,7 @@ public class ClientEventService {
         }
     }
 
-    private Event generateEventObject(JSONObject jsonObject){
+    public Event generateEventObject(JSONObject jsonObject){
         return Event.builder()
         .id(Long.parseLong(jsonObject.get(Constants.ID).toString()))
         .title(jsonObject.get(Constants.TITLE).toString())

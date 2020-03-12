@@ -55,6 +55,11 @@ public class ServerController {
         return new ResponseEntity<>(httpHeaders, HttpStatus.NOT_FOUND);
     }
 
+    @PostMapping("/getUserByEmail")
+    public ResponseEntity<User> getUserByEmail(@RequestBody UserStatus userStatus){
+        return ResponseEntity.ok(apiLoginService.getUserByEmail(userStatus.getEmail()));
+    }
+
     @GetMapping("/listUsers") //view users that are currently stored in the repository
     public ResponseEntity<List<User>> listUsers() {
         return ResponseEntity.ok(apiLoginService.getUsers());
