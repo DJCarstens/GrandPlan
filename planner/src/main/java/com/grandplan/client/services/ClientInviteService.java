@@ -8,6 +8,7 @@ import java.util.List;
 import com.grandplan.client.util.InviteStatus;
 import com.grandplan.util.Invite;
 import com.grandplan.util.User;
+import com.grandplan.client.util.Constants;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.util.EntityUtils;
@@ -29,7 +30,6 @@ public class ClientInviteService {
     private ClientLoginService clientLoginService;
 
     private CloseableHttpResponse response;
-    private static final String INVITES = "invites";
     private static final String INVITE_ERROR = "Something went wrong when getting your invites. Please try again later.";
 
     public String getInvites(User user, Model model){
@@ -43,7 +43,7 @@ public class ClientInviteService {
             String responseBody = EntityUtils.toString(response.getEntity());
             if(responseBody.equals("[]")){
                 model.addAttribute("noInvites", "You currently have no events");
-                return INVITES;
+                return Constants.INVITES;
             }
 
             JSONParser parser = new JSONParser();
@@ -64,12 +64,12 @@ public class ClientInviteService {
         catch(Exception exception){
             showModal(model, INVITE_ERROR, "");
             model.addAttribute("user", clientLoginService.getCurrentUser());
-            return INVITES;
+            return Constants.INVITES;
         }
 
         showModal(model, INVITE_ERROR, "");
         model.addAttribute("user", clientLoginService.getCurrentUser());
-        return INVITES;
+        return Constants.INVITES;
     }
 
     private void getInvite(Long inviteId){

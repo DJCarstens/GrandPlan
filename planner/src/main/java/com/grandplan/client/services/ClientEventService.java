@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.grandplan.client.util.Constants;
 import com.grandplan.client.util.EventStatus;
 import com.grandplan.client.util.NewEvent;
 import com.grandplan.util.Event;
@@ -33,12 +34,11 @@ public class ClientEventService {
     @Autowired
     private ClientInviteService clientInviteService;
 
-    private static final String EVENTS ="events";
     private CloseableHttpResponse response;
 
     public String getUserEvents(User user, Model model){
         JSONObject jsonObject = generateJsonObject(
-            new ArrayList<String>(){{add("email");}}, 
+            new ArrayList<String>(){{add(Constants.EMAIL);}}, 
             new ArrayList<String>(){{add(user.getEmail());}}
         );
 
@@ -59,7 +59,7 @@ public class ClientEventService {
                 events.add(generateEventObject(obj));
             });
             
-            model.addAttribute(EVENTS, events);
+            model.addAttribute(Constants.EVENTS, events);
             return addModelAttributes(model);
         }
         catch(Exception exception){
@@ -71,13 +71,13 @@ public class ClientEventService {
 
     private Event generateEventObject(JSONObject jsonObject){
         return Event.builder()
-        .id(Long.parseLong(jsonObject.get("id").toString()))
-        .title(jsonObject.get("title").toString())
-        .description(jsonObject.get("description").toString())
-        .start(jsonObject.get("start").toString())
-        .end(jsonObject.get("end").toString())
-        .tag(jsonObject.get("tag").toString())
-        .color(jsonObject.get("color").toString())
+        .id(Long.parseLong(jsonObject.get(Constants.ID).toString()))
+        .title(jsonObject.get(Constants.TITLE).toString())
+        .description(jsonObject.get(Constants.DESCRIPTION).toString())
+        .start(jsonObject.get(Constants.START).toString())
+        .end(jsonObject.get(Constants.END).toString())
+        .tag(jsonObject.get(Constants.TAG).toString())
+        .color(jsonObject.get(Constants.COLOR).toString())
         .hostUsername(jsonObject.get("hostUsername").toString())
         .allDay(Boolean.parseBoolean(jsonObject.get("allDay").toString()))
         .build();
@@ -87,7 +87,7 @@ public class ClientEventService {
         model.addAttribute("user", clientLoginService.getCurrentUser());
         model.addAttribute("delete", new EventStatus());
         model.addAttribute("transfer", new EventStatus());
-        return EVENTS;
+        return Constants.EVENTS;
     }
 
     private HashMap<String, String> getEventHashMap(String eventId){
