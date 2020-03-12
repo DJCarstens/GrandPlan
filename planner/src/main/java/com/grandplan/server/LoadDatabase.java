@@ -8,6 +8,7 @@ import com.grandplan.util.Invite;
 import com.grandplan.util.User;
 import lombok.extern.slf4j.Slf4j;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -48,7 +49,7 @@ public class LoadDatabase {
             JSONParser parser = new JSONParser();
             List<Event> events = new ArrayList<>();
             try {
-                Object obj = parser.parse(new FileReader("src/main/resources/data/Events.json"));
+                Object obj = parser.parse(new FileReader("src/main/resources/data/Events2.json"));
                 JSONArray jsonObjects = (JSONArray) obj;
                 jsonObjects.forEach(item -> {
                     JSONObject jsonObject = (JSONObject) item;
@@ -77,14 +78,14 @@ public class LoadDatabase {
         JSONParser parser = new JSONParser();
         List<User> users = new ArrayList<>();
         try {
-            Object obj = parser.parse(new FileReader("src/main/resources/data/Users.json"));
+            Object obj = parser.parse(new FileReader("src/main/resources/data/Users2.json"));
             JSONArray jsonObjects = (JSONArray) obj;
             jsonObjects.forEach(item -> {
                 JSONObject jsonObject = (JSONObject) item;
                 User user = User.builder()
                         .id(Long.valueOf((jsonObject.get("id")).toString()))
-                        .email(jsonObject.get("email").toString())
-                        .password(jsonObject.get("password").toString())
+                        .email(formatEmail(jsonObject.get("email").toString()))
+                        .password(generatePasswordHash(jsonObject.get("realPassword").toString()))
                         .firstName(jsonObject.get("firstName").toString())
                         .lastName(jsonObject.get("lastName").toString())
                         .phone(jsonObject.get("phone").toString())
@@ -103,7 +104,7 @@ public class LoadDatabase {
         JSONParser parser = new JSONParser();
         List<Invite> invites = new ArrayList<>();
         try {
-            Object obj = parser.parse(new FileReader("src/main/resources/data/Invites.json"));
+            Object obj = parser.parse(new FileReader("src/main/resources/data/Invites2.json"));
             JSONArray jsonObjects = (JSONArray) obj;
 
             jsonObjects.forEach(item -> {
@@ -139,5 +140,15 @@ public class LoadDatabase {
                 return user;
         }
         return null;
+    }
+
+    private String formatEmail(String email) {
+        String[] parts = email.split("@");
+        return parts[0] + "@bbd.co.za";
+    }
+
+    private String generatePasswordHash(String password){
+        String salt = DigestUtils.sha256Hex(password);
+        return DigestUtils.sha256Hex(password.concat(salt));
     }
 }

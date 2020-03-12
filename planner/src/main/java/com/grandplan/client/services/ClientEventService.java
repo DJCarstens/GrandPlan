@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.grandplan.client.util.EventStatus;
-import com.grandplan.client.util.NewEvent;
+import com.grandplan.util.NewEvent;
 import com.grandplan.util.Event;
 import com.grandplan.util.User;
 
@@ -92,8 +91,8 @@ public class ClientEventService {
 
     private String addModelAttributes(Model model){
         model.addAttribute("user", clientLoginService.getCurrentUser());
-        model.addAttribute("delete", new EventStatus());
-        model.addAttribute("transfer", new EventStatus());
+        model.addAttribute("delete", new Event());
+        model.addAttribute("transfer", new Event());
         return EVENTS;
     }
 
@@ -176,13 +175,13 @@ public class ClientEventService {
         return true;
     }
 
-    public String deleteEvent(EventStatus eventStatus, Model model){
+    public String deleteEvent(Event event, Model model){
         try{
-            if(eventStatus.getHostUsername().equals(clientLoginService.getCurrentUser().getEmail())){
-                response = httpRequestService.sendHttpPost(generateDeleteEventObject(eventStatus), "http://localhost:8080/api/deleteEvent");
+            if(event.getHostUsername().equals(clientLoginService.getCurrentUser().getEmail())){
+                response = httpRequestService.sendHttpPost(generateDeleteEventObject(event), "http://localhost:8080/api/deleteEvent");
             }
             else{
-                response = httpRequestService.sendHttpPost(generateDeleteEventObject(eventStatus), "http://localhost:8080/api/deleteInvite"); //TODO: remove invite from user
+                response = httpRequestService.sendHttpPost(generateDeleteEventObject(event), "http://localhost:8080/api/deleteInvite"); //TODO: remove invite from user
             }
             
             int statusCode = response.getStatusLine().getStatusCode();
@@ -201,16 +200,16 @@ public class ClientEventService {
         }
     }
 
-    private JSONObject generateDeleteEventObject(EventStatus eventStatus){
+    private JSONObject generateDeleteEventObject(Event event){
         HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("id", eventStatus.getEventId());
-        hashMap.put("userEmail", eventStatus.getHostUsername());
+        hashMap.put("id", event.getId().toString());
+        hashMap.put("userEmail", event.getHostUsername());
         return new JSONObject(hashMap);
     }
 
-    public String transferEvent(EventStatus eventStatus, Model model){
-        HashMap<String,String> hashMap = getEventById(eventStatus.getEventId());
-        hashMap.put("hostUsername", eventStatus.getHostUsername());
+    public String transferEvent(Event event, Model model){
+        HashMap<String,String> hashMap = getEventById(event.getId().toString());
+        hashMap.put("hostUsername", event.getHostUsername());
         JSONObject jsonObject = new JSONObject(hashMap);
 
         try{

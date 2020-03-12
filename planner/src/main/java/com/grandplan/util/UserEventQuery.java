@@ -1,7 +1,4 @@
-package com.grandplan.client.util;
-
-import com.grandplan.util.User;
-import com.grandplan.util.Event;
+package com.grandplan.util;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

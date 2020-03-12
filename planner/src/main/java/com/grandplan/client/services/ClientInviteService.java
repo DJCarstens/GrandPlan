@@ -3,7 +3,7 @@ package com.grandplan.client.services;
 import java.io.IOException;
 import java.util.HashMap;
 
-import com.grandplan.client.util.InviteStatus;
+import com.grandplan.util.Invite;
 import com.grandplan.util.User;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -72,9 +72,9 @@ public class ClientInviteService {
         }
     }
 
-    public String acceptInvite(InviteStatus acceptInvite, Model model){
+    public String acceptInvite(Invite acceptInvite, Model model){
         HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("inviteId", acceptInvite.getInviteId());
+        hashMap.put("inviteId", acceptInvite.getId().toString());
         JSONObject jsonObject = new JSONObject(hashMap);
 
         CloseableHttpResponse response;
@@ -95,9 +95,9 @@ public class ClientInviteService {
         return getInvites(clientLoginService.getCurrentUser(), model);
     }
 
-    public String declineInvite(InviteStatus declineInvite, Model model){
+    public String declineInvite(Invite declineInvite, Model model){
         HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("inviteId", declineInvite.getInviteId());
+        hashMap.put("inviteId", declineInvite.getId().toString());
         JSONObject jsonObject = new JSONObject(hashMap);
 
         CloseableHttpResponse response;

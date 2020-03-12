@@ -1,14 +1,13 @@
 package com.grandplan.client.services;
 
-
 import java.io.IOException;
 import java.util.HashMap;
 
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.grandplan.client.util.LoginUser;
-import com.grandplan.client.util.SignupUser;
+import com.grandplan.util.LoginUser;
+import com.grandplan.util.SignupUser;
 import com.grandplan.util.User;
 
 import org.apache.commons.codec.digest.DigestUtils;
