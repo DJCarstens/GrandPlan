@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserEventQuery {
-    private Event event;
-    private User user;
+    private String eventId;
+    private String email;
 }

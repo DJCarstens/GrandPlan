@@ -6,7 +6,9 @@ import com.grandplan.client.services.ClientLoginService;
 import com.grandplan.util.LoginUser;
 import com.grandplan.util.SignupUser;
 import com.grandplan.util.NewEvent;
+import com.grandplan.client.util.Constants;
 
+import com.grandplan.util.User;
 import com.grandplan.util.Event;
 import com.grandplan.util.Invite;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +24,6 @@ import javax.validation.Valid;
 
 @Controller
 public class GrandPlanController {
-    private static final String LOGIN = "login";
-    private static final String SIGNUP = "signup";
-    private static final String HOME = "home";
-
     @Autowired
     private ClientLoginService clientLoginService;
 
@@ -35,16 +33,30 @@ public class GrandPlanController {
     @Autowired
     private ClientInviteService clientInviteService;
 
+
+    @GetMapping("/redirect")
+    public String redirect(Model model) {
+        User user = clientLoginService.getCurrentUser();
+        if(user == null){
+            model.addAttribute("loginUser", new LoginUser());
+            return Constants.LOGIN;
+        }
+        else{
+            model.addAttribute("user", clientLoginService.getCurrentUser());
+            return Constants.HOME;
+        }
+    }
+
     @GetMapping("/login")
     public String login(Model model) {
         model.addAttribute("loginUser", new LoginUser());
-        return LOGIN;
+        return Constants.LOGIN;
     }
 
     @GetMapping("/signup")
     public String signup(Model model) {
         model.addAttribute("signupUser", new SignupUser());
-        return SIGNUP;
+        return Constants.SIGNUP;
     }
 
     @GetMapping("/logout")
@@ -55,8 +67,13 @@ public class GrandPlanController {
 
     @GetMapping("/")
     public String home(Model model){
+        if(clientLoginService.getCurrentUser() == null){
+            model.addAttribute("loginUser", new LoginUser());
+            return Constants.LOGIN;
+        }
+
         model.addAttribute("user", clientLoginService.getCurrentUser());
-        return HOME;
+        return Constants.HOME;
     }
 
     @PostMapping(value = "/validateLogin")
