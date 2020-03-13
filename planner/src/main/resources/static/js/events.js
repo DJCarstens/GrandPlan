@@ -52,6 +52,22 @@ $(document).ready(function () {
     });
 
     function formatDate(date) {
+        // date.substring(11, 16);
+        // date.substring(0, 10);
+
+        // <div>
+        //     <label class="item-heading">Date: &nbsp</label><label
+        //         th:text="${(event.start).substring(0, 10)}"></label>
+        // </div>
+        // <div th:if="${event.allDay}">
+        //     <label class="item-heading">Time: &nbsp</label><label><label
+        //             th:text="${event.start.substring(11, 16)}"></label> -
+        //         <label th:text="${event.end.substring(11, 16)}"></label></label>
+        // </div>
+        // <div th:if="${!event.allDay}">
+        //     <label class="item-heading">All day event starting at: </label><label><label
+        //             th:text="${event.start.substring(11, 16)}"></label>
+        // </div>
         var monthNames = [
             "January", "February", "March",
             "April", "May", "June", "July",
@@ -63,7 +79,7 @@ $(document).ready(function () {
         var monthIndex = date.getMonth();
         var year = date.getFullYear();
 
-        return day + ' ' + monthNames[monthIndex] + ' ' + year;
+        return date.toISOString().substring(11, 16) + ' ' +day + ' ' + monthNames[monthIndex] + ' ' + year;
     }
 
     $("#createEvent").click(function () {
@@ -77,34 +93,34 @@ $(document).ready(function () {
             editable: true,
             eventLimit: false,
             events: $events,
-            // eventClick: function (event, jsEvent, view) {
-            //     $('#eventTitle').html('<span>' + event.title + '</span>');
-            //     $('#eventStart').html('<span>' + formatDate(new Date(event.start)) + '</span>');
-            //     $('#eventEnd').html('<span>' + formatDate(new Date(event.end)) + '</span>');
-            //     $('#eventType').html('<span>' + event.type + '</span>');
-            //     $('#eventDescription').html('<span>' + event.description + '</span>');
-            //     $('#eventDetailsModal').css('display: block;');
-            //     if (event.allDay === true) {
-            //         $('#allDayCheckbox').prop("checked", true);;
-            //     } else {
-            //         $('#allDayCheckbox').prop("checked", false);;
-            //     }
+            eventClick: function (event, jsEvent, view) {
+                $('#eventTitle').html('<span>' + event.title + '</span>');
+                $('#eventStart').html('<span>' + formatDate(new Date(event.start)) + '</span>');
+                $('#eventEnd').html('<span>' + formatDate(new Date(event.end)) + '</span>');
+                $('#eventType').html('<span>' + event.type + '</span>');
+                $('#eventDescription').html('<span>' + event.description + '</span>');
+                $('#eventDetailsModal').css('display: block;');
+                if (event.allDay === true) {
+                    $('#allDayCheckbox').prop("checked", true);;
+                } else {
+                    $('#allDayCheckbox').prop("checked", false);;
+                }
 
-            //     var modal = document.getElementById("eventDetailsModal");
-            //     modal.style.display = "block";
+                var modal = document.getElementById("eventDetailsModal");
+                modal.style.display = "block";
 
-            //     var span = document.getElementsByClassName("close")[0];
-            //     span.onclick = function () {
-            //         modal.style.display = "none";
-            //     }
+                var span = document.getElementsByClassName("close")[0];
+                span.onclick = function () {
+                    modal.style.display = "none";
+                }
 
-            //     window.onclick = function (event) {
-            //         if (event.target == modal) {
-            //             modal.style.display = "none";
-            //         }
-            //     }
-            //     return false;
-            // }
+                window.onclick = function (event) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                }
+                return false;
+            }
 
         });
         
