@@ -137,6 +137,12 @@ public class ClientEventService {
                 else{
                     showModal(model, "There was an error creating your event. Please try again later.", "");
                 }
+
+                String responseBody = EntityUtils.toString(response.getEntity());
+                JSONParser parser = new JSONParser();
+                JSONObject json = (JSONObject) parser.parse(responseBody);
+                Long eventId = (Long) json.get(Constants.ID);
+                clientInviteService.createInvites(clientLoginService.getCurrentUser().getEmail(), eventId);
                 return getUserEvents(clientLoginService.getCurrentUser(), model);
             }
 

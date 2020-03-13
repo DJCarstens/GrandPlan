@@ -51,6 +51,7 @@ public class ApiEventService {
             return false;
         }
         eventRepo.delete(e);
+        writeListOfEvents(getEvents());
         return true;
     }
 
