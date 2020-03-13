@@ -19,7 +19,7 @@
     background-color: white;
     width: 65%;
     margin: auto;
-    margin-top: 1%;
+    margin-top: 3%;
 }
 
 .modal-header{
@@ -151,4 +151,20 @@
     display: none;
     color: red;
     margin-top: 0.5%;
+}
+
+.dates{
+    margin-top: 5%;
+}
+
+.end, .checkbox, .color{
+    margin-top: 3%;
+}
+
+.extras{
+    margin-top: 14%;
+}
+
+#create-event{
+    margin-top: 5%;
 }

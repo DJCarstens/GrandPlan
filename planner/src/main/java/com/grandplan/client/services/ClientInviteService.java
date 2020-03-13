@@ -46,7 +46,7 @@ public class ClientInviteService {
             String responseBody = EntityUtils.toString(response.getEntity());
             if(responseBody.equals("[]")){
                 model.addAttribute("user", clientLoginService.getCurrentUser());
-                model.addAttribute("noInvites", "You currently have no events");
+                model.addAttribute("noInvites", "You currently have no invites");
                 return Constants.INVITES;
             }
 
