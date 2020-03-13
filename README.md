@@ -10,6 +10,13 @@ A time management and planning web app.
 - [Ethan Lindeman](https://github.com/plethargy) - ethan.lindeman@gmail.com
 - [Emma Coetzer](https://github.com/EmmaBinx18) - emmabinx18@gmail.com
 
+## Install Maven Wrapper on Windows
+
+```
+mvn -N io.takari:maven:wrapper
+```
+
+
 ## Run it
 
 ```

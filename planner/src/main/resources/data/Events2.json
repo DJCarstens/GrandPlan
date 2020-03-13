@@ -1088,4 +1088,14 @@
   "id" : 109,
   "tag" : "testing",
   "title" : "Test Event"
+}, {
+  "allDay" : false,
+  "color" : "#af46b3",
+  "hostUsername" : "samah@bbd.co.za",
+  "start" : "2020-03-13T17:00",
+  "description" : "for the lols",
+  "end" : "2020-03-13T19:00",
+  "id" : 110,
+  "tag" : "hometime",
+  "title" : "Test 2"
 } ]
