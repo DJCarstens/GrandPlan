@@ -118,7 +118,7 @@ $(document).ready(function () {
                 if (event.end !== null && event.end.length > 0) {
                     $('#eventEnd').html('<span>' + formatDate(new Date(event.end)) + '</span>');
                 }
-                $('#eventType').html('<span>' + event.type + '</span>');
+                $('#eventTag').html('<span style="color: white; background: ' + event.color + '; border-radius: 20%; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; padding: 0.2rem; margin: 0.1rem;">' + event.tag + '</span>');
                 $('#eventDescription').html('<span>' + event.description + '</span>');
                 $('#eventDetailsModal').css('display: block;');
                 if (event.allDay === true) {
