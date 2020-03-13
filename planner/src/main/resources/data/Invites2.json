@@ -4998,4 +4998,9 @@
   "inviteId" : 1000,
   "accepted" : false,
   "userId" : 102
+}, {
+  "eventId" : 106,
+  "inviteId" : 1001,
+  "accepted" : false,
+  "userId" : 102
 } ]
