@@ -35,7 +35,7 @@
             var monthIndex = date.getMonth();
             var year = date.getFullYear();
 
-            return day + ' ' + monthNames[monthIndex] + ' ' + year;
+            return date.substring(11, 16) + ' ' +day + ' ' + monthNames[monthIndex] + ' ' + year;
         }
         $(document).ready(function () {
             let $events = [];

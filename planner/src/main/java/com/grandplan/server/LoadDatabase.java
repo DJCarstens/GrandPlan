@@ -32,16 +32,18 @@ public class LoadDatabase {
         return args -> {
             List<User> users = getListOfUsers();
             for (User user : users) {
-                log.info(PRELOADING + userRepo.save(user));
+                userRepo.save(user);
+                // log.info(PRELOADING + userRepo.save(user));
             }
             List<Event> events = getListOfEvents();
             for (Event event : events) {
-                log.info(PRELOADING + eventRepo.save(event));
+                eventRepo.save(event);
+                // log.info(PRELOADING + eventRepo.save(event));
             }
             List<Invite> invites = getListOfInvites();
             for (Invite invite : invites) {
                 inviteRepo.save(invite);
-                log.info(PRELOADING + invite.toString());
+                // log.info(PRELOADING + invite.toString());
             }
         };
     }
