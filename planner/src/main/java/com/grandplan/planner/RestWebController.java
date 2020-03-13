@@ -3,6 +3,7 @@ package com.grandplan.planner;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.grandplan.util.Event;
@@ -17,6 +18,9 @@ import com.grandplan.util.User;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.grandplan.client.services.ClientLoginService;
+import com.grandplan.server.services.ApiEventService;
 import com.grandplan.server.services.ApiLoginService;
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,52 +28,28 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/api/event")
 public class RestWebController {
-  private List<Event> events;
+  private Set<Event> events;
   @Autowired
   private ApiLoginService loginService;
 
+  @Autowired
+  private ClientLoginService clientLoginService;
+
+  @Autowired
+  private ApiEventService apiEventService;
+
   @GetMapping(value = "/all")
   public String mapCurrentUserEvents() {
-    String jsonEvents = null;
+    User user = clientLoginService.getCurrentUser();
+    events = apiEventService.getUserEvents(user.getEmail());
+    String eventsStr = events.toString();
         try {
-            events = new ArrayList<>();
-
-            Event event1 = Event.builder().title("first event")
-                                  .start("2020-02-02")
-                                  .end("")
-                                  .allDay(true)
-                                  .color("blue")
-                                  .tag("work")
-                                  .description("This is a very long description. It is purely to test the functionality of the modal and how it will cope with more information. So I will keep talking about stuff that is completely unnecessary and irrelevant. We shall see how this goes.")
-                                  .build();
-            events.add(event1);
-
-            Event event2 = Event.builder().title("second event")
-                                  .start("2020-03-02")
-                                  .end("2020-03-06")
-                                  .allDay(true)
-                                  .color("#ddd")
-                                  .tag("Personal")
-                                  .description("Some relevant description")
-                                  .build();
-            events.add(event2);
-
-            Event event3 = Event.builder().title("third event: call")
-                                  .start("2020-02-29T11:00")
-                                  .end("2020-02-29T12:00")
-                                  .allDay(false)
-                                  .color("")
-                                  .tag("Grad")
-                                  .description("Discussing project")
-                                  .build();
-            events.add(event3);
-
             ObjectMapper mapper = new ObjectMapper();
-            jsonEvents =  mapper.writerWithDefaultPrettyPrinter().writeValueAsString(events);
+            eventsStr =  mapper.writerWithDefaultPrettyPrinter().writeValueAsString(events);
         } catch (IOException e) {
             log.error(e.getMessage());
         }
-        return jsonEvents;
+        return eventsStr;
   }
 
   @GetMapping(value = "/userlist")

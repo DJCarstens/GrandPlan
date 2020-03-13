@@ -54,6 +54,7 @@ public class ApiInviteService {
             return false;
         }
         inviteRepo.delete(invite);
+        writeListOfInvites(getInvites());
         return true;
     }
 

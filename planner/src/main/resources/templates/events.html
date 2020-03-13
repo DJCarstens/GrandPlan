@@ -41,12 +41,12 @@
                                 <label class="item-heading">Date: &nbsp</label><label
                                     th:text="${(event.start).substring(0, 10)}"></label>
                             </div>
-                            <div th:if="${event.allDay}">
+                            <div th:if="${!event.allDay}">
                                 <label class="item-heading">Time: &nbsp</label><label><label
                                         th:text="${event.start.substring(11, 16)}"></label> -
                                     <label th:text="${event.end.substring(11, 16)}"></label></label>
                             </div>
-                            <div th:if="${!event.allDay}">
+                            <div th:if="${event.allDay}">
                                 <label class="item-heading">All day event starting at: </label><label><label
                                         th:text="${event.start.substring(11, 16)}"></label>
                             </div>
@@ -56,8 +56,6 @@
                                     th:if="${event.hostUsername == user.email}" class="updateEvent update"><em
                                         class="fas fa-edit"></em><input style="display: none"
                                         th:attr="value = ${event}" />
-                                </span><span class="delete-event trash"><em class="fas fa-trash-alt"></em><input
-                                        style="display: none" th:attr="value = ${event.id}" /></span>
                             </div>
                         </div>
                     </div>
@@ -65,14 +63,6 @@
                         <button class="delete-button transferEvent" th:if="${event.hostUsername == user.email}">Transfer
                             event to another member<input style="display: none"
                                 th:attr="value = ${event.title}" /></button>
-
-                        <form autocomplete="off" action="deleteEvent" method="post" th:object="${delete}" role="form"
-                            style="display: inline;">
-                            <input type="hidden" th:value="${event.id}" id="id" name="id" />
-                            <input type="hidden" th:value="${event.hostUsername}" id="hostUsername"
-                                name="hostUsername" />
-                            <button type="submit" class="delete-button removeEvent">Delete event</button>
-                        </form>
 
                         <button class="cancel-button"><input style="display: none"
                                 th:attr="value = ${event.id}" />Cancel</button>
