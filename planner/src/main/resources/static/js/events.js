@@ -96,7 +96,9 @@ $(document).ready(function () {
             eventClick: function (event, jsEvent, view) {
                 $('#eventTitle').html('<span>' + event.title + '</span>');
                 $('#eventStart').html('<span>' + formatDate(new Date(event.start)) + '</span>');
-                $('#eventEnd').html('<span>' + formatDate(new Date(event.end)) + '</span>');
+                if (event.end !== null && event.end.length > 0) {
+                    $('#eventEnd').html('<span>' + formatDate(new Date(event.end)) + '</span>');
+                }
                 $('#eventType').html('<span>' + event.type + '</span>');
                 $('#eventDescription').html('<span>' + event.description + '</span>');
                 $('#eventDetailsModal').css('display: block;');
