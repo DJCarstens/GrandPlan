@@ -81,6 +81,43 @@
             </form>
         </div>
     </div>
+    <div id="eventDetailsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2 id="eventTitle"></h2>
+            </div>
+            <div class="modal-body">
+                <table style="width:80%">
+                    <tr>
+                        <th>Start:</th>
+                        <td id="eventStart"></td>
+                        <th>End:</th>
+                        <td id="eventEnd"></td>
+                    </tr>
+                    <tr>
+                        <th>Type:</th>
+                        <td id="eventType"></td>
+                    </tr>
+                    <tr>
+                        <!-- TODO: setup allday to be a true/false button -->
+                        <th>All Day:</th>
+                        <td>
+                            <label class="switch">
+                                <input id="allDayCheckbox" type="checkbox" disabled>
+                                <span class="slider round"></span>
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Desciption:</th>
+                        <td id="eventDescription">event.description</td>
+                    </tr>
+                    <tr>
+                </table>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

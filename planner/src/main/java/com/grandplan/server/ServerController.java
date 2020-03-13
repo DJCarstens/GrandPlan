@@ -1,5 +1,6 @@
 package com.grandplan.server;
 
+import com.grandplan.client.services.ClientLoginService;
 import com.grandplan.server.services.ApiEventService;
 import com.grandplan.server.services.ApiLoginService;
 import com.grandplan.server.services.ApiInviteService;
@@ -9,6 +10,7 @@ import com.grandplan.util.Invite;
 import com.grandplan.util.NewInvite;
 import com.grandplan.util.UserEventQuery;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -37,6 +40,9 @@ public class ServerController {
 
     @Autowired
     private ApiInviteService apiInviteService;
+    
+    @Autowired
+    private ClientLoginService clientLoginService;
 
     @PostMapping("/validateLogin")
     public ResponseEntity<User> validate(@RequestBody User user) {
@@ -183,4 +189,58 @@ public class ServerController {
         return ResponseEntity.ok(apiInviteService.getAcceptedEventInvites(event.getId()));
     }
 
+    
+    // ----------------- NEW EVENTS --------------------
+
+    @GetMapping("/allUsersList")
+    public ResponseEntity<List<String>> getAllUsersList() {
+        // TODO : remove the user creating the event from the prompt list
+        System.out.println("GETTING USERS");
+        User currentUser = clientLoginService.getCurrentUser();
+        List<String> userPrompts = new ArrayList<>();
+        List<User> allUsers = apiLoginService.getUsers();
+        for (User user : allUsers) {
+            if (!user.equals(currentUser)) {
+                userPrompts.add(user.getFirstName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
+                System.out.println(user.getFirstName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
+            }
+        }
+        return ResponseEntity.ok(userPrompts);
+    }
+
+    @PostMapping("/addUserToEvent")
+    public ResponseEntity<String> addUserToEvent(@RequestBody JSONObject user) {
+        System.out.println("ADDING USER:");
+        System.out.println(user.get("username"));
+        // Gets the user's email
+        String userEmail = user.get("username").toString().split("[\\(\\)]")[1];
+        System.out.println(userEmail);
+        // TODO: add to list of users that will be invited to the event when the event
+        // is created
+        return ResponseEntity.ok("{\"msg\":\"success\", \"email\":\"" + userEmail + "\"}");
+    }
+
+    @PostMapping("/deleteUserFromEvent")
+    public ResponseEntity<String> deleteUserFromEvent(@RequestBody JSONObject user) {
+        System.out.println("REMOVING USER:");
+        System.out.println(user.get("username"));
+        // Gets the user's email
+        String userEmail = user.get("username").toString().split("[\\(\\)]")[1];
+        System.out.println(userEmail);
+        // TODO: remove from list of users that will be invited to the event when the
+        // event is created
+        return ResponseEntity.ok("{\"msg\":\"success\", \"email\":\"" + userEmail + "\"}");
+    }
+
+    @GetMapping("/getCurrentUserEvents")
+    public ResponseEntity<Set<Event>> getCurrentUserEvents() {
+        System.out.println("Logged in email: " + clientLoginService.getCurrentUser().getEmail());
+        System.out.println("Events: " + apiEventService.getUserEvents(clientLoginService.getCurrentUser().getEmail()));
+        return ResponseEntity.ok(apiEventService.getUserEvents(clientLoginService.getCurrentUser().getEmail()));
+    }
+
+    @PostMapping("/getUserEventsByEmail")
+    public ResponseEntity<Set<Event>> getUserEventsByEmail(@RequestBody JSONObject data) {
+        return ResponseEntity.ok(apiEventService.getUserEvents(data.get("email").toString()));
+    }
 }

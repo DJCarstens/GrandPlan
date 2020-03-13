@@ -9,8 +9,65 @@ $(document).ready(function () {
         $('#color').toggle();
     });
 
-    $("#createEvent").click(function() {
-        $('#eventCreateCalendar').fullCalendar({  
+    let $events = [];
+    $.ajax({
+        url: 'http://localhost:8080/api/getCurrentUserEvents',
+        type: 'GET',
+        contentType: "application/json",
+        success: function (data) {
+            console.log(data);
+            //Iterate through user's events
+            // var events = [];
+            for (var i = 0; i < data.length; i++) {
+                console.log("id: " + data[i].id + ",");
+                console.log("title: " + data[i].title + ",");
+                console.log("start: " + data[i].start + ",");
+                console.log("end: " + data[i].end + ",");
+                console.log("allDay: " + data[i].allDay + ",");
+                console.log("color: " + data[i].color + ",");
+                console.log("tag: " + data[i].tag + ",");
+                console.log("hostUsername: " + data[i].hostUsername + "e,");
+                console.log("description: " + data[i].description);
+                var event = {
+                    'id': data[i].id,
+                    'title': data[i].title,
+                    'allDay': data[i].allDay,
+                    'start': new Date(data[i].start).toISOString(),
+                    'end': new Date(data[i].end).toISOString(),
+                    'color': data[i].color,
+                    'tag': data[i].tag,
+                    'hostUsername': data[i].hostUsername,
+                    'description': data[i].description
+                };
+                console.log(event);
+                $events.push(event);
+                console.log($events);
+                // $('#eventCreateCalendar').fullCalendar('renderEvent', event, true);
+            }
+        },
+        error: function (e) {
+            console.log(e);
+            console.log(e.message);
+        }
+    });
+
+    function formatDate(date) {
+        var monthNames = [
+            "January", "February", "March",
+            "April", "May", "June", "July",
+            "August", "September", "October",
+            "November", "December"
+        ];
+
+        var day = date.getDate();
+        var monthIndex = date.getMonth();
+        var year = date.getFullYear();
+
+        return day + ' ' + monthNames[monthIndex] + ' ' + year;
+    }
+
+    $("#createEvent").click(function () {
+        $('#eventCreateCalendar').fullCalendar({
             header: {
                 left: 'prev,next today',
                 center: 'title',
@@ -18,12 +75,41 @@ $(document).ready(function () {
             },
             navLinks: true,
             editable: true,
-            eventLimit: true,
-            events: {
-                url : '/api/event/all'
-            }
+            eventLimit: false,
+            events: $events,
+            // eventClick: function (event, jsEvent, view) {
+            //     $('#eventTitle').html('<span>' + event.title + '</span>');
+            //     $('#eventStart').html('<span>' + formatDate(new Date(event.start)) + '</span>');
+            //     $('#eventEnd').html('<span>' + formatDate(new Date(event.end)) + '</span>');
+            //     $('#eventType').html('<span>' + event.type + '</span>');
+            //     $('#eventDescription').html('<span>' + event.description + '</span>');
+            //     $('#eventDetailsModal').css('display: block;');
+            //     if (event.allDay === true) {
+            //         $('#allDayCheckbox').prop("checked", true);;
+            //     } else {
+            //         $('#allDayCheckbox').prop("checked", false);;
+            //     }
+
+            //     var modal = document.getElementById("eventDetailsModal");
+            //     modal.style.display = "block";
+
+            //     var span = document.getElementsByClassName("close")[0];
+            //     span.onclick = function () {
+            //         modal.style.display = "none";
+            //     }
+
+            //     window.onclick = function (event) {
+            //         if (event.target == modal) {
+            //             modal.style.display = "none";
+            //         }
+            //     }
+            //     return false;
+            // }
+
         });
+        
     });
+
 
     $('#color-picker').colorpicker({
         format: null,
@@ -61,19 +147,67 @@ $(document).ready(function () {
     //TODO : fix auto complete not updating while typing
 
     $("#members").autocomplete({
-        source: 'http://localhost:8080/api/event/userlist',
+        source: 'http://localhost:8080/api/allUsersList',
         select: function (event, ui) {
             if (ui.item.label) {
                 //Send the user to be stored
-                // 'http://localhost:8080/api/event/addUser?username=' + ui.item.label;
                 let $data = {};
                 $data["username"] = ui.item.label;
                 $.ajax({
                     type: "POST",
                     contentType: "application/json",
-                    url: "http://localhost:8080/api/event/addUser",
+                    url: "http://localhost:8080/api/addUserToEvent",
                     data: JSON.stringify($data),
-                    dataType: 'json'
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log("EMAIL: ");
+                        console.log(data.email);
+                        //Get the events based on given user to add from calendar
+                        $data["email"] = data.email;
+                        $.ajax({
+                            url: 'http://localhost:8080/api/getUserEventsByEmail',
+                            type: 'POST',
+                            contentType: "application/json",
+                            data: JSON.stringify($data),
+                            success: function (data) {
+                                console.log(data);
+                                //Iterate through user's events
+                                for (var i = 0; i < data.length; i++) {
+                                    console.log("id: " + data[i].id + ",");
+                                    console.log("title: " + data[i].title + ",");
+                                    console.log("start: " + data[i].start + ",");
+                                    console.log("end: " + data[i].end + ",");
+                                    console.log("allDay: " + data[i].allDay + ",");
+                                    console.log("color: " + data[i].color + ",");
+                                    console.log("tag: " + data[i].tag + ",");
+                                    console.log("hostUsername: " + data[i].hostUsername + "e,");
+                                    console.log("description: " + data[i].description);
+                                    var event = {
+                                        'id': data[i].id,
+                                        'title': data[i].title,
+                                        'allDay': data[i].allDay,
+                                        'start': new Date(data[i].start).toISOString(),
+                                        'end': new Date(data[i].end).toISOString(),
+                                        'color': data[i].color,
+                                        'tag': data[i].tag,
+                                        'hostUsername': data[i].hostUsername,
+                                        'description': data[i].description
+                                    };
+                                    console.log(event);
+                                    $events.push[event];
+                                    $('#eventCreateCalendar').fullCalendar('renderEvent', event, true);
+                                }
+                            },
+                            error: function (e) {
+                                console.log(e);
+                                console.log(e.message);
+                            }
+                        });
+                    },
+                    error: function (e) {
+                        console.log(e);
+                        console.log(e.message);
+                    }
                 });
                 //Add user to display
                 $("<span/>", {
@@ -88,24 +222,43 @@ $(document).ready(function () {
                     $.ajax({
                         type: "POST",
                         contentType: "application/json",
-                        url: "http://localhost:8080/api/event/deleteUser",
+                        url: "http://localhost:8080/api/deleteUserFromEvent",
                         data: JSON.stringify($data),
-                        dataType: 'json'
+                        dataType: 'json',
+                        success: function (data) {
+                            console.log("EMAIL: ");
+                            console.log(data.email);
+                            //Get the events based on given user to remove from calendar
+                            $data["email"] = data.email;
+                            $.ajax({
+                                url: 'http://localhost:8080/api/getUserEventsByEmail',
+                                type: 'POST',
+                                contentType: "application/json",
+                                data: JSON.stringify($data),
+                                success: function (data) {
+                                    console.log(data);
+                                    for (var i = 0; i < data.length; i++) {
+                                        console.log("id: " + data[i].id + ",");
+                                        var index = $events.findIndex(o => o.id === data[id]);
+                                        var removed = index!== -1 && $events.splice(index, 1);
+                                        console.log(removed);
+                                        console.log($events);
+                                        $('#eventCreateCalendar').fullCalendar('removeEvents', [data[i].id]);
+                                    }
+                                },
+                                error: function (e) {
+                                    console.log(e);
+                                    console.log(e.message);
+                                }
+                            });
+                        },
+                        error: function (e) {
+                            //called when there is an error
+                            console.log(e);
+                            console.log(e.message);
+                        }
                     });
-                    //Remove that user's events from the calendar
-                    //TODO: Get all the events from that user and remove them
-                    $('#eventCreateCalendar').fullCalendar('removeEvents', [5]);
                 });
-
-                //Add the user to the event and get their calendar
-                //TODO : get all the events of the added user and add them
-                $('#eventCreateCalendar').fullCalendar('renderEvent', {
-                    id: 5,
-                    title: 'Some Title',
-                    start: '2020-03-30',
-                    end: '2020-03-30',
-                    className: 'fancy-color'
-                }, true);
                 this.value = "";
             }
         },
