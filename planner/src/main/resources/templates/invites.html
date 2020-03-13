@@ -28,7 +28,7 @@
                     <h2 th:text="${noInvites}"></h2>
                 </div>
                 <div th:if="${invites}" th:each="invite : ${invites}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="box-part">
+                    <div class="box-part" th:if="${invite.event.hostUsername != invite.user.email}">
                         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                             <div class="icon-container"><em class="far fa-envelope"></em>
                             </div>
