@@ -60,11 +60,9 @@ $(document).ready(function () {
                 dataType: 'json',
                 success: () => {
                     $('#events-modal').css('display', 'none');
-                    $('#modal').css('display', 'block');
                 },
                 error: () => {
                     $('#events-modal').css('display', 'none');
-                    $('#modal').css('display', 'block');
                 }
             });
         }
