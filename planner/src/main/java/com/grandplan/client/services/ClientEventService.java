@@ -137,12 +137,6 @@ public class ClientEventService {
                 else{
                     showModal(model, "There was an error creating your event. Please try again later.", "");
                 }
-
-                String responseBody = EntityUtils.toString(response.getEntity());
-                JSONParser parser = new JSONParser();
-                JSONObject json = (JSONObject) parser.parse(responseBody);
-                Long eventId = (Long) json.get(Constants.ID);
-                clientInviteService.createInvites(clientLoginService.getCurrentUser().getEmail(), eventId);
                 return getUserEvents(clientLoginService.getCurrentUser(), model);
             }
 
@@ -187,8 +181,13 @@ public class ClientEventService {
         Long eventId = (Long) json.get(Constants.ID);
 
         String[] members = newEvent.getMembers().split(",");
-        for(int i = 1; i < members.length; i++){
-            if(!clientInviteService.createInvites(members[i], eventId)){
+        String[] newMembers = new String[members.length + 1];
+        for(int i = 0; i < members.length; i++){
+            newMembers[i] = members[i];
+        }
+        newMembers[newMembers.length - 1] = clientLoginService.getCurrentUser().getEmail();
+        for(int i = 1; i < newMembers.length; i++){
+            if(!clientInviteService.createInvites(newMembers[i], eventId)){
                 return false;
             }
         }
