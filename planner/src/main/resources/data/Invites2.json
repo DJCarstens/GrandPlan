@@ -5003,4 +5003,19 @@
   "inviteId" : 1001,
   "accepted" : false,
   "userId" : 102
+}, {
+  "eventId" : 107,
+  "inviteId" : 1002,
+  "accepted" : false,
+  "userId" : 102
+}, {
+  "eventId" : 108,
+  "inviteId" : 1003,
+  "accepted" : false,
+  "userId" : 102
+}, {
+  "eventId" : 108,
+  "inviteId" : 1004,
+  "accepted" : true,
+  "userId" : 103
 } ]
