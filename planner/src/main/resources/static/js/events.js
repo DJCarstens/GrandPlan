@@ -162,8 +162,36 @@ $(document).ready(function () {
 
     //TODO : fix auto complete not updating while typing
 
+    let $users = [];
+    $.ajax({
+        url: 'http://localhost:8080/api/allUsersList',
+        type: 'GET',
+        contentType: "application/json",
+        success: function (data) {
+            console.log(data);
+            //Iterate through user's events
+            // var events = [];
+            for (var i = 0; i < data.length; i++) {
+                // console.log("first name: " + data[i].firstName + ",");
+                // console.log("Last name: " + data[i].lastName + ",");
+                // console.log("email: " + data[i].email + ",");
+                
+                var user = data[i].firstName + ' ' + data[i].lastName + ' (' + data[i].email + ')';
+
+                // console.log(user);
+                $users.push(user);
+                // console.log($users);
+                // $('#eventCreateCalendar').fullCalendar('renderEvent', event, true);
+            }
+        },
+        error: function (e) {
+            console.log(e);
+            console.log(e.message);
+        }
+    });
+
     $("#members").autocomplete({
-        source: 'http://localhost:8080/api/allUsersList',
+        source: $users,
         select: function (event, ui) {
             if (ui.item.label) {
                 //Send the user to be stored
@@ -225,6 +253,10 @@ $(document).ready(function () {
                         console.log(e.message);
                     }
                 });
+                // var index = $users.findIndex(o => o === ui.item.label);
+                // var removed = index!== -1 && $events.splice(index, 1);
+                // console.log(removed);
+                // console.log($users);
                 //Add user to display
                 $("<span/>", {
                     text: ui.item.label,

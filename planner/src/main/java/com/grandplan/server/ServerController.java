@@ -193,19 +193,10 @@ public class ServerController {
     // ----------------- NEW EVENTS --------------------
 
     @GetMapping("/allUsersList")
-    public ResponseEntity<List<String>> getAllUsersList() {
+    public ResponseEntity<List<User>> getAllUsersList() {
         // TODO : remove the user creating the event from the prompt list
         System.out.println("GETTING USERS");
-        User currentUser = clientLoginService.getCurrentUser();
-        List<String> userPrompts = new ArrayList<>();
-        List<User> allUsers = apiLoginService.getUsers();
-        for (User user : allUsers) {
-            if (!user.equals(currentUser)) {
-                userPrompts.add(user.getFirstName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
-                System.out.println(user.getFirstName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
-            }
-        }
-        return ResponseEntity.ok(userPrompts);
+        return ResponseEntity.ok(apiLoginService.getUsers());
     }
 
     @PostMapping("/addUserToEvent")
