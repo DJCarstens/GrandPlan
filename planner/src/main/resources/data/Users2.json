@@ -706,10 +706,17 @@
   "id" : 101,
   "email" : "dylanca@bbd.co.za"
 }, {
+  "firstName" : "Emma",
+  "lastName" : "Coetzer",
+  "password" : "7f1f927cfae3218a1f0e6f0b0499a7ba064f327a1f3cf95abd733ea250bbf7ca",
+  "phone" : "0718831926",
+  "id" : 102,
+  "email" : "emmac@bbd.co.za"
+}, {
   "firstName" : "Sam",
   "lastName" : "Hillebrand",
   "password" : "5e8b9a2dcc4defb76a98b87da95f13e528365b0abf1858c9d0459bb1a7597495",
   "phone" : "0837153699",
-  "id" : 102,
+  "id" : 103,
   "email" : "samah@bbd.co.za"
 } ]

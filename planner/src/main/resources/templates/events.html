@@ -68,7 +68,7 @@
 
                         <form autocomplete="off" action="deleteEvent" method="post" th:object="${delete}" role="form"
                             style="display: inline;">
-                            <input type="hidden" th:value="${event.id}" id="eventId" name="eventId" />
+                            <input type="hidden" th:value="${event.id}" id="id" name="id" />
                             <input type="hidden" th:value="${event.hostUsername}" id="hostUsername"
                                 name="hostUsername" />
                             <button type="submit" class="delete-button removeEvent">Delete event</button>
@@ -80,7 +80,7 @@
                     <div th:attr="class = ${event.title}" style="display: none; text-align: center; position: fixed;">
                         <form autocomplete="off" action="transferEvent" method="post" th:object="${transfer}"
                             role="form" style="display: inline;">
-                            <input type="hidden" th:value="${event.id}" id="eventId" name="eventId" />
+                            <input type="hidden" th:value="${event.id}" id="id" name="id" />
                             <label>Transfer event to another member</label>
                             <input type="text" placeholder="Email of member" class="email-input"
                                 th:field="*{hostUsername}" name="hostUsername" />
@@ -92,6 +92,7 @@
                     </div>
                 </div>
             </div>
+            <br /><br />
         </div>
     </nav>
     <div th:insert="events-sidenav :: navbar" class="container home-container"></div>

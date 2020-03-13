@@ -41,14 +41,14 @@
                 <br />
                 <div class="row">
                     <div id="eventCreateCalendar" class="col-md-6"></div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 dates">
                         <div class="row">
                             <div class="form-group col-md-12">
                                 <label>Start Date</label>
                                 <input type='datetime-local' class="form-control" id="start" value="" />
                                 <label class="error-label" id="startError">Please select a start date and time</label>
                             </div>
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-12 end">
                                 <label>End Date</label>
                                 <input type='datetime-local' class="form-control" id="end" value="null" />
                                 <label class="error-label" id="endError">Please select an end date and time</label>
@@ -61,18 +61,16 @@
                                 Is this event all Day?
                             </label>
                         </div>
-                    </div>
-                </div>
-                <br />
-                <label>Event Extras</label>
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <input type="text" id="tag" class="form-control" placeholder="Tags" value="" />
-                        <div id="tags" class="tags"></div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <input type="text" id="color" class="form-control" value="" hidden />
-                        <button class="color-picker-button" id="color-picker">Set color for this event</button>
+                        <div class="row extras">
+                            <div class="form-group col-md-12">
+                                <input type="text" id="tag" class="form-control" placeholder="Tags" value="" />
+                                <div id="tags" class="tags"></div>
+                            </div>
+                            <div class="form-group col-md-12 color">
+                                <input type="text" id="color" class="form-control" value="" hidden />
+                                <button class="color-picker-button" id="color-picker">Set color for this event</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <button class="form-button" id="create-event" style="margin-left: 17%;">Create </button><button
