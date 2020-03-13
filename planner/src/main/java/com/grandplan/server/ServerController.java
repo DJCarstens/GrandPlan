@@ -226,8 +226,10 @@ public class ServerController {
     @GetMapping("/getCurrentUserEvents")
     public ResponseEntity<Set<Event>> getCurrentUserEvents() {
         System.out.println("Logged in email: " + clientLoginService.getCurrentUser().getEmail());
-        System.out.println("Events: " + apiEventService.getUserEvents(clientLoginService.getCurrentUser().getEmail()));
+        // System.out.println("Events: " + apiEventService.getUserEvents(clientLoginService.getCurrentUser().getEmail()));
         return ResponseEntity.ok(apiEventService.getUserEvents(clientLoginService.getCurrentUser().getEmail()));
+        
+        // return ResponseEntity.ok(apiEventService.getUserEvents(clientLoginService.getCurrentUser().getEmail()));
     }
 
     @PostMapping("/getUserEventsByEmail")

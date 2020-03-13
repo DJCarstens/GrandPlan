@@ -70,21 +70,38 @@
                         console.log("tag: " + data[i].tag + ",");
                         console.log("hostUsername: " + data[i].hostUsername + "e,");
                         console.log("description: " + data[i].description);
-                        var event = {
-                            'id': data[i].id,
-                            'title': data[i].title,
-                            'allDay': data[i].allDay,
-                            'start': new Date(data[i].start).toISOString(),
-                            'end': new Date(data[i].end).toISOString(),
-                            'color': data[i].color,
-                            'tag': data[i].tag,
-                            'hostUsername': data[i].hostUsername,
-                            'description': data[i].description
-                        };
+                        var event;
+                        if (data[i].end === null || data[i].end.length < 16) {
+                            event = {
+                                'id': data[i].id,
+                                'title': data[i].title,
+                                'allDay': data[i].allDay,
+                                'start': new Date(data[i].start).toISOString(),
+                                'end': '',
+                                'color': data[i].color,
+                                'tag': data[i].tag,
+                                'hostUsername': data[i].hostUsername,
+                                'description': data[i].description
+                            };
+                            
+                        } else {
+                            event = {
+                                'id': data[i].id,
+                                'title': data[i].title,
+                                'allDay': data[i].allDay,
+                                'start': new Date(data[i].start).toISOString(),
+                                'end': new Date(data[i].end).toISOString(),
+                                'color': data[i].color,
+                                'tag': data[i].tag,
+                                'hostUsername': data[i].hostUsername,
+                                'description': data[i].description
+                            };
+
+                        }
                         console.log(event);
                         $events.push(event);
                         console.log($events);
-                        // $('#eventCreateCalendar').fullCalendar('renderEvent', event, true);
+                        $('#calendar').fullCalendar('renderEvent', event, true);
                     }
                 },
                 error: function (e) {

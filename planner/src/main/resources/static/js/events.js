@@ -28,20 +28,39 @@ $(document).ready(function () {
                 console.log("tag: " + data[i].tag + ",");
                 console.log("hostUsername: " + data[i].hostUsername + "e,");
                 console.log("description: " + data[i].description);
-                var event = {
-                    'id': data[i].id,
-                    'title': data[i].title,
-                    'allDay': data[i].allDay,
-                    'start': new Date(data[i].start).toISOString(),
-                    'end': new Date(data[i].end).toISOString(),
-                    'color': data[i].color,
-                    'tag': data[i].tag,
-                    'hostUsername': data[i].hostUsername,
-                    'description': data[i].description
-                };
+                var event;
+                if (data[i].end === null || data[i].end.length < 16) {
+                    event = {
+                        'id': data[i].id,
+                        'title': data[i].title,
+                        'allDay': data[i].allDay,
+                        'start': new Date(data[i].start).toISOString(),
+                        'end': '',
+                        'color': data[i].color,
+                        'tag': data[i].tag,
+                        'hostUsername': data[i].hostUsername,
+                        'description': data[i].description
+                    };
+
+                } else {
+                    event = {
+                        'id': data[i].id,
+                        'title': data[i].title,
+                        'allDay': data[i].allDay,
+                        'start': new Date(data[i].start).toISOString(),
+                        'end': new Date(data[i].end).toISOString(),
+                        'color': data[i].color,
+                        'tag': data[i].tag,
+                        'hostUsername': data[i].hostUsername,
+                        'description': data[i].description
+                    };
+
+                }
                 console.log(event);
                 $events.push(event);
                 console.log($events);
+                $('#eventCreateCalendar').fullCalendar('renderEvent', event, true);
+
                 // $('#eventCreateCalendar').fullCalendar('renderEvent', event, true);
             }
         },
@@ -79,7 +98,7 @@ $(document).ready(function () {
         var monthIndex = date.getMonth();
         var year = date.getFullYear();
 
-        return date.toISOString().substring(11, 16) + ' ' +day + ' ' + monthNames[monthIndex] + ' ' + year;
+        return date.toISOString().substring(11, 16) + ' ' + day + ' ' + monthNames[monthIndex] + ' ' + year;
     }
 
     $("#createEvent").click(function () {
@@ -125,7 +144,7 @@ $(document).ready(function () {
             }
 
         });
-        
+
     });
 
 
@@ -177,7 +196,7 @@ $(document).ready(function () {
                 // console.log("first name: " + data[i].firstName + ",");
                 // console.log("Last name: " + data[i].lastName + ",");
                 // console.log("email: " + data[i].email + ",");
-                
+
                 var user = data[i].firstName + ' ' + data[i].lastName + ' (' + data[i].email + ')';
 
                 // console.log(user);
@@ -290,7 +309,7 @@ $(document).ready(function () {
                                     for (var i = 0; i < data.length; i++) {
                                         console.log("id: " + data[i].id + ",");
                                         var index = $events.findIndex(o => o.id === data[id]);
-                                        var removed = index!== -1 && $events.splice(index, 1);
+                                        var removed = index !== -1 && $events.splice(index, 1);
                                         console.log(removed);
                                         console.log($events);
                                         $('#eventCreateCalendar').fullCalendar('removeEvents', [data[i].id]);

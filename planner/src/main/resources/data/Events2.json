@@ -1078,4 +1078,14 @@
   "id" : 108,
   "tag" : "",
   "title" : "yerudfhjredfiujk"
+}, {
+  "allDay" : true,
+  "color" : "#8827ad",
+  "hostUsername" : "samah@bbd.co.za",
+  "start" : "2020-03-14T08:00",
+  "description" : "Testing the things",
+  "end" : "",
+  "id" : 109,
+  "tag" : "testing",
+  "title" : "Test Event"
 } ]
