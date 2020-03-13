@@ -21,22 +21,6 @@
 
     <script type="text/javascript">
         function formatDate(date) {
-            // date.substring(11, 16);
-            // date.substring(0, 10);
-
-            // <div>
-            //     <label class="item-heading">Date: &nbsp</label><label
-            //         th:text="${(event.start).substring(0, 10)}"></label>
-            // </div>
-            // <div th:if="${event.allDay}">
-            //     <label class="item-heading">Time: &nbsp</label><label><label
-            //             th:text="${event.start.substring(11, 16)}"></label> -
-            //         <label th:text="${event.end.substring(11, 16)}"></label></label>
-            // </div>
-            // <div th:if="${!event.allDay}">
-            //     <label class="item-heading">All day event starting at: </label><label><label
-            //             th:text="${event.start.substring(11, 16)}"></label>
-            // </div>
             var monthNames = [
                 "January", "February", "March",
                 "April", "May", "June", "July",
@@ -58,8 +42,6 @@
                 contentType: "application/json",
                 success: function (data) {
                     console.log(data);
-                    //Iterate through user's events
-                    // var events = [];
                     for (var i = 0; i < data.length; i++) {
                         console.log("id: " + data[i].id + ",");
                         console.log("title: " + data[i].title + ",");
@@ -180,7 +162,6 @@
                             <td id="eventTag"></td>
                         </tr>
                         <tr>
-                            <!-- TODO: setup allday to be a true/false button -->
                             <th>All Day:</th>
                             <td>
                                 <label class="switch">

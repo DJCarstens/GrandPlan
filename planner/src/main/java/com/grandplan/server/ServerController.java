@@ -62,11 +62,6 @@ public class ServerController {
         return ResponseEntity.ok(apiLoginService.getUserByEmail(userStatus.getEmail()));
     }
 
-    @GetMapping("/listUsers") //view users that are currently stored in the repository
-    public ResponseEntity<List<User>> listUsers() {
-        return ResponseEntity.ok(apiLoginService.getUsers());
-    }
-
     @PostMapping("/addUser")
     public ResponseEntity<User> addUser(@RequestBody User user) {
         if (apiLoginService.getUser(user) != null) {
@@ -75,12 +70,6 @@ public class ServerController {
             return new ResponseEntity<>(httpHeaders, HttpStatus.CONFLICT);
         }
         return ResponseEntity.ok(apiLoginService.save(user));
-    }
-
-    // ======================================== EVENTS ========================================
-    @GetMapping("/listEvents")
-    public ResponseEntity<List<Event>> listEvents() {
-        return ResponseEntity.ok(apiEventService.getEvents());
     }
 
     @PostMapping("/getUserEvents")
@@ -107,8 +96,7 @@ public class ServerController {
     public ResponseEntity<Event> updateEvent(@RequestBody Event event) {
         return ResponseEntity.ok(apiEventService.updateEvent(event));
     }
-
-    // ----------------- INVITES --------------------
+    
     @PostMapping("/acceptInvite")
     public ResponseEntity<Invite> acceptInvite(@RequestBody Invite invite){
         return ResponseEntity.ok(apiInviteService.updateInvite(invite.getId(), true));
@@ -158,11 +146,6 @@ public class ServerController {
         return ResponseEntity.ok(apiInviteService.getUserEventInvite(userEventQuery.getEmail(), Long.parseLong(userEventQuery.getEventId())));
     }
 
-    @GetMapping("/listInvites")
-    public ResponseEntity<List<Invite>> listInvites(){
-        return ResponseEntity.ok(apiInviteService.getInvites());
-    } 
-
     @PostMapping("/deleteInvite")
     public ResponseEntity<Boolean> deleteInvite(@RequestBody Invite invite){
         return ResponseEntity.ok(apiInviteService.deleteInvite(invite.getId()));
@@ -188,48 +171,27 @@ public class ServerController {
         return ResponseEntity.ok(apiInviteService.getAcceptedEventInvites(event.getId()));
     }
 
-    
-    
-    // ----------------- NEW EVENTS --------------------
-
     @GetMapping("/allUsersList")
     public ResponseEntity<List<User>> getAllUsersList() {
-        // TODO : remove the user creating the event from the prompt list
         System.out.println("GETTING USERS");
         return ResponseEntity.ok(apiLoginService.getUsers());
     }
 
     @PostMapping("/addUserToEvent")
     public ResponseEntity<String> addUserToEvent(@RequestBody JSONObject user) {
-        System.out.println("ADDING USER:");
-        System.out.println(user.get("username"));
-        // Gets the user's email
         String userEmail = user.get("username").toString().split("[\\(\\)]")[1];
-        System.out.println(userEmail);
-        // TODO: add to list of users that will be invited to the event when the event
-        // is created
         return ResponseEntity.ok("{\"msg\":\"success\", \"email\":\"" + userEmail + "\"}");
     }
 
     @PostMapping("/deleteUserFromEvent")
     public ResponseEntity<String> deleteUserFromEvent(@RequestBody JSONObject user) {
-        System.out.println("REMOVING USER:");
-        System.out.println(user.get("username"));
-        // Gets the user's email
         String userEmail = user.get("username").toString().split("[\\(\\)]")[1];
-        System.out.println(userEmail);
-        // TODO: remove from list of users that will be invited to the event when the
-        // event is created
         return ResponseEntity.ok("{\"msg\":\"success\", \"email\":\"" + userEmail + "\"}");
     }
 
     @GetMapping("/getCurrentUserEvents")
     public ResponseEntity<Set<Event>> getCurrentUserEvents() {
-        System.out.println("Logged in email: " + clientLoginService.getCurrentUser().getEmail());
-        // System.out.println("Events: " + apiEventService.getUserEvents(clientLoginService.getCurrentUser().getEmail()));
         return ResponseEntity.ok(apiEventService.getUserEvents(clientLoginService.getCurrentUser().getEmail()));
-        
-        // return ResponseEntity.ok(apiEventService.getUserEvents(clientLoginService.getCurrentUser().getEmail()));
     }
 
     @PostMapping("/getUserEventsByEmail")

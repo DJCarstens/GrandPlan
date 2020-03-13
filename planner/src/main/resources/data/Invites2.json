@@ -5038,4 +5038,14 @@
   "inviteId" : 1008,
   "accepted" : true,
   "userId" : 104
+}, {
+  "eventId" : 111,
+  "inviteId" : 1009,
+  "accepted" : false,
+  "userId" : 103
+}, {
+  "eventId" : 111,
+  "inviteId" : 1010,
+  "accepted" : true,
+  "userId" : 102
 } ]

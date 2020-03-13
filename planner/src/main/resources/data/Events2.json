@@ -1098,4 +1098,14 @@
   "id" : 110,
   "tag" : "hometime",
   "title" : "Test 2"
+}, {
+  "allDay" : true,
+  "color" : "#ef206e",
+  "hostUsername" : "emmac@bbd.co.za",
+  "start" : "2020-03-19T12:00",
+  "description" : "eventdescription",
+  "end" : "",
+  "id" : 111,
+  "tag" : "gradmeeting",
+  "title" : "New event"
 } ]
